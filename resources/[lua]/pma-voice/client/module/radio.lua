@@ -141,7 +141,7 @@ end)
 --- but you can integrate the below state bag to your death resources.
 --- LocalPlayer.state:set('isDead', true or false, false)
 function isDead()
-	return exports.sunny:geIsDead()
+	return exports.core:geIsDead()
 end
 
 RegisterCommand('+radiotalk', function()

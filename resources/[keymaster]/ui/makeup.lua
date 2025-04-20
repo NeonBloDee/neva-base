@@ -28,7 +28,7 @@ local creatorData = {
             ["tshirt_2"] = {
                 default = 0, 
                 maxValue = function()
-                    return GetNumberOfPedTextureVariations(PlayerPedId(), 8, exports.sunny:GetPlayerSkinData('torso_1') or 1 - 1)
+                    return GetNumberOfPedTextureVariations(PlayerPedId(), 8, exports.core:GetPlayerSkinData('torso_1') or 1 - 1)
                 end
             }
         },
@@ -44,7 +44,7 @@ local creatorData = {
             ["torso_2"] = {
                 default = 0, 
                 maxValue = function()
-                    return GetNumberOfPedTextureVariations(PlayerPedId(), 11, exports.sunny:GetPlayerSkinData('torso_1') or 1 - 1)
+                    return GetNumberOfPedTextureVariations(PlayerPedId(), 11, exports.core:GetPlayerSkinData('torso_1') or 1 - 1)
                 end
             }
         },
@@ -76,7 +76,7 @@ local creatorData = {
             ["pants_2"] = {
                 default = 0, 
                 maxValue = function()
-                    return GetNumberOfPedTextureVariations(PlayerPedId(), 4, exports.sunny:GetPlayerSkinData('pants_1') or 1 - 1)
+                    return GetNumberOfPedTextureVariations(PlayerPedId(), 4, exports.core:GetPlayerSkinData('pants_1') or 1 - 1)
                 end
             }
         }
@@ -92,7 +92,7 @@ local creatorData = {
             ["shoes_2"] = {
                 default = 0, 
                 maxValue = function()
-                    return GetNumberOfPedTextureVariations(PlayerPedId(), 6, exports.sunny:GetPlayerSkinData('shoes_1') or 1 - 1)
+                    return GetNumberOfPedTextureVariations(PlayerPedId(), 6, exports.core:GetPlayerSkinData('shoes_1') or 1 - 1)
                 end
             }
         }
@@ -108,7 +108,7 @@ local creatorData = {
             ["chain_2"] = {
                 default = 0, 
                 maxValue = function()
-                    return GetNumberOfPedTextureVariations(PlayerPedId(), 7, exports.sunny:GetPlayerSkinData('chain_1') or 1 - 1)
+                    return GetNumberOfPedTextureVariations(PlayerPedId(), 7, exports.core:GetPlayerSkinData('chain_1') or 1 - 1)
                 end
             }
         }
@@ -124,7 +124,7 @@ local creatorData = {
             ["helmet_2"] = {
                 default = 0, 
                 maxValue = function()
-                    return GetNumberOfPedPropTextureVariations(PlayerPedId(), 0, exports.sunny:GetPlayerSkinData('helmet_1') or 1 - 1)
+                    return GetNumberOfPedPropTextureVariations(PlayerPedId(), 0, exports.core:GetPlayerSkinData('helmet_1') or 1 - 1)
                 end
             }
         }
@@ -140,7 +140,7 @@ local creatorData = {
             ["ears_2"] = {
                 default = 0, 
                 maxValue = function()
-                    return GetNumberOfPedPropTextureVariations(PlayerPedId(), 0, exports.sunny:GetPlayerSkinData('ears_1') or 1 - 1)
+                    return GetNumberOfPedPropTextureVariations(PlayerPedId(), 0, exports.core:GetPlayerSkinData('ears_1') or 1 - 1)
                 end
             }
         }
@@ -156,7 +156,7 @@ local creatorData = {
             ["glasses_2"] = {
                 default = 0, 
                 maxValue = function()
-                    return GetNumberOfPedPropTextureVariations(PlayerPedId(), 1, exports.sunny:GetPlayerSkinData('glasses_1') or 1 - 1)
+                    return GetNumberOfPedPropTextureVariations(PlayerPedId(), 1, exports.core:GetPlayerSkinData('glasses_1') or 1 - 1)
                 end
             }
         }
@@ -172,7 +172,7 @@ local creatorData = {
             ["watches_2"] = {
                 default = 0, 
                 maxValue = function()
-                    return GetNumberOfPedPropTextureVariations(PlayerPedId(), 6, exports.sunny:GetPlayerSkinData('watches_1') or 1 - 1)
+                    return GetNumberOfPedPropTextureVariations(PlayerPedId(), 6, exports.core:GetPlayerSkinData('watches_1') or 1 - 1)
                 end
             }
         }
@@ -188,7 +188,7 @@ local creatorData = {
             ["bracelets_2"] = {
                 default = 0, 
                 maxValue = function()
-                    return GetNumberOfPedPropTextureVariations(PlayerPedId(), 7, exports.sunny:GetPlayerSkinData('bracelets_1') or 1 - 1)
+                    return GetNumberOfPedPropTextureVariations(PlayerPedId(), 7, exports.core:GetPlayerSkinData('bracelets_1') or 1 - 1)
                 end
             }
         }
@@ -204,7 +204,7 @@ local creatorData = {
             ["bags_2"] = {
                 default = 0, 
                 maxValue = function()
-                    return GetNumberOfPedTextureVariations(PlayerPedId(), 5, exports.sunny:GetPlayerSkinData('bags_1') or 1 - 1)
+                    return GetNumberOfPedTextureVariations(PlayerPedId(), 5, exports.core:GetPlayerSkinData('bags_1') or 1 - 1)
                 end
             }
         }
@@ -220,7 +220,7 @@ local creatorData = {
             ["mask_2"] = {
                 default = 0, 
                 maxValue = function()
-                    return GetNumberOfPedTextureVariations(PlayerPedId(), 1, exports.sunny:GetPlayerSkinData('mask_1') or 1 - 1)
+                    return GetNumberOfPedTextureVariations(PlayerPedId(), 1, exports.core:GetPlayerSkinData('mask_1') or 1 - 1)
                 end
             },
         }
@@ -248,7 +248,7 @@ local creatorData = {
             ["hair_2"] = {
                 default = 0, 
                 maxValue = function()
-                    return GetNumberOfPedTextureVariations(PlayerPedId(), 2, (exports.sunny:GetPlayerSkinData('hair_1') or 1 - 1))
+                    return GetNumberOfPedTextureVariations(PlayerPedId(), 2, (exports.core:GetPlayerSkinData('hair_1') or 1 - 1))
                 end
             },
         }
@@ -264,7 +264,7 @@ local creatorData = {
             ["bproof_2"] = {
                 default = 0, 
                 maxValue = function()
-                    return GetNumberOfPedTextureVariations(PlayerPedId(), 11, exports.sunny:GetPlayerSkinData('bproof_1') or 1 - 1)
+                    return GetNumberOfPedTextureVariations(PlayerPedId(), 11, exports.core:GetPlayerSkinData('bproof_1') or 1 - 1)
                 end
             }
         },
@@ -406,7 +406,7 @@ AddEventHandler("ui:makeup:open", function()
                 beard_3			= GetNumHairColors()-1,
                 beard_4			= GetNumHairColors()-1,
                 hair_1			= GetNumberOfPedDrawableVariations(playerPed, 2) - 1,
-                hair_2			= GetNumberOfPedTextureVariations(playerPed, 2, exports.sunny:GetPlayerSkinData('hair_1') or 1 - 1),
+                hair_2			= GetNumberOfPedTextureVariations(playerPed, 2, exports.core:GetPlayerSkinData('hair_1') or 1 - 1),
                 hair_color_1	= GetNumHairColors()-1,
                 hair_color_2	= GetNumHairColors()-1,
                 eye_color		= 31,
@@ -444,35 +444,35 @@ AddEventHandler("ui:makeup:open", function()
                 bodyb_3			= GetNumHeadOverlayValues(12)-1,
                 bodyb_4			= 10,
                 ears_1			= GetNumberOfPedPropDrawableVariations(playerPed, 2) - 1,
-                ears_2			= GetNumberOfPedPropTextureVariations(playerPed, 2, exports.sunny:GetPlayerSkinData('ears_1') or 1 - 1),
+                ears_2			= GetNumberOfPedPropTextureVariations(playerPed, 2, exports.core:GetPlayerSkinData('ears_1') or 1 - 1),
                 tshirt_1		= GetNumberOfPedDrawableVariations(playerPed, 8) - 1,
-                tshirt_2		= GetNumberOfPedTextureVariations(playerPed, 8, exports.sunny:GetPlayerSkinData('tshirt_1') or 1 - 1),
+                tshirt_2		= GetNumberOfPedTextureVariations(playerPed, 8, exports.core:GetPlayerSkinData('tshirt_1') or 1 - 1),
                 torso_1			= GetNumberOfPedDrawableVariations(playerPed, 11) - 1,
-                torso_2			= GetNumberOfPedTextureVariations(playerPed, 11, exports.sunny:GetPlayerSkinData('torso_1') or 1 - 1),
+                torso_2			= GetNumberOfPedTextureVariations(playerPed, 11, exports.core:GetPlayerSkinData('torso_1') or 1 - 1),
                 decals_1		= GetNumberOfPedDrawableVariations(playerPed, 10) - 1,
-                decals_2		= GetNumberOfPedTextureVariations(playerPed, 10, exports.sunny:GetPlayerSkinData('decals_1') or 1 - 1),
+                decals_2		= GetNumberOfPedTextureVariations(playerPed, 10, exports.core:GetPlayerSkinData('decals_1') or 1 - 1),
                 arms			= GetNumberOfPedDrawableVariations(playerPed, 3) - 1,
                 arms_2			= 10,
                 pants_1			= GetNumberOfPedDrawableVariations(playerPed, 4) - 1,
-                pants_2			= GetNumberOfPedTextureVariations(playerPed, 4, exports.sunny:GetPlayerSkinData('pants_1') or 1 - 1),
+                pants_2			= GetNumberOfPedTextureVariations(playerPed, 4, exports.core:GetPlayerSkinData('pants_1') or 1 - 1),
                 shoes_1			= GetNumberOfPedDrawableVariations(playerPed, 6) - 1,
-                shoes_2			= GetNumberOfPedTextureVariations(playerPed, 6, exports.sunny:GetPlayerSkinData('shoes_1') or 1 - 1),
+                shoes_2			= GetNumberOfPedTextureVariations(playerPed, 6, exports.core:GetPlayerSkinData('shoes_1') or 1 - 1),
                 mask_1			= GetNumberOfPedDrawableVariations(playerPed, 1) - 1,
-                mask_2			= GetNumberOfPedTextureVariations(playerPed, 1, exports.sunny:GetPlayerSkinData('mask_1') or 1 - 1),
+                mask_2			= GetNumberOfPedTextureVariations(playerPed, 1, exports.core:GetPlayerSkinData('mask_1') or 1 - 1),
                 bproof_1		= GetNumberOfPedDrawableVariations(playerPed, 9) - 1,
-                bproof_2		= GetNumberOfPedTextureVariations(playerPed, 9, exports.sunny:GetPlayerSkinData('bproof_1') or 1 - 1),
+                bproof_2		= GetNumberOfPedTextureVariations(playerPed, 9, exports.core:GetPlayerSkinData('bproof_1') or 1 - 1),
                 chain_1			= GetNumberOfPedDrawableVariations(playerPed, 7) - 1,
-                chain_2			= GetNumberOfPedTextureVariations(playerPed, 7, exports.sunny:GetPlayerSkinData('chain_1') or 1 - 1),
+                chain_2			= GetNumberOfPedTextureVariations(playerPed, 7, exports.core:GetPlayerSkinData('chain_1') or 1 - 1),
                 bags_1			= GetNumberOfPedDrawableVariations(playerPed, 5) - 1,
-                bags_2			= GetNumberOfPedTextureVariations(playerPed, 5, exports.sunny:GetPlayerSkinData('bags_1') or 1 - 1),
+                bags_2			= GetNumberOfPedTextureVariations(playerPed, 5, exports.core:GetPlayerSkinData('bags_1') or 1 - 1),
                 helmet_1		= GetNumberOfPedPropDrawableVariations(playerPed, 0) - 1,
-                helmet_2		= GetNumberOfPedPropTextureVariations(playerPed, 0, exports.sunny:GetPlayerSkinData('helmet_1') or 1 - 1),
+                helmet_2		= GetNumberOfPedPropTextureVariations(playerPed, 0, exports.core:GetPlayerSkinData('helmet_1') or 1 - 1),
                 glasses_1		= GetNumberOfPedPropDrawableVariations(playerPed, 1) - 1,
-                glasses_2		= GetNumberOfPedPropTextureVariations(playerPed, 1, exports.sunny:GetPlayerSkinData('glasses_1') or 1 - 1),
+                glasses_2		= GetNumberOfPedPropTextureVariations(playerPed, 1, exports.core:GetPlayerSkinData('glasses_1') or 1 - 1),
                 watches_1		= GetNumberOfPedPropDrawableVariations(playerPed, 6) - 1,
-                watches_2		= GetNumberOfPedPropTextureVariations(playerPed, 6, exports.sunny:GetPlayerSkinData('watches_1') or 1 - 1),
+                watches_2		= GetNumberOfPedPropTextureVariations(playerPed, 6, exports.core:GetPlayerSkinData('watches_1') or 1 - 1),
                 bracelets_1		= GetNumberOfPedPropDrawableVariations(playerPed, 7) - 1,
-                bracelets_2		= GetNumberOfPedPropTextureVariations(playerPed, 7, exports.sunny:GetPlayerSkinData('bracelets_1') or 1 - 1)
+                bracelets_2		= GetNumberOfPedPropTextureVariations(playerPed, 7, exports.core:GetPlayerSkinData('bracelets_1') or 1 - 1)
             }
         }
     })

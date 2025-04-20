@@ -1,0 +1,12 @@
+================================================================
+======== txAdmin v8.0.1 atop fxserver 14318 Starting - 20/04/2025, 20:16:44
+================================================================
+[20:17:39][NEOJIMM] created admins file
+[20:17:49][NEOJIMM] Config changes: server.dataPath
+[20:17:49][NEOJIMM] Changing global/fxserver settings via setup stepper.
+[20:17:51][MONITOR] Restarting server: Server process close detected.
+[20:18:06][MONITOR] Restarting server: Server process close detected.
+[20:18:53][MONITOR] Restarting server: Server boot timed out (P:45s|HB:--|HC:--).
+[20:19:09][NEOJIMM] [NEOJIMM] executed "RESTART SERVER"
+[20:23:06][NEOJIMM] [NEOJIMM] executed "RESTART SERVER"
+[20:26:55][NEOJIMM] [NEOJIMM] executed "RESTART SERVER"

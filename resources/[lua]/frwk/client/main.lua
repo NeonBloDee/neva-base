@@ -649,7 +649,7 @@ CreateThread(function()
                 for k, item in pairs(Config.Ammunition) do
                     for i=1, #item do 
                         if hash == GetHashKey(item[i]) then
-                            if exports.sunny:IsinChasse() then return end
+                            if exports.core:IsinChasse() then return end
                             --TriggerServerEvent('msk_weaponammoitem:updateWeaponAmmo', k, item[i])
                         end
                     end
@@ -673,7 +673,7 @@ CreateThread(function()
                 for k, item in pairs(Config.Ammunition) do
                     for i=1, #item do 
                         if hash == GetHashKey(item[i]) then
-                            if exports.sunny:IsinChasse() then return end
+                            if exports.core:IsinChasse() then return end
                             TriggerServerEvent('msk_weaponammoitem:updateWeaponAmmo', k, item[i], true)
                         end
                     end

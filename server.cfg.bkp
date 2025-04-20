@@ -19,7 +19,7 @@ sv_useDirectListing true
 # ========================
 set steam_webApiKey "#"
 sv_licenseKey cfxk_ckN0Ld40PxJptMPibD7G_3Aouc1 
-set neva-key "neva-lifetime-b6rx9439w5w29665"
+set neva-key ""
 
 sv_tebexSecret #
 
