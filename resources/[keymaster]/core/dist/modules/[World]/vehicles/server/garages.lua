@@ -175,7 +175,7 @@ RegisterNetEvent('sunny:garages:sortVehicle', function(vehicles, veh, defaultpos
             return TriggerClientEvent('esx:showNotification', source, 'Ce véhicule est déjà sur la map')
         else
             if typee == 'pound' then
-                if not exports['core']:haveVip(xPlayer.UniqueID) then
+                if not exports['sunny']:haveVip(xPlayer.UniqueID) then
                     if xPlayer.getAccount('cash').money >= 500 then
                         xPlayer.removeAccountMoney('cash', 500)
                         TriggerClientEvent('esx:showNotification', source, 'Vous avez payé la fourrière ~g~500$~s~')

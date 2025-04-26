@@ -1,17 +1,10 @@
 fx_version 'adamant'
 game 'gta5'
 
-lua54 'yes'
-
 author 'Lajcd'
-description 'NEVA Deathscreen'
+description 'SECURITY Deathscreen'
 
 ui_page 'source/index.html'
-
-escrow_ignore {
-    'config.lua',
-    'config_ui.lua'
-}
 
 client_scripts {
     'config.lua',
@@ -29,3 +22,5 @@ files {
     'source/images/*',
     'source/fonts/*'
 }
+
+lua54 'yes'

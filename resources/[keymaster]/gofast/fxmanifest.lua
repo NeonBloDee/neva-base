@@ -28,4 +28,3 @@ files {
 }
 
 lua54 'yes'
-dependency '/assetpacks'

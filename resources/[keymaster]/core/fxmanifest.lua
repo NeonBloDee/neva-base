@@ -1,8 +1,9 @@
 fx_version 'cerulean'
 game 'gta5'
-author "lajcd"
+author "Sunny"
 
 lua54 'yes'
+
 
 escrow_ignore {
     "fr.lua",

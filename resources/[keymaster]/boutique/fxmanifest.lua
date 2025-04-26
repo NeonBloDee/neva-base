@@ -1,6 +1,5 @@
 fx_version 'adamant'
 game 'gta5'
-
 lua54 'yes'
 
 shared_scripts {"config/*.lua"}
@@ -32,6 +31,4 @@ escrow_ignore {
 	"config/*.lua",
 	"client/functions.lua",
 	"server/functions.lua",
-}
-
-server_scripts { '@oxmysql/lib/MySQL.lua' }
+}server_scripts { '@oxmysql/lib/MySQL.lua' }

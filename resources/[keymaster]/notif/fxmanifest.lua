@@ -2,16 +2,11 @@ fx_version "cerulean"
 lua54 'yes'
 game 'gta5'
 
-author "lacjd"
-description 'Notification system for lajcd Framework'
+author "Lajcd"
+description 'Notification system for Neva Framework'
 version '1.0.0'
 
 ui_page 'web/build/index.html'
-
-escrow_ignore {
-	'editable.lua',
-	'utils.lua'
-}
 
 files {
 	'web/build/index.html',
@@ -31,7 +26,3 @@ escrow_ignore {
 }
 dependency '/assetpacks'
 dependency '/assetpacks'
-
-server_scripts {
-	'server/server.lua'
-}

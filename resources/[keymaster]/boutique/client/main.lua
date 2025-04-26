@@ -12,7 +12,7 @@ end
 
 RegisterNUICallback("boutique:testVehicle", function(data, cb)
 
-    local isInSafeZone = exports.core:inSafeZone()
+    local isInSafeZone = exports.sunny:inSafeZone()
 
     if not isInSafeZone then
         Notify("Vous devez être en SafeZone pour tester un véhicule.")

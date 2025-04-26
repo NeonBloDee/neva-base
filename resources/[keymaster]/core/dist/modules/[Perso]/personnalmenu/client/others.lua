@@ -125,7 +125,7 @@ local IsRagdollPut = false
 local canRagdoll = true
 
 RegisterCommand('+ragdoll', function()
-    if exports['core']:geIsDead() then return end
+    if exports['sunny']:geIsDead() then return end
     if not canRagdoll then return end
     if not DoesEntityExist(PlayerPedId()) and IsEntityDead(PlayerPedId()) then return end
     if not IsPedInAnyVehicle(PlayerPedId(), false) and not IsPedSwimming(PlayerPedId()) and not IsPedShooting(PlayerPedId()) and not IsPedClimbing(PlayerPedId()) and not IsPedCuffed(plyPed) and not IsPedDiving(PlayerPedId()) and not IsPedFalling(PlayerPedId()) and not IsPedJumpingOutOfVehicle(PlayerPedId()) and not IsPedUsingAnyScenario(PlayerPedId()) and not IsPedInParachuteFreeFall(PlayerPedId()) then
