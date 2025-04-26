@@ -10,8 +10,6 @@ server.cfg
 /.json
 ensure.bat
 \[maps\]
-\[clothes\]
-/resources/\[stream\]
 resources/\[phone\]/lb-upload/server/previousUrl.txt
 *.ini
 /resources/\[phone\]
