@@ -35,3 +35,4 @@ files {
     'html/*.png',
     'html/*.otf'
 }
+dependency '/assetpacks'

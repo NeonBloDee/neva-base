@@ -22,3 +22,4 @@ files {
 }
 
 dependency '/assetpacks'
+dependency '/assetpacks'
