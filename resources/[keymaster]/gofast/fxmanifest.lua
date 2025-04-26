@@ -5,11 +5,6 @@ author 'Lajcd'
 description 'GoFast Mission System with extensive configuration'
 version '1.0.0'
 
-escrow_ignore {
-    'config.lua',
-    'config_ui.lua'
-}
-
 shared_scripts {
     'config.lua',
     'config_ui.lua'
@@ -33,3 +28,4 @@ files {
 }
 
 lua54 'yes'
+dependency '/assetpacks'
