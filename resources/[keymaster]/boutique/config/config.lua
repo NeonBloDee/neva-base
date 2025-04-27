@@ -102,15 +102,15 @@ Boutique.Money = {
 }
 
 Boutique.Tebex = {
-    {label = "500 Coins", img = "coins/1", price = 6, link = "https://discord.gg/sunnyhill"},
-    {label = "1.000 Coins", img = "coins/2", price = 12, link = "https://discord.gg/sunnyhill"},
-    {label = "1.500 Coins", img = "coins/3", price = 18, link = "https://discord.gg/sunnyhill"},
-    {label = "2.000 Coins", img = "coins/4", price = 24, link = "https://discord.gg/sunnyhill"},
-    {label = "3.500 (+200) Coins", img = "coins/5", price = 42, link = "https://discord.gg/sunnyhill"},
-    {label = "5.000 (+500) Coins", img = "coins/6", price = 60, link = "https://discord.gg/sunnyhill"},
-    {label = "7.500 (+700) Coins", img = "coins/7", price = 90, link = "https://discord.gg/sunnyhill"},
-    {label = "10.000 (+2000) Coins", img = "coins/8", price = 120, link = "https://discord.gg/sunnyhill"},
-    {label = "20.000 (+6000) Coins", img = "coins/9", price = 240, link = "https://discord.gg/sunnyhill"},
+    {label = "500 Coins", img = "coins/1", price = 6, link = "https://discord.gg/"},
+    {label = "1.000 Coins", img = "coins/2", price = 12, link = "https://discord.gg/"},
+    {label = "1.500 Coins", img = "coins/3", price = 18, link = "https://discord.gg/"},
+    {label = "2.000 Coins", img = "coins/4", price = 24, link = "https://discord.gg/"},
+    {label = "3.500 (+200) Coins", img = "coins/5", price = 42, link = "https://discord.gg/"},
+    {label = "5.000 (+500) Coins", img = "coins/6", price = 60, link = "https://discord.gg/"},
+    {label = "7.500 (+700) Coins", img = "coins/7", price = 90, link = "https://discord.gg/"},
+    {label = "10.000 (+2000) Coins", img = "coins/8", price = 120, link = "https://discord.gg/"},
+    {label = "20.000 (+6000) Coins", img = "coins/9", price = 240, link = "https://discord.gg/"},
 }
 
 
