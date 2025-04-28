@@ -1,6 +1,6 @@
-local resourceName = GetCurrentResourceName() -- Default: nevanotif
+local resourceName = GetCurrentResourceName()
 
-local replacements = { -- Text Formating FiveM Conversion for Html 
+local replacements = {
     ["~r~"] = "<span style='color:rgb(224, 50, 50);'>",
     ["~g~"] = "<span style='color:rgb(114, 204, 114);'>",
     ["~b~"] = "<span style='color:rgb(93, 182, 229);'>",
@@ -46,7 +46,7 @@ local function convertMessage(str)
 end
 
 local function GetImage(_type)
-    local iamge = 'false'
+    local image = nil
     if _type == 'success' then
         image = "nui://" .. resourceName .. "/images/success.png"
     elseif _type == 'error' then
@@ -56,31 +56,32 @@ local function GetImage(_type)
     elseif _type == 'info' or _type == 'inform' then
         image = "nui://" .. resourceName .. "/images/info.png"
     else
-        image = 'false'
+        image = nil
     end
     return image
 end
 
 local Send = function(text, time, _type, image)
-    -- Si les notifications sont désactivées, on ne fait rien
     if not notificationsVisible then return end
 
     if type(time) ~= "number" or time >= 100 then
-        time = 8.5  -- Changed from 10 to 8.5 seconds (between 7 and 10)
+        time = 8.5
     end
 
     if not image then
         image = GetImage(_type)
     else
         local isGtaIcon = false
-        for _, pattern in ipairs(gtaPicturesPattern) do
-            if string.find(image:upper(), pattern) then
-                isGtaIcon = true
-                break
+        if type(image) == "string" then
+            for _, pattern in ipairs(gtaPicturesPattern) do
+                if string.find(image:upper(), pattern) then
+                    isGtaIcon = true
+                    break
+                end
             end
-        end
-        if isGtaIcon then
-            image = "nui://" .. resourceName .. "/icons/" .. image:upper() .. ".png"
+            if isGtaIcon then
+                image = "nui://" .. resourceName .. "/icons/" .. image:upper() .. ".png"
+            end
         end
     end
     SendReactMessage('SendNotif:Classic', { content = convertMessage(text), time = time, image = image })
@@ -89,25 +90,26 @@ end
 exports('Send', Send)
 
 local SendAdvanced = function(text, sender, subject, image, _type, time, image_mid, image_bottom, hex_color_badge, text_badge, hex_color_footer_badge, text_footer_badge)
-    -- Si les notifications sont désactivées, on ne fait rien
     if not notificationsVisible then return end
 
     if type(time) ~= "number" or time >= 100 then
-        time = 8.5  -- Changed from 10 to 8.5 seconds (between 7 and 10)
+        time = 8.5
     end
 
     if not image then
         image = GetImage(_type)
     else
         local isGtaIcon = false
-        for _, pattern in ipairs(gtaPicturesPattern) do
-            if string.find(image:upper(), pattern) then
-                isGtaIcon = true
-                break
+        if type(image) == "string" then
+            for _, pattern in ipairs(gtaPicturesPattern) do
+                if string.find(image:upper(), pattern) then
+                    isGtaIcon = true
+                    break
+                end
             end
-        end
-        if isGtaIcon then
-            image = "nui://" .. resourceName .. "/icons/" .. image:upper() .. ".png"
+            if isGtaIcon then
+                image = "nui://" .. resourceName .. "/icons/" .. image:upper() .. ".png"
+            end
         end
     end
     SendReactMessage('SendNotif:Big', {

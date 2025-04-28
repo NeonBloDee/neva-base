@@ -122,11 +122,9 @@ local function openConnectMenu()
             PlayerLoadedAnticheat = true
             playerLoaded = true
             
-            -- On attend que tout soit bien chargé avant d'appliquer l'état mort si nécessaire
             Wait(1000)
             isPlayerFullyLoaded = true
             
-            -- Vérification si le joueur doit être mort après le chargement complet
             if shouldBeDeadAfterLoad then
                 TriggerEvent('sunny:ambulance:deathEvent')
                 ESX.ShowNotification('Vous vous êtes déconnecté en étant mort !')
@@ -139,11 +137,9 @@ end
 
 AddEventHandler('esx:playerLoaded', function()
     CreateThread(function()
-        -- Réinitialiser les variables à chaque connexion
         isPlayerFullyLoaded = false
         shouldBeDeadAfterLoad = false
         
-        -- Vérifier si le joueur était mort à sa déconnexion
         ESX.TriggerServerCallback('sunny:ambulance:getPlayerDead', function(isDead)
             if isDead then
                 shouldBeDeadAfterLoad = true
@@ -160,8 +156,6 @@ AddEventHandler('esx:playerLoaded', function()
         end)
     end)
 end)
-
--- Supprimer l'appel à la vérification de la mort qui était ici auparavant
 
 RegisterCommand('debug', function()
     ESX.TriggerServerCallback('esx_skin:getPlayerSkin', function(skin)
