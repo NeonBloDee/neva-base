@@ -66,14 +66,6 @@ RegisterNetEvent('illenium-appearance:server:saveAppearance', function(skin)
     if not player then return print("There is a problem with player data.") end
     if CoreName == "qb" then
         TriggerClientEvent('clothing:saveSkin:client', src, skin)
-        -- MySQL.query('DELETE FROM playerskins WHERE citizenid = ?', {player.PlayerData.citizenid}, function()
-        --     MySQL.insert('INSERT INTO playerskins (citizenid, model, skin, active) VALUES (?, ?, ?, ?)', {
-        --         player.PlayerData.citizenid,
-        --         skin.model,
-        --         json.encode(skin),
-        --         1
-        --     })
-        -- end)
     elseif CoreName == "esx" then
         MySQL.Async.execute('UPDATE users SET `skin` = @skin WHERE identifier = @identifier', {
             ['@skin'] = json.encode(skin),
@@ -87,14 +79,6 @@ RegisterServerEvent("qb-clothing:saveSkin", function(model, skin)
     local player = GetPlayer(src)
     if not player then return print("There is a problem with player data.") end
     TriggerClientEvent('clothing:saveSkin:client', src, skin)
-    -- MySQL.query('DELETE FROM playerskins WHERE citizenid = ?', {player.PlayerData.citizenid}, function()
-    --     MySQL.insert('INSERT INTO playerskins (citizenid, model, skin, active) VALUES (?, ?, ?, ?)', {
-    --         player.PlayerData.citizenid,
-    --         model,
-    --         json.encode(skin),
-    --         1
-    --     })
-    -- end)
 end)
 
 RegisterServerEvent("clothing:loadPlayerSkin:server", function(lsInv)
@@ -126,78 +110,8 @@ RegisterServerEvent("clothing:loadPlayerSkin:server", function(lsInv)
     end
 end)
 
-if Config.GiveClothingMenu.Enable then
-    Citizen.CreateThread(function()
-        while not CoreReady do Citizen.Wait(500) end
-        if CoreName == "qb" then
-            Core.Commands.Add(Config.GiveClothingMenu.Command, Config.GiveClothingMenu.Description, {{name = "Player ID", help = "Write player id here"}}, false, function(source, args)
-                local player = GetPlayer(tonumber(args[1]))
-                if player then
-                    TriggerClientEvent('qb-clothes:client:CreateFirstCharacter', tonumber(args[1]), true)
-                end
-            end, Config.GiveClothingMenu.Group)
-            Core.Commands.Add(Config.GiveClothingMenu.RestrictedCommand, Config.GiveClothingMenu.RestrictedDescription, {{name = "Player ID", help = "Write player id here"}}, false, function(source, args)
-                local player = GetPlayer(tonumber(args[1]))
-                if player then
-                    TriggerClientEvent('qb-clothes:client:CreateRestrictedCharacter', tonumber(args[1]), true)
-                end
-            end, Config.GiveClothingMenu.Group)
-        elseif CoreName == "esx" then
-            if Core.RegisterCommand then
-                Core.RegisterCommand(Config.GiveClothingMenu.Command, Config.GiveClothingMenu.Group, function(xPlayer, args, _)
-                    local player = GetPlayer(tonumber(args.playeridnumber))
-                    if player then
-                        TriggerClientEvent('esx_skin:openSaveableMenu', player.source, nil, nil, true)
-                    end
-                end, true, {help = Config.GiveClothingMenu.Description, arguments = {
-                    {name = "playeridnumber", help = "Player ID", type = "number"}
-                }})
-                Core.RegisterCommand(Config.GiveClothingMenu.RestrictedCommand, Config.GiveClothingMenu.Group, function(xPlayer, args, _)
-                    local player = GetPlayer(tonumber(args.playeridnumber))
-                    if player then
-                        TriggerClientEvent('esx_skin:openSaveableRestrictedMenu', player.source, nil, nil, true)
-                    end
-                end, true, {help = Config.GiveClothingMenu.RestrictedDescription, arguments = {
-                    {name = "playeridnumber", help = "Player ID", type = "number"}
-                }})
-            else
-                RegisterCommand(Config.GiveClothingMenu.Command, function(source, args)
-                    local xPlayer = GetPlayer(source)
-                    if xPlayer and IsPlayerAceAllowed(source, "command." .. Config.GiveClothingMenu.Command) then
-                        local targetId = tonumber(args[1])
-                        local player = GetPlayer(targetId)
-                        if player then
-                            TriggerClientEvent('esx_skin:openSaveableMenu', player.source, nil, nil, true)
-                        end
-                    end
-                end)
-                
-                RegisterCommand(Config.GiveClothingMenu.RestrictedCommand, function(source, args)
-                    local xPlayer = GetPlayer(source)
-                    if xPlayer and IsPlayerAceAllowed(source, "command." .. Config.GiveClothingMenu.RestrictedCommand) then
-                        local targetId = tonumber(args[1])
-                        local player = GetPlayer(targetId)
-                        if player then
-                            TriggerClientEvent('esx_skin:openSaveableRestrictedMenu', player.source, nil, nil, true)
-                        end
-                    end
-                end)
-                
-                TriggerClientEvent('chat:addSuggestion', -1, '/' .. Config.GiveClothingMenu.Command, Config.GiveClothingMenu.Description, {
-                    { name = "playeridnumber", help = "Player ID" }
-                })
-                
-                TriggerClientEvent('chat:addSuggestion', -1, '/' .. Config.GiveClothingMenu.RestrictedCommand, Config.GiveClothingMenu.RestrictedDescription, {
-                    { name = "playeridnumber", help = "Player ID" }
-                })
-            end
-        end
-    end)
-end
-
 CreateCallback('clothing:buyClothing:server', function(source, cb, paymentType, amount)
     local src = source
-    local xPlayer = ESX.GetPlayerFromId(source)
     local Player = GetPlayer(src)
     if not Player then return print("There is a problem with player data.") end
     if Config.CashAsItem.Enable then
@@ -208,8 +122,8 @@ CreateCallback('clothing:buyClothing:server', function(source, cb, paymentType, 
             cb(false)
         end
     else
-        if xPlayer.getAccount(paymentType).money >= amount then
-            xPlayer.removeAccountMoney(paymentType, amount)
+        if GetPlayerMoney(src, paymentType) >= amount then
+            RemoveMoney(src, paymentType, amount, "clothing-market-purchasement")
             cb(true)
         else
             cb(false)
@@ -332,27 +246,33 @@ Citizen.CreateThread(function()
             end
         end)
         Core.RegisterServerCallback("esx_skin:getPlayerSkin", function(source, cb)
-            local xPlayer = GetPlayer(source)
-            MySQL.query("SELECT skin FROM users WHERE identifier = @identifier", {
-                ["@identifier"] = xPlayer.identifier,
-            }, function(users)
-                local user, skin = users[1]
-                local jobSkin = {
-                    skin_male = xPlayer.job.skin_male,
-                    skin_female = xPlayer.job.skin_female,
-                }
-                if user.skin then
-                    skin = json.decode(user.skin)
+            local result = MySQL.query.await('SELECT skin, sex FROM users WHERE identifier = ?', {identifier})
+            if result[1] ~= nil and result[1].skin then
+                local skin = json.decode(result[1].skin)
+                if not skin.model then
+                    if result[1].sex == 0 then
+                        skin.model = "mp_m_freemode_01"
+                    else
+                        skin.model = "mp_m_freemode_01"
+                    end
                 end
-                cb(skin, jobSkin)
-            end)
+                cb(skin)
+            else
+                cb(nil)
+            end
         end)
         RegisterServerEvent("esx_skin:save")
         AddEventHandler("esx_skin:save", function(skin)
             local xPlayer = GetPlayer(source)
             if not Core.GetConfig().OxInventory then
                 local defaultMaxWeight = Core.GetConfig().MaxWeight
-                local backpackModifier = Config.BackpackWeight[skin.bags_1]
+                BackpackWeight = {
+                    [40] = 16,
+                    [41] = 20,
+                    [44] = 25,
+                    [45] = 23,
+                }
+                local backpackModifier = BackpackWeight[skin.bags_1]
                 if backpackModifier then
                     xPlayer.setMaxWeight(defaultMaxWeight + backpackModifier)
                 else
@@ -477,7 +397,7 @@ RegisterNetEvent('clothing:removeAllTattoos:server', function()
     if Player then
         local PlayerLicense = GetPlayerLicenseCore(src)
         MySQL.query('UPDATE 0r_clothing_tattoos SET data = @data WHERE license = @license', {
-            ['@data'] = json.encode({}), -- Fix: Use empty table instead of 0
+            ['@data'] = 0,
             ['@license'] = PlayerLicense
         })
     end
