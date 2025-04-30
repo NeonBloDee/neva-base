@@ -21,7 +21,7 @@ Citizen.CreateThread(function()
                     if Config.ClothActiveText then
                         DrawText3D(coords.x, coords.y, coords.z + 1.0, Config.ClothMarkerText)
                     end
-                    DrawMarker(25, coords.x, coords.y, coords.z, 0.0, 0.0, 0.0, 0, 0.0, 0.0, 0.50, 0.50, 0.50, 255, 128, 0, 255, false, true, false, false, false, false, false, false)
+                    DrawMarker(25, coords.x, coords.y, coords.z, 0.0, 0.0, 0.0, 0, 0.0, 0.0, 0.50, 0.50, 0.50, 116, 192, 252, 255, false, true, false, false, false, false, false, false)
                 end
                 if dist < 3 then
                     if not Inv.OpenClothesMenu then 

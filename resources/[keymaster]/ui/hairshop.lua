@@ -369,7 +369,7 @@ AddEventHandler("ui:hairs:open", function()
     SendNUIMessage({
         type = "shop:Open",
         server_logo = "https://i.ibb.co/VHFyJN6/NEVA-Logo-Blanc-Plan-de-travail-1.png",
-        server_color = "#FF8000",
+        server_color = "#74c0fc",
         data = {
             type_shop = "hairs",
             variations = {

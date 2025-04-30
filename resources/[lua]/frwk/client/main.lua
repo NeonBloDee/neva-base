@@ -261,16 +261,7 @@ AddEventHandler('esx:setGroup', function(group)
 	ESX.PlayerData.group = group
 	TriggerServerEvent('zig:change', group)
 end)
--- RegisterNetEvent('esx:playerLoaded', function()
 
-	
---     Citizen.Wait(5000)
---     TriggerEvent('chat:addMessage', {
---         color = { 255, 128, 0},
---         multiline = true,
---         args = {"N E V A", "Visitez notre boutique en appuyant sur la touche F1 ! Merci de votre soutien et bon jeu sur N E V A"}
---     })
--- end)
 RegisterNetEvent('esx:setRank')
 AddEventHandler('esx:setRank', function(rank)
 	ESX.PlayerData.rank = rank
