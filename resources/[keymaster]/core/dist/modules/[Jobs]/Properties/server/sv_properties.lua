@@ -186,7 +186,6 @@ AddEventHandler('Achat:Maison', function(Infos)
 
 end)
 
--- Optimize INSERT
 RegisterNetEvent('sunny:properties:createProperties', function(name, label, price, enter, exit, garage, posGarage, posGarageSpawn, rotGarageSpawn, garageType, type, trunkPos, logementType, current_zone, entrepot, pound)
     local source = source
     local xPlayer = ESX.GetPlayerFromId(source)
@@ -195,10 +194,18 @@ RegisterNetEvent('sunny:properties:createProperties', function(name, label, pric
     local society = Society:getSociety(xPlayer.job.name)
     if not society then return end
 
-    -- Validate data
     if not name or not label or not price then
-        return TriggerClientEvent('esx:showNotification', source, 'Données invalides')
+        return TriggerClientEvent('esx:showNotification', source, 'Données invalides: nom, label ou prix manquant')
     end
+    
+    if garage and (not posGarage or not posGarageSpawn or not rotGarageSpawn or not garageType) then
+        return TriggerClientEvent('esx:showNotification', source, 'Informations de garage incomplètes')
+    end
+    
+    if not posGarage then posGarage = {} end
+    if not posGarageSpawn then posGarageSpawn = {} end
+    if not garageType then garageType = "garage2" end
+    if not rotGarageSpawn then rotGarageSpawn = 0.0 end
 
     MySQL.Async.execute('INSERT INTO properties (propertiesOWNER, name, label, price, enter, exitPos, garage, garagePos, garageSpawn, garageRotation, garageType, type, trunk, logementType, street, entrepot, pound, ownerName, time) VALUES (@owner, @name, @label, @price, @enter, @exit, @garage, @garagePos, @garageSpawn, @garageRotation, @garageType, @type, @trunk, @logementType, @street, @entrepot, @pound, @ownerName, @time)', {
         ['@owner'] = 'none',
@@ -225,16 +232,13 @@ RegisterNetEvent('sunny:properties:createProperties', function(name, label, pric
             return TriggerClientEvent('esx:showNotification', source, 'Erreur lors de la création')
         end
 
-        -- Get the inserted ID
         MySQL.Async.fetchAll('SELECT LAST_INSERT_ID() as id', {}, function(result)
             if not result[1] then return end
             
             local insertId = result[1].id
 
-            -- Update society money
             society.removeSocietyMoney(price/100*75)
 
-            -- Cache the new property
             Properties.PropertiesList[insertId] = {
                 id = insertId,
                 owner = 'none',
@@ -318,7 +322,6 @@ RegisterNetEvent('sunny:properties:removePlayer', function(target, value, pId, p
         TriggerClientEvent('sunny:properties:changePlayerSate', source, pId, false)
     elseif value == 'all' then
         for k,v in pairs(Properties.PropertiesList[pId].playersIG) do
-            -- print(v.UniqueID)
             Properties:addPlayer(v.source, 0)
             TriggerClientEvent('sunny:properties:teleport', v.source, vector3(Properties.PropertiesList[pId].enter.x, Properties.PropertiesList[pId].enter.y, Properties.PropertiesList[pId].enter.z))
 
@@ -555,16 +558,13 @@ end)
 -- --     end
 -- -- end)
 
--- Ajouter cet event
 AddEventHandler('playerDropped', function(reason)
     local source = source
     local xPlayer = ESX.GetPlayerFromId(source)
     if not xPlayer then return end
 
-    -- Parcourir toutes les propriétés pour trouver où le joueur était
     for k,v in pairs(Properties.PropertiesList) do
         if v.players and v.players[tostring(xPlayer.UniqueID)] then
-            -- Sauvegarder la dernière position connue (l'entrée de la propriété)
             MySQL.Async.execute('UPDATE users SET position = @position WHERE identifier = @identifier', {
                 ['@identifier'] = xPlayer.identifier,
                 ['@position'] = json.encode({x = v.enter.x, y = v.enter.y, z = v.enter.z})

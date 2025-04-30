@@ -180,6 +180,36 @@ Properties = {
   end
 }
 
+Properties.garage = Properties.garage or {
+    count = {},
+    count2 = {},
+    loaded = {},
+    loaded2 = {},
+    loaded3 = {},
+    value1 = {},
+    interior = {
+        ["garage2"] = {
+            label = "Garage 2 places",
+            max = 2,
+            interior = vector3(179.0916, -1002.121, -98.9999),
+        },
+        ["garage12"] = {
+            label = "Garage 12 places",
+            interior = vector3(238.0304, -1004.904, -98.99994),
+            max = 12,
+        },
+        ["garage15"] = {
+            label = "Garage 15 places",
+            interior = vector3(-1065.465, -85.92764, -90.19995),
+            max = 15,
+        },
+    },
+    self_vehicle = {},
+    self_garage = {},
+    isIn = false,
+    WaitNearby = 2000
+}
+
 RegisterNetEvent('Properties:Init')
 AddEventHandler('Properties:Init', function(properties)
   Properties.PropertiesList = properties

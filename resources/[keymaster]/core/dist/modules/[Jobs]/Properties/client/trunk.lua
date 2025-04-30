@@ -20,7 +20,6 @@ end)
 local used = false
 
 function Properties:openTrunkMenu(k)
-    -- Initialize trunk if nil
     if not Properties.PropertiesList[k].trunk then
         Properties.PropertiesList[k].trunk = {
             items = {},
@@ -37,13 +36,15 @@ function Properties:openTrunkMenu(k)
         }
     end
 
-    -- Initialize sub-tables if nil
+    if Properties.PropertiesList[k].entrepot == nil then
+        Properties.PropertiesList[k].entrepot = false
+    end
+
     Properties.PropertiesList[k].trunk.items = Properties.PropertiesList[k].trunk.items or {}
     Properties.PropertiesList[k].trunk.weapons = Properties.PropertiesList[k].trunk.weapons or {}
     Properties.PropertiesList[k].trunk.accounts = Properties.PropertiesList[k].trunk.accounts or {cash = 0, black_money = 0}
     Properties.PropertiesList[k].trunk.code = Properties.PropertiesList[k].trunk.code or {active = false, blocked = false, code = nil}
 
-    -- Rest of your existing openTrunkMenu code...
     local main = RageUI.CreateMenu('', 'Actions Disponibles')
     local money = RageUI.CreateSubMenu(main, '', 'Actions Disponibles')
     local items = RageUI.CreateSubMenu(main, '', 'Actions Disponibles') 
@@ -84,10 +85,10 @@ function Properties:openTrunkMenu(k)
                             'Êtes-vous sûr de vouloir ne pas utiliser de code ?',
                             '',
                             function(response)
-                                if response then -- Oui
+                                if response then
                                     Properties.PropertiesList[k].trunk['code'].active = 'none'
                                     TriggerServerEvent('sunny:properties:trunk:updateCode', k, Properties.PropertiesList[k].trunk['code'])
-                                else -- Non
+                                else
                                     ESX.ShowNotification('Action annulée')
                                 end
                             end
@@ -133,7 +134,7 @@ function Properties:openTrunkMenu(k)
             end
 
             if Properties.PropertiesList[k].entrepot == 1 or Properties.PropertiesList[k].entrepot == true then
-                RageUI.Separator(('Poid du coffre ~y~%s/KG~s~'):format(Properties.PropertiesList[k].pound))
+                RageUI.Separator(('Poid du coffre ~y~%s/KG~s~'):format(Properties.PropertiesList[k].pound or 0))
             end
 
             RageUI.Button('Argent(s)', nil, {}, true, {
@@ -210,7 +211,6 @@ function Properties:openTrunkMenu(k)
             }, playerInventory)
             RageUI.WLine()
 
-            -- Add safety check before looping
             if Properties.PropertiesList[k].trunk.items then
                 for _,v in pairs(Properties.PropertiesList[k].trunk.items) do
                     RageUI.Button(v.label, nil, {RightLabel = '~r~'..v.count}, true, {
@@ -260,9 +260,9 @@ function Properties:openTrunkMenu(k)
                             'Êtes-vous sûr de vouloir retirer cette arme ?',
                             '',
                             function(response)
-                                if response then -- Oui
+                                if response then
                                     TriggerServerEvent('sunny:properties:trunk:actionsCoffre', k, v, v.ammo, 'remove', 'weapon', v.number, _)
-                                else -- Non
+                                else
                                     ESX.ShowNotification('Action annulée') 
                                 end
                             end
@@ -285,9 +285,9 @@ function Properties:openTrunkMenu(k)
                                 'Êtes-vous sûr de vouloir ajouter cette arme ?',
                                 '',
                                 function(response)
-                                    if response then -- Oui
+                                    if response then
                                         TriggerServerEvent('sunny:properties:trunk:actionsCoffre', k, v, v.ammo, 'add', 'weapon', v.number, _)
-                                    else -- Non
+                                    else
                                         ESX.ShowNotification('Action annulée')
                                     end
                                 end
@@ -319,10 +319,10 @@ function Properties:openTrunkMenu(k)
                             'Êtes-vous sûr de vouloir désactiver le code ?',
                             '',
                             function(response)
-                                if response then -- Oui
+                                if response then
                                     Properties.PropertiesList[k].trunk['code'].active = 'none'
                                     TriggerServerEvent('sunny:properties:trunk:updateCode', k, Properties.PropertiesList[k].trunk['code'])
-                                else -- Non
+                                else
                                     ESX.ShowNotification('Action annulée')
                                 end
                             end
@@ -339,7 +339,7 @@ function Properties:openTrunkMenu(k)
                             'Êtes-vous sûr de vouloir activer le code ?',
                             '',
                             function(response)
-                                if response then -- Oui
+                                if response then
                                     KeyboardUtils.use('Taper un CODE', function(data2)
                                         if data2 and data2 ~= "" then
                                             Properties.PropertiesList[k].trunk['code'].active = true
@@ -349,7 +349,7 @@ function Properties:openTrunkMenu(k)
                                             ESX.ShowNotification('Le code ne peut pas être vide')
                                         end
                                     end)
-                                else -- Non
+                                else
                                     ESX.ShowNotification('Action annulée')
                                 end
                             end

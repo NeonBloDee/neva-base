@@ -323,12 +323,29 @@ function Properties:openArcadiusMenu(type)
             RageUI.Checkbox('Garage', nil, Properties.admin.Menu.action.garage, {}, {
                 onChecked = function()
                     Properties.admin.Menu.action.garage = true
-                    for k,v in pairs(Properties.garage.interior) do
-                        Properties.admin.visitmodeGarage[k] = {active = false, name = nil, interior = nil}
+                    if not Properties.admin.visitmodeGarage then
+                        Properties.admin.visitmodeGarage = {}
                     end
+                    
+                    Properties.garageSelected = "car"
+                    
+                    if not Properties.admin.visitmodeGarage["car"] then
+                        Properties.admin.visitmodeGarage["car"] = {active = true, name = "car"}
+                    else
+                        Properties.admin.visitmodeGarage["car"].active = true
+                    end
+                    
+                    print("Type de garage défini par défaut: car")
                 end,
                 onUnChecked = function()
                     Properties.admin.Menu.action.garage = false
+                    Properties.garageSelected = nil
+                    
+                    if Properties.admin.visitmodeGarage then
+                        for k,v in pairs(Properties.admin.visitmodeGarage) do
+                            Properties.admin.visitmodeGarage[k].active = false
+                        end
+                    end
                 end
             })
         
@@ -342,41 +359,103 @@ function Properties:openArcadiusMenu(type)
 
             RageUI.Button('Confirmer', nil, {}, true, {
                 onSelected = function()
-                    if Properties.admin.name == nil or Properties.admin.trunk == nil or Properties.admin.label == nil or Properties.admin.price == nil or Properties.admin.enter == nil or Properties.admin.exit == nil then 
+                    -- print("=== DONNÉES DE CRÉATION DE PROPRIÉTÉ ===")
+                    -- print("Nom: " .. tostring(Properties.admin.name))
+                    -- print("Label: " .. tostring(Properties.admin.label))
+                    -- print("Prix: " .. tostring(Properties.admin.price))
+                    -- print("Entrée: " .. tostring(json.encode(Properties.admin.enter)))
+                    -- print("Sortie: " .. tostring(json.encode(Properties.admin.exit)))
+                    -- print("Coffre: " .. tostring(json.encode(Properties.admin.trunk)))
+                    
+                    if Properties.admin.Menu.action.garage then
+                        -- print("=== DONNÉES DU GARAGE ===")
+                        -- print("Garage activé: " .. tostring(Properties.admin.Menu.action.garage))
+                        -- print("Position garage: " .. tostring(json.encode(Properties.admin.posGarage)))
+                        -- print("Position spawn: " .. tostring(json.encode(Properties.admin.posGarageSpawn)))
+                        -- print("Rotation spawn: " .. tostring(Properties.admin.rotGarageSpawn))
+                        -- print("Type de garage: " .. tostring(Properties.garageSelected))
+                        -- print("Lastplayerpos2: " .. tostring(Properties.Lastplayerpos2 ~= nil))
+                    end
+                    
+                    if Properties.admin.name == nil or Properties.admin.label == nil or Properties.admin.price == nil or Properties.admin.enter == nil or Properties.admin.exit == nil or Properties.admin.trunk == nil then 
+                        -- print("Échec: Champs de base incomplets")
                         return ESX.ShowNotification('❌ Tout les champs ne sont pas correctement complétés') 
                     end 
             
                     if Properties.admin.Menu.action.garage then
-                        if Properties.admin.posGarage == nil or Properties.admin.posGarageSpawn == nil or Properties.admin.rotGarageSpawn == nil or Properties.Lastplayerpos2 == nil then 
-                            return ESX.ShowNotification('❌ Tout les champs ne sont pas correctement complétés') 
-                        end 
+                        local garageChampsMissing = false
+                        local champManquant = ""
+                        
+                        if Properties.admin.posGarage == nil then 
+                            garageChampsMissing = true 
+                            champManquant = "position du garage"
+                            -- print("Position du garage manquante")
+                        elseif Properties.admin.posGarageSpawn == nil then 
+                            garageChampsMissing = true 
+                            champManquant = "spawn du garage"
+                            -- print("Position du spawn manquante")
+                        elseif Properties.admin.rotGarageSpawn == nil then 
+                            garageChampsMissing = true 
+                            champManquant = "rotation du garage"
+                            -- print("Rotation du spawn manquante")
+                        elseif Properties.garageSelected == nil then 
+                            garageChampsMissing = true 
+                            champManquant = "type de garage"
+                            -- print("Type de garage manquant")
+                        end
+                        
+                        if garageChampsMissing then
+                            return ESX.ShowNotification('❌ Le ' .. champManquant .. ' n\'est pas défini')
+                        end
                     end
             
-                    if Properties.admin.entrepot == true then
-                        if Properties.admin.pound == nil then 
-                            return ESX.ShowNotification('❌ Tout les champs ne sont pas correctement complétés') 
-                        end 
-                    end
+                    if Properties.admin.entrepot == true and Properties.admin.pound == nil then 
+                        -- print("Échec: Poids de l'entrepôt manquant")
+                        return ESX.ShowNotification('❌ Le poids de l\'entrepôt n\'est pas défini') 
+                    end 
             
                     exports['prompt']:createPrompt(
                         SunnyConfigServ.ServerName,
                         'Êtes-vous sûr de vouloir créer cette propriété ?',
                         '',
                         function(response)
-                            if response then -- Oui
+                            if response then
                                 if Properties.admin.visitmode then
                                     SetEntityCoords(PlayerPedId(), Properties.Lastplayerpos)
                                 end
             
                                 if Properties.admin.Menu.action.garage then
-                                    SetEntityCoords(PlayerPedId(), Properties.Lastplayerpos2)
+                                    if Properties.Lastplayerpos2 then
+                                        SetEntityCoords(PlayerPedId(), Properties.Lastplayerpos2)
+                                    end
+                                end
+                                
+                                -- print("=== ENVOI DES DONNÉES AU SERVEUR ===")
+                                local garageTypeToSend = Properties.garageSelected
+                                if not garageTypeToSend then
+                                    garageTypeToSend = Properties.admin.Menu.action.garage and "garage2" or nil
+                                    -- print("Type de garage défini par défaut: " .. tostring(garageTypeToSend))
                                 end
             
-                                local data = {
-                                    name = Properties.garageSelected,
-                                }
-                                TriggerServerEvent('sunny:properties:createProperties', Properties.admin.name, Properties.admin.label, Properties.admin.price, Properties.admin.enter, Properties.admin.exit, Properties.admin.Menu.action.garage, Properties.admin.posGarage, Properties.admin.posGarageSpawn, Properties.admin.rotGarageSpawn, data.name, Properties.admin.typeData, Properties.admin.trunk, Properties.admin.logementType, Properties.admin.current_zone, Properties.admin.entrepot, Properties.admin.pound)
-                            else -- Non
+                                TriggerServerEvent('sunny:properties:createProperties', 
+                                    Properties.admin.name, 
+                                    Properties.admin.label, 
+                                    Properties.admin.price, 
+                                    Properties.admin.enter, 
+                                    Properties.admin.exit, 
+                                    Properties.admin.Menu.action.garage, 
+                                    Properties.admin.posGarage, 
+                                    Properties.admin.posGarageSpawn, 
+                                    Properties.admin.rotGarageSpawn, 
+                                    garageTypeToSend, 
+                                    Properties.admin.typeData, 
+                                    Properties.admin.trunk, 
+                                    Properties.admin.logementType, 
+                                    Properties.admin.current_zone, 
+                                    Properties.admin.entrepot, 
+                                    Properties.admin.pound
+                                )
+                            else
                                 ESX.ShowNotification('Action annulée')
                             end
                         end
