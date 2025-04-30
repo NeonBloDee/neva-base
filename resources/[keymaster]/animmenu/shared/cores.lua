@@ -1,14 +1,14 @@
 Cores = {
-    { -- New ESX
-        Name = "ESX",
-        ResourceName = "frwk",
-        GetFramework = function() return exports["frwk"]:getSharedObject() end
-    },
-    -- { -- Old ESX
+    -- { -- New ESX
     --     Name = "ESX",
     --     ResourceName = "frwk",
-    --     GetFramework = function() ESX = nil while ESX == nil do TriggerEvent('esx:getSharedObject', function(obj) ESX = obj end) end return ESX end
+    --     GetFramework = function() return exports["frwk"]:getSharedObject() end
     -- },
+    { -- Old ESX
+        Name = "ESX",
+        ResourceName = "frwk",
+        GetFramework = function() ESX = nil while ESX == nil do TriggerEvent('esx:getSharedObject', function(obj) ESX = obj end) end return ESX end
+    },
     {
         Name = "QBCore",
         ResourceName = "qb-core",
