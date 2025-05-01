@@ -188,11 +188,16 @@ function Police_openF6()
                 })
                 RageUI.Button('Intéractions avec une personne', nil, {}, true, {}, interactMenu)
                 RageUI.Button('Intéractions avec un véhicule', nil, {}, true, {}, vehicleMenu)
+                RageUI.Button('Ouvrir la MDT', nil, {}, true, {
+                    onSelected = function()
+                        RageUI.CloseAll()
+                        ExecuteCommand('mdt')
+                    end
+                })
                 RageUI.Button('Intéractions K9', nil, {}, true, {}, dogMenu)
                 RageUI.Button('Codes', nil, {}, true, {}, code)
                 RageUI.Button("Alertes", nil, {RightLabel = ("%s appels"):format(#CallsTable)}, true, {
                     onSelected = function()
-                        -- Rafraîchir la liste UNIQUEMENT quand on clique sur le bouton
                         ESX.TriggerServerCallback('sunny:appelRetreive:job', function(calls)
                             CallsTable = calls
                             RageUI.Visible(drugsAlerte, true)
