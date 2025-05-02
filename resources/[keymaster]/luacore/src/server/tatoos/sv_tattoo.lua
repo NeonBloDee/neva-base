@@ -1,16 +1,16 @@
-RegisterNetEvent("NEVACORP:pay")
-AddEventHandler("NEVACORP:pay", function(price, playerTatoos)
+RegisterNetEvent("Sunny:pay")
+AddEventHandler("Sunny:pay", function(price, playerTatoos)
     local _src = source
     local xPlayer = ESX.GetPlayerFromId(_src)
     local xMoney = xPlayer.getAccount('cash').money
 
     if xMoney >= price then
         xPlayer.removeAccountMoney('cash', price)
-        TriggerClientEvent("NEVACORP:buyCallback", _src, true)
+        TriggerClientEvent("Sunny:buyCallback", _src, true)
         performDbUpdate(playerTatoos, _src)
         TriggerClientEvent('esx:showNotification', _src, "Paiement réussi, tatouage acheté.")
     else
-        TriggerClientEvent("NEVACORP:buyCallback", _src, false)
+        TriggerClientEvent("Sunny:buyCallback", _src, false)
         TriggerClientEvent('esx:showNotification', _src, "Paiement échoué, fonds insuffisants (cash).")
     end
 end)
@@ -30,8 +30,8 @@ function getPlayerLicenseTattoo(source)
 end
 
 
-RegisterNetEvent("NEVACORP:payClean")
-AddEventHandler("NEVACORP:payClean", function()
+RegisterNetEvent("Sunny:payClean")
+AddEventHandler("Sunny:payClean", function()
     local _src = source
     local xPlayer = ESX.GetPlayerFromId(_src)
     local xMoney = xPlayer.getAccount('cash').money
@@ -39,16 +39,16 @@ AddEventHandler("NEVACORP:payClean", function()
         xPlayer.removeAccountMoney('cash', 50000)
         performDbClear(_src)
 
-        TriggerClientEvent("NEVACORP:clean", _src, 1)
+        TriggerClientEvent("Sunny:clean", _src, 1)
         TriggerClientEvent('esx:showNotification', _src, "Paiement réussi, vous avez payé 50000$ depuis votre compte bancaire.")
     else
-        TriggerClientEvent("NEVACORP:clean", _src, 0)
+        TriggerClientEvent("Sunny:clean", _src, 0)
         TriggerClientEvent('esx:showNotification', _src, "Paiement échoué, fonds insuffisants.")
     end
 end)
 
-RegisterNetEvent("NEVACORP:requestPlayerTatoos")
-AddEventHandler("NEVACORP:requestPlayerTatoos", function()
+RegisterNetEvent("Sunny:requestPlayerTatoos")
+AddEventHandler("Sunny:requestPlayerTatoos", function()
     local _src = source
     local license = getPlayerLicenseTattoo(_src)
     local result = nil
@@ -60,7 +60,7 @@ AddEventHandler("NEVACORP:requestPlayerTatoos", function()
         end
     end)
     Citizen.Wait(150)
-    TriggerClientEvent("NEVACORP:tatoesCallback", _src, result)
+    TriggerClientEvent("Sunny:tatoesCallback", _src, result)
 
 end)
 

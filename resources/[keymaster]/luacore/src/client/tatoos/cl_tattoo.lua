@@ -1466,8 +1466,8 @@ function ShowHelpNotification(msg)
     EndTextCommandDisplayHelp(0, false, true, -1)
 end
 
-RegisterNetEvent("NEVACORP:buyTattoo")
-AddEventHandler("NEVACORP:buyTattoo", function(ok)
+RegisterNetEvent("Sunny:buyTattoo")
+AddEventHandler("Sunny:buyTattoo", function(ok)
     if ok then
         ESX.ShowNotification("~g~Tatouage acheté")
     else
@@ -1475,8 +1475,8 @@ AddEventHandler("NEVACORP:buyTattoo", function(ok)
     end
 end)
 
-RegisterNetEvent("NEVACORP:tatoesCallback")
-AddEventHandler("NEVACORP:tatoesCallback", function(ok)
+RegisterNetEvent("Sunny:tatoesCallback")
+AddEventHandler("Sunny:tatoesCallback", function(ok)
     if ok ~= nil then
         print(json.encode(ok))
         playerTatoos = json.decode(ok)
@@ -1496,7 +1496,7 @@ AddEventHandler("skinchanger:loadSkin", function(skin)
 				Citizen.Wait(10)
 			end
 			Citizen.Wait(75)
-			TriggerServerEvent("NEVACORP:requestPlayerTatoos")
+			TriggerServerEvent("Sunny:requestPlayerTatoos")
 		end)
 		firstLoad = true
 	else
@@ -1509,8 +1509,8 @@ end)
 
 
 
-RegisterNetEvent("NEVACORP:clean")
-AddEventHandler("NEVACORP:clean", function(ok)
+RegisterNetEvent("Sunny:clean")
+AddEventHandler("Sunny:clean", function(ok)
     local source = source
     --print("Action reset tatouage effectuer")
     if ok then
@@ -1575,7 +1575,7 @@ function OpenTattooRageUIMenu()
                     RageUI.Button("Supprimer vos Tatouages actuels", nil, { RightLabel = "~g~50000 ~s~$ →" }, not cleaning, {
                         onSelected = function()
                             cleaning = true
-                            TriggerServerEvent("NEVACORP:payClean")
+                            TriggerServerEvent("Sunny:payClean")
                         end
                     })
 
@@ -1621,7 +1621,7 @@ function OpenTattooRageUIMenu()
                                     end
                                     if needModif then
                                         table.insert(playerTatoos, { cat = GetHashKey(TattooShop.TattooCategories[k].value), name = GetHashKey(tatoo.nameHash) })
-                                        TriggerServerEvent("NEVACORP:pay", tatoo.price, playerTatoos)
+                                        TriggerServerEvent("Sunny:pay", tatoo.price, playerTatoos)
                                     else
                                         ESX.ShowNotification('~r~Vous possédez déjà ce tatouage!')
                                     end
