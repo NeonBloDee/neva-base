@@ -1496,7 +1496,6 @@ AddEventHandler("skinchanger:loadSkin", function(skin)
 				Citizen.Wait(10)
 			end
 			Citizen.Wait(75)
-            print('Base fait par NEVACORP discord.gg/N6eJ3bhW39')
 			TriggerServerEvent("NEVACORP:requestPlayerTatoos")
 		end)
 		firstLoad = true
