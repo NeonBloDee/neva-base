@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1
--- Généré le : jeu. 01 mai 2025 à 22:13
+-- Généré le : ven. 02 mai 2025 à 21:19
 -- Version du serveur : 10.4.32-MariaDB
 -- Version de PHP : 8.2.12
 
@@ -20,6 +20,29 @@ SET time_zone = "+00:00";
 --
 -- Base de données : `neva-base-resell`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `0r_clothing_image_data`
+--
+
+CREATE TABLE `0r_clothing_image_data` (
+  `id` int(11) NOT NULL,
+  `data` varchar(50) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `0r_clothing_tattoos`
+--
+
+CREATE TABLE `0r_clothing_tattoos` (
+  `id` int(11) NOT NULL,
+  `license` varchar(50) DEFAULT NULL,
+  `data` longtext DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 -- --------------------------------------------------------
 
@@ -398,13 +421,6 @@ CREATE TABLE `boutique` (
   `points` int(11) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
---
--- Déchargement des données de la table `boutique`
---
-
-INSERT INTO `boutique` (`citizenID`, `boutique_code`, `points`) VALUES
-('license:99572c46c4419a0f597d110a31640f1a3ff1655e', 1, 20000);
-
 -- --------------------------------------------------------
 
 --
@@ -418,267 +434,6 @@ CREATE TABLE `boutique_gains` (
   `type` varchar(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
---
--- Déchargement des données de la table `boutique_gains`
---
-
-INSERT INTO `boutique_gains` (`id`, `citizenId`, `item`, `type`) VALUES
-(6, 'license:99572c46c4419a0f597d110a31640f1a3ff1655e', 'gstghell1', 'vehicle'),
-(7, 'license:242ae1959b1bc408fbf88b0c8ce39065bc2ae003', 'gbdominatorgsx', 'vehicle'),
-(8, 'license:242ae1959b1bc408fbf88b0c8ce39065bc2ae003', 'deimos', 'vehicle'),
-(9, 'license:99572c46c4419a0f597d110a31640f1a3ff1655e', 'bati901', 'vehicle'),
-(10, 'license:242ae1959b1bc408fbf88b0c8ce39065bc2ae003', 'sentinel_rts', 'vehicle'),
-(11, 'license:242ae1959b1bc408fbf88b0c8ce39065bc2ae003', 'tempestaes', 'vehicle'),
-(12, 'license:242ae1959b1bc408fbf88b0c8ce39065bc2ae003', 'kqrumpo', 'vehicle'),
-(13, 'license:242ae1959b1bc408fbf88b0c8ce39065bc2ae003', 'highmare', 'vehicle'),
-(14, 'license:99572c46c4419a0f597d110a31640f1a3ff1655e', 'tempestaes', 'vehicle'),
-(15, 'license:99572c46c4419a0f597d110a31640f1a3ff1655e', 'turtle', 'vehicle'),
-(16, 'license:06d72c87aff07d18366fd9bd8e741aef27ebc438', 'turtle', 'vehicle'),
-(17, 'license:cdbb56f9225a2c717071cb2bd2e5121e0ff2decd', 'gbargento7f', 'vehicle'),
-(18, 'license:b39b6f475574414abbceaec4433b6841a9fab730', 'nriata', 'vehicle'),
-(19, 'license:9aa4c14a033907f69f40be3d33ca00b8dfd0266d', 'gbesperta', 'vehicle'),
-(20, 'license:9aa4c14a033907f69f40be3d33ca00b8dfd0266d', 'deimos', 'vehicle'),
-(21, 'license:9aa4c14a033907f69f40be3d33ca00b8dfd0266d', 'highmare', 'vehicle'),
-(22, 'license:9aa4c14a033907f69f40be3d33ca00b8dfd0266d', 'gbcomets1t', 'vehicle'),
-(23, 'license:9aa4c14a033907f69f40be3d33ca00b8dfd0266d', 'gbbisonhf', 'vehicle'),
-(24, 'license:9aa4c14a033907f69f40be3d33ca00b8dfd0266d', 'tempestaes', 'vehicle'),
-(25, 'license:a3cda9b55ccfe11f888ee445b1889f19b9eb5a97', 'sheavas', 'vehicle'),
-(26, 'license:9aa4c14a033907f69f40be3d33ca00b8dfd0266d', 'gbcomets2rc', 'vehicle'),
-(27, 'license:9aa4c14a033907f69f40be3d33ca00b8dfd0266d', 'gbtr3s', 'vehicle'),
-(28, 'license:9aa4c14a033907f69f40be3d33ca00b8dfd0266d', 'gbcometcl', 'vehicle'),
-(29, 'license:9aa4c14a033907f69f40be3d33ca00b8dfd0266d', 'gbdominatorgsx', 'vehicle'),
-(30, 'license:9aa4c14a033907f69f40be3d33ca00b8dfd0266d', 'superd3', 'vehicle'),
-(31, 'license:9aa4c14a033907f69f40be3d33ca00b8dfd0266d', 'cypherct', 'vehicle'),
-(32, 'license:9aa4c14a033907f69f40be3d33ca00b8dfd0266d', 'gbsapphire', 'vehicle'),
-(33, 'license:9aa4c14a033907f69f40be3d33ca00b8dfd0266d', 'kqrumpo', 'vehicle'),
-(34, 'license:9aa4c14a033907f69f40be3d33ca00b8dfd0266d', 'hellfirelastcall', 'vehicle'),
-(35, 'license:9aa4c14a033907f69f40be3d33ca00b8dfd0266d', 'sentinel_rts', 'vehicle'),
-(36, 'license:9aa4c14a033907f69f40be3d33ca00b8dfd0266d', 'gbtahomagt', 'vehicle'),
-(37, 'license:9aa4c14a033907f69f40be3d33ca00b8dfd0266d', 'bati901', 'vehicle'),
-(38, 'license:9aa4c14a033907f69f40be3d33ca00b8dfd0266d', 'gbvivant', 'vehicle'),
-(39, 'license:9aa4c14a033907f69f40be3d33ca00b8dfd0266d', 'gbsultanrsx', 'vehicle'),
-(40, 'license:9aa4c14a033907f69f40be3d33ca00b8dfd0266d', 'turismocs', 'vehicle'),
-(41, 'license:a3cda9b55ccfe11f888ee445b1889f19b9eb5a97', 'gstghell1', 'vehicle'),
-(42, 'license:a3cda9b55ccfe11f888ee445b1889f19b9eb5a97', 'shinobir', 'vehicle'),
-(43, 'license:9aa4c14a033907f69f40be3d33ca00b8dfd0266d', 'gbprospero', 'vehicle'),
-(44, 'license:51f95b67e0abcbb3508b07d2f03afce05506a296', 'elegyx', 'vehicle'),
-(45, 'license:51f95b67e0abcbb3508b07d2f03afce05506a296', 'coqvice', 'vehicle'),
-(46, 'license:1a5edabfbaa0a37286ede8d6326077f1f6c4992a', 'gbargento7f', 'vehicle'),
-(47, 'license:9aa4c14a033907f69f40be3d33ca00b8dfd0266d', 'gbbanshees', 'vehicle'),
-(48, 'license:9aa4c14a033907f69f40be3d33ca00b8dfd0266d', 'gbsolace', 'vehicle'),
-(49, 'license:9aa4c14a033907f69f40be3d33ca00b8dfd0266d', 'elegyx', 'vehicle'),
-(50, 'license:9aa4c14a033907f69f40be3d33ca00b8dfd0266d', 'gbturismogt', 'vehicle'),
-(51, 'license:9aa4c14a033907f69f40be3d33ca00b8dfd0266d', 'gbargento7f', 'vehicle'),
-(52, 'license:9aa4c14a033907f69f40be3d33ca00b8dfd0266d', 'gbmogulrs', 'vehicle'),
-(53, 'license:9aa4c14a033907f69f40be3d33ca00b8dfd0266d', 'coqvice', 'vehicle'),
-(54, 'license:9aa4c14a033907f69f40be3d33ca00b8dfd0266d', 'gbstarlight', 'vehicle'),
-(55, 'license:630f2015616658b2952bbe1280f9649d6b779b96', 'sentinel_rts', 'vehicle'),
-(56, 'license:630f2015616658b2952bbe1280f9649d6b779b96', 'gbesperta', 'vehicle'),
-(57, 'license:630f2015616658b2952bbe1280f9649d6b779b96', 'gbbisonhf', 'vehicle'),
-(58, 'license:630f2015616658b2952bbe1280f9649d6b779b96', 'gbmogulrs', 'vehicle'),
-(59, 'license:630f2015616658b2952bbe1280f9649d6b779b96', 'kqrumpo', 'vehicle'),
-(60, 'license:630f2015616658b2952bbe1280f9649d6b779b96', 'coqvice', 'vehicle'),
-(61, 'license:630f2015616658b2952bbe1280f9649d6b779b96', 'gbsolace', 'vehicle'),
-(62, 'license:630f2015616658b2952bbe1280f9649d6b779b96', 'tempestaes', 'vehicle'),
-(63, 'license:630f2015616658b2952bbe1280f9649d6b779b96', 'deimos', 'vehicle'),
-(64, 'license:630f2015616658b2952bbe1280f9649d6b779b96', 'cypherct', 'vehicle'),
-(65, 'license:630f2015616658b2952bbe1280f9649d6b779b96', 'gbtahomagt', 'vehicle'),
-(66, 'license:630f2015616658b2952bbe1280f9649d6b779b96', 'highmare', 'vehicle'),
-(67, 'license:630f2015616658b2952bbe1280f9649d6b779b96', 'gbcomets1t', 'vehicle'),
-(68, 'license:630f2015616658b2952bbe1280f9649d6b779b96', 'bati901', 'vehicle'),
-(69, 'license:630f2015616658b2952bbe1280f9649d6b779b96', 'gbsultanrsx', 'vehicle'),
-(70, 'license:9aa4c14a033907f69f40be3d33ca00b8dfd0266d', 'sheavas', 'vehicle'),
-(71, 'license:9aa4c14a033907f69f40be3d33ca00b8dfd0266d', 'space', 'vehicle'),
-(72, 'license:9aa4c14a033907f69f40be3d33ca00b8dfd0266d', 'nriata', 'vehicle'),
-(73, 'license:9aa4c14a033907f69f40be3d33ca00b8dfd0266d', 'issi8s', 'vehicle'),
-(74, 'license:9aa4c14a033907f69f40be3d33ca00b8dfd0266d', 'turtle', 'vehicle'),
-(75, 'license:630f2015616658b2952bbe1280f9649d6b779b96', 'gbsapphire', 'vehicle'),
-(76, 'license:630f2015616658b2952bbe1280f9649d6b779b96', 'nriata', 'vehicle'),
-(77, 'license:9aa4c14a033907f69f40be3d33ca00b8dfd0266d', 'gstghell1', 'vehicle'),
-(78, 'license:9aa4c14a033907f69f40be3d33ca00b8dfd0266d', 'asteropers', 'vehicle'),
-(79, 'license:9aa4c14a033907f69f40be3d33ca00b8dfd0266d', 'H4RxST2', 'vehicle'),
-(80, 'license:9aa4c14a033907f69f40be3d33ca00b8dfd0266d', 'elegyheritage', 'vehicle'),
-(81, 'license:630f2015616658b2952bbe1280f9649d6b779b96', 'elegyx', 'vehicle'),
-(82, 'license:630f2015616658b2952bbe1280f9649d6b779b96', 'superd3', 'vehicle'),
-(83, 'license:630f2015616658b2952bbe1280f9649d6b779b96', 'gbstarlight', 'vehicle'),
-(84, 'license:630f2015616658b2952bbe1280f9649d6b779b96', 'gbcometcl', 'vehicle'),
-(85, 'license:630f2015616658b2952bbe1280f9649d6b779b96', 'gbcomets2rc', 'vehicle'),
-(86, 'license:630f2015616658b2952bbe1280f9649d6b779b96', 'gbargento7f', 'vehicle'),
-(87, 'license:630f2015616658b2952bbe1280f9649d6b779b96', 'gblod4', 'vehicle'),
-(88, 'license:630f2015616658b2952bbe1280f9649d6b779b96', 'gbtr3s', 'vehicle'),
-(89, 'license:362ab140df3cb8b7bc1ce54b3ee8d39b3d927f26', 'space', 'vehicle'),
-(90, 'license:895194336aa8e9119d47707b0addb3f4c290f9de', 'bati901', 'vehicle'),
-(91, 'license:a3cda9b55ccfe11f888ee445b1889f19b9eb5a97', 'tempestaes', 'vehicle'),
-(92, 'license:a3cda9b55ccfe11f888ee445b1889f19b9eb5a97', 'gbcomets1t', 'vehicle'),
-(93, 'license:a3cda9b55ccfe11f888ee445b1889f19b9eb5a97', 'cypherct', 'vehicle'),
-(94, 'license:a3cda9b55ccfe11f888ee445b1889f19b9eb5a97', 'gbesperta', 'vehicle'),
-(95, 'license:a3cda9b55ccfe11f888ee445b1889f19b9eb5a97', 'kqrumpo', 'vehicle'),
-(96, 'license:a3cda9b55ccfe11f888ee445b1889f19b9eb5a97', 'asteropers', 'vehicle'),
-(97, 'license:a3cda9b55ccfe11f888ee445b1889f19b9eb5a97', 'issi8s', 'vehicle'),
-(98, 'license:a3cda9b55ccfe11f888ee445b1889f19b9eb5a97', 'turtle', 'vehicle'),
-(99, 'license:ac78b46bbf74984d705aab5c491a75346594732f', 'turtle', 'vehicle'),
-(100, 'license:9aa4c14a033907f69f40be3d33ca00b8dfd0266d', 'gblod4', 'vehicle'),
-(101, 'license:9aa4c14a033907f69f40be3d33ca00b8dfd0266d', 'hurricane', 'vehicle'),
-(102, 'license:9aa4c14a033907f69f40be3d33ca00b8dfd0266d', 'gbneonct', 'vehicle'),
-(103, 'license:9aa4c14a033907f69f40be3d33ca00b8dfd0266d', 'shinobir', 'vehicle'),
-(104, 'license:9aa4c14a033907f69f40be3d33ca00b8dfd0266d', 'tempestas', 'vehicle'),
-(105, 'license:9aa4c14a033907f69f40be3d33ca00b8dfd0266d', 'schlagenstr', 'vehicle'),
-(106, 'license:9aa4c14a033907f69f40be3d33ca00b8dfd0266d', 'dubsta22', 'vehicle'),
-(107, 'license:014d80a213059cb87399fabfb24bd7125d6c2b2a', 'issi8s', 'vehicle'),
-(108, 'license:c9f18e0c64eb4302856c768818e1f65aaade5f9e', 'gbcomets2rc', 'vehicle'),
-(109, 'license:c9f18e0c64eb4302856c768818e1f65aaade5f9e', 'deimos', 'vehicle'),
-(110, 'license:51f95b67e0abcbb3508b07d2f03afce05506a296', 'gbcomets1t', 'vehicle'),
-(111, 'license:51f95b67e0abcbb3508b07d2f03afce05506a296', 'gbsapphire', 'vehicle'),
-(112, 'license:51f95b67e0abcbb3508b07d2f03afce05506a296', 'hellfirelastcall', 'vehicle'),
-(113, 'license:51f95b67e0abcbb3508b07d2f03afce05506a296', 'kqrumpo', 'vehicle'),
-(114, 'license:51f95b67e0abcbb3508b07d2f03afce05506a296', 'gbbisonhf', 'vehicle'),
-(115, 'license:51f95b67e0abcbb3508b07d2f03afce05506a296', 'highmare', 'vehicle'),
-(116, 'license:51f95b67e0abcbb3508b07d2f03afce05506a296', 'sentinel_rts', 'vehicle'),
-(117, 'license:51f95b67e0abcbb3508b07d2f03afce05506a296', 'tempestaes', 'vehicle'),
-(118, 'license:51f95b67e0abcbb3508b07d2f03afce05506a296', 'turismocs', 'vehicle'),
-(119, 'license:33e36c02b0945e7db2aeaf41bdcfb6ad776047ba', 'gbdominatorgsx', 'vehicle'),
-(120, 'license:56dfbc45dd16c62896be61676c4a18f7ae873933', 'gbmogulrs', 'vehicle'),
-(121, 'license:56dfbc45dd16c62896be61676c4a18f7ae873933', 'gbvivant', 'vehicle'),
-(122, 'license:260589cab389166b9469010ec6db7c376d768cdf', 'sheavas', 'vehicle'),
-(123, 'license:56dfbc45dd16c62896be61676c4a18f7ae873933', 'gbsapphire', 'vehicle'),
-(124, 'license:1dda5335427fb9b80de1d7fdf4b133ca11a41200', 'dubsta22', 'vehicle'),
-(125, 'license:a3cda9b55ccfe11f888ee445b1889f19b9eb5a97', 'space', 'vehicle'),
-(126, 'license:a3cda9b55ccfe11f888ee445b1889f19b9eb5a97', 'nriata', 'vehicle'),
-(127, 'license:1dda5335427fb9b80de1d7fdf4b133ca11a41200', 'gstghell1', 'vehicle'),
-(128, 'license:1f2ec9234a34c9d3f10ef77df632de39664ccf0e', 'turtle', 'vehicle'),
-(129, 'license:8be51c70806f3fb91f7b113bb69d4cba4a5fa9c8', 'gbcomets1t', 'vehicle'),
-(130, 'license:8be51c70806f3fb91f7b113bb69d4cba4a5fa9c8', 'highmare', 'vehicle'),
-(131, 'license:6c2762dfa135777a537e8d643bf081eabb9629f1', 'gbneonct', 'vehicle'),
-(132, 'license:edda9329b4feae0a96be25a25a5ac0641d549d7b', 'gbstarlight', 'vehicle'),
-(133, 'license:51f95b67e0abcbb3508b07d2f03afce05506a296', 'bati901', 'vehicle'),
-(134, 'license:e6a9e2386f44863c759272d7fb477e24c8cee152', 'gbargento7f', 'vehicle'),
-(135, 'license:e6a9e2386f44863c759272d7fb477e24c8cee152', 'gblod4', 'vehicle'),
-(136, 'license:014d80a213059cb87399fabfb24bd7125d6c2b2a', 'gbmogulrs', 'vehicle'),
-(137, 'license:014d80a213059cb87399fabfb24bd7125d6c2b2a', 'gbbisonhf', 'vehicle'),
-(138, 'license:014d80a213059cb87399fabfb24bd7125d6c2b2a', 'shinobir', 'vehicle'),
-(139, 'license:434f8f2cefa0e9de90ba76f8a42367a1de95d563', 'deimos', 'vehicle'),
-(140, 'license:edda9329b4feae0a96be25a25a5ac0641d549d7b', 'shinobir', 'vehicle'),
-(141, 'license:014d80a213059cb87399fabfb24bd7125d6c2b2a', 'gstghell1', 'vehicle'),
-(142, 'license:ba54c879b40199b044d70cdb935b4adea971cf77', 'elegyx', 'vehicle'),
-(143, 'license:ba54c879b40199b044d70cdb935b4adea971cf77', 'kqrumpo', 'vehicle'),
-(144, 'license:8785b4f403e3670a7ab330f7a9ce51e8c11d5868', 'gbdominatorgsx', 'vehicle'),
-(145, 'license:8be51c70806f3fb91f7b113bb69d4cba4a5fa9c8', 'kqrumpo', 'vehicle'),
-(146, 'license:a859522238ec5affa735a46e41d715abe8e8034d', 'elegyheritage', 'vehicle'),
-(147, 'license:a859522238ec5affa735a46e41d715abe8e8034d', 'sheavas', 'vehicle'),
-(148, 'license:8dc3fddcaeea9e78bfe2267c673df0f22e53abdf', 'hellfirelastcall', 'vehicle'),
-(149, 'license:8dc3fddcaeea9e78bfe2267c673df0f22e53abdf', 'kqrumpo', 'vehicle'),
-(150, 'license:ac78b46bbf74984d705aab5c491a75346594732f', 'gbtahomagt', 'vehicle'),
-(151, 'license:9062470e311d5b54f8c14d0431ca0ba6866d4423', 'sheavas', 'vehicle'),
-(152, 'license:4f004b9d32bc5759ab82ed9f2442ce3bab64a132', 'gbsultanrsx', 'vehicle'),
-(153, 'license:4f004b9d32bc5759ab82ed9f2442ce3bab64a132', 'gblod4', 'vehicle'),
-(154, 'license:728a86aa16865fd737ce63c1b756f3af1070bc8a', 'gstghell1', 'vehicle'),
-(155, 'license:a4f45adedbc147a03c051360d60da697772e3fb7', 'gbturismogt', 'vehicle'),
-(156, 'license:b9e8977848885b2783e18e2dc0ce0733c738206c', 'gbmogulrs', 'vehicle'),
-(157, 'license:b366d1c2c961f82bb82721b906186b8651ae18a9', 'gbcomets2rc', 'vehicle'),
-(158, 'license:785ddb016eaccf4b6af0aaf3d3f8afecf9605536', 'gbsultanrsx', 'vehicle'),
-(159, 'license:b11248e9910739bfa4319ee037f3e1a8c4b8b184', 'sentinel_rts', 'vehicle'),
-(160, 'license:4b66741d03a4644ae6b7d93aa88ee5854d6c3354', 'cypherct', 'vehicle'),
-(161, 'license:d9cef2559d51585c9b9f5da8f3df24bd370e6b6a', 'gbdominatorgsx', 'vehicle'),
-(162, 'license:67b533165a04ce329503705d59cc52fd8ae042fd', 'gbstarlight', 'vehicle'),
-(163, 'license:9b33a5cb519662fb0f8df9593fde56c2e08bc876', 'gbbisonhf', 'vehicle'),
-(164, 'license:3600423dfd73e59458e97cfe8833835bad267f38', 'nriata', 'vehicle'),
-(165, 'license:3600423dfd73e59458e97cfe8833835bad267f38', 'issi8s', 'vehicle'),
-(166, 'license:aea73fabc2e2ad2208ddd48d85906b05a6212067', 'elegyx', 'vehicle'),
-(167, 'license:5c12ccaa29dd59c9a87f5b6be1eafb7176673338', 'gbsolace', 'vehicle'),
-(168, 'license:ad1f881c9b76e4c2101aafd964f61aa105cb3889', 'gbcomets2rc', 'vehicle'),
-(169, 'license:7d1c110a641cd5e0bf4e6ae34515a5bbb112e7f0', 'tempestaes', 'vehicle'),
-(170, 'license:002138af1529de2f1339411bf0cf3bf5907d7a9f', 'gbcomets2rc', 'vehicle'),
-(171, 'license:b3565187385057663e453b81404b354624de2930', 'shinobir', 'vehicle'),
-(172, 'license:3337d436a27205209ab588d6474630ed18621d9f', 'coqvice', 'vehicle'),
-(173, 'license:0ec2fb1eb60ba0b7706f117865e8c9f0a5d4dc6e', 'gbcomets2rc', 'vehicle'),
-(174, 'license:04f963171d65d2c3d834cf012c375ca7b21c8d63', 'gbbanshees', 'vehicle'),
-(175, 'license:b9e591be4070b3d5a2778e54ac3e0df61fdd3951', 'deimos', 'vehicle'),
-(176, 'license:a1c3a015a0fc51412d8a26230869895b4ef4c657', 'gbesperta', 'vehicle'),
-(177, 'license:e510569fdb65539a055d093cac5581e7422e9c4f', 'gbneonct', 'vehicle'),
-(178, 'license:e510569fdb65539a055d093cac5581e7422e9c4f', 'issi8s', 'vehicle'),
-(179, 'license:97ef1924c2730944344b11fbb902bd8c269e48ba', 'gbcometcl', 'vehicle'),
-(180, 'license:c6ed89173626b9b0def1391c103917b9dbd885ad', 'issi8s', 'vehicle'),
-(181, 'license:ffafa7a5b38e3856bc68be53b00b4c1a4877fefc', 'space', 'vehicle'),
-(182, 'license:ffafa7a5b38e3856bc68be53b00b4c1a4877fefc', 'nriata', 'vehicle'),
-(183, 'license:9f3e112d42b2a669134f94009a9b2e0a29f48719', 'gblod4', 'vehicle'),
-(184, 'license:e4c5dc8547eed5c0ad5203c518d4f326bebad7a2', 'gbturismogt', 'vehicle'),
-(185, 'license:1b6dea9d251f0e875807dee02fa720ca57dadddd', 'deimos', 'vehicle'),
-(186, 'license:f2fd619035c428e4670059a0d8dfc2175a819c40', 'gbbanshees', 'vehicle'),
-(187, 'license:9b3681f4a95b832bd98134b82b8bb4d23ed45eb7', 'gbmogulrs', 'vehicle'),
-(188, 'license:1966c13b081404625e67325f2f5d29b34b9b7c12', 'gbcometcl', 'vehicle'),
-(189, 'license:6b0b7ddceca62e04e7fe2ea29208a0c1c2e0657e', 'gbmogulrs', 'vehicle'),
-(190, 'license:9dea7919b55d8a88f740872c415b268ac951c486', 'superd3', 'vehicle'),
-(191, 'license:9dea7919b55d8a88f740872c415b268ac951c486', 'sheavas', 'vehicle'),
-(192, 'license:5b22a07551505f76ba05ef9d1490ced503ae423e', 'bati901', 'vehicle'),
-(193, 'license:daeb73c425dca3da0afd36fce1cbdd5e4e36ac6d', 'turtle', 'vehicle'),
-(194, 'license:5304429e7513af8b54929769a4e1cb8cd80a742e', 'gbcometcl', 'vehicle'),
-(195, 'license:6e108211d43423495d477520ba29d80e21bf0008', 'tempestaes', 'vehicle'),
-(196, 'license:a296a63ab7a045775eabdc045e576f4667d0a0a4', 'gbcomets1t', 'vehicle'),
-(197, 'license:90b6978d83b1773678b30ce73fce2c97d4c20f83', 'sheavas', 'vehicle'),
-(198, 'license:90b6978d83b1773678b30ce73fce2c97d4c20f83', 'turtle', 'vehicle'),
-(199, 'license:4e096d6e4bb356135bd90fa0074024b4128e8dbe', 'highmare', 'vehicle'),
-(200, 'license:636c30f74e79f9069fd5b524cd2c8ecaaf0e50f0', 'gbbanshees', 'vehicle'),
-(201, 'license:51efd897cbb0ba51c4d263a95a86d2034a989d75', 'gbdominatorgsx', 'vehicle'),
-(202, 'license:1ebad5adeaf0110bf0562cd801a6fcbf420e6cf7', 'turismocs', 'vehicle'),
-(203, 'license:6fa25353c0ce7bdee8178adf5682d288c6e9908e', 'gbvivant', 'vehicle'),
-(204, 'license:fc85e18d61342d2b4434ee8ff4201fdd5603d2fa', 'gbbanshees', 'vehicle'),
-(205, 'license:91be99b336eae03cf7b64a4337de731536b6bf10', 'gbvivant', 'vehicle'),
-(206, 'license:91be99b336eae03cf7b64a4337de731536b6bf10', 'gbcometcl', 'vehicle'),
-(207, 'license:d5eaac01408f25320a13ca209a115f50181390a4', 'coqvice', 'vehicle'),
-(208, 'license:627550e7981b42b531d879414077aca5e198bbda', 'gbmogulrs', 'vehicle'),
-(209, 'license:9f12632a7648169702e6f3d43b9fc82a45ab62bb', 'elegyx', 'vehicle'),
-(210, 'license:77ad5896c9342d393dffb135e231d5015f180984', 'superd3', 'vehicle'),
-(211, 'license:6425cf0c75256781f3759131c812a10f0ce721ed', 'gbmogulrs', 'vehicle'),
-(212, 'license:728a86aa16865fd737ce63c1b756f3af1070bc8a', 'gbstarlight', 'vehicle'),
-(213, 'license:728a86aa16865fd737ce63c1b756f3af1070bc8a', 'shinobir', 'vehicle'),
-(214, 'license:5bf532a1f8930e341e5b5eb8b572d35f13e403c5', 'gbcometcl', 'vehicle'),
-(215, 'license:657b5f4a9aca6ef6515ddfe9e9683cae66c090e9', 'deimos', 'vehicle'),
-(216, 'license:fb9e34af638ee5ac9bcc72975c2c7e59ae88124b', 'tempestaes', 'vehicle'),
-(217, 'license:6a9849841bff5a3c26a708d2b6166388426fe40d', 'gbcomets2rc', 'vehicle'),
-(218, 'license:fa44bdabf8622aa9c4368adfb106c902aa5736ce', 'gbstarlight', 'vehicle'),
-(219, 'license:9062470e311d5b54f8c14d0431ca0ba6866d4423', 'tempestaes', 'vehicle'),
-(220, 'license:402dea6c8937af34d5f749028864b18d34f19731', 'gbesperta', 'vehicle'),
-(221, 'license:c93f8c8ad95ce98c9f62da16a65d0cf335bca272', 'tempestaes', 'vehicle'),
-(222, 'license:573dd3fbf3d017d05921495c26bbc3aa33dcd9a2', 'gbsolace', 'vehicle'),
-(223, 'license:028a4d3d1e5749bb8c28e33bdf7de68e8f554602', 'cypherct', 'vehicle'),
-(224, 'license:31b1ab791c646287105be0b83d37a6e97206d3f2', 'highmare', 'vehicle'),
-(225, 'license:8e85215a4a248296bbdb63decdc2414150a88b60', 'gbbanshees', 'vehicle'),
-(226, 'license:bc6b17142b334fc6a1b10945dbf2a5a9662d19be', 'turtle', 'vehicle'),
-(227, 'license:8dc3fddcaeea9e78bfe2267c673df0f22e53abdf', 'highmare', 'vehicle'),
-(228, 'license:4ec8fb1917902f5a241d0ef4c1ec34b58a5bf8a8', 'nriata', 'vehicle'),
-(229, 'license:c101c5463ae5dca79431710730169e96ec3e0f99', 'gbcomets2rc', 'vehicle'),
-(230, 'license:bb17c72b084e0fe5effa4a0e00a93e9c3ca1d62e', 'gbmogulrs', 'vehicle'),
-(231, 'license:8269d616eaa7caeb32c2d24addc9b19017ed5165', 'gbbanshees', 'vehicle'),
-(232, 'license:ff3e8eb106cf56e91140a2494505f18c70648ec6', 'elegyx', 'vehicle'),
-(233, 'license:0181c25c49905305cbace8ccdd680360cd19c52f', 'gbtahomagt', 'vehicle'),
-(234, 'license:0147dba64d1b5531577d1b6e02481fad85204b72', 'gbvivant', 'vehicle'),
-(235, 'license:5a31e5cb13f6af3b493258c53d4e2c113248368c', 'gbargento7f', 'vehicle'),
-(236, 'license:84eb28b32090d1cc378d7d0727e2cb8325d48e5a', 'gbsapphire', 'vehicle'),
-(237, 'license:bb1b0615ba0e0eed0e18ddd621aaf20c947b8892', 'gbcomets1t', 'vehicle'),
-(238, 'license:a63b551f6615fddfdcd49384d950c3d6e4554a2b', 'sheavas', 'vehicle'),
-(239, 'license:a63b551f6615fddfdcd49384d950c3d6e4554a2b', 'gbneonct', 'vehicle'),
-(240, 'license:84eb28b32090d1cc378d7d0727e2cb8325d48e5a', 'sentinel_rts', 'vehicle'),
-(241, 'license:c10e916c2950375c601d0d97b722e881a2c55868', 'bati901', 'vehicle'),
-(242, 'license:d886b5bf429fbab6009dcb0093fa387d3c141fd0', 'gbvivant', 'vehicle'),
-(243, 'license:7e80aa25c6eeccecfd4444c797c8e8cd7f0e4e03', 'gbdominatorgsx', 'vehicle'),
-(244, 'license:91be99b336eae03cf7b64a4337de731536b6bf10', 'gbsolace', 'vehicle'),
-(245, 'license:91be99b336eae03cf7b64a4337de731536b6bf10', 'gbtr3s', 'vehicle'),
-(246, 'license:7e80aa25c6eeccecfd4444c797c8e8cd7f0e4e03', 'gbbanshees', 'vehicle'),
-(247, 'license:91be99b336eae03cf7b64a4337de731536b6bf10', 'gbdominatorgsx', 'vehicle'),
-(248, 'license:7e80aa25c6eeccecfd4444c797c8e8cd7f0e4e03', 'gbstarlight', 'vehicle'),
-(249, 'license:91be99b336eae03cf7b64a4337de731536b6bf10', 'gbstarlight', 'vehicle'),
-(250, 'license:91be99b336eae03cf7b64a4337de731536b6bf10', 'gbbanshees', 'vehicle'),
-(251, 'license:7e80aa25c6eeccecfd4444c797c8e8cd7f0e4e03', 'gbsolace', 'vehicle'),
-(252, 'license:91be99b336eae03cf7b64a4337de731536b6bf10', 'gbturismogt', 'vehicle'),
-(253, 'license:7e80aa25c6eeccecfd4444c797c8e8cd7f0e4e03', 'elegyx', 'vehicle'),
-(254, 'license:91be99b336eae03cf7b64a4337de731536b6bf10', 'superd3', 'vehicle'),
-(255, 'license:7e80aa25c6eeccecfd4444c797c8e8cd7f0e4e03', 'gbmogulrs', 'vehicle'),
-(256, 'license:91be99b336eae03cf7b64a4337de731536b6bf10', 'gbargento7f', 'vehicle'),
-(257, 'license:91be99b336eae03cf7b64a4337de731536b6bf10', 'elegyx', 'vehicle'),
-(258, 'license:7e80aa25c6eeccecfd4444c797c8e8cd7f0e4e03', 'gbargento7f', 'vehicle'),
-(259, 'license:7e80aa25c6eeccecfd4444c797c8e8cd7f0e4e03', 'gbvivant', 'vehicle'),
-(260, 'license:f8a8b85e78b297a32c47620663bd5673909d1196', 'nriata', 'vehicle');
-
 -- --------------------------------------------------------
 
 --
@@ -691,14 +446,6 @@ CREATE TABLE `boutique_history` (
   `lot` longtext NOT NULL DEFAULT 'Indéfini',
   `reward_type` varchar(20) NOT NULL DEFAULT 'purchase'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Déchargement des données de la table `boutique_history`
---
-
-INSERT INTO `boutique_history` (`uniqueid`, `data`, `lot`, `reward_type`) VALUES
-(1, 'a acheté l\'arme g17gen5', 'g17gen5', 'purchase'),
-(1, 'a acheté l\'arme g17gen5', 'g17gen5', 'purchase');
 
 -- --------------------------------------------------------
 
@@ -2387,6 +2134,1519 @@ INSERT INTO `job_grades` (`id`, `job_name`, `grade`, `name`, `label`, `salary`, 
 (3209, 'ltd_littleseoul', 1, 'Employé', 'Employé', 350, '[]', '[]'),
 (3211, 'Cartel De Cayo', 3, 'soldat', 'Soldat Cayo', NULL, NULL, NULL),
 (3212, 'cardealer', 2, 'Vendeur confirmé', 'Vendeur confirmé', 1500, '[]', '[]');
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `lbtablet_ambulance_accounts`
+--
+
+CREATE TABLE `lbtablet_ambulance_accounts` (
+  `id` varchar(100) NOT NULL,
+  `display_name` varchar(100) NOT NULL,
+  `avatar` varchar(500) DEFAULT NULL,
+  `callsign` varchar(10) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Déchargement des données de la table `lbtablet_ambulance_accounts`
+--
+
+INSERT INTO `lbtablet_ambulance_accounts` (`id`, `display_name`, `avatar`, `callsign`) VALUES
+('license:1ebad5adeaf0110bf0562cd801a6fcbf420e6cf7', 'Max Hernandez', NULL, '77-7262'),
+('license:6e644cf1541c87eccad15aedd79713c2f016b5ac', 'Scoot  Clauth', NULL, '51-8252'),
+('license:7e80aa25c6eeccecfd4444c797c8e8cd7f0e4e03', 'Jhonathan Hiul', NULL, '83-0804'),
+('license:91be99b336eae03cf7b64a4337de731536b6bf10', 'Lina White', NULL, '85-8713'),
+('license:99572c46c4419a0f597d110a31640f1a3ff1655e', 'Marco Alvarez', NULL, '86-0921'),
+('license:9d8ac85c1ea5d5c46fd5937b80ee16e5c9932f74', 'Lina Navarro', NULL, '22-9665'),
+('license:ad21f6e0bc7da65deeda1b143d8eff3c01bb3cf1', 'Elena  Savage', NULL, '13-4129'),
+('license:df8c300b082bd994cda78f2bd19e4b4c6dd54790', 'Pedro Dias', NULL, '94-1559');
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `lbtablet_ambulance_bulletin`
+--
+
+CREATE TABLE `lbtablet_ambulance_bulletin` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `title` varchar(100) NOT NULL,
+  `content` mediumtext NOT NULL,
+  `pinned` tinyint(1) NOT NULL DEFAULT 0,
+  `created_by` varchar(100) NOT NULL,
+  `created_at` datetime NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `lbtablet_ambulance_conditions`
+--
+
+CREATE TABLE `lbtablet_ambulance_conditions` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `severity` varchar(25) NOT NULL,
+  `category_id` int(10) UNSIGNED NOT NULL,
+  `title` varchar(100) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Déchargement des données de la table `lbtablet_ambulance_conditions`
+--
+
+INSERT INTO `lbtablet_ambulance_conditions` (`id`, `severity`, `category_id`, `title`) VALUES
+(98, 'critical', 24, 'Aortic Aneurysm'),
+(91, 'critical', 24, 'Heart Attack'),
+(92, 'critical', 24, 'Heart Failure'),
+(94, 'critical', 24, 'Stroke'),
+(103, 'critical', 25, 'Fractured Hip'),
+(108, 'critical', 25, 'Pelvic Fracture'),
+(126, 'critical', 27, 'Ebola Virus Disease'),
+(123, 'critical', 27, 'Meningitis'),
+(145, 'critical', 29, 'Brain Cancer'),
+(138, 'critical', 29, 'Breast Cancer'),
+(142, 'critical', 29, 'Colon Cancer'),
+(141, 'critical', 29, 'Leukemia'),
+(143, 'critical', 29, 'Lymphoma'),
+(144, 'critical', 29, 'Pancreatic Cancer'),
+(139, 'critical', 29, 'Prostate Cancer'),
+(149, 'critical', 30, 'Lung Cancer'),
+(153, 'critical', 30, 'Pulmonary Embolism'),
+(170, 'critical', 32, 'Spinal Cord Injury'),
+(163, 'critical', 32, 'Traumatic Brain Injury'),
+(97, 'minor', 24, 'Angina'),
+(95, 'minor', 24, 'Arrhythmia'),
+(96, 'minor', 24, 'High Blood Pressure'),
+(100, 'minor', 24, 'Peripheral Artery Disease'),
+(101, 'minor', 25, 'Broken Arm'),
+(109, 'minor', 25, 'Rotator Cuff Tear'),
+(106, 'minor', 25, 'Sprained Ankle'),
+(110, 'minor', 25, 'Tennis Elbow'),
+(104, 'minor', 25, 'Torn ACL'),
+(114, 'minor', 26, 'Gastroesophageal Reflux Disease (GERD)'),
+(118, 'minor', 26, 'Peptic Ulcer'),
+(124, 'minor', 27, 'Influenza (Flu)'),
+(127, 'minor', 27, 'Zika Virus'),
+(131, 'minor', 28, 'Anxiety Disorder'),
+(133, 'minor', 28, 'Obsessive-Compulsive Disorder (OCD)'),
+(135, 'minor', 28, 'Phobias'),
+(147, 'minor', 30, 'Asthma'),
+(152, 'minor', 30, 'Bronchitis'),
+(151, 'minor', 30, 'Sleep Apnea'),
+(160, 'minor', 31, 'Hyperthyroidism'),
+(157, 'minor', 31, 'Thyroid Disorders'),
+(169, 'minor', 32, 'Bell’s Palsy'),
+(171, 'minor', 32, 'Cluster Headaches'),
+(162, 'minor', 32, 'Concussion'),
+(168, 'minor', 32, 'Migraine'),
+(93, 'moderate', 24, 'Coronary Artery Disease'),
+(99, 'moderate', 24, 'Deep Vein Thrombosis (DVT)'),
+(102, 'moderate', 25, 'Broken Leg'),
+(105, 'moderate', 25, 'Dislocated Shoulder'),
+(107, 'moderate', 25, 'Herniated Disc'),
+(111, 'moderate', 26, 'Appendicitis'),
+(116, 'moderate', 26, 'Gallstones'),
+(117, 'moderate', 26, 'Pancreatitis'),
+(120, 'moderate', 27, 'COVID-19'),
+(125, 'moderate', 27, 'Malaria'),
+(137, 'moderate', 28, 'Dementia'),
+(129, 'moderate', 28, 'Depression'),
+(132, 'moderate', 28, 'Post-Traumatic Stress Disorder (PTSD)'),
+(146, 'moderate', 30, 'Pneumonia'),
+(159, 'moderate', 31, 'Adrenal Insufficiency (Addison’s Disease)'),
+(158, 'moderate', 31, 'Cushing’s Syndrome'),
+(164, 'moderate', 32, 'Epilepsy'),
+(112, 'severe', 26, 'Crohn\'s Disease'),
+(119, 'severe', 26, 'Hepatitis C'),
+(115, 'severe', 26, 'Irritable Bowel Syndrome (IBS)'),
+(113, 'severe', 26, 'Ulcerative Colitis'),
+(121, 'severe', 27, 'Hepatitis'),
+(122, 'severe', 27, 'HIV/AIDS'),
+(128, 'severe', 27, 'Lyme Disease'),
+(130, 'severe', 28, 'Bipolar Disorder'),
+(136, 'severe', 28, 'Eating Disorders'),
+(134, 'severe', 28, 'Schizophrenia'),
+(140, 'severe', 29, 'Skin Cancer'),
+(148, 'severe', 30, 'Chronic Obstructive Pulmonary Disease (COPD)'),
+(154, 'severe', 30, 'Cystic Fibrosis'),
+(150, 'severe', 30, 'Tuberculosis (TB)'),
+(161, 'severe', 31, 'Polycystic Ovary Syndrome (PCOS)'),
+(155, 'severe', 31, 'Type 1 Diabetes'),
+(156, 'severe', 31, 'Type 2 Diabetes'),
+(167, 'severe', 32, 'Alzheimer’s Disease'),
+(165, 'severe', 32, 'Multiple Sclerosis'),
+(166, 'severe', 32, 'Parkinson\'s Disease');
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `lbtablet_ambulance_conditions_categories`
+--
+
+CREATE TABLE `lbtablet_ambulance_conditions_categories` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `title` varchar(100) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Déchargement des données de la table `lbtablet_ambulance_conditions_categories`
+--
+
+INSERT INTO `lbtablet_ambulance_conditions_categories` (`id`, `title`) VALUES
+(29, 'Cancer Types'),
+(24, 'Cardiovascular Conditions'),
+(31, 'Endocrine Disorders'),
+(26, 'Gastrointestinal Conditions'),
+(27, 'Infectious Diseases'),
+(28, 'Mental Health Conditions'),
+(32, 'Neurological Conditions'),
+(25, 'Orthopedic Injuries'),
+(30, 'Respiratory Conditions');
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `lbtablet_ambulance_logs`
+--
+
+CREATE TABLE `lbtablet_ambulance_logs` (
+  `log_id` int(10) UNSIGNED NOT NULL,
+  `created_by` varchar(100) DEFAULT NULL,
+  `related_id` varchar(500) DEFAULT NULL,
+  `log_action` varchar(25) NOT NULL,
+  `log_type` varchar(100) NOT NULL,
+  `title` varchar(100) NOT NULL,
+  `content` mediumtext NOT NULL,
+  `created_at` datetime NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `lbtablet_ambulance_profiles`
+--
+
+CREATE TABLE `lbtablet_ambulance_profiles` (
+  `id` varchar(100) NOT NULL,
+  `avatar` varchar(500) DEFAULT NULL,
+  `notes` text NOT NULL DEFAULT ''
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `lbtablet_ambulance_profile_conditions`
+--
+
+CREATE TABLE `lbtablet_ambulance_profile_conditions` (
+  `profile_id` varchar(100) NOT NULL,
+  `condition_id` int(10) UNSIGNED NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `lbtablet_ambulance_profile_tags`
+--
+
+CREATE TABLE `lbtablet_ambulance_profile_tags` (
+  `id` varchar(100) NOT NULL,
+  `tag_id` int(10) UNSIGNED NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `lbtablet_ambulance_reports`
+--
+
+CREATE TABLE `lbtablet_ambulance_reports` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `created_by` varchar(100) NOT NULL,
+  `patient` varchar(100) NOT NULL,
+  `title` varchar(100) NOT NULL,
+  `description` mediumtext NOT NULL,
+  `report_type` varchar(100) NOT NULL,
+  `created_at` datetime NOT NULL DEFAULT current_timestamp(),
+  `updated_at` datetime NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `lbtablet_ambulance_reports_attachments`
+--
+
+CREATE TABLE `lbtablet_ambulance_reports_attachments` (
+  `report_id` int(10) UNSIGNED NOT NULL,
+  `attachment` varchar(500) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `lbtablet_ambulance_reports_conditions`
+--
+
+CREATE TABLE `lbtablet_ambulance_reports_conditions` (
+  `report_id` int(10) UNSIGNED NOT NULL,
+  `condition_id` int(10) UNSIGNED NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `lbtablet_ambulance_reports_doctors`
+--
+
+CREATE TABLE `lbtablet_ambulance_reports_doctors` (
+  `report_id` int(10) UNSIGNED NOT NULL,
+  `doctor` varchar(100) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `lbtablet_ambulance_reports_tags`
+--
+
+CREATE TABLE `lbtablet_ambulance_reports_tags` (
+  `report_id` int(10) UNSIGNED NOT NULL,
+  `tag_id` int(10) UNSIGNED NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `lbtablet_ambulance_tags`
+--
+
+CREATE TABLE `lbtablet_ambulance_tags` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `title` varchar(50) NOT NULL,
+  `color` varchar(10) NOT NULL,
+  `tag_type` varchar(20) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `lbtablet_apps_loggedin`
+--
+
+CREATE TABLE `lbtablet_apps_loggedin` (
+  `tablet_id` varchar(100) NOT NULL,
+  `app` varchar(25) NOT NULL,
+  `account` varchar(100) NOT NULL,
+  `active` tinyint(1) NOT NULL DEFAULT 0
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `lbtablet_chat_rooms`
+--
+
+CREATE TABLE `lbtablet_chat_rooms` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `terminal_type` varchar(50) NOT NULL,
+  `label` varchar(50) NOT NULL,
+  `icon` varchar(500) DEFAULT NULL,
+  `private` tinyint(1) NOT NULL DEFAULT 0,
+  `creator` varchar(100) NOT NULL,
+  `last_message` text DEFAULT NULL,
+  `last_updated` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `lbtablet_chat_rooms_members`
+--
+
+CREATE TABLE `lbtablet_chat_rooms_members` (
+  `room_id` int(10) UNSIGNED NOT NULL,
+  `account` varchar(100) NOT NULL,
+  `notifications` int(10) UNSIGNED NOT NULL DEFAULT 0
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `lbtablet_chat_rooms_messages`
+--
+
+CREATE TABLE `lbtablet_chat_rooms_messages` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `room_id` int(10) UNSIGNED NOT NULL,
+  `author` varchar(100) NOT NULL,
+  `message` text DEFAULT NULL,
+  `attachments` text DEFAULT NULL,
+  `sent_at` timestamp NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `lbtablet_clock_alarms`
+--
+
+CREATE TABLE `lbtablet_clock_alarms` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `tablet_id` varchar(100) NOT NULL,
+  `hours` tinyint(3) UNSIGNED NOT NULL DEFAULT 0,
+  `minutes` tinyint(3) UNSIGNED NOT NULL DEFAULT 0,
+  `label` varchar(50) DEFAULT NULL,
+  `enabled` tinyint(1) NOT NULL DEFAULT 1
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `lbtablet_notes`
+--
+
+CREATE TABLE `lbtablet_notes` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `tablet_id` varchar(100) NOT NULL,
+  `title` varchar(50) NOT NULL,
+  `content` mediumtext NOT NULL,
+  `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `lbtablet_notifications`
+--
+
+CREATE TABLE `lbtablet_notifications` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `tablet_id` varchar(100) NOT NULL,
+  `app` varchar(50) NOT NULL,
+  `title` varchar(50) NOT NULL,
+  `content` varchar(500) NOT NULL,
+  `thumbnail` varchar(500) DEFAULT NULL,
+  `avatar` varchar(500) DEFAULT NULL,
+  `show_avatar` tinyint(1) NOT NULL DEFAULT 0,
+  `received_at` timestamp NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `lbtablet_photos`
+--
+
+CREATE TABLE `lbtablet_photos` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `tablet_id` varchar(100) NOT NULL,
+  `link` varchar(500) DEFAULT NULL,
+  `is_video` tinyint(1) DEFAULT 0,
+  `size` float NOT NULL DEFAULT 0,
+  `metadata` varchar(20) DEFAULT NULL,
+  `is_favourite` tinyint(1) NOT NULL DEFAULT 0,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Déchargement des données de la table `lbtablet_photos`
+--
+
+INSERT INTO `lbtablet_photos` (`id`, `tablet_id`, `link`, `is_video`, `size`, `metadata`, `is_favourite`, `created_at`) VALUES
+(1, 'license:fc85e18d61342d2b4434ee8ff4201fdd5603d2fa', 'https://r2.fivemanage.com/image/xHr7f7U944Je.webp', 0, 279.62, NULL, 0, '2025-01-12 00:31:50'),
+(2, 'license:7e80aa25c6eeccecfd4444c797c8e8cd7f0e4e03', 'https://r2.fivemanage.com/image/ZBGlEMZuIXMG.webp', 0, 147.66, NULL, 0, '2025-01-27 02:28:51'),
+(3, 'license:8be51c70806f3fb91f7b113bb69d4cba4a5fa9c8', 'https://r2.fivemanage.com/video/LEMizT3hd9TU.mp4', 1, 266.53, NULL, 0, '2025-01-27 02:29:04'),
+(4, 'license:7e80aa25c6eeccecfd4444c797c8e8cd7f0e4e03', 'https://r2.fivemanage.com/video/poUMJJXBKZLj.mp4', 1, 2323.13, NULL, 0, '2025-01-27 02:29:05'),
+(5, 'license:8be51c70806f3fb91f7b113bb69d4cba4a5fa9c8', 'https://r2.fivemanage.com/video/X232HHk5iYS6.mp4', 1, 2935.73, NULL, 0, '2025-01-27 02:29:16'),
+(6, 'license:8be51c70806f3fb91f7b113bb69d4cba4a5fa9c8', 'https://r2.fivemanage.com/image/EyCdUCGAOJIg.webp', 0, 539.65, NULL, 0, '2025-01-30 19:59:27'),
+(7, 'license:8be51c70806f3fb91f7b113bb69d4cba4a5fa9c8', 'https://r2.fivemanage.com/video/j1nLYOytqvne.mp4', 1, 8732.52, NULL, 0, '2025-01-31 20:59:44'),
+(8, 'license:8be51c70806f3fb91f7b113bb69d4cba4a5fa9c8', 'https://r2.fivemanage.com/video/ygHRwqjbwsVw.mp4', 1, 20067.2, NULL, 0, '2025-01-31 21:00:47');
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `lbtablet_photo_albums`
+--
+
+CREATE TABLE `lbtablet_photo_albums` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `tablet_id` varchar(100) NOT NULL,
+  `title` varchar(100) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `lbtablet_photo_album_photos`
+--
+
+CREATE TABLE `lbtablet_photo_album_photos` (
+  `album_id` int(10) UNSIGNED NOT NULL,
+  `photo_id` int(10) UNSIGNED NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `lbtablet_police_accounts`
+--
+
+CREATE TABLE `lbtablet_police_accounts` (
+  `id` varchar(100) NOT NULL,
+  `display_name` varchar(100) NOT NULL,
+  `avatar` varchar(500) DEFAULT NULL,
+  `callsign` varchar(10) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Déchargement des données de la table `lbtablet_police_accounts`
+--
+
+INSERT INTO `lbtablet_police_accounts` (`id`, `display_name`, `avatar`, `callsign`) VALUES
+('license:028a4d3d1e5749bb8c28e33bdf7de68e8f554602', 'Lewis  Parker', NULL, '94-6603'),
+('license:09b70fa208c8df6e9bf9068cca59cfabdc933aca', 'Johnson Brown', NULL, '80-8948'),
+('license:1a5edabfbaa0a37286ede8d6326077f1f6c4992a', 'Wesley Smith', NULL, '57-7033'),
+('license:1ebad5adeaf0110bf0562cd801a6fcbf420e6cf7', 'Max Hernandez', NULL, '93-7089'),
+('license:242ae1959b1bc408fbf88b0c8ce39065bc2ae003', 'ddadwwad ddawawd', NULL, '70-0520'),
+('license:31e62a0e03df6a7bc770a856d83fd357030cbf50', 'Jean Francois', NULL, '09-2111'),
+('license:4460ef16ae39db8877a857b86849766558df0881', 'Jason Clarc', NULL, '75-4827'),
+('license:51efd897cbb0ba51c4d263a95a86d2034a989d75', 'Mortadon chekib', NULL, '32-0880'),
+('license:7e80aa25c6eeccecfd4444c797c8e8cd7f0e4e03', 'Jhonathan Hiul', NULL, '38-2344'),
+('license:879eecbe1ad831726c15413b8d61b279dcc6be54', 'Cody Black', NULL, '18-1745'),
+('license:8be51c70806f3fb91f7b113bb69d4cba4a5fa9c8', 'Willy Mistral', NULL, '64-5294'),
+('license:99572c46c4419a0f597d110a31640f1a3ff1655e', 'Marco Alvarez', NULL, '91-6956'),
+('license:9d8ac85c1ea5d5c46fd5937b80ee16e5c9932f74', 'Lina Navarro', NULL, '79-0177'),
+('license:a296a63ab7a045775eabdc045e576f4667d0a0a4', 'Alicio Diaz', NULL, '80-9736'),
+('license:ad21f6e0bc7da65deeda1b143d8eff3c01bb3cf1', 'Elena  Savage', NULL, '21-1835'),
+('license:b1e2fc34df0eb386692c5a242b731d349a29c149', 'Marc Guantalamo', NULL, '64-0652'),
+('license:c472c89c6c51b86af832cadb55d9ea5d1a862535', 'Mamoudou Sisako', NULL, '29-0481'),
+('license:d00f52e4b51f12b2c702594de3343f9cd7139e75', 'Alejandro Camorra', NULL, '34-9200'),
+('license:d9cef2559d51585c9b9f5da8f3df24bd370e6b6a', 'Sotér Kro', NULL, '39-7149'),
+('license:df8c300b082bd994cda78f2bd19e4b4c6dd54790', 'Pedro Dias', NULL, '29-3138'),
+('license:e92dba72c3d48b36915fbf0bcbb3e2f7210a81e7', 'Thomas  Jouy-Le-Mounier', NULL, '68-8263'),
+('license:f32f93798716ef5fb6acd38112f8783f4bddf8b8', 'Johan Mel', NULL, '71-5389');
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `lbtablet_police_bulletin`
+--
+
+CREATE TABLE `lbtablet_police_bulletin` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `title` varchar(100) NOT NULL,
+  `content` mediumtext NOT NULL,
+  `pinned` tinyint(1) NOT NULL DEFAULT 0,
+  `created_by` varchar(100) NOT NULL,
+  `created_at` datetime NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `lbtablet_police_cases`
+--
+
+CREATE TABLE `lbtablet_police_cases` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `title` varchar(100) NOT NULL,
+  `description` mediumtext NOT NULL,
+  `closed` tinyint(1) NOT NULL DEFAULT 0,
+  `created_by` varchar(100) NOT NULL,
+  `created_at` datetime NOT NULL DEFAULT current_timestamp(),
+  `updated_at` datetime NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `lbtablet_police_cases_charges`
+--
+
+CREATE TABLE `lbtablet_police_cases_charges` (
+  `case_id` int(10) UNSIGNED NOT NULL,
+  `criminal` varchar(100) NOT NULL,
+  `offence_id` int(10) UNSIGNED NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `lbtablet_police_cases_criminals`
+--
+
+CREATE TABLE `lbtablet_police_cases_criminals` (
+  `case_id` int(10) UNSIGNED NOT NULL,
+  `id` varchar(100) NOT NULL,
+  `fine` int(10) UNSIGNED NOT NULL DEFAULT 0,
+  `jail_time` int(10) UNSIGNED NOT NULL DEFAULT 0
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `lbtablet_police_cases_evidence`
+--
+
+CREATE TABLE `lbtablet_police_cases_evidence` (
+  `case_id` int(10) UNSIGNED NOT NULL,
+  `attachment` varchar(500) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `lbtablet_police_cases_involved`
+--
+
+CREATE TABLE `lbtablet_police_cases_involved` (
+  `case_id` int(10) UNSIGNED NOT NULL,
+  `involved` varchar(100) NOT NULL,
+  `involvement` varchar(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `lbtablet_police_cases_tags`
+--
+
+CREATE TABLE `lbtablet_police_cases_tags` (
+  `case_id` int(10) UNSIGNED NOT NULL,
+  `tag_id` int(10) UNSIGNED NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `lbtablet_police_jail`
+--
+
+CREATE TABLE `lbtablet_police_jail` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `prisoner` varchar(100) NOT NULL,
+  `jailed_by` varchar(100) DEFAULT NULL,
+  `reason` varchar(100) NOT NULL,
+  `original_time` int(10) UNSIGNED NOT NULL,
+  `jail_time` int(10) UNSIGNED NOT NULL,
+  `jailed_at` datetime NOT NULL DEFAULT current_timestamp(),
+  `related_case` int(10) UNSIGNED DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `lbtablet_police_logs`
+--
+
+CREATE TABLE `lbtablet_police_logs` (
+  `log_id` int(10) UNSIGNED NOT NULL,
+  `created_by` varchar(100) DEFAULT NULL,
+  `related_id` varchar(500) DEFAULT NULL,
+  `log_action` varchar(50) NOT NULL,
+  `log_type` varchar(100) NOT NULL,
+  `title` varchar(100) NOT NULL,
+  `content` mediumtext NOT NULL,
+  `created_at` datetime NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `lbtablet_police_offences`
+--
+
+CREATE TABLE `lbtablet_police_offences` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `category_id` int(10) UNSIGNED NOT NULL,
+  `class` varchar(100) NOT NULL,
+  `title` varchar(100) NOT NULL,
+  `description` text NOT NULL,
+  `fine` int(10) UNSIGNED NOT NULL DEFAULT 0,
+  `jail_time` int(10) UNSIGNED NOT NULL DEFAULT 0
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Déchargement des données de la table `lbtablet_police_offences`
+--
+
+INSERT INTO `lbtablet_police_offences` (`id`, `category_id`, `class`, `title`, `description`, `fine`, `jail_time`) VALUES
+(1, 1, 'misdemeanor', 'Possession of Controlled Substances', 'Having illegal drugs for personal use.', 500, 0),
+(2, 1, 'infraction', 'Possession of Drug Paraphernalia', 'Having items associated with drug use or preparation.', 200, 0),
+(3, 1, 'felony', 'Drug Trafficking', 'The distribution or sale of illegal drugs.', 0, 60),
+(4, 1, 'felony', 'Driving Under Drug Influence', 'Operating a vehicle while under the influence of drugs.', 1000, 12),
+(5, 1, 'felony', 'Cultivation of Illegal Drugs', 'Growing plants used to produce controlled substances.', 0, 48),
+(6, 1, 'misdemeanor', 'Public Drug Use', 'Consuming illegal drugs in public spaces.', 300, 0),
+(7, 1, 'felony', 'Drug Manufacturing', 'Producing illegal drugs for sale or distribution.', 0, 72),
+(8, 1, 'felony', 'Prescription Fraud', 'Falsifying prescriptions to obtain controlled substances.', 1000, 24),
+(9, 1, 'felony', 'Possession with Intent to Distribute', 'Possessing drugs in quantities that suggest intent to sell.', 0, 48),
+(10, 1, 'felony', 'Operating a Drug House', 'Maintaining a property for drug manufacturing or distribution.', 0, 72),
+(11, 1, 'felony', 'Public Sale of Drugs', 'Selling illegal drugs in a public area.', 2000, 36),
+(12, 2, 'felony', 'Carrying a Concealed Weapon Without Permit', 'Possessing a hidden weapon without the required authorization.', 0, 36),
+(13, 2, 'felony', 'Illegal Sale of Firearms', 'Selling guns without the necessary licenses or background checks.', 5000, 60),
+(14, 2, 'felony', 'Unlawful Discharge of a Firearm', 'Firing a weapon in prohibited areas or in a manner that endangers others.', 4000, 36),
+(15, 2, 'felony', 'Possession of a Prohibited Weapon', 'Owning or carrying weapons banned by law, such as sawed-off shotguns or explosives.', 5000, 48),
+(16, 2, 'misdemeanor', 'Brandishing a Weapon', 'Displaying a weapon in a threatening manner without just cause.', 750, 12),
+(17, 2, 'misdemeanor', 'Using a Weapon While Intoxicated', 'Operating or handling a weapon while under the influence of drugs or alcohol.', 1000, 12),
+(18, 2, 'felony', 'Possession of a Weapon in a Restricted Area', 'Bringing firearms or other weapons into places where they are strictly prohibited, such as airports or schools.', 3000, 24),
+(19, 2, 'felony', 'Trafficking Illegal Firearms', 'Transporting or selling firearms unlawfully across jurisdictions.', 7000, 72),
+(20, 2, 'misdemeanor', 'Failure to Secure a Firearm', 'Neglecting to safely store a firearm, leading to potential unauthorized access.', 500, 0),
+(21, 2, 'felony', 'Modifying a Firearm Illegally', 'Altering a weapon to make it more lethal, such as converting it to fully automatic.', 6000, 48),
+(22, 2, 'felony', 'Possession of a Firearm Without a Serial Number', 'Owning or using a weapon with the serial number removed or obscured.', 4000, 36),
+(23, 2, 'misdemeanor', 'Carrying a Loaded Firearm in Public', 'Possessing a firearm with live ammunition in a public space without legal authorization.', 2000, 24),
+(24, 2, 'misdemeanor', 'Negligent Use of a Weapon', 'Handling or operating a firearm carelessly, causing risk to others.', 1500, 12),
+(25, 2, 'felony', 'Possession of a Stolen Firearm', 'Being in possession of a weapon known to be stolen.', 5000, 36),
+(26, 3, 'misdemeanor', 'Vandalism', 'Deliberate destruction or defacement of property.', 1000, 0),
+(27, 3, 'felony', 'Burglary', 'Unlawful entry into a building with the intent to commit a crime.', 0, 24),
+(28, 3, 'felony', 'Arson', 'The willful and malicious burning of property.', 2000, 48),
+(29, 3, 'misdemeanor', 'Shoplifting', 'Stealing merchandise from a retail establishment.', 300, 0),
+(30, 3, 'infraction', 'Trespassing', 'Entering or remaining on someone else\'s property without permission.', 200, 0),
+(31, 3, 'felony', 'Grand Theft', 'Stealing property of significant value.', 0, 36),
+(32, 3, 'misdemeanor', 'Petty Theft', 'Stealing property of low value.', 500, 0),
+(33, 3, 'misdemeanor', 'Possession of Stolen Property', 'Having goods that were unlawfully taken from someone else.', 700, 0),
+(34, 3, 'misdemeanor', 'Graffiti', 'Illegally painting or defacing public or private property.', 500, 0),
+(35, 3, 'felony', 'Credit Card Fraud', 'Using stolen or fake credit card information to make purchases.', 2000, 24),
+(36, 3, 'felony', 'Breaking and Entering', 'Forcing entry into a property without permission.', 0, 36),
+(37, 3, 'misdemeanor', 'Piracy', 'Illegally copying or distributing copyrighted material.', 1000, 0),
+(38, 3, 'felony', 'Identity Theft', 'Using someone else\'s personal information for fraudulent purposes.', 2000, 48),
+(39, 3, 'misdemeanor', 'Trespassing', 'Entering or remaining on property without permission.', 250, 0),
+(40, 3, 'felony', 'Theft of Public Property', 'Stealing items belonging to the government or public institutions.', 0, 36),
+(41, 3, 'misdemeanor', 'Unauthorized Use of a Vehicle', 'Using a vehicle without the owner’s permission but not intending to steal it.', 500, 0),
+(42, 3, 'misdemeanor', 'Illegal Squatting', 'Occupying an abandoned or unoccupied property without permission.', 300, 0),
+(43, 4, 'infraction', 'Speeding', 'Exceeding the posted speed limit.', 100, 0),
+(44, 4, 'infraction', 'Running a Red Light', 'Failing to stop at a red traffic light.', 200, 0),
+(45, 4, 'felony', 'Driving Under the Influence (DUI)', 'Operating a vehicle while under the influence of alcohol or drugs.', 1000, 12),
+(46, 4, 'misdemeanor', 'Reckless Driving', 'Operating a vehicle with willful or wanton disregard for safety.', 500, 6),
+(47, 4, 'misdemeanor', 'Driving Without a License', 'Operating a vehicle without a valid driver\'s license.', 250, 0),
+(48, 4, 'felony', 'Hit and Run', 'Leaving the scene of an accident without providing information or assistance.', 0, 24),
+(49, 4, 'infraction', 'Driving Without Insurance', 'Operating a vehicle without valid insurance coverage.', 500, 0),
+(50, 4, 'infraction', 'Failure to Yield', 'Not giving the right of way when required by traffic laws.', 150, 0),
+(51, 4, 'infraction', 'Illegal U-Turn', 'Making a U-turn where prohibited by traffic signs or laws.', 100, 0),
+(52, 4, 'infraction', 'Driving Without Headlights', 'Operating a vehicle at night or in poor visibility without lights on.', 50, 0),
+(53, 4, 'felony', 'Street Racing', 'Engaging in illegal speed contests on public roads.', 1500, 24),
+(54, 4, 'infraction', 'Driving in the Wrong Direction', 'Operating a vehicle against the flow of traffic.', 200, 0),
+(55, 4, 'infraction', 'Illegal Parking in Handicap Zones', 'Parking in a space designated for disabled individuals without proper permits.', 200, 0),
+(56, 4, 'misdemeanor', 'Road Rage Incident', 'Driving aggressively and endangering others during a dispute.', 750, 6),
+(57, 4, 'infraction', 'Unregistered Vehicle', 'Driving a vehicle without proper registration.', 150, 0),
+(58, 4, 'infraction', 'Excessive Window Tinting', 'Having window tint darker than allowed by law.', 100, 0),
+(59, 5, 'felony', 'Embezzlement', 'Fraudulently taking money or property from an employer.', 0, 36),
+(60, 5, 'felony', 'Fraud', 'Intentionally deceiving others for financial gain.', 0, 48),
+(61, 5, 'felony', 'Identity Theft', 'Using someone else\'s personal information for fraudulent purposes.', 1000, 36),
+(62, 5, 'felony', 'Tax Evasion', 'Deliberately avoiding paying required taxes.', 5000, 60),
+(63, 5, 'felony', 'Money Laundering', 'Processing illegal funds to make them appear legitimate.', 0, 48),
+(64, 5, 'felony', 'Insider Trading', 'Using non-public information to trade stocks for financial advantage.', 0, 36),
+(65, 5, 'felony', 'Forgery', 'Creating or altering documents with intent to defraud.', 0, 24),
+(66, 5, 'felony', 'Cybercrime', 'Using computers to commit fraud, identity theft, or unauthorized access.', 0, 60),
+(67, 5, 'felony', 'Healthcare Fraud', 'Filing false claims or manipulating healthcare billing for profit.', 0, 48),
+(68, 5, 'felony', 'Ponzi Scheme', 'Fraudulent investment scam promising high returns with minimal risk.', 0, 120),
+(69, 5, 'felony', 'Counterfeiting', 'Producing fake currency or documents.', 2000, 48),
+(70, 5, 'felony', 'Corporate Espionage', 'Stealing trade secrets or confidential business information.', 0, 72),
+(71, 6, 'felony', 'Bigamy', 'Entering into a marriage while already married to another person.', 0, 12),
+(72, 6, 'felony', 'Perjury', 'Lying under oath in a legal proceeding.', 0, 24),
+(73, 6, 'misdemeanor', 'Filing a False Police Report', 'Intentionally providing false information to law enforcement.', 500, 0),
+(74, 6, 'misdemeanor', 'Resisting Arrest', 'Physically or verbally opposing law enforcement during an arrest.', 0, 6),
+(75, 6, 'misdemeanor', 'Failure to Appear in Court', 'Not showing up for a scheduled court date without valid reason.', 500, 0),
+(76, 6, 'infraction', 'Unlawful Assembly', 'Gathering in a manner that poses a threat to public safety or order.', 200, 0),
+(77, 6, 'misdemeanor', 'Failure to Report a Crime', 'Not notifying authorities about a witnessed crime.', 250, 0),
+(78, 6, 'misdemeanor', 'Providing False Identification', 'Presenting fake or misleading identification to authorities.', 300, 12),
+(79, 7, 'misdemeanor', 'Assault', 'Intentionally causing physical harm to another person.', 0, 12),
+(80, 7, 'felony', 'Robbery', 'Taking property from a person through force or intimidation.', 0, 36),
+(81, 7, 'felony', 'Homicide', 'The unlawful killing of another person.', 0, 120),
+(82, 7, 'felony', 'Domestic Violence', 'Physical or emotional abuse within a household or intimate relationship.', 0, 36),
+(83, 7, 'felony', 'Kidnapping', 'Unlawfully seizing and detaining a person against their will.', 0, 120),
+(84, 7, 'felony', 'Aggravated Assault', 'An attack causing serious bodily harm or involving a weapon.', 0, 60),
+(85, 7, 'misdemeanor', 'Battery', 'Intentional physical contact or harm to another person without consent.', 0, 12),
+(86, 7, 'felony', 'Terroristic Threats', 'Threatening violence to cause fear or disruption.', 0, 48),
+(87, 7, 'felony', 'Vehicular Manslaughter', 'Causing a death through negligent or reckless driving.', 0, 60),
+(88, 7, 'felony', 'Hate Crime', 'A crime motivated by prejudice against a person’s race, religion, or other characteristics.', 0, 48),
+(89, 7, 'felony', 'Child Abuse', 'Physical, emotional, or sexual abuse of a minor.', 0, 72),
+(90, 7, 'misdemeanor', 'Reckless Endangerment', 'Engaging in actions that could cause serious harm to others.', 0, 12),
+(93, 7, 'misdemeanor', 'Stalking', 'Repeatedly following or harassing someone, causing fear.', 0, 12),
+(94, 8, 'felony', 'Hacking', 'Gaining unauthorized access to computer systems.', 0, 36),
+(95, 8, 'felony', 'Phishing', 'Using fake communication to obtain sensitive information.', 1500, 24),
+(96, 8, 'misdemeanor', 'Online Harassment', 'Bullying or threatening someone via the internet.', 500, 0),
+(97, 8, 'felony', 'Unauthorized Access to Computer Systems', 'Hacking into computer systems without permission.', 3000, 48),
+(98, 9, 'infraction', 'Overfishing', 'Exceeding legal limits on fish catches.', 500, 0),
+(99, 9, 'felony', 'Illegal Logging', 'Harvesting timber without permits.', 3000, 36),
+(100, 9, 'felony', 'Endangered Species Trafficking', 'Trading animals or plants protected by conservation laws.', 0, 48),
+(101, 9, 'felony', 'Illegal Mining', 'Extracting minerals or resources without proper permits.', 4000, 60),
+(102, 9, 'misdemeanor', 'Illegal Dumping', 'Disposing of waste in unauthorized areas.', 750, 0),
+(103, 9, 'felony', 'Poaching', 'Illegally hunting or capturing wildlife.', 4000, 36),
+(104, 10, 'misdemeanor', 'Disorderly Conduct', 'Behaving in a disruptive or unruly manner in public.', 300, 0),
+(105, 10, 'infraction', 'Public Intoxication', 'Being visibly drunk or impaired in public.', 150, 0),
+(106, 10, 'infraction', 'Loitering', 'Remaining in an area without a legitimate purpose.', 50, 0),
+(107, 10, 'infraction', 'Disturbing the Peace', 'Engaging in loud or disruptive behavior in public.', 100, 0),
+(108, 10, 'felony', 'Rioting', 'Participating in a violent public disturbance.', 0, 36),
+(109, 10, 'misdemeanor', 'Prostitution', 'Engaging in or soliciting sexual services for money.', 500, 0),
+(110, 10, 'misdemeanor', 'Hate Speech', 'Making statements intended to incite violence or hatred against a group.', 1000, 0),
+(111, 10, 'infraction', 'Unlawful Assembly', 'Gathering with others in a way that disturbs public peace.', 100, 0),
+(112, 10, 'infraction', 'Illegal Protests', 'Organizing or participating in a protest without proper permits.', 100, 0),
+(113, 10, 'misdemeanor', 'Indecent Exposure', 'Deliberately exposing private parts in public.', 500, 0),
+(114, 10, 'felony', 'Obstructing Justice', 'Interfering with law enforcement or court proceedings.', 0, 24),
+(115, 10, 'felony', 'Bribery', 'Offering or accepting something of value to influence decisions.', 5000, 36),
+(117, 10, 'felony', 'Inciting a Riot', 'Encouraging or instigating a group to engage in violent behavior.', 0, 48);
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `lbtablet_police_offences_categories`
+--
+
+CREATE TABLE `lbtablet_police_offences_categories` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `title` varchar(100) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Déchargement des données de la table `lbtablet_police_offences_categories`
+--
+
+INSERT INTO `lbtablet_police_offences_categories` (`id`, `title`) VALUES
+(3, 'Crimes contre les biens'),
+(6, 'Crimes divers'),
+(5, 'Crimes en col blanc'),
+(7, 'Crimes violents'),
+(8, 'Cybercrimes'),
+(10, 'Infractions à l\\\'ordre public'),
+(4, 'Infractions au code de la route'),
+(9, 'Infractions environnementales'),
+(2, 'Infractions liées aux armes'),
+(1, 'Infractions liées aux drogues');
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `lbtablet_police_profiles`
+--
+
+CREATE TABLE `lbtablet_police_profiles` (
+  `id` varchar(100) NOT NULL,
+  `avatar` varchar(500) DEFAULT NULL,
+  `notes` text NOT NULL DEFAULT '',
+  `profile_type` varchar(50) NOT NULL DEFAULT 'player'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `lbtablet_police_profile_tags`
+--
+
+CREATE TABLE `lbtablet_police_profile_tags` (
+  `id` varchar(100) NOT NULL,
+  `tag_id` int(10) UNSIGNED NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `lbtablet_police_reports`
+--
+
+CREATE TABLE `lbtablet_police_reports` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `report_type` varchar(100) NOT NULL,
+  `created_by` varchar(100) NOT NULL,
+  `title` varchar(100) NOT NULL,
+  `description` mediumtext NOT NULL,
+  `created_at` datetime NOT NULL DEFAULT current_timestamp(),
+  `updated_at` datetime NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `lbtablet_police_reports_attachments`
+--
+
+CREATE TABLE `lbtablet_police_reports_attachments` (
+  `report_id` int(10) UNSIGNED NOT NULL,
+  `attachment` varchar(500) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `lbtablet_police_reports_involved`
+--
+
+CREATE TABLE `lbtablet_police_reports_involved` (
+  `report_id` int(10) UNSIGNED NOT NULL,
+  `involved` varchar(100) NOT NULL,
+  `involvement` varchar(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `lbtablet_police_reports_tags`
+--
+
+CREATE TABLE `lbtablet_police_reports_tags` (
+  `report_id` int(10) UNSIGNED NOT NULL,
+  `tag_id` int(10) UNSIGNED NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `lbtablet_police_tags`
+--
+
+CREATE TABLE `lbtablet_police_tags` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `title` varchar(50) NOT NULL,
+  `color` varchar(10) NOT NULL,
+  `type` varchar(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `lbtablet_police_warrants`
+--
+
+CREATE TABLE `lbtablet_police_warrants` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `created_by` varchar(100) NOT NULL,
+  `warrant_type` varchar(100) NOT NULL,
+  `warrant_status` varchar(50) NOT NULL DEFAULT 'active',
+  `priority` varchar(50) NOT NULL DEFAULT 'low',
+  `title` varchar(100) NOT NULL,
+  `description` mediumtext NOT NULL,
+  `created_at` datetime NOT NULL DEFAULT current_timestamp(),
+  `updated_at` datetime NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `lbtablet_police_warrants_attachments`
+--
+
+CREATE TABLE `lbtablet_police_warrants_attachments` (
+  `warrant_id` int(10) UNSIGNED NOT NULL,
+  `attachment` varchar(500) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `lbtablet_police_warrants_linked_reports`
+--
+
+CREATE TABLE `lbtablet_police_warrants_linked_reports` (
+  `warrant_id` int(10) UNSIGNED NOT NULL,
+  `report_id` int(10) UNSIGNED NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `lbtablet_police_warrants_tags`
+--
+
+CREATE TABLE `lbtablet_police_warrants_tags` (
+  `warrant_id` int(10) UNSIGNED NOT NULL,
+  `tag_id` int(10) UNSIGNED NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `lbtablet_police_weapons`
+--
+
+CREATE TABLE `lbtablet_police_weapons` (
+  `serial_number` varchar(100) NOT NULL,
+  `owner` varchar(100) DEFAULT NULL,
+  `weapon_name` varchar(100) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `lbtablet_registration_characters`
+--
+
+CREATE TABLE `lbtablet_registration_characters` (
+  `identifier` varchar(100) NOT NULL,
+  `character_id` varchar(100) NOT NULL,
+  `firstname` varchar(100) NOT NULL,
+  `lastname` varchar(100) NOT NULL,
+  `dateofbirth` varchar(20) NOT NULL,
+  `is_male` tinyint(1) NOT NULL,
+  `job` varchar(100) NOT NULL DEFAULT 'unemployed',
+  `height` smallint(5) UNSIGNED NOT NULL,
+  `avatar` varchar(500) DEFAULT NULL,
+  `description` text NOT NULL DEFAULT '',
+  `phone_number` varchar(20) NOT NULL DEFAULT '',
+  `jail` int(10) UNSIGNED NOT NULL DEFAULT 0
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `lbtablet_registration_licenses`
+--
+
+CREATE TABLE `lbtablet_registration_licenses` (
+  `character_id` varchar(100) NOT NULL,
+  `license` varchar(100) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `lbtablet_registration_properties`
+--
+
+CREATE TABLE `lbtablet_registration_properties` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `character_id` varchar(100) NOT NULL,
+  `label` varchar(100) NOT NULL,
+  `address` varchar(100) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `lbtablet_registration_vehicles`
+--
+
+CREATE TABLE `lbtablet_registration_vehicles` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `character_id` varchar(100) NOT NULL,
+  `plate` varchar(20) NOT NULL,
+  `model` varchar(100) NOT NULL,
+  `color` varchar(20) NOT NULL,
+  `picture` varchar(500) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `lbtablet_tablets`
+--
+
+CREATE TABLE `lbtablet_tablets` (
+  `id` varchar(100) NOT NULL,
+  `tablet_name` varchar(50) NOT NULL,
+  `settings` longtext DEFAULT NULL,
+  `battery` tinyint(3) UNSIGNED NOT NULL DEFAULT 100,
+  `is_setup` tinyint(1) DEFAULT 0
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Déchargement des données de la table `lbtablet_tablets`
+--
+
+INSERT INTO `lbtablet_tablets` (`id`, `tablet_name`, `settings`, `battery`, `is_setup`) VALUES
+('license:002138af1529de2f1339411bf0cf3bf5907d7a9f', 'Tablet de ', NULL, 100, 0),
+('license:00365081940fb193e79d41d92ccf1719ce129a68', 'Tablet de ', NULL, 100, 0),
+('license:00d5e99e8bc5f714fa939696086ac8452c53271f', 'Tablet de Loggan', NULL, 100, 0),
+('license:0147dba64d1b5531577d1b6e02481fad85204b72', 'Tablet de ', NULL, 100, 0),
+('license:014d80a213059cb87399fabfb24bd7125d6c2b2a', 'Tablet de Thiago', NULL, 100, 0),
+('license:0155311d5350cbfe73f6d33c117fd0b8675be1e8', 'Tablet de ', NULL, 100, 0),
+('license:0181c25c49905305cbace8ccdd680360cd19c52f', 'Tablet de ', NULL, 100, 0),
+('license:028a4d3d1e5749bb8c28e33bdf7de68e8f554602', 'Tablet de Lewis ', NULL, 100, 0),
+('license:046ca0073ac96e58ff739839f83a74dc5f8aa0c5', 'Tablet de Mathias', NULL, 100, 0),
+('license:04f963171d65d2c3d834cf012c375ca7b21c8d63', 'Tablet de ', NULL, 100, 0),
+('license:04fa1ad5f090d1e4affa73da6d6017ce2ffc12d6', 'Tablet de ', NULL, 100, 0),
+('license:069141d3e98597ca48b7f5ad72dbd2ca06cdc857', 'Tablet de ', NULL, 100, 0),
+('license:073682c2b5ab87e6fdc8a55929dcf7289451c79b', 'Tablet de Pablo', NULL, 100, 0),
+('license:08a4ee9e507d62893fc7b03921c410b165ee753f', 'Tablet de Emilio', NULL, 100, 0),
+('license:096b560956e6dfd9bd75eb01dc53658434fd5ecd', 'Tablet de ', NULL, 100, 0),
+('license:09b70fa208c8df6e9bf9068cca59cfabdc933aca', 'Tablet de Johnson', NULL, 100, 0),
+('license:09f485c64b95e9f5577a04ab7979f2abe131218f', 'Tablet de ', NULL, 100, 0),
+('license:0a2f4b0fbe128717f07a610bbdc7677fb4e79fe2', 'Tablet de ', NULL, 100, 0),
+('license:0a91a604711de732e7ba468d5794dac86c146400', 'Tablet de ', NULL, 100, 0),
+('license:0aff118bf3c7d69f59a483b32be7eae9b5da053f', 'Tablet de ', NULL, 100, 0),
+('license:0cac745915237122f46502541333b27302f405b9', 'Tablet de ', NULL, 100, 0),
+('license:0cea84ce359bd57c44f27e3036b64d2ca3f6e624', 'Tablet de ', NULL, 100, 0),
+('license:0d0ddfb0332fa73339d13fb17470f84fbce2cdc5', 'Tablet de ', NULL, 100, 0),
+('license:0d5d86e2179ec8941cae78e416c1ca0c7436ae14', 'Tablet de ', NULL, 100, 0),
+('license:0d6bc2c3e9729283354bbbbe4b45a1fbc20d5ba2', 'Tablet de ', NULL, 100, 0),
+('license:0dc551ac27c8adcff0af3972457bdb82179d2eeb', 'Tablet de ', NULL, 100, 0),
+('license:0df4d740c3d8e67034a1aa68d3b34519f9582c3e', 'Tablet de ', NULL, 100, 0),
+('license:0eb638062175a543ef8e8a4f655edcc3ad61304b', 'Tablet de ', NULL, 100, 0),
+('license:0ec2fb1eb60ba0b7706f117865e8c9f0a5d4dc6e', 'Tablet de ', NULL, 100, 0),
+('license:1096ad3e07782e8df71426498f415d54779124b7', 'Tablet de ', NULL, 100, 0),
+('license:10f80ee089bc7d40b02b49e78c1ea023d41ac7d0', 'Tablet de El Wesley', NULL, 100, 0),
+('license:13af1b72f1b2d4eda836ae9e732ec36fa68be304', 'Tablet de ', NULL, 100, 0),
+('license:150a3d10b8973cbdd4f58abe20ea885847851231', 'Tablet de ', NULL, 100, 0),
+('license:15457cc9a251c7ed61067cc571a235a957972990', 'Tablet de goerge', NULL, 100, 0),
+('license:161fb31d9d5897967b5174e1b68bb73311babd38', 'Tablet de ', NULL, 100, 0),
+('license:17f5d16b47ee7b19e6aead14bbc5d23f58208194', 'Tablet de Paul', NULL, 100, 0),
+('license:1894416b238a4a3fcaaf148a1a522b7dad918d3a', 'Tablet de ', NULL, 100, 0),
+('license:1966c13b081404625e67325f2f5d29b34b9b7c12', 'Tablet de ', NULL, 100, 0),
+('license:1a5edabfbaa0a37286ede8d6326077f1f6c4992a', 'Tablet de Wesley', NULL, 100, 0),
+('license:1b270a87d6913345c6500490788f343293b65c94', 'Tablet de David', NULL, 100, 0),
+('license:1b32777014ad2fcdb886919f66541f6c9f643104', 'Tablet de ', '{\"airplaneMode\":false,\"apps\":[[\"Notes\",\"Mail\",\"Camera\",\"Photos\"],[\"Settings\",\"Browser\",\"Maps\",\"Ambulance\",\"Police\",\"Calculator\",\"Apps\",\"VoiceMemo\",\"Services\",\"Clock\",\"Registration\"]],\"name\":\"Tablet de \",\"doNotDisturb\":false,\"display\":{\"theme\":\"dark\",\"brightness\":1},\"streamerMode\":false,\"time\":{\"twelveHourClock\":false},\"lockscreen\":{\"color\":\"gradient\",\"fontStyle\":1},\"sound\":{\"silent\":false,\"volume\":0.5},\"locale\":\"fr\",\"wallpaper\":{\"blur\":false,\"background\":\"gradient\"}}', 100, 1),
+('license:1b6dea9d251f0e875807dee02fa720ca57dadddd', 'Tablet de ', NULL, 100, 0),
+('license:1e03d2e4ea876aaed72845f8d4135d93eb32faa3', 'Tablet de ', NULL, 100, 0),
+('license:1ebad5adeaf0110bf0562cd801a6fcbf420e6cf7', 'Tablet de Max', NULL, 100, 0),
+('license:1f2e47c1c82bce5152fed789fe95b1de8a4c1114', 'Tablet de ', NULL, 100, 0),
+('license:1f88d0e014073937a301f8720f071324e9f48905', 'Tablet de ', NULL, 100, 0),
+('license:206867b20bdfc8455b5490ecaf952093d7001b5d', 'Tablet de ', NULL, 100, 0),
+('license:20e58d5f8b7573f38fae18e160110b7fb3a57f5b', 'Tablet de ', NULL, 100, 0),
+('license:20fc6ffbb7d1c552e34eb58eaffa839f86cfce8f', 'Tablet de jamal', NULL, 100, 0),
+('license:21621517374d854f46dd6a811538f8fa75d5c891', 'Tablet de ', NULL, 100, 0),
+('license:2318f0a35a6a644de9d9ec88ed31d5dc4e481ab0', 'Tablet de ', NULL, 100, 0),
+('license:236f2cddc51f1659c34fc83024d706cd6a6bc399', 'Tablet de ', NULL, 100, 0),
+('license:242ae1959b1bc408fbf88b0c8ce39065bc2ae003', 'Tablet de ddadwwad', '{\"locale\":\"fr\",\"streamerMode\":false,\"airplaneMode\":false,\"lockscreen\":{\"fontStyle\":1,\"color\":\"gradient\"},\"sound\":{\"silent\":false,\"volume\":0.5},\"display\":{\"theme\":\"dark\",\"brightness\":1},\"time\":{\"twelveHourClock\":false},\"wallpaper\":{\"background\":\"gradient\",\"blur\":false},\"name\":\"Tablet de ddadwwad\",\"doNotDisturb\":false,\"apps\":[[\"Notes\",\"Mail\",\"Camera\",\"Photos\"],[\"Settings\",\"Browser\",\"Maps\",\"Ambulance\",\"Police\",\"Calculator\",\"Apps\",\"VoiceMemo\",\"Services\",\"Clock\",\"Registration\"]]}', 100, 1),
+('license:263febc44b836ec8118678f6e319c5c42534b733', 'Tablet de ', NULL, 100, 0),
+('license:26914a1b45bb77ff0dc6a6691474f53bd7c25d78', 'Tablet de ', NULL, 100, 0),
+('license:26f2d90522a17755b7efbe13a9effb3d62e2c0db', 'Tablet de ', NULL, 100, 0),
+('license:287b0f71dd53a96d2c3541be10e5348f532997ac', 'Tablet de ', NULL, 100, 0),
+('license:28f69c1b657b6f07f01068feab48f09f22afa3a8', 'Tablet de ', NULL, 100, 0),
+('license:28f8f9e88ea79306ce636f35b93ba16196b2e86b', 'Tablet de ', NULL, 100, 0),
+('license:293583bfdb6af4db66c1664fa25e34c28983005c', 'Tablet de ', NULL, 100, 0),
+('license:294eaae2fe6007d4676b1cb2654604a906a835b7', 'Tablet de Anil', NULL, 100, 0),
+('license:2955e0c4b7ec43654467da4395dfbe5bc86cf4c7', 'Tablet de ', NULL, 100, 0),
+('license:295b7cd054a38f489a3ececb47e4229b2a03805d', 'Tablet de Pedro ', NULL, 100, 0),
+('license:2990cb4fa64ab5bd29434bcadaab92b0790ce67c', 'Tablet de ', NULL, 100, 0),
+('license:29efa15684928e683225544abd210e93fd679698', 'Tablet de ', NULL, 100, 0),
+('license:2aa6e7fd7bcb120d696b2f2871f1d8db02235355', 'Tablet de ', NULL, 100, 0),
+('license:2add5943c28dd3839fa25be7b5a11bd2d8445dbb', 'Tablet de ', NULL, 100, 0),
+('license:2af03d8d56ebe26fa4c48758144a2793b7574cca', 'Tablet de ', NULL, 100, 0),
+('license:2bf73ed1f333ce09a569ef4a8fd9546be8f50fa6', 'Tablet de ', NULL, 100, 0),
+('license:2cbf0be08198da032d3b3a76d86ddb06bcd6fe39', 'Tablet de ', NULL, 100, 0),
+('license:2ced08257d9e6b2ce29870d69ec04b4afd1cf777', 'Tablet de ', NULL, 100, 0),
+('license:2ddcc991d17c6bae90e7912cdf892ba1ae510204', 'Tablet de ', NULL, 100, 0),
+('license:2f63db0938910ed725fcd99631e63221eeb55040', 'Tablet de ', NULL, 100, 0),
+('license:301e137d4003fc32a055e0c4f0047358de138385', 'Tablet de Jayson', NULL, 100, 0),
+('license:312d45b64f022f0224ea929c8bbcebede4a50aba', 'Tablet de ', NULL, 100, 0),
+('license:3168795514efb89d55e3e277f139559232fcbfed', 'Tablet de ', NULL, 100, 0),
+('license:31b1ab791c646287105be0b83d37a6e97206d3f2', 'Tablet de ', NULL, 100, 0),
+('license:31cdc800d36aa2c472b30d803df6e0ff9f8e5a18', 'Tablet de ', NULL, 100, 0),
+('license:31e62a0e03df6a7bc770a856d83fd357030cbf50', 'Tablet de Jean', NULL, 100, 0),
+('license:3270afbae2cd09d0c6e6f22c8763439c4867ffda', 'Tablet de ', NULL, 100, 0),
+('license:3337d436a27205209ab588d6474630ed18621d9f', 'Tablet de ', NULL, 100, 0),
+('license:33a36296e7393f749db9bf8cef2988057a515507', 'Tablet de ', NULL, 100, 0),
+('license:3410ef85e7dc711f417d28bddee83414e7f91128', 'Tablet de ', NULL, 100, 0),
+('license:34ab676027ee737f446ddd1b4fe7fd82695a0492', 'Tablet de ', NULL, 100, 0),
+('license:354e5a6bb75ae7a0ba45401d6c72ea0966bc9faa', 'Tablet de ', NULL, 100, 0),
+('license:35a8fb93ec1569e4de55665d0eba15d69d55f8e5', 'Tablet de ', NULL, 100, 0),
+('license:35b259b3dd596d78cd05ed455d68bf7871a79a66', 'Tablet de ', NULL, 100, 0),
+('license:3600423dfd73e59458e97cfe8833835bad267f38', 'Tablet de ', NULL, 100, 0),
+('license:371edb751cacf6e73d897d17c02e6b3b226b96f9', 'Tablet de ', NULL, 100, 0),
+('license:38649c35bf2bd629c0832f81d800cf6cdd505bea', 'Tablet de ', NULL, 100, 0),
+('license:3ae233ae5962280863ee709a8bf8398b215a925a', 'Tablet de ', NULL, 100, 0),
+('license:3afc7d45a80f61c10713a962100fa11944b1a456', 'Tablet de ', NULL, 100, 0),
+('license:3b650b2f8890f4e528f62eb96ae9be77883c41f6', 'Tablet de ', NULL, 100, 0),
+('license:3bbf3c355d0633a9f4f1bfe647b56493fcc4f1df', 'Tablet de ', NULL, 100, 0),
+('license:3bd45567d23a053776b3e3f56c44338a3d9afbe4', 'Tablet de ', NULL, 100, 0),
+('license:3bfe2fe06ce926620d7b1d90c5e75b429bc80be2', 'Tablet de tommy', NULL, 100, 0),
+('license:3cbfd57aaabc27ada7f52709080a3e8f8d476f4f', 'Tablet de ', NULL, 100, 0),
+('license:3d81bb0f2e75b29778f6fffd7bbc81ca3b7496bc', 'Tablet de ', NULL, 100, 0),
+('license:3d987ae95ae8db914e4dd85ff02937503bb7104f', 'Tablet de ', NULL, 100, 0),
+('license:3debea3d5360131ea704b02241f9b5febd247f3a', 'Tablet de ', NULL, 100, 0),
+('license:3e41c8f1bd48194805f411d364054137074a9425', 'Tablet de ', NULL, 100, 0),
+('license:3e4de86947674cb11da4e2628548496336b3fc1d', 'Tablet de mathieu', NULL, 100, 0),
+('license:3fa8ad9236d96578a940145e29824706f4b0e82e', 'Tablet de dereck', NULL, 100, 0),
+('license:402dea6c8937af34d5f749028864b18d34f19731', 'Tablet de ', NULL, 100, 0),
+('license:41a3e06bebb75a185a5ebc777b9b9fa2578bf39c', 'Tablet de ', NULL, 100, 0),
+('license:42772b29bc215a483a0aa80fc1f3e64856bdd3e6', 'Tablet de ', NULL, 100, 0),
+('license:439036111c8574e7a3c2a1c12f028bc1167fab3f', 'Tablet de ', NULL, 100, 0),
+('license:440081f3458eeeb6720b7332cf4850ef3a4b2ac0', 'Tablet de ', NULL, 100, 0),
+('license:4460ef16ae39db8877a857b86849766558df0881', 'Tablet de Jason', NULL, 100, 0),
+('license:447a14cd28efe626d4dea8a16a7d0e575e16e01b', 'Tablet de ', NULL, 100, 0),
+('license:44eae5e6c290ec3b3d9b8245685fbb3c540a0e19', 'Tablet de ', NULL, 100, 0),
+('license:44f62fed7a4705b621b3280b4ab5054dab1617f6', 'Tablet de ', NULL, 100, 0),
+('license:45ede74608e4499a2365915e639d9151558f9714', 'Tablet de ', '{\"doNotDisturb\":false,\"time\":{\"twelveHourClock\":false},\"wallpaper\":{\"blur\":false,\"background\":\"gradient\"},\"apps\":[[\"Notes\",\"Mail\",\"Camera\",\"Photos\"],[\"Settings\",\"Browser\",\"Maps\",\"Ambulance\",\"Police\",\"Calculator\",\"Apps\",\"VoiceMemo\",\"Services\",\"Clock\",\"Registration\"]],\"airplaneMode\":false,\"lockscreen\":{\"fontStyle\":1,\"color\":\"gradient\"},\"streamerMode\":false,\"locale\":\"fr\",\"sound\":{\"silent\":false,\"volume\":0.5},\"display\":{\"theme\":\"dark\",\"brightness\":1},\"name\":\"??\"}', 100, 1),
+('license:4630c4a227f722ecc330d90c650169d2bbc1283c', 'Tablet de ', NULL, 100, 0),
+('license:47b3123f4e44a6a2422bf44a567419a952404bb0', 'Tablet de ', NULL, 100, 0),
+('license:47ba89b276caecead3ac5c20a0f0018ace4d4f33', 'Tablet de ', NULL, 100, 0),
+('license:4a56c24c16ca37a2f22b593d2872a9fd9ee6e319', 'Tablet de ', NULL, 100, 0),
+('license:4ac708a8ccb676d734d8f539d74c1c56511e5508', 'Tablet de ', NULL, 100, 0),
+('license:4b66741d03a4644ae6b7d93aa88ee5854d6c3354', 'Tablet de ', NULL, 100, 0),
+('license:4b9107dd83de49b3113d17c3c62b97da3300ac1a', 'Tablet de ', NULL, 100, 0),
+('license:4db4ebdced268fc637a06cbb3815e4d44d1a7c76', 'Tablet de ', NULL, 100, 0),
+('license:4e096d6e4bb356135bd90fa0074024b4128e8dbe', 'Tablet de ', NULL, 100, 0),
+('license:4e5772e965080bc0a478ca9dc313930daf526cd4', 'Tablet de ', NULL, 100, 0),
+('license:4ec8fb1917902f5a241d0ef4c1ec34b58a5bf8a8', 'Tablet de ', NULL, 100, 0),
+('license:4ee93fb2cea337b1f6a10b851dc340b57b34ffc8', 'Tablet de ', NULL, 100, 0),
+('license:4f004b9d32bc5759ab82ed9f2442ce3bab64a132', 'Tablet de Mickay', NULL, 100, 0),
+('license:4f0315bfabf6001c6f10904ec4147b214996eb98', 'Tablet de ', NULL, 100, 0),
+('license:500afc62035c6ad0a209438b146d7d8515c6ae99', 'Tablet de ', NULL, 100, 0),
+('license:50b1b2f67b2f65c56006be620175bc23b27a43ed', 'Tablet de ', NULL, 100, 0),
+('license:50db438862e280b49642ccb90d8368443483a81e', 'Tablet de Yohan', NULL, 100, 0),
+('license:50f59435a6974f72e623a4a546b9fc9cae61b08c', 'Tablet de ', NULL, 100, 0),
+('license:5127eedb9aba6325aafa94f6b1ccfb031f785cef', 'Tablet de ', NULL, 100, 0),
+('license:516c5172c4c5b642e4620809bf5e168a51eca0e6', 'Tablet de ', NULL, 100, 0),
+('license:51e57803e8f0deb6a5f165cf6220f4bd5f6706b7', 'Tablet de ', NULL, 100, 0),
+('license:51efd897cbb0ba51c4d263a95a86d2034a989d75', 'Tablet de Mortadon', '{\"name\":\"Tablet de Mortadon\",\"doNotDisturb\":false,\"display\":{\"theme\":\"dark\",\"brightness\":1},\"apps\":[[\"Notes\",\"Mail\",\"Camera\",\"Photos\"],[\"Settings\",\"Browser\",\"Maps\",\"Ambulance\",\"Police\",\"Calculator\",\"Apps\",\"VoiceMemo\",\"Services\",\"Clock\",\"Registration\"]],\"lockscreen\":{\"fontStyle\":1,\"color\":\"gradient\"},\"streamerMode\":false,\"time\":{\"twelveHourClock\":false},\"locale\":\"fr\",\"sound\":{\"volume\":0.5,\"silent\":false},\"airplaneMode\":false,\"wallpaper\":{\"blur\":false,\"background\":\"gradient\"}}', 100, 1),
+('license:51fc2bd690eba2b13be474ab180791fdf67b7ae4', 'Tablet de ', NULL, 100, 0),
+('license:526060140616af3c25b9aaed8fbd10a4815fc0eb', 'Tablet de Kevin', NULL, 100, 0),
+('license:5281c45f0728afed4b58359e0e63a0bd0f8db183', 'Tablet de ', NULL, 100, 0),
+('license:52d0e29a3cd96237a54ce12c7fb1f9606e7e4c0c', 'Tablet de ', NULL, 100, 0),
+('license:5304429e7513af8b54929769a4e1cb8cd80a742e', 'Tablet de ', NULL, 100, 0),
+('license:53a4e4923ecfae625fba1fae24250b7a6c198a3a', 'Tablet de ', NULL, 100, 0),
+('license:53b02d5757100fbb1f7a1713298c7b52fbf3a5c0', 'Tablet de ', NULL, 100, 0),
+('license:540eee1256b116715bd843521ea9e7eae59b67e4', 'Tablet de ', NULL, 100, 0),
+('license:54868946aae9fe2bed1ef44c159de98eab6d7ff4', 'Tablet de ', NULL, 100, 0),
+('license:54a07658de08ce65a2b56ccf0f43ea0f17833cdf', 'Tablet de ', NULL, 100, 0),
+('license:555f865d543cf0fd4aa386c587e583535d0c2c19', 'Tablet de ', NULL, 100, 0),
+('license:5605f976bf7a447e3e5b54f510d85a3c1cab37c6', 'Tablet de ', NULL, 100, 0),
+('license:573dd3fbf3d017d05921495c26bbc3aa33dcd9a2', 'Tablet de ', NULL, 100, 0),
+('license:5830f4f485c7755fcbcf11b1ce624e37dd9e013d', 'Tablet de ', NULL, 100, 0),
+('license:58974a2faab352ee52bae8f6a009ebe2fa7908f4', 'Tablet de ', NULL, 100, 0),
+('license:58e5dfdabcf67b701ed771c2f3bafb652568eaea', 'Tablet de ', NULL, 100, 0),
+('license:59d93e78d15cb20085926779d830bf5a5d7a9df4', 'Tablet de ', NULL, 100, 0),
+('license:5a31e5cb13f6af3b493258c53d4e2c113248368c', 'Tablet de ', NULL, 100, 0),
+('license:5a5a1b48089a67bb246f1eb14a92245902bd91a1', 'Tablet de ', NULL, 100, 0),
+('license:5afb714d03c02a96ae491c652491ebc46cf33966', 'Tablet de Maxime', NULL, 100, 0),
+('license:5b0a3948f2ed9713149610f4d2415814987afbe2', 'Tablet de ', NULL, 100, 0),
+('license:5b22a07551505f76ba05ef9d1490ced503ae423e', 'Tablet de ', NULL, 100, 0),
+('license:5b370f1a533e39e8f6bf4bb21eedc0f6cfe36ef1', 'Tablet de ', NULL, 100, 0),
+('license:5b54cd5e136afcfb8944987c929100dab28afea7', 'Tablet de Terry', NULL, 100, 0),
+('license:5b9e340c6bdc62464e7e5d483a71c28b187a9d5b', 'Tablet de ', NULL, 100, 0),
+('license:5bf532a1f8930e341e5b5eb8b572d35f13e403c5', 'Tablet de ', NULL, 100, 0),
+('license:5c06e913a19af45540778087d7bb4cb5f85273b7', 'Tablet de ', NULL, 100, 0),
+('license:5c12ccaa29dd59c9a87f5b6be1eafb7176673338', 'Tablet de ', NULL, 100, 0),
+('license:5d4b5db60a0f1b88edf10a8e34803271639050d7', 'Tablet de ', NULL, 100, 0),
+('license:5d601b32e1bad0b0877463e9ca600c09b18e3b8d', 'Tablet de ', NULL, 100, 0),
+('license:5d9b31e946c13609ffaa6726bc312c47c7b8d676', 'Tablet de ', NULL, 100, 0),
+('license:5dcbcbadf653e291819bcd6367999e9c4f7cf912', 'Tablet de ', NULL, 100, 0),
+('license:5ec55832e084d11994eb0eced0da390ced6b0365', 'Tablet de ', NULL, 100, 0),
+('license:5eedb9d1e8bf56920614b139cc0d497602ebcfe8', 'Tablet de ', NULL, 100, 0),
+('license:6009f91d22625c38637ce7193aa69f416c7649dc', 'Tablet de ', NULL, 100, 0),
+('license:6035096288fa83e7dbfcd151d5a6cdc7808e56d5', 'Tablet de ', NULL, 100, 0),
+('license:60ae4a3bc5db66d2a6ecc4c63503b54809f2761c', 'Tablet de ', NULL, 100, 0),
+('license:60b811a98d280d770f26ea9a3ec3f1e6a6ab5cb2', 'Tablet de ', NULL, 100, 0),
+('license:6138a3c5e8a71e2cd2002f33a47151a110528521', 'Tablet de ', NULL, 100, 0),
+('license:624aa3d1d69202b4a74c22b319ae19e37fbc4800', 'Tablet de ', NULL, 100, 0),
+('license:627550e7981b42b531d879414077aca5e198bbda', 'Tablet de ', NULL, 100, 0),
+('license:62942472899b0214e6fafe92fa37909041226b4f', 'Tablet de ', NULL, 100, 0),
+('license:630db99806d1aab150f938c5bf4a1aa5bd86f0b9', 'Tablet de ', NULL, 100, 0),
+('license:636c30f74e79f9069fd5b524cd2c8ecaaf0e50f0', 'Tablet de ', NULL, 100, 0),
+('license:6377d543cbadbece72966db1542a263063442ecc', 'Tablet de ', NULL, 100, 0),
+('license:6425cf0c75256781f3759131c812a10f0ce721ed', 'Tablet de James', NULL, 100, 0),
+('license:643b6b71ded5d4a37166bdfbd5a7df9fde946550', 'Tablet de ', NULL, 100, 0),
+('license:646c88775540f99743158d6703e347210dfaedb1', 'Tablet de Antonio', NULL, 100, 0),
+('license:64eb55d43954ed98ab79464948e20c92dac3a9b3', 'Tablet de ', NULL, 100, 0),
+('license:64f3cdbc4e1cd16cc4f50cca09054db0a2c6fab2', 'Tablet de ', NULL, 100, 0),
+('license:65487df002bb9fa5eee231d116b2d554b4d3dfd4', 'Tablet de ', NULL, 100, 0),
+('license:656b55bf04aa6a08852fb01b8faca2f79094e009', 'Tablet de curtis', NULL, 100, 0),
+('license:657b5f4a9aca6ef6515ddfe9e9683cae66c090e9', 'Tablet de ', NULL, 100, 0),
+('license:67a40d0dd664801986c39e8ce64fd173707f1aae', 'Tablet de ', NULL, 100, 0),
+('license:67b533165a04ce329503705d59cc52fd8ae042fd', 'Tablet de ', NULL, 100, 0),
+('license:684288c26f29a964b9aebce74c7e33bd5a49e025', 'Tablet de ', NULL, 100, 0),
+('license:6847ff6f7b057f06cdff6d17aa0ec40670423fd1', 'Tablet de ', NULL, 100, 0),
+('license:689fe33ab39d6466a245c60de0de6f47200c82b2', 'Tablet de Alejandro', NULL, 100, 0),
+('license:696241baa2ee87aa363413640da86c61f04c13b1', 'Tablet de nino', NULL, 100, 0),
+('license:6993ae477be22bdd317dcd043bb7c1d4985e81a3', 'Tablet de ', NULL, 100, 0),
+('license:6a9849841bff5a3c26a708d2b6166388426fe40d', 'Tablet de ', NULL, 100, 0),
+('license:6a9d70ef4db90aefb08366923e9fe1fceeb7a90e', 'Tablet de ', NULL, 100, 0),
+('license:6b01972b9c15232b3bb04a6949df39455473be79', 'Tablet de ', NULL, 100, 0),
+('license:6b0b7ddceca62e04e7fe2ea29208a0c1c2e0657e', 'Tablet de ', '{\"streamerMode\":false,\"time\":{\"twelveHourClock\":false},\"sound\":{\"silent\":false,\"volume\":0.5},\"lockscreen\":{\"color\":\"gradient\",\"fontStyle\":1},\"locale\":\"fr\",\"display\":{\"theme\":\"dark\",\"brightness\":1},\"doNotDisturb\":false,\"name\":\"Tablet de \",\"wallpaper\":{\"background\":\"gradient\",\"blur\":false},\"apps\":[[\"Notes\",\"Mail\",\"Camera\",\"Photos\"],[\"Settings\",\"Browser\",\"Maps\",\"Ambulance\",\"Police\",\"Calculator\",\"Apps\",\"VoiceMemo\",\"Services\",\"Clock\",\"Registration\"]],\"airplaneMode\":false}', 100, 1),
+('license:6b55c1b2391d6b1b3119d6679c5773315daa2700', 'Tablet de ', NULL, 100, 0),
+('license:6e108211d43423495d477520ba29d80e21bf0008', 'Tablet de Luis ', NULL, 100, 0),
+('license:6e644cf1541c87eccad15aedd79713c2f016b5ac', 'Tablet de Scoot ', NULL, 100, 0),
+('license:6ebe2bf7736e6e9741c49e5a9c7d65aea2423692', 'Tablet de ', NULL, 100, 0),
+('license:6fa25353c0ce7bdee8178adf5682d288c6e9908e', 'Tablet de John', NULL, 100, 0),
+('license:7005cea3072792ecc2cc2b48335ca16940d542c3', 'Tablet de ', NULL, 100, 0),
+('license:7072e74b9758abd68493129168b2e1b4089c80c5', 'Tablet de ', NULL, 100, 0),
+('license:71f2ceca6d237818e1f195c1012bcdf5b995def6', 'Tablet de JAVIER', NULL, 100, 0),
+('license:728a86aa16865fd737ce63c1b756f3af1070bc8a', 'Tablet de Renji', NULL, 100, 0),
+('license:74b83636b5bfc88f03f9749a5ef998d25b9e9d8a', 'Tablet de Léo ', NULL, 100, 0),
+('license:74d71ee0268e7a9b076945cbac5ff7775eaafdf9', 'Tablet de ', NULL, 100, 0),
+('license:76ab7b2ce9d4308f570fa0a69df80fd8fb710e2e', 'Tablet de ', NULL, 100, 0),
+('license:77ad5896c9342d393dffb135e231d5015f180984', 'Tablet de ', NULL, 100, 0),
+('license:784077d14c822e60a464f2f575d17292fde8ddfb', 'Tablet de ', NULL, 100, 0),
+('license:785ddb016eaccf4b6af0aaf3d3f8afecf9605536', 'Tablet de ', NULL, 100, 0),
+('license:798ed182404b5a98111cf7fb82be0e3e40a702f4', 'Tablet de ', NULL, 100, 0),
+('license:79ee59b466cd227fdfc794c8cb9398df985a56eb', 'Tablet de ', NULL, 100, 0),
+('license:7ae661f2ea1eb9d7b2151fc039590c368ecda9a4', 'Tablet de ', NULL, 100, 0),
+('license:7b0cc63cedd1c0197a71ebeea8cc7dd2508184f0', 'Tablet de Kay', NULL, 100, 0),
+('license:7c396a89029f7940b07969d8f34af8cf335b1a50', 'Tablet de ', NULL, 100, 0),
+('license:7c88c52fc3a7845555955796d45434a90b58d1c8', 'Tablet de Aaron', NULL, 100, 0),
+('license:7cf25879dbf5b61ef5ce50167b5c1e1d7b690ae7', 'Tablet de Juan', NULL, 100, 0),
+('license:7d1c110a641cd5e0bf4e6ae34515a5bbb112e7f0', 'Tablet de ', NULL, 100, 0),
+('license:7e7e0a288b2c31c9f1d75949260da591b14a6f39', 'Tablet de ', NULL, 100, 0),
+('license:7e80aa25c6eeccecfd4444c797c8e8cd7f0e4e03', 'Tablet de Jhonathan', '{\"sound\":{\"volume\":0.5,\"silent\":false},\"name\":\"Tablet de Jhonathan\",\"time\":{\"twelveHourClock\":false},\"doNotDisturb\":false,\"display\":{\"theme\":\"dark\",\"brightness\":1},\"wallpaper\":{\"blur\":false,\"background\":\"gradient\"},\"airplaneMode\":false,\"apps\":[[\"Notes\",\"Mail\",\"Camera\",\"Photos\"],[\"Settings\",\"Browser\",\"Maps\",\"Ambulance\",\"Police\",\"Calculator\",\"Apps\",\"VoiceMemo\",\"Services\",\"Clock\",\"Registration\"]],\"locale\":\"fr\",\"streamerMode\":false,\"lockscreen\":{\"fontStyle\":1,\"color\":\"gradient\"}}', 100, 1),
+('license:7ee500bf8ef16ec52cffdf666c2dc51f9d1fcde8', 'Tablet de ', NULL, 100, 0),
+('license:812f2f18c245e8347d1beabeaef962fa21508d83', 'Tablet de ', NULL, 100, 0),
+('license:822a37030a94dd038909d17c20843c55c38091d0', 'Tablet de ', NULL, 100, 0),
+('license:8269d616eaa7caeb32c2d24addc9b19017ed5165', 'Tablet de ', NULL, 100, 0),
+('license:8270b4fe1e63c0fef707b70b8e79fd834e8d8732', 'Tablet de ', NULL, 100, 0),
+('license:82e7ee909af32c63a216aafcefdb29458f4a722b', 'Tablet de ', NULL, 100, 0),
+('license:83d865820a76b899e4e22e077d0787af9064ae34', 'Tablet de ', NULL, 100, 0),
+('license:84c9bffe6db00732004c517ad502da44f39ae8df', 'Tablet de ', NULL, 100, 0),
+('license:84eb28b32090d1cc378d7d0727e2cb8325d48e5a', 'Tablet de Aziz', '{\"name\":\"Tablet de Aziz\",\"time\":{\"twelveHourClock\":false},\"sound\":{\"volume\":0.5,\"silent\":false},\"streamerMode\":false,\"airplaneMode\":false,\"apps\":[[\"Notes\",\"Mail\",\"Camera\",\"Photos\"],[\"Settings\",\"Browser\",\"Maps\",\"Ambulance\",\"Police\",\"Calculator\",\"Apps\",\"VoiceMemo\",\"Services\",\"Clock\",\"Registration\"]],\"wallpaper\":{\"background\":\"gradient\",\"blur\":false},\"locale\":\"fr\",\"doNotDisturb\":false,\"lockscreen\":{\"fontStyle\":1,\"color\":\"gradient\"},\"display\":{\"theme\":\"dark\",\"brightness\":1}}', 100, 1),
+('license:8514cfc2456bb3c83e3fee76b55827170c6452e4', 'Tablet de ', NULL, 100, 0),
+('license:8556d8100c6213966b05d9c86415c7c1d3f43dcb', 'Tablet de ', NULL, 100, 0),
+('license:85f15728dfb748f6d686d7c254b1105db779b79c', 'Tablet de ', NULL, 100, 0),
+('license:8644b30b2da4a52f3a882ee998193164c5825afc', 'Tablet de ', NULL, 100, 0),
+('license:874e0065cf2a9c37eccb7d8be1c07005e7efcd4c', 'Tablet de ', NULL, 100, 0),
+('license:879eecbe1ad831726c15413b8d61b279dcc6be54', 'Tablet de Cody', NULL, 100, 0),
+('license:87de9d7c41740deea35faaf44d5e0a9d31ac531d', 'Tablet de ', NULL, 100, 0),
+('license:89684c633a425ae79441af18b8ad812ade816831', 'Tablet de ', NULL, 100, 0),
+('license:89dbbc1354d833989a53cdb792d391a761ea0995', 'Tablet de ', NULL, 100, 0),
+('license:8a8a2741d91871dafe4b13b482eb253ad7876c66', 'Tablet de ', NULL, 100, 0),
+('license:8aafeb8375ff81c795082004f242c9e57f554417', 'Tablet de ', NULL, 100, 0),
+('license:8b81126b751d702c5feb8cf17c4369bb4c3d216e', 'Tablet de ', NULL, 100, 0),
+('license:8be51c70806f3fb91f7b113bb69d4cba4a5fa9c8', 'Tablet de Willy', '{\"time\":{\"twelveHourClock\":false},\"doNotDisturb\":false,\"display\":{\"brightness\":1,\"theme\":\"dark\",\"frameColor\":\"#702e2e\"},\"apps\":[[\"Notes\",\"Mail\",\"Camera\",\"Photos\"],[\"Settings\",\"Browser\",\"Maps\",\"Ambulance\",\"Police\",\"Calculator\",\"Apps\",\"VoiceMemo\",\"Services\",\"Clock\",\"Registration\"]],\"lockscreen\":{\"fontStyle\":1,\"color\":\"gradient\"},\"streamerMode\":false,\"locale\":\"fr\",\"sound\":{\"volume\":0.5,\"silent\":false},\"airplaneMode\":false,\"wallpaper\":{\"blur\":false,\"background\":\"gradient\"}}', 100, 1),
+('license:8cd0b188dc3847cfb1e0017934b3f9f6ee3bbacd', 'Tablet de ', NULL, 100, 0),
+('license:8d1e44743b47a4a32886d4d1c95ac0cdf5d7cf29', 'Tablet de ', NULL, 100, 0),
+('license:8d64a063ea5f41fee2d16063998588f6493b8c8d', 'Tablet de ', NULL, 100, 0),
+('license:8d805c272b24a2e2265fae9520499d3170667695', 'Tablet de Ivar', NULL, 100, 0),
+('license:8dc3fddcaeea9e78bfe2267c673df0f22e53abdf', 'Tablet de Giovanni', '{\"streamerMode\":false,\"apps\":[[\"Notes\",\"Mail\",\"Camera\",\"Photos\"],[\"Settings\",\"Browser\",\"Maps\",\"Ambulance\",\"Police\",\"Calculator\",\"Apps\",\"VoiceMemo\",\"Services\",\"Clock\",\"Registration\"]],\"sound\":{\"volume\":0.5,\"silent\":false},\"doNotDisturb\":false,\"display\":{\"brightness\":1,\"theme\":\"dark\"},\"time\":{\"twelveHourClock\":false},\"lockscreen\":{\"fontStyle\":1,\"color\":\"gradient\"},\"locale\":\"fr\",\"wallpaper\":{\"blur\":false,\"background\":\"gradient\"},\"airplaneMode\":false,\"name\":\"Tablet de Giovanni\"}', 100, 1),
+('license:8e85215a4a248296bbdb63decdc2414150a88b60', 'Tablet de ', NULL, 100, 0),
+('license:8eb75654dfc82ce3c985edfd92d7071f10956916', 'Tablet de ', NULL, 100, 0),
+('license:8ee025c1c371a551b5eac8da61b730e4b42ae90f', 'Tablet de ', NULL, 100, 0),
+('license:8f11792ff9cffc23ba70eb3b5eea941af3fe035c', 'Tablet de ', NULL, 100, 0),
+('license:8f974f69235142cbbfc9bd769654541081536fdc', 'Tablet de ', NULL, 100, 0),
+('license:8feab7782ffc4233f1d835b99dda1308f494f01e', 'Tablet de ', NULL, 100, 0),
+('license:9062470e311d5b54f8c14d0431ca0ba6866d4423', 'Tablet de ', NULL, 100, 0),
+('license:908eee1343215552914dd8622d1de180ee99fa1f', 'Tablet de ', NULL, 100, 0),
+('license:90a1b86337264c270d777bdda562bdcfd83f19bb', 'Tablet de Martin', NULL, 100, 0),
+('license:90b6978d83b1773678b30ce73fce2c97d4c20f83', 'Tablet de ', NULL, 100, 0),
+('license:91be99b336eae03cf7b64a4337de731536b6bf10', 'Tablet de Lina', NULL, 100, 0),
+('license:91f60f41b412b7e3c56961f61225ee6709af38bf', 'Tablet de ', NULL, 100, 0),
+('license:92d4c811aa6a696f5f1f0bc6ad4c7a4fbd30eaec', 'Tablet de ', NULL, 100, 0),
+('license:92f15ee177d4218c6fedfaee29b348e437715abb', 'Tablet de ', NULL, 100, 0),
+('license:935cf402483506640fb36f3a74545a1a6334584d', 'Tablet de ', NULL, 100, 0),
+('license:9371b55edd024f54aa6108abbffb9d715cef41a7', 'Tablet de ', NULL, 100, 0),
+('license:9392d7ecc07155a08cfccd00a189b8f296f0adcb', 'Tablet de Twoi', NULL, 100, 0),
+('license:93bfc1660b1055dad5e5174c1649ce641315265d', 'Tablet de Mason', NULL, 100, 0),
+('license:93f31fccbf8d6e39fab9ea8fde62e9461d3989f9', 'Tablet de bilal', NULL, 100, 0),
+('license:955acb449304c82ee8c30bf0ae5cb34514d68d8a', 'Tablet de ', NULL, 100, 0),
+('license:957cbde20e0b2cd59aa21071998de46babe763e3', 'Tablet de ', NULL, 100, 0),
+('license:95db96eb684fdd97afc65d12677a62ee94b3cc8c', 'Tablet de ', NULL, 100, 0),
+('license:962f558699b0b5c853f6505d23db9f095faafec6', 'Tablet de ', NULL, 100, 0),
+('license:968abcbb2dced60f0e6caeea28c431b744430742', 'Tablet de ', NULL, 100, 0),
+('license:973d6d1a4aa9a23797049081f3a5a537c6161253', 'Tablet de ', NULL, 100, 0),
+('license:97ef1924c2730944344b11fbb902bd8c269e48ba', 'Tablet de ', NULL, 100, 0),
+('license:985a87a8849f9c4c5aaaff4ad59b867fa13fafb8', 'Tablet de ', NULL, 100, 0),
+('license:98c27cbb3602fe8e6ad77297a9387db22d13a163', 'Tablet de ', NULL, 100, 0),
+('license:98fca5d22725d78c4d4670303eaf9c0902cc9526', 'Tablet de ', NULL, 100, 0),
+('license:992bb66d6b9a8f239f905aec40966299b342c8d3', 'Tablet de Nelson', NULL, 100, 0),
+('license:99572c46c4419a0f597d110a31640f1a3ff1655e', 'Tablet de Marco', NULL, 100, 0),
+('license:9aeaf92f0ea8fc6263e3bdcf36bc27fd5f54813a', 'Tablet de ', NULL, 100, 0),
+('license:9b009ad92fdb410151ce6a7dda3e1af3e8119f73', 'Tablet de ', NULL, 100, 0),
+('license:9b33a5cb519662fb0f8df9593fde56c2e08bc876', 'Tablet de ', NULL, 100, 0),
+('license:9b3681f4a95b832bd98134b82b8bb4d23ed45eb7', 'Tablet de ', NULL, 100, 0),
+('license:9c191b8abb5e8d79f682123a2fce6796a2c8313b', 'Tablet de ', NULL, 100, 0),
+('license:9d8a0be9d47366d1b9bfe62a615aa7296b154474', 'Tablet de ', NULL, 100, 0),
+('license:9d8ac85c1ea5d5c46fd5937b80ee16e5c9932f74', 'Tablet de Lina', '{\"name\":\"Tablet de Lina\",\"apps\":[[\"Notes\",\"Mail\",\"Camera\",\"Photos\"],[\"Settings\",\"Browser\",\"Maps\",\"Ambulance\",\"Police\",\"Calculator\",\"Apps\",\"VoiceMemo\",\"Services\",\"Clock\",\"Registration\"]],\"display\":{\"brightness\":1,\"theme\":\"dark\"},\"lockscreen\":{\"fontStyle\":1,\"color\":\"gradient\"},\"airplaneMode\":false,\"time\":{\"twelveHourClock\":false},\"sound\":{\"silent\":false,\"volume\":0.5},\"wallpaper\":{\"background\":\"gradient\",\"blur\":false},\"doNotDisturb\":false,\"locale\":\"fr\",\"streamerMode\":false}', 100, 1),
+('license:9dea7919b55d8a88f740872c415b268ac951c486', 'Tablet de ', NULL, 100, 0),
+('license:9f12632a7648169702e6f3d43b9fc82a45ab62bb', 'Tablet de ', NULL, 100, 0),
+('license:9f12fca7c51e6b98a1140c1612402bd3c80df3fa', 'Tablet de ', NULL, 100, 0),
+('license:9f3e112d42b2a669134f94009a9b2e0a29f48719', 'Tablet de ', NULL, 100, 0),
+('license:9f53382dc04f3e53fa63f91a503c1c89c35e0dce', 'Tablet de Sonar ', NULL, 100, 0),
+('license:9f79c55477cdf3b7a6a0be7ad33bb68273d49349', 'Tablet de ', NULL, 100, 0),
+('license:a0cbe8e826f61d0d552b6767668cdfb1e8e6a6e6', 'Tablet de ', NULL, 100, 0),
+('license:a0cf21920e1bc49be0182ffdf00e92620e2ad1ac', 'Tablet de ', NULL, 100, 0),
+('license:a1c3a015a0fc51412d8a26230869895b4ef4c657', 'Tablet de ', NULL, 100, 0),
+('license:a1dfe31102e0c1407457ce3dc3d451ac4b818442', 'Tablet de ', NULL, 100, 0),
+('license:a1ffce23ac815d4dfa4b018c9caf6732e09dad00', 'Tablet de ', NULL, 100, 0),
+('license:a21f17c9084a8a9a303edf22969b856f0f1aa4b7', 'Tablet de ', NULL, 100, 0),
+('license:a262c8a5917ec6963b066b1a479a75ec386d6a8a', 'Tablet de carlito', NULL, 100, 0),
+('license:a296a63ab7a045775eabdc045e576f4667d0a0a4', 'Tablet de Alicio', NULL, 100, 0),
+('license:a29a2d0f8426aeec8514715df97e391e5ca0a0a6', 'Tablet de ', NULL, 100, 0),
+('license:a2bdaef3d7d727075b7cb3d4490208c477461b22', 'Tablet de ', NULL, 100, 0),
+('license:a2d40ab70b2cca10d64fb7b05a13abb3cfd26ec8', 'Tablet de ', NULL, 100, 0),
+('license:a33cba77c726f93ee9b4ecf5af9775523aeaa45f', 'Tablet de John', NULL, 100, 0),
+('license:a3cda9b55ccfe11f888ee445b1889f19b9eb5a97', 'Tablet de jay', NULL, 100, 0),
+('license:a41d1d44ce0e60ea69b4f6148ea154d58f39bb0c', 'Tablet de ', NULL, 100, 0),
+('license:a4ddb9a7b10a8a7662474964c68013fde6cca787', 'Tablet de Prosper', NULL, 100, 0),
+('license:a4df4160abc70b417c9f4e8733081c62e1dee00c', 'Tablet de ', NULL, 100, 0),
+('license:a4dfe8841296afa3bc0a02aec98fe90ffd36d552', 'Tablet de ', NULL, 100, 0),
+('license:a4f45adedbc147a03c051360d60da697772e3fb7', 'Tablet de ', NULL, 100, 0),
+('license:a5102c9890dcd695e29c2228634a2f8d41208c91', 'Tablet de ', NULL, 100, 0),
+('license:a51104dbb87d3d0fcfb01ae526abdb9d9a53135e', 'Tablet de ', NULL, 100, 0),
+('license:a5d0e04c4ab1e17f7c25e86b934c7464395a13ba', 'Tablet de ', NULL, 100, 0),
+('license:a61d7d965a9778f5b8d6210782f199807bb4a225', 'Tablet de ', NULL, 100, 0),
+('license:a63b551f6615fddfdcd49384d950c3d6e4554a2b', 'Tablet de Blake', NULL, 100, 0),
+('license:a6d3a019af83dcfe42691ae459bbd6f79e98bc10', 'Tablet de ', NULL, 100, 0),
+('license:a7071aa0d429cc17a55e140aee93a7a97fca801a', 'Tablet de ', NULL, 100, 0),
+('license:a7537d9baab5ffcd6ce23d38c9fb5163e61d0c74', 'Tablet de James', NULL, 100, 0),
+('license:a859522238ec5affa735a46e41d715abe8e8034d', 'Tablet de Dylan', NULL, 100, 0),
+('license:a86d3c1e57fa6704a01a08e722d7468abaa76af8', 'Tablet de ', NULL, 100, 0),
+('license:a87d298a1feee977f461130458bdc08078c24dd1', 'Tablet de ', NULL, 100, 0),
+('license:aa22c21883669bee7d8093c197a5dcf371b34195', 'Tablet de ', NULL, 100, 0),
+('license:aa732a8c1e5bfeda6c022b72088618edf16f19ad', 'Tablet de ', NULL, 100, 0),
+('license:aba3a8228e2312f7c866f12397e2288cb8683784', 'Tablet de ', NULL, 100, 0),
+('license:ac78b46bbf74984d705aab5c491a75346594732f', 'Tablet de Oscar', NULL, 100, 0),
+('license:ac8adc4f5173ba1431369c05b8a2f4d090a9dc17', 'Tablet de ', NULL, 100, 0),
+('license:acb4c459240892ccf324ccbd8e2e97767eff43f9', 'Tablet de ', NULL, 100, 0),
+('license:ad1f881c9b76e4c2101aafd964f61aa105cb3889', 'Tablet de ', NULL, 100, 0),
+('license:ad21f6e0bc7da65deeda1b143d8eff3c01bb3cf1', 'Tablet de Inayah', NULL, 100, 0),
+('license:adb4fa741eee068b3e5d049e1d26ceddbdded1be', 'Tablet de ', NULL, 100, 0),
+('license:adcdad7f15f7d8411433c1aed19c08a70fd1f532', 'Tablet de ', NULL, 100, 0),
+('license:ae6332ffefee3b6eaf5552884204df3551e06449', 'Tablet de nique ta ', NULL, 100, 0),
+('license:aea73fabc2e2ad2208ddd48d85906b05a6212067', 'Tablet de ', NULL, 100, 0),
+('license:aee222e737662f6a64434d797728b24d4973b09a', 'Tablet de ', NULL, 100, 0),
+('license:af4cb0a1b374c94f1c16c01acf95662b41030f99', 'Tablet de hamid', NULL, 100, 0),
+('license:b11248e9910739bfa4319ee037f3e1a8c4b8b184', 'Tablet de ', NULL, 100, 0),
+('license:b1338fae0ebdc8a7436afecac1bbedf70d93deb6', 'Tablet de ', NULL, 100, 0),
+('license:b139f100d6262d3a697b14ac88f873b64eec76c8', 'Tablet de ', NULL, 100, 0),
+('license:b19814ec08c565ef88d63342a9446a48e7ecd74f', 'Tablet de ', NULL, 100, 0),
+('license:b1e2fc34df0eb386692c5a242b731d349a29c149', 'Tablet de Marc', NULL, 100, 0),
+('license:b2ae6f9963d3eb404001a711091afcdd32100454', 'Tablet de ', NULL, 100, 0),
+('license:b2e000c2e1d99c39fa8d113b9ee532bc07d9a048', 'Tablet de ', NULL, 100, 0),
+('license:b3143ef3dbfd9601fedc97eefbaa04d999e0700c', 'Tablet de ', NULL, 100, 0),
+('license:b3565187385057663e453b81404b354624de2930', 'Tablet de ', NULL, 100, 0),
+('license:b366d1c2c961f82bb82721b906186b8651ae18a9', 'Tablet de ', NULL, 100, 0),
+('license:b39b6f475574414abbceaec4433b6841a9fab730', 'Tablet de JEAN ', NULL, 100, 0),
+('license:b5521ff813c7b2bd6974ba56d3cb716d06a1d1a2', 'Tablet de ', NULL, 100, 0),
+('license:b674d704bb5ba8852ac61a0f24d3e22e8c8b9aa2', 'Tablet de ', NULL, 100, 0),
+('license:b691c193db5338eb1bc6ffdda1123b5857fb7585', 'Tablet de ', NULL, 100, 0),
+('license:b77c26a7797c7f9646a34eaea7e2cc165cb2c37b', 'Tablet de ', NULL, 100, 0),
+('license:b8f8808f17d4851782b600352fb71ea129dad1cd', 'Tablet de ', NULL, 100, 0),
+('license:b910bf8ee50e440dcb52a2634473ea424f764669', 'Tablet de ', NULL, 100, 0),
+('license:b9e591be4070b3d5a2778e54ac3e0df61fdd3951', 'Tablet de ', NULL, 100, 0),
+('license:b9e8977848885b2783e18e2dc0ce0733c738206c', 'Tablet de ', NULL, 100, 0),
+('license:ba41b86811b82894dffef1eed5d027210f6edfe7', 'Tablet de ', NULL, 100, 0),
+('license:ba54c879b40199b044d70cdb935b4adea971cf77', 'Tablet de Alex', NULL, 100, 0),
+('license:bb17c72b084e0fe5effa4a0e00a93e9c3ca1d62e', 'Tablet de ', NULL, 100, 0),
+('license:bb1b0615ba0e0eed0e18ddd621aaf20c947b8892', 'Tablet de Alejandro', NULL, 100, 0),
+('license:bba917d9c5028003cdb0887c570d1160da7c53bf', 'Tablet de ', NULL, 100, 0),
+('license:bc06b38b11697cdcca5831b22dd01e0a24cc792a', 'Tablet de ', NULL, 100, 0),
+('license:bc6b17142b334fc6a1b10945dbf2a5a9662d19be', 'Tablet de ', NULL, 100, 0),
+('license:bca9c0e4557b0a4d9a7721253977932ec8189487', 'Tablet de ', NULL, 100, 0),
+('license:be87977a04d6857e14dc13fe08829a06118fb9b7', 'Tablet de ', NULL, 100, 0),
+('license:becdf718998d36de89707e9fe986d2d23e86f46c', 'Tablet de ', NULL, 100, 0),
+('license:bf8719d9637dab0450b8eb0af93ee5af1ce236c0', 'Tablet de ', NULL, 100, 0),
+('license:c03489263dddbcb4b2d15e39ea55958c20f5c32e', 'Tablet de ', NULL, 100, 0),
+('license:c0d322884b41bacd37714179b7e74d31061bbd50', 'Tablet de ', NULL, 100, 0),
+('license:c0e09f8ad186ef23abe0dac49bc7e9be5e0e21be', 'Tablet de ', NULL, 100, 0),
+('license:c101c5463ae5dca79431710730169e96ec3e0f99', 'Tablet de ', NULL, 100, 0),
+('license:c10db09f5f5001f334bf015e3bc4fbf77873eb5c', 'Tablet de ', NULL, 100, 0),
+('license:c10e916c2950375c601d0d97b722e881a2c55868', 'Tablet de ', NULL, 100, 0),
+('license:c195b66ca90f6296f375b22b95cca98e24e4a081', 'Tablet de ', NULL, 100, 0),
+('license:c35e7ac541f7a25c08a9ba94c70a19978996932b', 'Tablet de ', NULL, 100, 0),
+('license:c3c82023cf9ddb3cda0f61a3afbd8337bd3cd6c4', 'Tablet de ', NULL, 100, 0),
+('license:c3f66dfcf70b30be155e61dade286fb98883d97a', 'Tablet de ', NULL, 100, 0),
+('license:c472c89c6c51b86af832cadb55d9ea5d1a862535', 'Tablet de Mamoudou', NULL, 100, 0),
+('license:c4b6bee913fc7018859f51ee12f587ee6ce9c7fb', 'Tablet de ', NULL, 100, 0),
+('license:c53c196dcac2610f80ebfb80ff65c54660ec9a7a', 'Tablet de ', NULL, 100, 0),
+('license:c6ed89173626b9b0def1391c103917b9dbd885ad', 'Tablet de ', NULL, 100, 0),
+('license:c7047c2bff587ff4323f954c65e2db222b4148d3', 'Tablet de ', NULL, 100, 0),
+('license:c7116d7abf399a8da73bca32928f198d31dbccec', 'Tablet de John', '{\"lockscreen\":{\"color\":\"gradient\",\"fontStyle\":1},\"name\":\"??\",\"apps\":[[\"Notes\",\"Mail\",\"Camera\",\"Photos\"],[\"Settings\",\"Browser\",\"Maps\",\"Ambulance\",\"Police\",\"Calculator\",\"Apps\",\"VoiceMemo\",\"Services\",\"Clock\",\"Registration\"]],\"locale\":\"fr\",\"doNotDisturb\":false,\"airplaneMode\":false,\"wallpaper\":{\"background\":\"gradient\",\"blur\":false},\"streamerMode\":false,\"display\":{\"theme\":\"dark\",\"brightness\":1},\"time\":{\"twelveHourClock\":false},\"sound\":{\"silent\":false,\"volume\":0.5}}', 100, 1),
+('license:c86fa3802567a962fddfe3e264d1742bb0aaa13c', 'Tablet de ', NULL, 100, 0),
+('license:c93f8c8ad95ce98c9f62da16a65d0cf335bca272', 'Tablet de ', NULL, 100, 0),
+('license:c9c03ee310f4bdaa4053d2bdaae5f694f43d10b2', 'Tablet de ', NULL, 100, 0),
+('license:c9d0d8509b997af1b8cb1cf2b473cdf7b3efb327', 'Tablet de ', NULL, 100, 0),
+('license:ca44d0c7f573478187cc8e10ff8d20d158eea73b', 'Tablet de ', NULL, 100, 0),
+('license:ca74c64c9bf7e0eda628b11b4aff50f6d847811a', 'Tablet de ', NULL, 100, 0),
+('license:cb6babdb9f95ec44761894a1a90f9b12e9e6542c', 'Tablet de Tomy', NULL, 100, 0),
+('license:cb7b781c41189288a02555d4757b880d9378b430', 'Tablet de nathan', NULL, 100, 0),
+('license:cb90d060c8ad5e53f146ccb332f3e3b003462181', 'Tablet de ', NULL, 100, 0),
+('license:ccfa9a8de8495641c1924198ec13600361661d27', 'Tablet de ', NULL, 100, 0),
+('license:cd686a482c176d59ee9a0c2cfd6c0c0f6581c0a4', 'Tablet de ', NULL, 100, 0),
+('license:cd726eedd7d24100a9f5eb318ba66d8263f4a8f0', 'Tablet de ', NULL, 100, 0),
+('license:cdbb56f9225a2c717071cb2bd2e5121e0ff2decd', 'Tablet de James ', NULL, 100, 0),
+('license:cead659ebbe7e3526680a01f6579ba2a0a44790b', 'Tablet de ', NULL, 100, 0),
+('license:cf190662aabd5b5fa48f22cb7be768d637338d44', 'Tablet de ', NULL, 100, 0),
+('license:cfbd08d80093739df307dbeaed6ecd25579fe702', 'Tablet de ', NULL, 100, 0),
+('license:d00f52e4b51f12b2c702594de3343f9cd7139e75', 'Tablet de ', NULL, 100, 0),
+('license:d018e01963e739c7a433c910c6183f177becb4eb', 'Tablet de ', NULL, 100, 0),
+('license:d17181de40c2d1cd3221bf95010fc15e7e715fb7', 'Tablet de ', NULL, 100, 0),
+('license:d247a99a9c3f568e161ada07df03d8b065581f2b', 'Tablet de ', NULL, 100, 0),
+('license:d25ba84472335a13e5fd9603f030b97d26e109c7', 'Tablet de ', NULL, 100, 0),
+('license:d2640f06cf7a02d87b635a6e700231865d7e5e8a', 'Tablet de ', NULL, 100, 0),
+('license:d2f1ec7aac7b5bf8fa70cb00d0cf32937ca61766', 'Tablet de ', NULL, 100, 0),
+('license:d5eaac01408f25320a13ca209a115f50181390a4', 'Tablet de ', NULL, 100, 0),
+('license:d647a886c90025edd757074865edaf53a0757112', 'Tablet de ', NULL, 100, 0),
+('license:d74c348bf6b225923a32a4ab2c657f5ee6e994bc', 'Tablet de david', NULL, 100, 0),
+('license:d81a93b210ba965c5015e8a70f92aaf4bd9c1b4d', 'Tablet de Mohammed', NULL, 100, 0),
+('license:d886b5bf429fbab6009dcb0093fa387d3c141fd0', 'Tablet de ', NULL, 100, 0),
+('license:d8c2ac96bb5b5b77a322b89a165318e8238e6a30', 'Tablet de ', NULL, 100, 0),
+('license:d8f503bc0e6408cbc429d3adbae2d02f778803b2', 'Tablet de Tommy', NULL, 100, 0),
+('license:d91cae08c9e3e952f01c67cc6127bce1c864f324', 'Tablet de ', NULL, 100, 0),
+('license:d9584a37d83c4b20ed78486bf63fe6604a6e5cd4', 'Tablet de ', NULL, 100, 0),
+('license:d9cef2559d51585c9b9f5da8f3df24bd370e6b6a', 'Tablet de ', NULL, 100, 0),
+('license:da4bfb01646c4c16fbc95a614d5f991153c120bb', 'Tablet de ', NULL, 100, 0),
+('license:da71666574cc4ed7083d262b13409d14b5601dfa', 'Tablet de ', NULL, 100, 0),
+('license:dadacf1bfab6275f6545bbbf24ee19380a212c52', 'Tablet de ', NULL, 100, 0),
+('license:daeb73c425dca3da0afd36fce1cbdd5e4e36ac6d', 'Tablet de ', NULL, 100, 0),
+('license:db3525ea1c3e75beb33efa189faa613980521d01', 'Tablet de ', NULL, 100, 0),
+('license:dc1d9bf93d0a2f8160f18730e52f59a1aa4e4a98', 'Tablet de ', NULL, 100, 0),
+('license:dcbd6e6a0ebba660dbdf53b80ee4db79543f86a8', 'Tablet de ', NULL, 100, 0),
+('license:dd993055751a93de4a7cbf74b41b807fc34bda22', 'Tablet de ', NULL, 100, 0),
+('license:ddbea34d18e4976a078c51b64b090223dba130ed', 'Tablet de Rhyad', NULL, 100, 0),
+('license:df8c300b082bd994cda78f2bd19e4b4c6dd54790', 'Tablet de Pedro', '{\"streamerMode\":false,\"name\":\"Tablet de Pedro\",\"sound\":{\"volume\":0.5,\"silent\":false},\"wallpaper\":{\"blur\":false,\"background\":\"gradient\"},\"locale\":\"fr\",\"doNotDisturb\":false,\"time\":{\"twelveHourClock\":false},\"display\":{\"brightness\":1,\"theme\":\"dark\"},\"airplaneMode\":false,\"lockscreen\":{\"color\":\"gradient\",\"fontStyle\":1},\"apps\":[[\"Notes\",\"Mail\",\"Camera\",\"Photos\"],[\"Settings\",\"Browser\",\"Maps\",\"Ambulance\",\"Police\",\"Calculator\",\"Apps\",\"VoiceMemo\",\"Services\",\"Clock\",\"Registration\"]]}', 100, 1),
+('license:e110312a32c2cfeb9ff741fff2a89d99e8d54676', 'Tablet de Alvaro', NULL, 100, 0),
+('license:e28df0d3016eddd1a583bd692042295f7aa99c51', 'Tablet de Rico', NULL, 100, 0),
+('license:e290d94dcc4d4c4bc1b7f41b81f581d74bb83a47', 'Tablet de ', NULL, 100, 0),
+('license:e3309f2729a6025eca3c904901bb3a6d24bb8431', 'Tablet de ', NULL, 100, 0),
+('license:e41699e43d36e354e89217d539cbdd198874476e', 'Tablet de ', NULL, 100, 0),
+('license:e4298609d6010b10d282b27fbe3635ea86d0ccaa', 'Tablet de ', NULL, 100, 0),
+('license:e48335202e909b73d293d9d3ec7066b314bc206e', 'Tablet de mamadou', NULL, 100, 0),
+('license:e4c5dc8547eed5c0ad5203c518d4f326bebad7a2', 'Tablet de ', NULL, 100, 0),
+('license:e510569fdb65539a055d093cac5581e7422e9c4f', 'Tablet de ', NULL, 100, 0),
+('license:e580e1f8e8287af87477aa17bcb04e0c94185546', 'Tablet de ', NULL, 100, 0),
+('license:e84ed3344327da866f70e9239a96cf3cecb4f637', 'Tablet de ', '{\"wallpaper\":{\"blur\":false,\"background\":\"gradient\"},\"name\":\"Tablet de \",\"apps\":[[\"Notes\",\"Mail\",\"Camera\",\"Photos\"],[\"Settings\",\"Browser\",\"Maps\",\"Ambulance\",\"Police\",\"Calculator\",\"Apps\",\"VoiceMemo\",\"Services\",\"Clock\",\"Registration\"]],\"streamerMode\":false,\"doNotDisturb\":false,\"locale\":\"fr\",\"display\":{\"theme\":\"dark\",\"brightness\":1},\"time\":{\"twelveHourClock\":false},\"sound\":{\"volume\":0.5,\"silent\":false},\"lockscreen\":{\"color\":\"gradient\",\"fontStyle\":1},\"airplaneMode\":false}', 100, 1),
+('license:e92dba72c3d48b36915fbf0bcbb3e2f7210a81e7', 'Tablet de ', NULL, 100, 0),
+('license:e990b84dabbadcc22c0b16968e6fb8803abaabd2', 'Tablet de Salva', NULL, 100, 0),
+('license:e9c4ee063e3ee839f978c1e2fc9491a3c97cdc1a', 'Tablet de ', NULL, 100, 0),
+('license:ea02b7b5ccf027681af41fd07c42afb1595e8290', 'Tablet de ', NULL, 100, 0),
+('license:ea8d2c95b5480513a276733a938e53cd243a18b2', 'Tablet de Dashawn', NULL, 100, 0),
+('license:eabef3f0f88a0eceda895b9308cab4b62aa23074', 'Tablet de ', NULL, 100, 0),
+('license:ec196f64c46825160e071e1b9858b0f2f4796573', 'Tablet de ', NULL, 100, 0),
+('license:ec887cd6aa5eb21ee403d03419b1c200283ecf9e', 'Tablet de ', NULL, 100, 0),
+('license:ec9819b26a40afea33c1099e1c7d13a33724d4d3', 'Tablet de ', NULL, 100, 0),
+('license:eda0785f21c18f97f758ff17176cce9f629e3f84', 'Tablet de ', NULL, 100, 0),
+('license:edda9329b4feae0a96be25a25a5ac0641d549d7b', 'Tablet de Jackson', NULL, 100, 0),
+('license:eece01a9551950a51f5ac37844ddcbdffa260a13', 'Tablet de ', NULL, 100, 0),
+('license:ef127300f34be0e87c7960df2f394d5a71eb98ca', 'Tablet de ', NULL, 100, 0),
+('license:ef954d3977a4bfeffe42db262978fab56d524906', 'Tablet de ', NULL, 100, 0),
+('license:ef9d3eb2ed5f4fde30f48e268df417271ef33580', 'Tablet de ', NULL, 100, 0),
+('license:efa5dbdb58549dc8dfeade51136d932746b1413c', 'Tablet de ', NULL, 100, 0),
+('license:f0db2812d313908357b4c4a9513be93aa0782e3b', 'Tablet de ', NULL, 100, 0),
+('license:f15d0fd66a20a00074d76666159f310d67504cb2', 'Tablet de ', NULL, 100, 0),
+('license:f186e2017a4b047f09011cc738d69897b27fc5d3', 'Tablet de Morlos', '{\"lockscreen\":{\"fontStyle\":1,\"color\":\"gradient\"},\"name\":\"Tablet de Morlos\",\"wallpaper\":{\"background\":\"gradient\",\"blur\":false},\"locale\":\"fr\",\"apps\":[[\"Notes\",\"Mail\",\"Camera\",\"Photos\"],[\"Settings\",\"Browser\",\"Maps\",\"Ambulance\",\"Police\",\"Calculator\",\"Apps\",\"VoiceMemo\",\"Services\",\"Clock\",\"Registration\"]],\"airplaneMode\":false,\"doNotDisturb\":false,\"streamerMode\":false,\"display\":{\"theme\":\"dark\",\"brightness\":1},\"time\":{\"twelveHourClock\":false},\"sound\":{\"volume\":0.5,\"silent\":false}}', 100, 1),
+('license:f22a827bad06c9afde528d3a672afca0b5aa81bb', 'Tablet de ', NULL, 100, 0),
+('license:f2fd619035c428e4670059a0d8dfc2175a819c40', 'Tablet de ', NULL, 100, 0),
+('license:f32f93798716ef5fb6acd38112f8783f4bddf8b8', 'Tablet de ', NULL, 100, 0),
+('license:f455f9e1dc7d7077621e5264a5b4340af038cf3d', 'Tablet de ', NULL, 100, 0),
+('license:f479b54018dce7697011780073dab49b63b3ff1c', 'Tablet de ', NULL, 100, 0),
+('license:f485c9b49f8ea91f3b0cfe3e7daeb2f723f0adc4', 'Tablet de ', NULL, 100, 0),
+('license:f5180c4168dab348bb36dfbb8af4428c208ee721', 'Tablet de ', NULL, 100, 0),
+('license:f59c9fa7f36b1c966c6f246a43221535229865e6', 'Tablet de ', NULL, 100, 0),
+('license:f5cc4d88145fc9eda0ce10bcd3d5a20e5d586972', 'Tablet de ', NULL, 100, 0),
+('license:f731e199117f4ceca3b9c5f73b5adc0d9da47ba2', 'Tablet de ', NULL, 100, 0),
+('license:f79e623fbb48a41fa2e26e3d467722462e416e13', 'Tablet de ', NULL, 100, 0),
+('license:f7bc5be8cce8c3b77d47a22f0be1b1d2ca5051f6', 'Tablet de ', NULL, 100, 0),
+('license:f868063e69a5c64472da726eebdfa3921b84e644', 'Tablet de ', NULL, 100, 0),
+('license:f89442c5d5a888b849d31cc63513fa755eb3f72a', 'Tablet de ', NULL, 100, 0),
+('license:f8a8b85e78b297a32c47620663bd5673909d1196', 'Tablet de ', NULL, 100, 0),
+('license:f9827e3669f8cbf28122b3746579555053596606', 'Tablet de Daryl', NULL, 100, 0),
+('license:f99fcaf0875e7f63a660e2da681f5010f5b62ff0', 'Tablet de ', NULL, 100, 0),
+('license:f9e5347a082be6d99338691f99a63fae5aa5b821', 'Tablet de ', NULL, 100, 0),
+('license:fa44bdabf8622aa9c4368adfb106c902aa5736ce', 'Tablet de ', NULL, 100, 0),
+('license:fa74cc11412037c1129e60d814629f856fbea4a8', 'Tablet de ', NULL, 100, 0),
+('license:fab0d64ffc20a84055a7dd15e3e6dd47fb8f8ac2', 'Tablet de blabla', NULL, 100, 0),
+('license:fb1046897b011a055dde93a658c810fd5557644e', 'Tablet de ', NULL, 100, 0),
+('license:fb9e34af638ee5ac9bcc72975c2c7e59ae88124b', 'Tablet de ', NULL, 100, 0),
+('license:fbeb1a6875f37e411e0bcaef7391ade9cdeef2cc', 'Tablet de ', NULL, 100, 0),
+('license:fc64b925020bdb23054a84a5413d5d3c61bf9cf1', 'Tablet de Brasko', NULL, 100, 0),
+('license:fc85e18d61342d2b4434ee8ff4201fdd5603d2fa', 'Tablet de walid', '{\"name\":\"Tablet de walid\",\"doNotDisturb\":false,\"display\":{\"theme\":\"dark\",\"brightness\":1},\"apps\":[[\"Notes\",\"Mail\",\"Camera\",\"Photos\"],[\"Settings\",\"Browser\",\"Maps\",\"Ambulance\",\"Police\",\"Calculator\",\"Apps\",\"VoiceMemo\",\"Services\",\"Clock\",\"Registration\"]],\"time\":{\"twelveHourClock\":false},\"lockscreen\":{\"fontStyle\":1,\"color\":\"gradient\"},\"streamerMode\":false,\"locale\":\"fr\",\"sound\":{\"volume\":0.5,\"silent\":false},\"airplaneMode\":false,\"wallpaper\":{\"blur\":false,\"background\":\"gradient\"}}', 100, 1),
+('license:fd7947f372e3a8a5aa79937f789d9f6f20a1842e', 'Tablet de ', NULL, 100, 0),
+('license:fdf973fdb6f9f97e6f8cac1acdec339517558210', 'Tablet de ', NULL, 100, 0),
+('license:fdfb091c7fa2140c6b8704b2e9ac8a5f38f37bd2', 'Tablet de ', NULL, 100, 0),
+('license:fe7f1fcc00a8a0ff0707935d361e2ce86360950f', 'Tablet de ', NULL, 100, 0),
+('license:ff3e8eb106cf56e91140a2494505f18c70648ec6', 'Tablet de ', NULL, 100, 0),
+('license:ffafa7a5b38e3856bc68be53b00b4c1a4877fefc', 'Tablet de ', NULL, 100, 0);
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `lbtablet_voice_memo_recordings`
+--
+
+CREATE TABLE `lbtablet_voice_memo_recordings` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `tablet_id` varchar(100) NOT NULL,
+  `file_name` varchar(50) NOT NULL,
+  `file_url` varchar(500) NOT NULL,
+  `file_length` int(11) NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -26404,6 +27664,24 @@ CREATE TABLE `playerstattoos` (
   `tattoos` longtext NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
 
+--
+-- Déchargement des données de la table `playerstattoos`
+--
+
+INSERT INTO `playerstattoos` (`identifier`, `tattoos`) VALUES
+('license:968abcbb2dced60f0e6caeea28c431b744430742', '[{\"cat\":-2086773,\"name\":1860213958},{\"cat\":-2086773,\"name\":193320466},{\"cat\":-2086773,\"name\":434115743},{\"cat\":-2086773,\"name\":1819096318},{\"cat\":-975527441,\"name\":893288510},{\"cat\":-975527441,\"name\":962023066},{\"cat\":-363871405,\"name\":211084},{\"cat\":-363871405,\"name\":-1009472289},{\"cat\":-363871405,\"name\":-1462570018},{\"cat\":-363871405,\"name\":361610929},{\"cat\":-363871405,\"name\":-1170154756},{\"cat\":-363871405,\"name\":-1406186689}]'),
+('license:f4d3fb85bea564473e906a45a96ba15a3141526b', '[{\"name\":893288510,\"cat\":-975527441},{\"name\":413754974,\"cat\":-975527441}]'),
+('license:7a293177d8a85a2e64817f3e16dfa8aff94acf00', '[{\"cat\":484754152,\"name\":-1806626643}]'),
+('license:d5c1412a77f75f2a4bd47d0ae06c04e3f205df3d', '[{\"cat\":62137527,\"name\":-2053984264},{\"cat\":1529191571,\"name\":-1222200221},{\"cat\":-240234547,\"name\":745912106}]'),
+('license:99572c46c4419a0f597d110a31640f1a3ff1655e', '[{\"cat\":-2086773,\"name\":-1126042648},{\"cat\":-2086773,\"name\":1058197095},{\"cat\":-1398869298,\"name\":1348967356},{\"name\":709663738,\"cat\":-2086773},{\"name\":-188624940,\"cat\":1616273011}]'),
+('license:f46de84fadcd290c98bf6de06fb2f8c7587343a7', '[{\"cat\":1616273011,\"name\":-1365916084},{\"cat\":-1056335443,\"name\":-47863515},{\"cat\":-1056335443,\"name\":1720638120},{\"cat\":484754152,\"name\":-1008363280},{\"cat\":484754152,\"name\":2049704410},{\"cat\":484754152,\"name\":-1272951326},{\"cat\":598190139,\"name\":-814317724}]'),
+('license:f7fd33a05a8f21cc38bc44ff3816e01b794bb9a7', '[{\"cat\":598190139,\"name\":393127953},{\"cat\":-1398869298,\"name\":43105745},{\"cat\":-240234547,\"name\":-1530816149}]'),
+('license:86e0cd20f839d97378b1021e6529d0c210c6286e', '[{\"cat\":-2086773,\"name\":193320466},{\"cat\":-1398869298,\"name\":-441853516},{\"cat\":-240234547,\"name\":1988133312},{\"cat\":1616273011,\"name\":1832021545},{\"cat\":1616273011,\"name\":-1521133289},{\"cat\":1616273011,\"name\":-303409019},{\"cat\":1616273011,\"name\":1173525590},{\"cat\":-975527441,\"name\":2056773549},{\"cat\":-975527441,\"name\":893288510},{\"cat\":-975527441,\"name\":1963590204},{\"cat\":-975527441,\"name\":919272855},{\"cat\":-975527441,\"name\":-88186884},{\"name\":-241894528,\"cat\":-975527441},{\"name\":-1425414573,\"cat\":-975527441},{\"name\":2048866271,\"cat\":1529191571},{\"name\":-676067408,\"cat\":1529191571},{\"name\":-578277428,\"cat\":1529191571},{\"name\":1676439910,\"cat\":1529191571},{\"name\":-294157184,\"cat\":1529191571},{\"name\":1654917353,\"cat\":1529191571},{\"name\":-13131391,\"cat\":1529191571},{\"name\":-1401933531,\"cat\":1529191571},{\"name\":1522216340,\"cat\":62137527},{\"name\":283995288,\"cat\":62137527},{\"name\":1744801848,\"cat\":62137527},{\"name\":-636638153,\"cat\":62137527},{\"name\":843062770,\"cat\":1926256505},{\"name\":-1462570018,\"cat\":-363871405},{\"name\":-1873628095,\"cat\":-363871405},{\"name\":361610929,\"cat\":-363871405}]'),
+('license:9401a46ea0e6272f38b847b85732515e7b26e69f', '[{\"name\":1708731435,\"cat\":598190139},{\"name\":827974775,\"cat\":-2086773},{\"name\":1595162603,\"cat\":-2086773},{\"name\":-1060893559,\"cat\":-363871405},{\"name\":2056773549,\"cat\":-975527441},{\"name\":401532197,\"cat\":1529191571}]'),
+('license:19101c65e5a20141ad5232becb2bd4f03ed49f90', '[{\"cat\":1616273011,\"name\":-1841627189},{\"cat\":1529191571,\"name\":-1222200221},{\"cat\":-363871405,\"name\":-1462570018},{\"cat\":-363871405,\"name\":-1170154756},{\"cat\":1185637852,\"name\":113768799},{\"cat\":1347816957,\"name\":-145302944},{\"cat\":598190139,\"name\":-1352706360},{\"cat\":-975527441,\"name\":-2088223199},{\"cat\":1529191571,\"name\":788520303},{\"cat\":-975527441,\"name\":-504012739}]'),
+('license:c7047a717d79967217452e8ff7bf40cd8b5fa667', '[{\"name\":2024821433,\"cat\":598190139},{\"name\":-791841628,\"cat\":1926256505},{\"name\":2144765713,\"cat\":-1016521996},{\"name\":-962894007,\"cat\":-1016521996},{\"name\":-187785912,\"cat\":-1016521996},{\"name\":25158851,\"cat\":-1719270477},{\"name\":-270395278,\"cat\":-1398869298},{\"name\":-694786597,\"cat\":-1398869298},{\"name\":-1210698509,\"cat\":-1398869298},{\"name\":123359970,\"cat\":-1398869298},{\"name\":1395583642,\"cat\":-1398869298},{\"name\":523240077,\"cat\":-1398869298},{\"name\":1285643631,\"cat\":-1398869298}]'),
+('license:500afc62035c6ad0a209438b146d7d8515c6ae99', '[{\"name\":26968202,\"cat\":-1056335443},{\"name\":-47863515,\"cat\":-1056335443}]');
+
 -- --------------------------------------------------------
 
 --
@@ -27139,36 +28417,35 @@ INSERT INTO `police_plainte` (`id`, `name`, `date`, `numberphone`, `reason`, `au
 
 CREATE TABLE `properties` (
   `propertiesID` int(11) NOT NULL,
-  `propertiesOWNER` varchar(255) DEFAULT 'none',
-  `name` varchar(255) NOT NULL,
-  `label` varchar(255) NOT NULL,
-  `price` int(11) NOT NULL,
-  `enter` text NOT NULL,
-  `exitPos` text NOT NULL,
-  `garage` tinyint(1) DEFAULT 0,
-  `garagePos` text DEFAULT NULL,
-  `garageSpawn` text DEFAULT NULL,
-  `garageRotation` float DEFAULT NULL,
-  `garageType` varchar(50) DEFAULT NULL,
-  `type` varchar(50) NOT NULL,
-  `trunk` text DEFAULT NULL,
-  `logementType` varchar(50) DEFAULT NULL,
-  `street` varchar(50) DEFAULT NULL,
-  `entrepot` tinyint(1) DEFAULT 0,
-  `pound` int(11) DEFAULT NULL,
-  `ownerName` varchar(255) DEFAULT 'none',
-  `players` text DEFAULT NULL,
-  `time` int(11) DEFAULT 0
+  `name` longtext DEFAULT NULL,
+  `label` longtext DEFAULT NULL,
+  `propertiesOWNER` longtext DEFAULT NULL,
+  `ownerName` longtext DEFAULT NULL,
+  `enter` varchar(255) DEFAULT NULL,
+  `exit` varchar(255) DEFAULT NULL,
+  `garage` tinyint(1) UNSIGNED ZEROFILL DEFAULT 0,
+  `garagePos` varchar(255) DEFAULT NULL,
+  `garageSpawn` varchar(255) DEFAULT NULL,
+  `garageRotation` varchar(255) DEFAULT NULL,
+  `price` int(11) DEFAULT NULL,
+  `garageType` longtext DEFAULT NULL,
+  `players` longtext DEFAULT '{}',
+  `type` longtext DEFAULT NULL,
+  `trunk` longtext DEFAULT NULL,
+  `trunkPos` varchar(255) DEFAULT NULL,
+  `logementType` longtext DEFAULT NULL,
+  `time` int(11) UNSIGNED ZEROFILL DEFAULT NULL,
+  `street` longtext DEFAULT NULL,
+  `entrepot` tinyint(4) DEFAULT NULL,
+  `pound` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Déchargement des données de la table `properties`
 --
 
-INSERT INTO `properties` (`propertiesID`, `propertiesOWNER`, `name`, `label`, `price`, `enter`, `exitPos`, `garage`, `garagePos`, `garageSpawn`, `garageRotation`, `garageType`, `type`, `trunk`, `logementType`, `street`, `entrepot`, `pound`, `ownerName`, `players`, `time`) VALUES
-(2, '1', 'test', 'Test', 25000, '{\"x\":759.0181884765625,\"y\":-909.412841796875,\"z\":25.3071174621582}', '{\"x\":151.44110107421876,\"y\":-1007.5758056640625,\"z\":-99.00537109375}', 0, 'null', 'null', NULL, NULL, 'achat', '{\"x\":152.74427795410157,\"y\":-1004.1150512695313,\"z\":-98.96392059326172,\"code\":{\"blocked\":false,\"active\":\"none\"}}', 'Motel', 'La Mesa', 0, 0, 'none', '{\"1\":true}', 0),
-(4, 'none', 'testfunction', 'Test function', 50000, '{\"x\":759.7363891601563,\"y\":-925.36474609375,\"z\":25.23373222351074}', '{\"x\":265.3023681640625,\"y\":-1002.802001953125,\"z\":-99.01315307617188}', 0, '{\"x\":763.6543579101563,\"y\":-928.0203247070313,\"z\":25.41569709777832}', '{\"x\":763.6543579101563,\"y\":-928.0203247070313,\"z\":25.41569709777832}', 357.007, NULL, 'achat', '{\"x\":264.62579345703127,\"y\":-995.4850463867188,\"z\":-99.0086669921875}', 'Low', NULL, 1, 500, 'none', NULL, 0),
-(5, 'none', 'test7', 'Test 7', 50000, '{\"x\":613.2412109375,\"y\":-1161.50732421875,\"z\":9.28838634490966}', '{\"x\":151.4669952392578,\"y\":-1007.5823974609375,\"z\":-99.05704498291016}', 1, '{\"x\":618.29150390625,\"y\":-1169.251708984375,\"z\":10.02361583709716}', '{\"x\":618.3553466796875,\"y\":-1170.157470703125,\"z\":10.02085494995117}', 184.035, 'boat', 'achat', '{\"x\":152.26100158691407,\"y\":-1000.195556640625,\"z\":-99.0000228881836}', NULL, NULL, 1, 400, 'none', NULL, 0);
+INSERT INTO `properties` (`propertiesID`, `name`, `label`, `propertiesOWNER`, `ownerName`, `enter`, `exit`, `garage`, `garagePos`, `garageSpawn`, `garageRotation`, `price`, `garageType`, `players`, `type`, `trunk`, `trunkPos`, `logementType`, `time`, `street`, `entrepot`, `pound`) VALUES
+(0, 'test', 'Test2', 'none', NULL, '{\"x\":-86.2940444946289,\"y\":834.471923828125,\"z\":235.92042541503907}', '{\"x\":151.45089721679688,\"y\":-1007.533447265625,\"z\":-99.00415802001953}', 1, '{\"x\":-106.33699798583985,\"y\":834.8233642578125,\"z\":235.71054077148438}', '{\"x\":-106.33699798583985,\"y\":834.8233642578125,\"z\":235.71054077148438}', '345.3272399902344', 25000, 'garage2', '[]', 'location', NULL, '{\"x\":152.861083984375,\"y\":-1000.9278564453125,\"z\":-98.99974822998047}', 'Motel', NULL, 'Vinewood Hills', 1, 5000);
 
 -- --------------------------------------------------------
 
@@ -27181,38 +28458,6 @@ CREATE TABLE `properties_access` (
   `identifier` varchar(50) DEFAULT NULL,
   `label` varchar(50) DEFAULT NULL,
   `id_property` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
--- --------------------------------------------------------
-
---
--- Structure de la table `properties_backup`
---
-
-CREATE TABLE `properties_backup` (
-  `propertiesID` int(11) NOT NULL DEFAULT 0,
-  `name` longtext DEFAULT NULL,
-  `label` longtext DEFAULT NULL,
-  `propertiesOWNER` longtext DEFAULT NULL,
-  `ownerName` longtext DEFAULT NULL,
-  `enter` varchar(255) DEFAULT NULL,
-  `exitPos` varchar(255) DEFAULT NULL,
-  `garage` tinyint(1) UNSIGNED ZEROFILL DEFAULT 0,
-  `garagePos` varchar(255) DEFAULT NULL,
-  `garageSpawn` varchar(255) DEFAULT NULL,
-  `garageRotation` varchar(255) DEFAULT NULL,
-  `price` int(11) DEFAULT NULL,
-  `garageType` longtext DEFAULT NULL,
-  `players` longtext DEFAULT '{}',
-  `type` longtext DEFAULT NULL,
-  `trunk` longtext DEFAULT NULL,
-  `trunkPos` varchar(255) DEFAULT NULL,
-  `logementType` longtext DEFAULT NULL,
-  `street_name` varchar(50) DEFAULT NULL,
-  `time` int(11) UNSIGNED ZEROFILL DEFAULT NULL,
-  `street` longtext DEFAULT NULL,
-  `entrepot` tinyint(4) DEFAULT NULL,
-  `pound` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -27989,7 +29234,7 @@ INSERT INTO `society_data` (`id`, `name`, `label`, `coffre`, `permissions`, `pos
 (29, 'motodealer', 'Concessionnaire Moto', '{\"items\":[],\"accounts\":{\"society\":85217.95063906576,\"black_money\":0,\"cash\":0},\"weapons\":[],\"weapons_boss\":[],\"items_boss\":[]}', '{\"withdraw_cash_coffre\":{\"Manager \":false,\"Employer expert\":false,\"Responsable\":false,\"Stagiaire \":false,\"Manager\":false,\"Stagiaire\":false,\"Employer Expert\":false,\"confirmer\":false,\"employer Confirmer\":false,\"label\":\"Retirer de l\'argent dans le coffre\",\"grades\":{\"boss\":true},\"Apprentie\":false,\"employer confirmer\":false,\"✨ Employé expérimenté\":false,\"Expérimenter\":false,\"Stagiare\":false,\"Employer\":false,\"Employer \":false,\"boss\":true},\"deposit_cash_coffre\":{\"Manager \":false,\"Employer expert\":false,\"Responsable\":false,\"Stagiaire \":false,\"Manager\":false,\"Stagiaire\":false,\"Employer Expert\":false,\"confirmer\":false,\"employer Confirmer\":false,\"label\":\"Déposer de l\'argent dans le coffre\",\"grades\":{\"boss\":true},\"Apprentie\":[],\"employer confirmer\":false,\"✨ Employé expérimenté\":false,\"Expérimenter\":[],\"Stagiare\":false,\"Employer\":false,\"Employer \":false,\"boss\":true},\"remove_weapon_chest_society\":{\"Manager \":false,\"Employer expert\":false,\"Responsable\":false,\"Stagiaire \":false,\"Manager\":false,\"Stagiaire\":false,\"Employer Expert\":false,\"confirmer\":false,\"employer Confirmer\":false,\"label\":\"Retirer une arme dans la coffre de la société\",\"grades\":{\"boss\":true},\"Apprentie\":false,\"employer confirmer\":false,\"✨ Employé expérimenté\":false,\"Expérimenter\":false,\"Stagiare\":false,\"Employer\":false,\"Employer \":false,\"boss\":true},\"deposit_black_money_coffre\":{\"Manager \":false,\"Employer expert\":false,\"Responsable\":false,\"Stagiaire \":false,\"Manager\":false,\"Stagiaire\":false,\"Employer Expert\":false,\"confirmer\":false,\"employer Confirmer\":false,\"label\":\"Déposer de l\'argent sale dans le coffre\",\"grades\":{\"boss\":true},\"Apprentie\":[],\"employer confirmer\":false,\"✨ Employé expérimenté\":false,\"Expérimenter\":[],\"Stagiare\":false,\"Employer\":false,\"Employer \":false,\"boss\":true},\"deposit_money_society\":{\"Manager \":false,\"Employer expert\":false,\"Responsable\":false,\"Stagiaire \":false,\"Manager\":false,\"Stagiaire\":false,\"Employer Expert\":false,\"confirmer\":false,\"employer Confirmer\":false,\"label\":\"Déposer de l\'argent dans le coffre de la société\",\"grades\":{\"boss\":true},\"Apprentie\":[],\"employer confirmer\":false,\"✨ Employé expérimenté\":false,\"Expérimenter\":[],\"Stagiare\":false,\"Employer\":false,\"Employer \":false,\"boss\":true},\"change_salary_grade\":{\"Manager \":false,\"Employer expert\":false,\"Responsable\":false,\"Stagiaire \":false,\"Manager\":false,\"Stagiaire\":false,\"Employer Expert\":false,\"confirmer\":false,\"employer Confirmer\":false,\"label\":\"Changer le salaire d\'un grade\",\"grades\":{\"boss\":true},\"Apprentie\":false,\"employer confirmer\":false,\"✨ Employé expérimenté\":false,\"Expérimenter\":false,\"Stagiare\":false,\"Employer\":false,\"Employer \":false,\"boss\":true},\"withdraw_money_society\":{\"Manager \":false,\"Employer expert\":false,\"Responsable\":false,\"Stagiaire \":false,\"Manager\":false,\"Stagiaire\":false,\"Employer Expert\":false,\"confirmer\":false,\"employer Confirmer\":false,\"label\":\"Retirer de l\'argent dans le coffre de la société\",\"grades\":{\"boss\":true},\"Apprentie\":false,\"employer confirmer\":false,\"✨ Employé expérimenté\":false,\"Expérimenter\":[],\"Stagiare\":false,\"Employer\":false,\"Employer \":false,\"boss\":true},\"recruit_player\":{\"Manager \":true,\"Employer expert\":false,\"Responsable\":true,\"Stagiaire \":false,\"Manager\":false,\"Stagiaire\":false,\"Employer Expert\":false,\"confirmer\":false,\"employer Confirmer\":false,\"label\":\"Recruté un joueur\",\"grades\":{\"boss\":true},\"Apprentie\":false,\"employer confirmer\":false,\"✨ Employé expérimenté\":false,\"Expérimenter\":[],\"Stagiare\":false,\"Employer\":false,\"Employer \":false,\"boss\":true},\"weapons_chest_society\":{\"Manager \":false,\"Employer expert\":false,\"Responsable\":false,\"Stagiaire \":false,\"Manager\":false,\"Stagiaire\":false,\"Employer Expert\":false,\"confirmer\":false,\"employer Confirmer\":false,\"label\":\"Arme(s) du coffre de la société\",\"grades\":{\"boss\":true},\"Apprentie\":false,\"employer confirmer\":false,\"✨ Employé expérimenté\":false,\"Expérimenter\":false,\"Stagiare\":false,\"Employer\":false,\"Employer \":false,\"boss\":true},\"promote_player\":{\"Manager \":false,\"Employer expert\":false,\"Responsable\":true,\"Stagiaire \":false,\"Manager\":false,\"Stagiaire\":false,\"Employer Expert\":false,\"confirmer\":false,\"employer Confirmer\":false,\"label\":\"Augmenter un employé\",\"grades\":{\"boss\":true},\"Apprentie\":false,\"employer confirmer\":false,\"✨ Employé expérimenté\":false,\"Expérimenter\":false,\"Stagiare\":false,\"Employer\":false,\"Employer \":false,\"boss\":true},\"remove_weapon_chest\":{\"Manager \":false,\"Employer expert\":false,\"Responsable\":false,\"Stagiaire \":false,\"Manager\":false,\"Stagiaire\":false,\"Employer Expert\":false,\"confirmer\":false,\"employer Confirmer\":false,\"label\":\"Retirer une arme dans le coffre\",\"grades\":{\"boss\":true},\"Apprentie\":false,\"employer confirmer\":false,\"✨ Employé expérimenté\":false,\"Expérimenter\":false,\"Stagiare\":false,\"Employer\":false,\"Employer \":false,\"boss\":true},\"manage_grades\":{\"Manager \":false,\"Employer expert\":false,\"Responsable\":false,\"Stagiaire \":false,\"Manager\":false,\"Stagiaire\":false,\"Employer Expert\":false,\"confirmer\":false,\"employer Confirmer\":false,\"label\":\"Gérer les grades de la société\",\"grades\":{\"boss\":true},\"Apprentie\":false,\"employer confirmer\":false,\"✨ Employé expérimenté\":false,\"Expérimenter\":false,\"Stagiare\":false,\"Employer\":false,\"Employer \":false,\"boss\":true},\"delete_grade\":{\"Manager \":false,\"Employer expert\":false,\"Responsable\":false,\"Stagiaire \":false,\"Manager\":false,\"Stagiaire\":false,\"Employer Expert\":false,\"confirmer\":false,\"employer Confirmer\":false,\"label\":\"Supprimer un grade\",\"grades\":{\"boss\":true},\"Apprentie\":false,\"employer confirmer\":false,\"✨ Employé expérimenté\":false,\"Expérimenter\":false,\"Stagiare\":false,\"Employer\":false,\"Employer \":false,\"boss\":true},\"rename_grade\":{\"Manager \":false,\"Employer expert\":false,\"Responsable\":false,\"Stagiaire \":false,\"Manager\":false,\"Stagiaire\":false,\"Employer Expert\":false,\"confirmer\":false,\"employer Confirmer\":false,\"label\":\"Changer le nom d\'un grade\",\"grades\":{\"boss\":true},\"Apprentie\":false,\"employer confirmer\":false,\"✨ Employé expérimenté\":false,\"Expérimenter\":false,\"Stagiare\":false,\"Employer\":false,\"Employer \":false,\"boss\":true},\"change_number_grade\":{\"Manager \":false,\"Employer expert\":false,\"Responsable\":false,\"Stagiaire \":false,\"Manager\":false,\"Stagiaire\":false,\"Employer Expert\":false,\"employer Confirmer\":false,\"label\":\"Changer le numéro d\'un grade\",\"grades\":{\"boss\":true},\"Apprentie\":false,\"employer confirmer\":false,\"✨ Employé expérimenté\":false,\"Expérimenter\":false,\"Stagiare\":false,\"Employer\":false,\"Employer \":false,\"boss\":true},\"deposit_item_chest\":{\"Manager \":false,\"Employer expert\":false,\"Responsable\":false,\"Stagiaire \":false,\"Manager\":false,\"Stagiaire\":false,\"Employer Expert\":false,\"confirmer\":false,\"employer Confirmer\":false,\"label\":\"Déposer un item dans le coffre\",\"grades\":{\"boss\":true},\"Apprentie\":[],\"employer confirmer\":false,\"✨ Employé expérimenté\":false,\"Expérimenter\":[],\"Stagiare\":false,\"Employer\":false,\"Employer \":false,\"boss\":true},\"withdraw_black_money_coffre\":{\"Manager \":false,\"Employer expert\":false,\"Responsable\":false,\"Stagiaire \":false,\"Manager\":false,\"Stagiaire\":false,\"Employer Expert\":false,\"confirmer\":false,\"employer Confirmer\":false,\"label\":\"Retirer de l\'argent sale dans le coffre\",\"grades\":{\"boss\":true},\"Apprentie\":false,\"employer confirmer\":false,\"✨ Employé expérimenté\":false,\"Expérimenter\":false,\"Stagiare\":false,\"Employer\":false,\"Employer \":false,\"boss\":true},\"demote_player\":{\"Manager \":false,\"Employer expert\":false,\"Responsable\":true,\"Stagiaire \":false,\"Manager\":false,\"Stagiaire\":false,\"Employer Expert\":false,\"confirmer\":false,\"employer Confirmer\":false,\"label\":\"Virer un employé\",\"grades\":{\"boss\":true},\"Apprentie\":false,\"employer confirmer\":false,\"✨ Employé expérimenté\":false,\"Expérimenter\":false,\"Stagiare\":false,\"Employer\":false,\"Employer \":false,\"boss\":true},\"chest\":{\"Manager \":false,\"Employer expert\":false,\"Responsable\":false,\"Stagiaire \":false,\"Manager\":false,\"Stagiaire\":false,\"Employer Expert\":false,\"confirmer\":false,\"employer Confirmer\":false,\"label\":\"Accéder au coffre de la société\",\"grades\":{\"boss\":true},\"Apprentie\":false,\"employer confirmer\":false,\"✨ Employé expérimenté\":false,\"Expérimenter\":[],\"Stagiare\":false,\"Employer\":false,\"Employer \":false,\"boss\":true},\"unmote_player\":{\"Manager \":false,\"Employer expert\":false,\"Responsable\":true,\"Stagiaire \":false,\"Manager\":false,\"Stagiaire\":false,\"Employer Expert\":false,\"confirmer\":false,\"employer Confirmer\":false,\"label\":\"Descendre un employé\",\"grades\":{\"boss\":true},\"Apprentie\":false,\"employer confirmer\":false,\"✨ Employé expérimenté\":false,\"Expérimenter\":false,\"Stagiare\":false,\"Employer\":false,\"Employer \":false,\"boss\":true},\"dposit_item_chest_society\":{\"Manager \":false,\"Employer expert\":false,\"Responsable\":false,\"Stagiaire \":false,\"Manager\":false,\"Stagiaire\":false,\"Employer Expert\":false,\"confirmer\":false,\"employer Confirmer\":false,\"label\":\"Déposer un item dans le coffre de la société\",\"grades\":{\"boss\":true},\"Apprentie\":[],\"employer confirmer\":false,\"✨ Employé expérimenté\":false,\"Expérimenter\":[],\"Stagiare\":false,\"Employer\":false,\"Employer \":false,\"boss\":true},\"items_chest:society\":{\"Manager \":false,\"Employer expert\":false,\"Responsable\":false,\"Stagiaire \":false,\"Manager\":false,\"Stagiaire\":false,\"Employer Expert\":false,\"confirmer\":false,\"employer Confirmer\":false,\"label\":\"Item(s) du coffre de la société\",\"grades\":{\"boss\":true},\"Apprentie\":false,\"employer confirmer\":false,\"✨ Employé expérimenté\":false,\"Expérimenter\":false,\"Stagiare\":false,\"Employer\":false,\"Employer \":false,\"boss\":true},\"editClothes\":{\"Manager \":false,\"Employer expert\":false,\"Responsable\":true,\"Stagiaire \":false,\"Manager\":false,\"Stagiaire\":false,\"Employer Expert\":false,\"employer Confirmer\":false,\"label\":\"Gérer les tenues dans le vestiaire\",\"grades\":{\"boss\":true},\"Apprentie\":true,\"employer confirmer\":false,\"✨ Employé expérimenté\":false,\"Expérimenter\":true,\"Stagiare\":false,\"Employer\":false,\"Employer \":false,\"boss\":[]},\"weapons_chest\":{\"Manager \":false,\"Employer expert\":false,\"Responsable\":false,\"Stagiaire \":false,\"Manager\":false,\"Stagiaire\":false,\"Employer Expert\":false,\"confirmer\":false,\"employer Confirmer\":false,\"label\":\"Armes du coffre\",\"grades\":{\"boss\":true},\"Apprentie\":[],\"employer confirmer\":false,\"✨ Employé expérimenté\":false,\"Expérimenter\":[],\"Stagiare\":false,\"Employer\":false,\"Employer \":false,\"boss\":true},\"remove_item_chest_society\":{\"Manager \":false,\"Employer expert\":false,\"Responsable\":false,\"Stagiaire \":false,\"Manager\":false,\"Stagiaire\":false,\"Employer Expert\":false,\"confirmer\":false,\"employer Confirmer\":false,\"label\":\"Retirer un item dans le coffre de la société\",\"grades\":{\"boss\":true},\"Apprentie\":false,\"employer confirmer\":false,\"✨ Employé expérimenté\":false,\"Expérimenter\":false,\"Stagiare\":false,\"Employer\":false,\"Employer \":false,\"boss\":true},\"manage_employeds\":{\"Manager \":false,\"Employer expert\":false,\"Responsable\":true,\"Stagiaire \":false,\"Manager\":false,\"Stagiaire\":false,\"Employer Expert\":false,\"employer Confirmer\":false,\"label\":\"Gérer les employés de la société\",\"grades\":{\"boss\":true},\"Apprentie\":false,\"employer confirmer\":false,\"✨ Employé expérimenté\":false,\"Expérimenter\":false,\"Stagiare\":false,\"Employer\":false,\"Employer \":false,\"boss\":true},\"remove_item_chest\":{\"Manager \":false,\"Employer expert\":false,\"Responsable\":false,\"Stagiaire \":false,\"Manager\":false,\"Stagiaire\":false,\"Employer Expert\":false,\"confirmer\":false,\"employer Confirmer\":false,\"label\":\"Retirer un item dans le coffre\",\"grades\":{\"boss\":true},\"Apprentie\":false,\"employer confirmer\":false,\"✨ Employé expérimenté\":false,\"Expérimenter\":[],\"Stagiare\":false,\"Employer\":false,\"Employer \":false,\"boss\":true},\"rename_label_grade\":{\"Manager \":false,\"Employer expert\":false,\"Responsable\":false,\"Stagiaire \":false,\"Manager\":false,\"Stagiaire\":false,\"Employer Expert\":false,\"confirmer\":false,\"employer Confirmer\":false,\"label\":\"Changer le label d\'un grade\",\"grades\":{\"boss\":true},\"Apprentie\":false,\"employer confirmer\":false,\"✨ Employé expérimenté\":false,\"Expérimenter\":false,\"Stagiare\":false,\"Employer\":false,\"Employer \":false,\"boss\":true},\"change_permissions_grade\":{\"Manager \":false,\"Employer expert\":false,\"Responsable\":false,\"Stagiaire \":false,\"Manager\":false,\"Stagiaire\":false,\"Employer Expert\":false,\"confirmer\":false,\"employer Confirmer\":false,\"label\":\"Changer les permissions d\'un grade\",\"grades\":{\"boss\":true},\"Apprentie\":false,\"employer confirmer\":false,\"✨ Employé expérimenté\":false,\"Expérimenter\":[],\"Stagiare\":false,\"Employer\":false,\"Employer \":false,\"boss\":true},\"items_chest\":{\"Manager \":false,\"Employer expert\":false,\"Responsable\":false,\"Stagiaire \":false,\"Manager\":false,\"Stagiaire\":false,\"Employer Expert\":false,\"confirmer\":false,\"employer Confirmer\":false,\"label\":\"Items du coffre\",\"grades\":{\"boss\":true},\"Apprentie\":false,\"employer confirmer\":false,\"✨ Employé expérimenté\":false,\"Expérimenter\":false,\"Stagiare\":false,\"Employer\":false,\"Employer \":false,\"boss\":true},\"create_grade\":{\"Manager \":false,\"Employer expert\":false,\"Responsable\":false,\"Stagiaire \":false,\"Manager\":false,\"Stagiaire\":false,\"Employer Expert\":false,\"confirmer\":false,\"employer Confirmer\":false,\"label\":\"Créer un grade\",\"grades\":{\"boss\":true},\"Apprentie\":false,\"employer confirmer\":false,\"✨ Employé expérimenté\":false,\"Expérimenter\":false,\"Stagiare\":false,\"Employer\":false,\"Employer \":false,\"boss\":true},\"deposit_weapon_chest\":{\"Manager \":false,\"Employer expert\":false,\"Responsable\":false,\"Stagiaire \":false,\"Manager\":false,\"Stagiaire\":false,\"Employer Expert\":false,\"confirmer\":false,\"employer Confirmer\":false,\"label\":\"Déposer une arme dans le coffre\",\"grades\":{\"boss\":true},\"Apprentie\":[],\"employer confirmer\":false,\"✨ Employé expérimenté\":false,\"Expérimenter\":[],\"Stagiare\":false,\"Employer\":false,\"Employer \":false,\"boss\":true},\"deposit_weapon_chest_society\":{\"Manager \":false,\"Employer expert\":false,\"Responsable\":false,\"Stagiaire \":false,\"Manager\":false,\"Stagiaire\":false,\"Employer Expert\":false,\"confirmer\":false,\"employer Confirmer\":false,\"label\":\"Déposer une arme dans le coffre de la société\",\"grades\":{\"boss\":true},\"Apprentie\":[],\"employer confirmer\":false,\"✨ Employé expérimenté\":false,\"Expérimenter\":[],\"Stagiare\":false,\"Employer\":false,\"Employer \":false,\"boss\":true},\"open_coffre\":{\"Manager \":false,\"Employer expert\":false,\"Responsable\":false,\"Stagiaire \":false,\"Manager\":false,\"Stagiaire\":false,\"Employer Expert\":false,\"confirmer\":false,\"employer Confirmer\":false,\"label\":\"Ouvrir le coffre\",\"grades\":{\"boss\":true},\"Apprentie\":[],\"employer confirmer\":false,\"✨ Employé expérimenté\":false,\"Expérimenter\":false,\"Stagiare\":false,\"Employer\":false,\"Employer \":false,\"boss\":true},\"open_boss\":{\"Manager \":false,\"Employer expert\":false,\"Responsable\":false,\"Stagiaire \":false,\"Manager\":false,\"Stagiaire\":false,\"Employer Expert\":false,\"employer Confirmer\":false,\"label\":\"Ouvrir le menu boss\",\"grades\":{\"boss\":true},\"Apprentie\":false,\"employer confirmer\":false,\"✨ Employé expérimenté\":false,\"Expérimenter\":false,\"Stagiare\":false,\"Employer\":false,\"Employer \":false,\"boss\":true}}', '{\"y\":-204.45040893554688,\"x\":-870.6925659179688,\"z\":37.83721542358398}', '{\"y\":-203.1305389404297,\"x\":-868.6610107421875,\"z\":37.83723831176758}', '{\"color\":0,\"active\":true,\"sprite\":348,\"position\":{\"y\":-194.85923767089845,\"x\":-867.6478881835938,\"z\":37.83718872070312}}', '3', 1, '[{\"grades\":{\"boss\":\"boss\",\"Responsable\":\"Responsable\"},\"data\":{\"eyebrows_5\":0,\"watches_2\":0,\"skin_md_weight\":50,\"nose_3\":0,\"glasses_1\":0,\"age_1\":0,\"chest_1\":0,\"decals_1\":0,\"eyebrows_1\":0,\"cheeks_1\":0,\"mask_2\":0,\"neck_thickness\":0,\"moles_2\":0,\"bproof_2\":0,\"lip_thickness\":0,\"hair_color_2\":0,\"bracelets_2\":0,\"mom\":21,\"bproof_1\":0,\"hair_2\":0,\"eyebrows_3\":0,\"chain_1\":0,\"nose_1\":0,\"cheeks_2\":0,\"face_md_weight\":50,\"nose_4\":0,\"makeup_1\":0,\"shoes_1\":10,\"glasses_2\":0,\"nose_6\":0,\"torso_2\":0,\"complexion_2\":0,\"jaw_2\":0,\"chest_3\":0,\"chin_1\":0,\"hair_color_1\":0,\"lipstick_4\":0,\"lipstick_2\":0,\"sex\":0,\"eye_color\":0,\"eyebrows_6\":0,\"beard_3\":0,\"watches_1\":-1,\"bags_1\":0,\"helmet_2\":0,\"lipstick_1\":0,\"decals_2\":0,\"ears_2\":-1,\"chain_2\":0,\"chin_2\":0,\"complexion_1\":0,\"nose_5\":0,\"makeup_4\":0,\"tshirt_2\":0,\"arms\":1,\"jaw_1\":0,\"bodyb_2\":0,\"mask_1\":0,\"tshirt_1\":150,\"torso_1\":31,\"nose_2\":0,\"blush_2\":0,\"helmet_1\":-1,\"beard_4\":0,\"eyebrows_4\":0,\"sun_1\":0,\"moles_1\":0,\"sun_2\":0,\"hair_1\":0,\"ears_1\":-1,\"shoes_2\":0,\"lipstick_3\":0,\"arms_2\":0,\"chin_4\":0,\"eye_squint\":0,\"dad\":0,\"makeup_3\":0,\"beard_1\":0,\"makeup_2\":0,\"bodyb_1\":-1,\"eyebrows_2\":0,\"blemishes_2\":0,\"chin_3\":0,\"chest_2\":0,\"pants_2\":0,\"beard_2\":0,\"blush_1\":0,\"blush_3\":0,\"bags_2\":0,\"bodyb_3\":-1,\"bracelets_1\":-1,\"pants_1\":24,\"bodyb_4\":0,\"age_2\":0,\"blemishes_1\":0,\"cheeks_3\":0},\"name\":\"Directeur | Responsable\",\"grade\":true},{\"grades\":{\"Stagiaire\":\"Stagiaire\",\"Employé+\":\"Employé+\"},\"data\":{\"eyebrows_5\":0,\"watches_2\":0,\"skin_md_weight\":50,\"nose_3\":0,\"glasses_1\":0,\"age_1\":0,\"chest_1\":0,\"decals_1\":0,\"eyebrows_1\":0,\"cheeks_1\":0,\"mask_2\":0,\"neck_thickness\":0,\"moles_2\":0,\"bproof_2\":0,\"lip_thickness\":0,\"hair_color_2\":0,\"bracelets_2\":0,\"mom\":21,\"bproof_1\":0,\"hair_2\":0,\"eyebrows_3\":0,\"chain_1\":0,\"nose_1\":0,\"cheeks_2\":0,\"face_md_weight\":50,\"nose_4\":0,\"makeup_1\":0,\"shoes_1\":10,\"glasses_2\":0,\"nose_6\":0,\"torso_2\":0,\"complexion_2\":0,\"jaw_2\":0,\"chest_3\":0,\"chin_1\":0,\"hair_color_1\":0,\"lipstick_4\":0,\"lipstick_2\":0,\"sex\":0,\"eye_color\":0,\"eyebrows_6\":0,\"beard_3\":0,\"watches_1\":-1,\"bags_1\":0,\"helmet_2\":0,\"lipstick_1\":0,\"decals_2\":0,\"ears_2\":-1,\"chain_2\":0,\"chin_2\":0,\"complexion_1\":0,\"nose_5\":0,\"makeup_4\":0,\"tshirt_2\":0,\"arms\":1,\"jaw_1\":0,\"bodyb_2\":0,\"mask_1\":0,\"tshirt_1\":21,\"torso_1\":31,\"nose_2\":0,\"blush_2\":0,\"helmet_1\":-1,\"beard_4\":0,\"eyebrows_4\":0,\"sun_1\":0,\"moles_1\":0,\"sun_2\":0,\"hair_1\":0,\"ears_1\":-1,\"shoes_2\":0,\"lipstick_3\":0,\"arms_2\":0,\"chin_4\":0,\"eye_squint\":0,\"dad\":0,\"makeup_3\":0,\"beard_1\":0,\"makeup_2\":0,\"bodyb_1\":-1,\"eyebrows_2\":0,\"blemishes_2\":0,\"chin_3\":0,\"chest_2\":0,\"pants_2\":0,\"beard_2\":0,\"blush_1\":0,\"blush_3\":0,\"bags_2\":0,\"bodyb_3\":-1,\"bracelets_1\":-1,\"pants_1\":24,\"bodyb_4\":0,\"age_2\":0,\"blemishes_1\":0,\"cheeks_3\":0},\"name\":\"Employé | Stagiaire\",\"grade\":true}]', '{\"y\":-197.7801513671875,\"x\":-875.474609375,\"z\":37.83722305297851}');
 INSERT INTO `society_data` (`id`, `name`, `label`, `coffre`, `permissions`, `posCoffre`, `posBoss`, `blips`, `tax`, `cloakroom`, `clothes`, `cloakpos`) VALUES
 (30, 'saspnn', 'BCSO', '{\"items_boss\":[],\"weapons\":[],\"items\":[],\"accounts\":{\"society\":1000,\"cash\":0,\"black_money\":0},\"weapons_boss\":[]}', '{\"manage_employeds\":{\"officier3\":false,\"officier2\":false,\"Under Sheriff\":true,\"lieutenant\":false,\"cadet\":false,\"sergent1\":false,\"sergent2\":false,\"officierprincipal \":false,\"label\":\"Gérer les employés de la société\",\"grades\":{\"boss\":true},\"capitaine\":true,\"boss\":true,\"officier1\":false},\"open_boss\":{\"officier3\":false,\"officier2\":false,\"Under Sheriff\":true,\"lieutenant\":[],\"cadet\":false,\"sergent1\":[],\"sergent2\":false,\"officierprincipal \":[],\"label\":\"Ouvrir le menu boss\",\"grades\":{\"boss\":true},\"capitaine\":true,\"boss\":true,\"officier1\":false},\"remove_weapon_chest\":{\"officier3\":false,\"officier2\":false,\"Under Sheriff\":true,\"lieutenant\":false,\"cadet\":false,\"sergent1\":false,\"sergent2\":false,\"officierprincipal \":false,\"label\":\"Retirer une arme dans le coffre\",\"grades\":{\"boss\":true},\"capitaine\":true,\"boss\":true,\"officier1\":false},\"change_permissions_grade\":{\"officier3\":false,\"officier2\":false,\"Under Sheriff\":true,\"lieutenant\":[],\"cadet\":false,\"sergent1\":false,\"sergent2\":false,\"officierprincipal \":false,\"label\":\"Changer les permissions d\'un grade\",\"grades\":{\"boss\":true},\"capitaine\":true,\"boss\":true,\"officier1\":false},\"rename_label_grade\":{\"officier3\":false,\"officier2\":false,\"Under Sheriff\":true,\"lieutenant\":false,\"cadet\":false,\"sergent1\":false,\"sergent2\":false,\"officierprincipal \":false,\"label\":\"Changer le label d\'un grade\",\"grades\":{\"boss\":true},\"capitaine\":true,\"boss\":true,\"officier1\":false},\"delete_grade\":{\"officier3\":false,\"officier2\":false,\"Under Sheriff\":true,\"lieutenant\":false,\"cadet\":false,\"sergent1\":false,\"sergent2\":false,\"officierprincipal \":false,\"label\":\"Supprimer un grade\",\"grades\":{\"boss\":true},\"capitaine\":true,\"boss\":true,\"officier1\":false},\"remove_item_chest\":{\"officier3\":false,\"officier2\":false,\"Under Sheriff\":true,\"lieutenant\":false,\"cadet\":false,\"sergent1\":false,\"sergent2\":false,\"officierprincipal \":false,\"label\":\"Retirer un item dans le coffre\",\"grades\":{\"boss\":true},\"capitaine\":true,\"boss\":true,\"officier1\":false},\"chest\":{\"officier3\":false,\"officier2\":false,\"Under Sheriff\":true,\"lieutenant\":false,\"cadet\":false,\"sergent1\":false,\"sergent2\":false,\"officierprincipal \":[],\"label\":\"Accéder au coffre de la société\",\"grades\":{\"boss\":true},\"capitaine\":true,\"boss\":true,\"officier1\":[]},\"withdraw_cash_coffre\":{\"officier3\":false,\"officier2\":false,\"Under Sheriff\":true,\"lieutenant\":false,\"cadet\":false,\"sergent1\":false,\"sergent2\":false,\"officierprincipal \":false,\"label\":\"Retirer de l\'argent dans le coffre\",\"grades\":{\"boss\":true},\"capitaine\":true,\"boss\":true,\"officier1\":false},\"promote_player\":{\"officier3\":false,\"officier2\":false,\"Under Sheriff\":true,\"lieutenant\":false,\"cadet\":false,\"sergent1\":false,\"sergent2\":false,\"officierprincipal \":[],\"label\":\"Augmenter un employé\",\"grades\":{\"boss\":true},\"capitaine\":true,\"boss\":true,\"officier1\":false},\"dposit_item_chest_society\":{\"officier3\":[],\"officier2\":false,\"Under Sheriff\":true,\"lieutenant\":[],\"cadet\":false,\"sergent1\":[],\"sergent2\":[],\"officierprincipal \":[],\"label\":\"Déposer un item dans le coffre de la société\",\"grades\":{\"boss\":true},\"capitaine\":true,\"boss\":true,\"officier1\":[]},\"open_coffre\":{\"officier3\":false,\"officier2\":false,\"Under Sheriff\":true,\"lieutenant\":[],\"cadet\":false,\"sergent1\":[],\"sergent2\":[],\"officierprincipal \":[],\"label\":\"Ouvrir le coffre\",\"grades\":{\"boss\":true},\"capitaine\":[],\"boss\":true,\"officier1\":[]},\"deposit_black_money_coffre\":{\"officier3\":false,\"officier2\":[],\"Under Sheriff\":true,\"lieutenant\":[],\"cadet\":false,\"sergent1\":[],\"sergent2\":[],\"officierprincipal \":[],\"label\":\"Déposer de l\'argent sale dans le coffre\",\"grades\":{\"boss\":true},\"capitaine\":true,\"boss\":true,\"officier1\":[]},\"remove_weapon_chest_society\":{\"officier3\":false,\"officier2\":false,\"Under Sheriff\":true,\"lieutenant\":false,\"cadet\":false,\"sergent1\":false,\"sergent2\":false,\"officierprincipal \":false,\"label\":\"Retirer une arme dans la coffre de la société\",\"grades\":{\"boss\":true},\"capitaine\":true,\"boss\":true,\"officier1\":false},\"weapons_chest_society\":{\"officier3\":[],\"officier2\":[],\"Under Sheriff\":true,\"lieutenant\":[],\"cadet\":false,\"sergent1\":true,\"sergent2\":true,\"officierprincipal \":[],\"label\":\"Arme(s) du coffre de la société\",\"grades\":{\"boss\":true},\"capitaine\":[],\"boss\":true,\"officier1\":[]},\"deposit_item_chest\":{\"officier3\":false,\"officier2\":true,\"Under Sheriff\":true,\"lieutenant\":true,\"cadet\":false,\"sergent1\":true,\"sergent2\":[],\"officierprincipal \":[],\"label\":\"Déposer un item dans le coffre\",\"grades\":{\"boss\":true},\"capitaine\":true,\"boss\":true,\"officier1\":[]},\"withdraw_black_money_coffre\":{\"officier3\":false,\"officier2\":false,\"Under Sheriff\":true,\"lieutenant\":false,\"cadet\":[],\"sergent1\":false,\"sergent2\":false,\"officierprincipal \":false,\"label\":\"Retirer de l\'argent sale dans le coffre\",\"grades\":{\"boss\":true},\"capitaine\":true,\"boss\":true,\"officier1\":false},\"deposit_weapon_chest\":{\"officier3\":[],\"officier2\":[],\"Under Sheriff\":true,\"lieutenant\":[],\"cadet\":[],\"sergent1\":[],\"sergent2\":[],\"officierprincipal \":true,\"label\":\"Déposer une arme dans le coffre\",\"grades\":{\"boss\":true},\"capitaine\":[],\"boss\":true,\"officier1\":[]},\"recruit_player\":{\"officier3\":false,\"officier2\":false,\"Under Sheriff\":true,\"lieutenant\":false,\"cadet\":false,\"sergent1\":false,\"sergent2\":false,\"officierprincipal \":false,\"label\":\"Recruté un joueur\",\"grades\":{\"boss\":true},\"capitaine\":true,\"boss\":true,\"officier1\":false},\"change_salary_grade\":{\"officier3\":false,\"officier2\":false,\"Under Sheriff\":true,\"lieutenant\":false,\"cadet\":false,\"sergent1\":false,\"sergent2\":false,\"officierprincipal \":false,\"label\":\"Changer le salaire d\'un grade\",\"grades\":{\"boss\":true},\"capitaine\":true,\"boss\":true,\"officier1\":false},\"editClothes\":{\"grades\":{\"boss\":true},\"label\":\"Gérer les tenues dans le vestiaire\",\"capitaine\":[],\"cadet\":false,\"Under Sheriff\":true},\"unmote_player\":{\"officier3\":false,\"officier2\":false,\"Under Sheriff\":true,\"lieutenant\":false,\"cadet\":false,\"sergent1\":false,\"sergent2\":false,\"officierprincipal \":false,\"label\":\"Descendre un employé\",\"grades\":{\"boss\":true},\"capitaine\":true,\"boss\":true,\"officier1\":false},\"manage_grades\":{\"officier3\":false,\"officier2\":false,\"Under Sheriff\":true,\"lieutenant\":false,\"cadet\":false,\"sergent1\":false,\"sergent2\":[],\"officierprincipal \":false,\"label\":\"Gérer les grades de la société\",\"grades\":{\"boss\":true},\"capitaine\":true,\"boss\":true,\"officier1\":false},\"deposit_weapon_chest_society\":{\"officier3\":[],\"officier2\":[],\"Under Sheriff\":true,\"lieutenant\":[],\"cadet\":false,\"sergent1\":[],\"sergent2\":[],\"officierprincipal \":[],\"label\":\"Déposer une arme dans le coffre de la société\",\"grades\":{\"boss\":true},\"capitaine\":[],\"boss\":true,\"officier1\":[]},\"create_grade\":{\"officier3\":false,\"officier2\":false,\"Under Sheriff\":true,\"lieutenant\":false,\"cadet\":false,\"sergent1\":false,\"sergent2\":false,\"officierprincipal \":false,\"label\":\"Créer un grade\",\"grades\":{\"boss\":true},\"capitaine\":true,\"boss\":true,\"officier1\":false},\"items_chest:society\":{\"officier3\":[],\"officier2\":[],\"Under Sheriff\":true,\"lieutenant\":[],\"cadet\":false,\"sergent1\":[],\"sergent2\":[],\"officierprincipal \":[],\"label\":\"Item(s) du coffre de la société\",\"grades\":{\"boss\":true},\"capitaine\":true,\"boss\":true,\"officier1\":[]},\"deposit_money_society\":{\"officier3\":[],\"officier2\":[],\"Under Sheriff\":true,\"lieutenant\":[],\"cadet\":false,\"sergent1\":[],\"sergent2\":[],\"officierprincipal \":[],\"label\":\"Déposer de l\'argent dans le coffre de la société\",\"grades\":{\"boss\":true},\"capitaine\":[],\"boss\":true,\"officier1\":[]},\"change_number_grade\":{\"officier3\":false,\"officier2\":false,\"Under Sheriff\":true,\"lieutenant\":false,\"cadet\":false,\"sergent1\":false,\"sergent2\":false,\"officierprincipal \":false,\"label\":\"Changer le numéro d\'un grade\",\"grades\":{\"boss\":true},\"capitaine\":true,\"boss\":true,\"officier1\":false},\"deposit_cash_coffre\":{\"officier3\":[],\"officier2\":true,\"Under Sheriff\":true,\"lieutenant\":false,\"cadet\":false,\"sergent1\":false,\"sergent2\":false,\"officierprincipal \":[],\"label\":\"Déposer de l\'argent dans le coffre\",\"grades\":{\"boss\":true},\"capitaine\":[],\"boss\":true,\"officier1\":[]},\"items_chest\":{\"officier3\":[],\"officier2\":[],\"Under Sheriff\":true,\"lieutenant\":[],\"cadet\":[],\"sergent1\":[],\"sergent2\":[],\"officierprincipal \":true,\"label\":\"Items du coffre\",\"grades\":{\"boss\":true},\"capitaine\":true,\"boss\":true,\"officier1\":[]},\"remove_item_chest_society\":{\"officier3\":false,\"officier2\":false,\"Under Sheriff\":true,\"lieutenant\":false,\"cadet\":false,\"sergent1\":false,\"sergent2\":false,\"officierprincipal \":false,\"label\":\"Retirer un item dans le coffre de la société\",\"grades\":{\"boss\":true},\"capitaine\":true,\"boss\":true,\"officier1\":false},\"withdraw_money_society\":{\"officier3\":false,\"officier2\":false,\"Under Sheriff\":true,\"lieutenant\":false,\"cadet\":false,\"sergent1\":false,\"sergent2\":false,\"officierprincipal \":false,\"label\":\"Retirer de l\'argent dans le coffre de la société\",\"grades\":{\"boss\":true},\"capitaine\":true,\"boss\":true,\"officier1\":false},\"weapons_chest\":{\"officier3\":[],\"officier2\":true,\"Under Sheriff\":true,\"lieutenant\":[],\"cadet\":false,\"sergent1\":[],\"sergent2\":[],\"officierprincipal \":[],\"label\":\"Armes du coffre\",\"grades\":{\"boss\":true},\"capitaine\":[],\"boss\":true,\"officier1\":[]},\"rename_grade\":{\"officier3\":false,\"officier2\":false,\"Under Sheriff\":true,\"lieutenant\":false,\"cadet\":false,\"sergent1\":false,\"sergent2\":false,\"officierprincipal \":false,\"label\":\"Changer le nom d\'un grade\",\"grades\":{\"boss\":true},\"capitaine\":true,\"boss\":true,\"officier1\":false},\"demote_player\":{\"officier3\":false,\"officier2\":false,\"Under Sheriff\":true,\"lieutenant\":false,\"cadet\":false,\"sergent1\":false,\"sergent2\":false,\"officierprincipal \":false,\"label\":\"Virer un employé\",\"grades\":{\"boss\":true},\"capitaine\":true,\"boss\":true,\"officier1\":false}}', '{\"x\":-437.8479614257813,\"y\":6011.97412109375,\"z\":27.58152770996093}', '{\"x\":-432.8706970214844,\"y\":6006.29931640625,\"z\":36.99566268920898}', '{\"color\":6,\"position\":{\"x\":-432.8706970214844,\"y\":6006.29931640625,\"z\":36.99566268920898},\"sprite\":60,\"active\":true}', '0', 1, '[{\"name\":\"unefined\",\"grades\":[],\"grade\":false,\"data\":{\"bracelets_2\":0,\"neck_thickness\":0,\"blemishes_1\":0,\"mask_1\":223,\"hair_color_1\":60,\"nose_1\":0,\"mask_2\":0,\"complexion_2\":0,\"tshirt_2\":2,\"hair_2\":0,\"chest_3\":0,\"nose_2\":0,\"beard_1\":16,\"bproof_1\":0,\"glasses_1\":56,\"lipstick_1\":0,\"lip_thickness\":0,\"watches_1\":21,\"lipstick_3\":0,\"dad\":37,\"chin_2\":0,\"bodyb_3\":-1,\"shoes_2\":0,\"mom\":21,\"eyebrows_6\":0,\"eyebrows_5\":0,\"complexion_1\":0,\"chin_4\":0,\"beard_2\":10,\"bags_1\":125,\"blemishes_2\":0,\"eyebrows_2\":0,\"face_md_weight\":50,\"face_color\":0,\"decals_1\":0,\"torso_2\":0,\"chin_1\":0,\"nose_3\":0,\"decals_2\":0,\"arms\":1,\"pants_2\":2,\"beard_3\":0,\"sun_2\":0,\"eyebrows_1\":0,\"tshirt_1\":81,\"sex\":0,\"bproof_2\":0,\"chain_2\":2,\"eyebrows_4\":0,\"cheeks_2\":0,\"hair_color_2\":0,\"ears_2\":0,\"chain_1\":278,\"eye_squint\":0,\"makeup_2\":0,\"sun_1\":0,\"helmet_2\":3,\"torso_1\":783,\"bags_2\":0,\"moles_1\":0,\"helmet_1\":113,\"pants_1\":327,\"skin_md_weight\":50,\"makeup_4\":0,\"hair_1\":73,\"nose_4\":0,\"watches_2\":0,\"moles_2\":0,\"eyebrows_3\":0,\"age_2\":0,\"chest_1\":0,\"jaw_1\":0,\"chest_2\":0,\"blush_3\":0,\"nose_6\":0,\"ears_1\":-1,\"bodyb_1\":-1,\"shoes_1\":54,\"lipstick_4\":0,\"blush_2\":0,\"bracelets_1\":3,\"bodyb_2\":0,\"glasses_2\":0,\"beard_4\":0,\"blush_1\":0,\"nose_5\":0,\"eye_color\":0,\"makeup_3\":0,\"makeup_1\":0,\"chin_3\":0,\"age_1\":0,\"bodyb_4\":0,\"arms_2\":0,\"cheeks_3\":0,\"cheeks_1\":0,\"jaw_2\":0,\"lipstick_2\":0}}]', '{\"x\":-439.0482177734375,\"y\":6011.17041015625,\"z\":36.99565887451172}'),
-(32, 'police', 'LSPD', '{\"weapons_boss\":[],\"weapons\":{\"WEAPON_PISTOL6\":{\"label\":\"Pistolet\",\"ammo\":255,\"name\":\"WEAPON_PISTOL\",\"number\":6},\"WEAPON_PISTOL5\":{\"label\":\"Pistolet\",\"ammo\":255,\"name\":\"WEAPON_PISTOL\",\"number\":5},\"WEAPON_COMBATPISTOLPOL3\":{\"label\":\"Pistolet de combat\",\"ammo\":255,\"name\":\"WEAPON_COMBATPISTOLPOL\",\"number\":3},\"WEAPON_FLASHLIGHT10\":{\"label\":\"Lampe torche\",\"ammo\":255,\"name\":\"WEAPON_FLASHLIGHT\",\"number\":10},\"WEAPON_COMBATPISTOL8\":{\"label\":\"Pistolet de combat\",\"ammo\":255,\"name\":\"WEAPON_COMBATPISTOL\",\"number\":8},\"WEAPON_NIGHTSTICK8\":{\"label\":\"Matraque\",\"ammo\":255,\"name\":\"WEAPON_NIGHTSTICK\",\"number\":8},\"WEAPON_COMBATPISTOL7\":{\"label\":\"Pistolet de combat\",\"ammo\":255,\"name\":\"WEAPON_COMBATPISTOL\",\"number\":7}},\"items\":{\"kq_meth_low\":{\"label\":\"Méthamphétamine (Qualité basse)\",\"count\":12,\"name\":\"kq_meth_low\"},\"cokepure\":{\"label\":\"Cocaïne pure\",\"count\":18,\"name\":\"cokepure\"},\"coca_blend\":{\"label\":\"Mélange de coca\",\"count\":1,\"name\":\"coca_blend\"},\"crochetage_kit\":{\"label\":\"Kit de Crochetage\",\"count\":1,\"name\":\"crochetage_kit\"}},\"accounts\":{\"black_money\":53444,\"society\":10808325,\"cash\":0},\"items_boss\":{\"rifle_ammo\":{\"label\":\"Munitions pour fusil\",\"count\":450,\"name\":\"rifle_ammo\"},\"pistol_ammo\":{\"label\":\"Munitions pour pistolet\",\"count\":490,\"name\":\"pistol_ammo\"},\"burgershot_coca\":{\"label\":\"Coca Cola\",\"count\":59,\"name\":\"burgershot_coca\"},\"mg_ammo\":{\"label\":\"Munitions pour mitrailleuse\",\"count\":500,\"name\":\"mg_ammo\"},\"burgershot_burger\":{\"label\":\"Burger\",\"count\":54,\"name\":\"burgershot_burger\"},\"ball_ammo\":{\"label\":\"Munitions pour balles\",\"count\":450,\"name\":\"ball_ammo\"},\"smg_ammo\":{\"label\":\"Munitions pour mitraillette\",\"count\":450,\"name\":\"smg_ammo\"},\"shotgun_ammo\":{\"label\":\"Munitions pour fusil à pompe\",\"count\":500,\"name\":\"shotgun_ammo\"}}}', '{\"open_coffre\":{\"label\":\"Ouvrir le coffre\",\"cadet\":true,\"capitaine\":[],\"officierprincipal \":[],\"officier3\":true,\"crm\":true,\"sergent2\":[],\"lieutenant\":[],\"boss\":true,\"grades\":{\"boss\":true},\"Chief \":true,\"swat\":true,\"sergent1\":[],\"officier2\":true,\"officier1\":true},\"dposit_item_chest_society\":{\"label\":\"Déposer un item dans le coffre de la société\",\"cadet\":true,\"capitaine\":[],\"officierprincipal \":false,\"officier3\":false,\"crm\":false,\"sergent2\":false,\"lieutenant\":false,\"boss\":true,\"grades\":{\"boss\":true},\"Chief \":true,\"swat\":true,\"sergent1\":false,\"officier2\":false,\"officier1\":false},\"withdraw_black_money_coffre\":{\"label\":\"Retirer de l\'argent sale dans le coffre\",\"cadet\":true,\"capitaine\":[],\"officierprincipal \":[],\"officier3\":true,\"crm\":false,\"sergent2\":[],\"lieutenant\":[],\"boss\":true,\"grades\":{\"boss\":true},\"Chief \":true,\"swat\":true,\"sergent1\":[],\"officier2\":false,\"officier1\":false},\"create_grade\":{\"label\":\"Créer un grade\",\"cadet\":true,\"capitaine\":true,\"officierprincipal \":false,\"officier3\":false,\"crm\":false,\"sergent2\":false,\"lieutenant\":false,\"boss\":true,\"grades\":{\"boss\":true},\"Chief \":true,\"swat\":true,\"sergent1\":false,\"officier2\":false,\"officier1\":false},\"rename_label_grade\":{\"label\":\"Changer le label d\'un grade\",\"cadet\":true,\"capitaine\":false,\"officierprincipal \":false,\"officier3\":false,\"crm\":false,\"sergent2\":false,\"lieutenant\":false,\"boss\":true,\"grades\":{\"boss\":true},\"Chief \":true,\"swat\":true,\"sergent1\":false,\"officier2\":false,\"officier1\":false},\"delete_grade\":{\"label\":\"Supprimer un grade\",\"cadet\":true,\"capitaine\":true,\"officierprincipal \":false,\"officier3\":false,\"crm\":false,\"sergent2\":false,\"lieutenant\":false,\"boss\":true,\"grades\":{\"boss\":true},\"Chief \":true,\"swat\":true,\"sergent1\":false,\"officier2\":false,\"officier1\":false},\"deposit_black_money_coffre\":{\"label\":\"Déposer de l\'argent sale dans le coffre\",\"cadet\":true,\"capitaine\":[],\"officierprincipal \":[],\"officier3\":true,\"crm\":true,\"sergent2\":[],\"lieutenant\":[],\"boss\":true,\"grades\":{\"boss\":true},\"Chief \":true,\"swat\":true,\"sergent1\":[],\"officier2\":true,\"officier1\":true},\"deposit_cash_coffre\":{\"label\":\"Déposer de l\'argent dans le coffre\",\"cadet\":true,\"capitaine\":[],\"officierprincipal \":[],\"officier3\":[],\"crm\":true,\"sergent2\":[],\"lieutenant\":[],\"boss\":true,\"grades\":{\"boss\":true},\"Chief \":true,\"swat\":true,\"sergent1\":[],\"officier2\":true,\"officier1\":[]},\"weapons_chest\":{\"label\":\"Armes du coffre\",\"cadet\":[],\"capitaine\":[],\"officierprincipal \":true,\"officier3\":true,\"crm\":false,\"sergent2\":[],\"lieutenant\":false,\"boss\":true,\"grades\":{\"boss\":true},\"Chief \":true,\"swat\":true,\"sergent1\":[],\"officier2\":true,\"officier1\":false},\"change_salary_grade\":{\"label\":\"Changer le salaire d\'un grade\",\"cadet\":true,\"capitaine\":[],\"officierprincipal \":false,\"officier3\":false,\"crm\":false,\"sergent2\":false,\"lieutenant\":false,\"boss\":true,\"grades\":{\"boss\":true},\"Chief \":true,\"swat\":true,\"sergent1\":false,\"officier2\":false,\"officier1\":false},\"open_boss\":{\"label\":\"Ouvrir le menu boss\",\"cadet\":true,\"capitaine\":[],\"officierprincipal \":false,\"officier3\":false,\"crm\":false,\"sergent2\":true,\"lieutenant\":false,\"boss\":true,\"grades\":{\"boss\":true},\"Chief \":true,\"swat\":true,\"sergent1\":false,\"officier2\":false,\"officier1\":false},\"chest\":{\"label\":\"Accéder au coffre de la société\",\"cadet\":true,\"capitaine\":[],\"officierprincipal \":false,\"officier3\":false,\"crm\":false,\"sergent2\":true,\"lieutenant\":false,\"boss\":true,\"grades\":{\"boss\":true},\"Chief \":true,\"swat\":true,\"sergent1\":[],\"officier2\":false,\"officier1\":false},\"remove_item_chest\":{\"label\":\"Retirer un item dans le coffre\",\"cadet\":true,\"capitaine\":[],\"officierprincipal \":[],\"officier3\":true,\"crm\":true,\"sergent2\":[],\"lieutenant\":false,\"boss\":true,\"grades\":{\"boss\":true},\"Chief \":true,\"swat\":true,\"sergent1\":[],\"officier2\":false,\"officier1\":false},\"remove_weapon_chest_society\":{\"label\":\"Retirer une arme dans la coffre de la société\",\"cadet\":true,\"capitaine\":[],\"officierprincipal \":false,\"officier3\":false,\"crm\":false,\"sergent2\":false,\"lieutenant\":false,\"boss\":true,\"grades\":{\"boss\":true},\"Chief \":true,\"swat\":true,\"sergent1\":false,\"officier2\":false,\"officier1\":false},\"remove_weapon_chest\":{\"label\":\"Retirer une arme dans le coffre\",\"cadet\":true,\"capitaine\":[],\"officierprincipal \":[],\"officier3\":true,\"crm\":true,\"sergent2\":[],\"lieutenant\":false,\"boss\":true,\"grades\":{\"boss\":true},\"Chief \":true,\"swat\":true,\"sergent1\":[],\"officier2\":true,\"officier1\":false},\"editClothes\":{\"label\":\"Gérer les tenues dans le vestiaire\",\"cadet\":true,\"capitaine\":[],\"officierprincipal \":false,\"officier3\":false,\"crm\":false,\"sergent2\":false,\"lieutenant\":false,\"boss\":true,\"grades\":{\"boss\":true},\"Chief \":true,\"swat\":true,\"sergent1\":false,\"officier2\":false,\"officier1\":false},\"promote_player\":{\"label\":\"Augmenter un employé\",\"cadet\":true,\"capitaine\":[],\"officierprincipal \":false,\"officier3\":true,\"crm\":false,\"sergent2\":true,\"lieutenant\":[],\"boss\":true,\"grades\":{\"boss\":true},\"Chief \":true,\"swat\":true,\"sergent1\":false,\"officier2\":false,\"officier1\":false},\"deposit_weapon_chest\":{\"label\":\"Déposer une arme dans le coffre\",\"cadet\":[],\"capitaine\":[],\"officierprincipal \":[],\"officier3\":true,\"crm\":true,\"sergent2\":[],\"lieutenant\":false,\"boss\":true,\"grades\":{\"boss\":true},\"Chief \":true,\"swat\":true,\"sergent1\":[],\"officier2\":true,\"officier1\":true},\"weapons_chest_society\":{\"label\":\"Arme(s) du coffre de la société\",\"cadet\":true,\"capitaine\":[],\"officierprincipal \":false,\"officier3\":[],\"crm\":false,\"sergent2\":false,\"lieutenant\":false,\"boss\":true,\"grades\":{\"boss\":true},\"Chief \":true,\"swat\":true,\"sergent1\":false,\"officier2\":false,\"officier1\":false},\"manage_grades\":{\"label\":\"Gérer les grades de la société\",\"cadet\":true,\"capitaine\":false,\"officierprincipal \":false,\"officier3\":false,\"crm\":false,\"sergent2\":true,\"lieutenant\":false,\"boss\":true,\"grades\":{\"boss\":true},\"Chief \":true,\"swat\":true,\"sergent1\":false,\"officier2\":false,\"officier1\":false},\"withdraw_money_society\":{\"label\":\"Retirer de l\'argent dans le coffre de la société\",\"cadet\":true,\"capitaine\":[],\"officierprincipal \":false,\"officier3\":false,\"crm\":false,\"sergent2\":false,\"lieutenant\":false,\"boss\":true,\"grades\":{\"boss\":true},\"Chief \":true,\"swat\":true,\"sergent1\":false,\"officier2\":false,\"officier1\":false},\"deposit_weapon_chest_society\":{\"label\":\"Déposer une arme dans le coffre de la société\",\"cadet\":true,\"capitaine\":[],\"officierprincipal \":false,\"officier3\":false,\"crm\":false,\"sergent2\":false,\"lieutenant\":false,\"boss\":true,\"grades\":{\"boss\":true},\"Chief \":true,\"swat\":true,\"sergent1\":false,\"officier2\":false,\"officier1\":false},\"deposit_money_society\":{\"label\":\"Déposer de l\'argent dans le coffre de la société\",\"cadet\":true,\"capitaine\":[],\"officierprincipal \":false,\"officier3\":false,\"crm\":false,\"sergent2\":true,\"lieutenant\":[],\"boss\":true,\"grades\":{\"boss\":true},\"Chief \":true,\"swat\":true,\"sergent1\":true,\"officier2\":false,\"officier1\":false},\"remove_item_chest_society\":{\"label\":\"Retirer un item dans le coffre de la société\",\"cadet\":true,\"capitaine\":[],\"officierprincipal \":false,\"officier3\":false,\"crm\":false,\"sergent2\":false,\"lieutenant\":false,\"boss\":true,\"grades\":{\"boss\":true},\"Chief \":true,\"swat\":true,\"sergent1\":false,\"officier2\":false,\"officier1\":false},\"change_number_grade\":{\"label\":\"Changer le numéro d\'un grade\",\"cadet\":true,\"capitaine\":false,\"officierprincipal \":false,\"officier3\":false,\"crm\":false,\"sergent2\":false,\"lieutenant\":false,\"boss\":true,\"grades\":{\"boss\":true},\"Chief \":true,\"swat\":true,\"sergent1\":false,\"officier2\":false,\"officier1\":false},\"rename_grade\":{\"label\":\"Changer le nom d\'un grade\",\"cadet\":true,\"capitaine\":false,\"officierprincipal \":false,\"officier3\":false,\"crm\":false,\"sergent2\":true,\"lieutenant\":false,\"boss\":true,\"grades\":{\"boss\":true},\"Chief \":true,\"swat\":true,\"sergent1\":false,\"officier2\":false,\"officier1\":false},\"unmote_player\":{\"label\":\"Descendre un employé\",\"cadet\":true,\"capitaine\":[],\"officierprincipal \":false,\"officier3\":false,\"crm\":false,\"sergent2\":true,\"lieutenant\":false,\"boss\":true,\"grades\":{\"boss\":true},\"Chief \":true,\"swat\":true,\"sergent1\":false,\"officier2\":false,\"officier1\":false},\"change_permissions_grade\":{\"label\":\"Changer les permissions d\'un grade\",\"cadet\":true,\"capitaine\":false,\"officierprincipal \":false,\"officier3\":false,\"crm\":false,\"sergent2\":false,\"lieutenant\":false,\"boss\":true,\"grades\":{\"boss\":true},\"Chief \":true,\"swat\":true,\"sergent1\":false,\"officier2\":false,\"officier1\":false},\"deposit_item_chest\":{\"label\":\"Déposer un item dans le coffre\",\"cadet\":true,\"capitaine\":[],\"officierprincipal \":[],\"officier3\":true,\"crm\":true,\"sergent2\":[],\"lieutenant\":[],\"boss\":true,\"grades\":{\"boss\":true},\"Chief \":true,\"swat\":true,\"sergent1\":[],\"officier2\":true,\"officier1\":true},\"demote_player\":{\"label\":\"Virer un employé\",\"cadet\":true,\"capitaine\":[],\"officierprincipal \":false,\"officier3\":false,\"crm\":false,\"sergent2\":true,\"lieutenant\":false,\"boss\":true,\"grades\":{\"boss\":true},\"Chief \":true,\"swat\":true,\"sergent1\":false,\"officier2\":false,\"officier1\":false},\"items_chest\":{\"label\":\"Items du coffre\",\"cadet\":true,\"capitaine\":[],\"officierprincipal \":[],\"officier3\":true,\"crm\":false,\"sergent2\":[],\"lieutenant\":[],\"boss\":true,\"grades\":{\"boss\":true},\"Chief \":true,\"swat\":true,\"sergent1\":[],\"officier2\":true,\"officier1\":true},\"items_chest:society\":{\"label\":\"Item(s) du coffre de la société\",\"cadet\":true,\"capitaine\":[],\"officierprincipal \":false,\"officier3\":false,\"crm\":false,\"sergent2\":false,\"lieutenant\":false,\"boss\":true,\"grades\":{\"boss\":true},\"Chief \":true,\"swat\":true,\"sergent1\":false,\"officier2\":false,\"officier1\":false},\"manage_employeds\":{\"label\":\"Gérer les employés de la société\",\"cadet\":true,\"capitaine\":[],\"officierprincipal \":false,\"officier3\":false,\"crm\":false,\"sergent2\":true,\"lieutenant\":false,\"boss\":true,\"grades\":{\"boss\":true},\"Chief \":true,\"swat\":true,\"sergent1\":false,\"officier2\":false,\"officier1\":false},\"withdraw_cash_coffre\":{\"label\":\"Retirer de l\'argent dans le coffre\",\"cadet\":true,\"capitaine\":[],\"officierprincipal \":[],\"officier3\":false,\"crm\":false,\"sergent2\":[],\"lieutenant\":false,\"boss\":true,\"grades\":{\"boss\":true},\"Chief \":true,\"swat\":true,\"sergent1\":true,\"officier2\":false,\"officier1\":false},\"recruit_player\":{\"label\":\"Recruté un joueur\",\"cadet\":true,\"capitaine\":[],\"officierprincipal \":true,\"officier3\":false,\"crm\":false,\"sergent2\":[],\"lieutenant\":false,\"boss\":true,\"grades\":{\"boss\":true},\"Chief \":true,\"swat\":true,\"sergent1\":[],\"officier2\":false,\"officier1\":false}}', '{\"x\":-1090.831298828125,\"z\":23.12088394165039,\"y\":-834.9634399414063}', '{\"x\":-1072.383544921875,\"z\":23.15277099609375,\"y\":-806.2178344726563}', '{\"color\":67,\"sprite\":60,\"active\":true,\"position\":{\"x\":-1111.691650390625,\"z\":19.31609344482422,\"y\":-825.0560302734375}}', '10000', 1, '[{\"grades\":[],\"name\":\"LSPD FEMME\",\"data\":{\"helmet_1\":-1,\"hair_1\":510,\"nose_2\":0,\"decals_1\":0,\"pants_1\":346,\"makeup_1\":0,\"bodyb_3\":-1,\"lipstick_3\":0,\"tshirt_2\":0,\"nose_5\":0,\"eyebrows_2\":9,\"glasses_1\":79,\"hair_color_2\":0,\"eye_color\":19,\"eyebrows_5\":0,\"bproof_2\":0,\"lip_thickness\":0,\"face_md_weight\":50,\"cheeks_3\":0,\"cheeks_2\":0,\"blemishes_1\":0,\"pants_2\":0,\"jaw_1\":0,\"arms\":9,\"blush_1\":0,\"torso_1\":626,\"chest_2\":0,\"bodyb_1\":-1,\"blush_3\":0,\"cheeks_1\":0,\"mom\":41,\"glasses_2\":0,\"mask_2\":0,\"mask_1\":0,\"eyebrows_3\":3,\"beard_3\":0,\"helmet_2\":0,\"complexion_2\":0,\"age_1\":0,\"watches_2\":0,\"bags_1\":0,\"makeup_2\":0,\"tshirt_1\":6,\"chin_4\":0,\"bracelets_1\":0,\"chain_1\":0,\"bodyb_4\":0,\"bags_2\":0,\"blemishes_2\":0,\"lipstick_4\":0,\"makeup_4\":0,\"eyebrows_6\":0,\"eyebrows_4\":0,\"decals_2\":0,\"complexion_1\":0,\"chest_3\":0,\"jaw_2\":0,\"eyebrows_1\":1,\"shoes_1\":202,\"sex\":1,\"moles_2\":0,\"nose_1\":0,\"chain_2\":0,\"chin_2\":0,\"neck_thickness\":0,\"hair_2\":0,\"lipstick_1\":0,\"nose_4\":0,\"makeup_3\":0,\"bproof_1\":184,\"chest_1\":0,\"chin_3\":0,\"eye_squint\":0,\"sun_1\":0,\"beard_2\":0,\"age_2\":0,\"chin_1\":0,\"nose_6\":0,\"moles_1\":0,\"watches_1\":-1,\"nose_3\":0,\"sun_2\":0,\"bracelets_2\":0,\"ears_1\":-1,\"blush_2\":0,\"lipstick_2\":0,\"shoes_2\":0,\"ears_2\":0,\"bodyb_2\":0,\"arms_2\":0,\"dad\":26,\"beard_4\":0,\"skin_md_weight\":50,\"hair_color_1\":0,\"beard_1\":0,\"torso_2\":0},\"grade\":false},{\"grades\":[],\"name\":\"SASP\",\"data\":{\"torso_2\":2,\"hair_1\":0,\"nose_2\":0,\"hair_color_1\":0,\"pants_1\":49,\"makeup_1\":0,\"bodyb_3\":-1,\"lipstick_3\":0,\"eyebrows_1\":0,\"nose_5\":0,\"eyebrows_2\":0,\"glasses_1\":58,\"hair_color_2\":0,\"eye_color\":0,\"eyebrows_5\":0,\"bproof_2\":0,\"lip_thickness\":0,\"face_md_weight\":0,\"cheeks_3\":0,\"chain_2\":0,\"blemishes_1\":0,\"pants_2\":0,\"jaw_1\":0,\"arms\":12,\"blush_1\":0,\"torso_1\":193,\"chest_2\":0,\"bodyb_1\":-1,\"blush_3\":0,\"cheeks_1\":0,\"mom\":24,\"glasses_2\":0,\"mask_2\":0,\"mask_1\":274,\"nose_6\":0,\"beard_3\":0,\"helmet_2\":0,\"complexion_2\":0,\"chest_1\":0,\"watches_2\":0,\"bags_1\":33,\"makeup_2\":0,\"tshirt_1\":292,\"chin_4\":0,\"bracelets_1\":-1,\"chain_1\":233,\"complexion_1\":0,\"bags_2\":0,\"blemishes_2\":0,\"lipstick_4\":0,\"makeup_4\":0,\"lipstick_2\":0,\"nose_4\":0,\"decals_2\":5,\"sex\":0,\"age_2\":0,\"beard_4\":0,\"lipstick_1\":0,\"shoes_1\":61,\"jaw_2\":0,\"moles_2\":0,\"nose_1\":0,\"bproof_1\":62,\"cheeks_2\":0,\"nose_3\":0,\"hair_2\":0,\"chest_3\":0,\"ears_2\":0,\"makeup_3\":0,\"arms_2\":0,\"age_1\":0,\"shoes_2\":0,\"eye_squint\":0,\"sun_1\":0,\"beard_2\":0,\"neck_thickness\":0,\"decals_1\":0,\"chin_3\":0,\"eyebrows_3\":0,\"watches_1\":-1,\"eyebrows_4\":0,\"sun_2\":0,\"bracelets_2\":0,\"ears_1\":-1,\"blush_2\":0,\"eyebrows_6\":0,\"chin_2\":0,\"tshirt_2\":0,\"bodyb_2\":0,\"helmet_1\":-1,\"dad\":3,\"chin_1\":0,\"skin_md_weight\":0,\"moles_1\":0,\"beard_1\":0,\"bodyb_4\":0},\"grade\":false}]', '{\"x\":-1086.743408203125,\"z\":23.15271377563476,\"y\":-814.5414428710938}');
+(32, 'police', 'LSPD', '{\"items_boss\":{\"smg_ammo\":{\"label\":\"Munitions pour mitraillette\",\"count\":450,\"name\":\"smg_ammo\"},\"ball_ammo\":{\"label\":\"Munitions pour balles\",\"count\":450,\"name\":\"ball_ammo\"},\"rifle_ammo\":{\"label\":\"Munitions pour fusil\",\"count\":450,\"name\":\"rifle_ammo\"},\"mg_ammo\":{\"label\":\"Munitions pour mitrailleuse\",\"count\":500,\"name\":\"mg_ammo\"},\"shotgun_ammo\":{\"label\":\"Munitions pour fusil à pompe\",\"count\":500,\"name\":\"shotgun_ammo\"},\"pistol_ammo\":{\"label\":\"Munitions pour pistolet\",\"count\":490,\"name\":\"pistol_ammo\"},\"burgershot_burger\":{\"label\":\"Burger\",\"count\":54,\"name\":\"burgershot_burger\"},\"burgershot_coca\":{\"label\":\"Coca Cola\",\"count\":59,\"name\":\"burgershot_coca\"}},\"accounts\":{\"black_money\":53444,\"society\":10728325,\"cash\":0},\"weapons\":{\"WEAPON_COMBATPISTOLPOL3\":{\"ammo\":255,\"name\":\"WEAPON_COMBATPISTOLPOL\",\"label\":\"Pistolet de combat\",\"number\":3},\"WEAPON_NIGHTSTICK8\":{\"ammo\":255,\"name\":\"WEAPON_NIGHTSTICK\",\"label\":\"Matraque\",\"number\":8},\"WEAPON_PISTOL5\":{\"ammo\":255,\"name\":\"WEAPON_PISTOL\",\"label\":\"Pistolet\",\"number\":5},\"WEAPON_COMBATPISTOL7\":{\"ammo\":255,\"name\":\"WEAPON_COMBATPISTOL\",\"label\":\"Pistolet de combat\",\"number\":7},\"WEAPON_COMBATPISTOL8\":{\"ammo\":255,\"name\":\"WEAPON_COMBATPISTOL\",\"label\":\"Pistolet de combat\",\"number\":8},\"WEAPON_FLASHLIGHT10\":{\"ammo\":255,\"name\":\"WEAPON_FLASHLIGHT\",\"label\":\"Lampe torche\",\"number\":10},\"WEAPON_PISTOL6\":{\"ammo\":255,\"name\":\"WEAPON_PISTOL\",\"label\":\"Pistolet\",\"number\":6}},\"weapons_boss\":[],\"items\":{\"cokepure\":{\"label\":\"Cocaïne pure\",\"count\":18,\"name\":\"cokepure\"},\"crochetage_kit\":{\"label\":\"Kit de Crochetage\",\"count\":1,\"name\":\"crochetage_kit\"},\"kq_meth_low\":{\"label\":\"Méthamphétamine (Qualité basse)\",\"count\":12,\"name\":\"kq_meth_low\"},\"coca_blend\":{\"label\":\"Mélange de coca\",\"count\":1,\"name\":\"coca_blend\"}}}', '{\"editClothes\":{\"label\":\"Gérer les tenues dans le vestiaire\",\"Chief \":true,\"officier1\":false,\"sergent2\":false,\"grades\":{\"boss\":true},\"officier2\":false,\"lieutenant\":false,\"swat\":true,\"cadet\":true,\"boss\":true,\"sergent1\":false,\"officier3\":false,\"crm\":false,\"officierprincipal \":false,\"capitaine\":[]},\"items_chest:society\":{\"label\":\"Item(s) du coffre de la société\",\"Chief \":true,\"officier1\":false,\"sergent2\":false,\"grades\":{\"boss\":true},\"officier2\":false,\"lieutenant\":false,\"swat\":true,\"cadet\":true,\"boss\":true,\"sergent1\":false,\"officier3\":false,\"crm\":false,\"officierprincipal \":false,\"capitaine\":[]},\"open_boss\":{\"label\":\"Ouvrir le menu boss\",\"Chief \":true,\"officier1\":false,\"sergent2\":true,\"grades\":{\"boss\":true},\"officier2\":false,\"lieutenant\":false,\"swat\":true,\"cadet\":true,\"boss\":true,\"sergent1\":false,\"officier3\":false,\"crm\":false,\"officierprincipal \":false,\"capitaine\":[]},\"chest\":{\"label\":\"Accéder au coffre de la société\",\"Chief \":true,\"officier1\":false,\"sergent2\":true,\"grades\":{\"boss\":true},\"officier2\":false,\"lieutenant\":false,\"swat\":true,\"cadet\":true,\"boss\":true,\"sergent1\":[],\"officier3\":false,\"crm\":false,\"officierprincipal \":false,\"capitaine\":[]},\"items_chest\":{\"label\":\"Items du coffre\",\"Chief \":true,\"officier1\":true,\"sergent2\":[],\"grades\":{\"boss\":true},\"officier2\":true,\"lieutenant\":[],\"swat\":true,\"cadet\":true,\"boss\":true,\"sergent1\":[],\"officier3\":true,\"crm\":false,\"officierprincipal \":[],\"capitaine\":[]},\"remove_item_chest\":{\"label\":\"Retirer un item dans le coffre\",\"Chief \":true,\"officier1\":false,\"sergent2\":[],\"grades\":{\"boss\":true},\"officier2\":false,\"lieutenant\":false,\"swat\":true,\"cadet\":true,\"boss\":true,\"sergent1\":[],\"officier3\":true,\"crm\":true,\"officierprincipal \":[],\"capitaine\":[]},\"rename_grade\":{\"label\":\"Changer le nom d\'un grade\",\"Chief \":true,\"officier1\":false,\"sergent2\":true,\"grades\":{\"boss\":true},\"officier2\":false,\"lieutenant\":false,\"swat\":true,\"cadet\":true,\"boss\":true,\"sergent1\":false,\"officier3\":false,\"crm\":false,\"officierprincipal \":false,\"capitaine\":false},\"change_salary_grade\":{\"label\":\"Changer le salaire d\'un grade\",\"Chief \":true,\"officier1\":false,\"sergent2\":false,\"grades\":{\"boss\":true},\"officier2\":false,\"lieutenant\":false,\"swat\":true,\"cadet\":true,\"boss\":true,\"sergent1\":false,\"officier3\":false,\"crm\":false,\"officierprincipal \":false,\"capitaine\":[]},\"recruit_player\":{\"label\":\"Recruté un joueur\",\"Chief \":true,\"officier1\":false,\"sergent2\":[],\"grades\":{\"boss\":true},\"officier2\":false,\"lieutenant\":false,\"swat\":true,\"cadet\":true,\"boss\":true,\"sergent1\":[],\"officier3\":false,\"crm\":false,\"officierprincipal \":true,\"capitaine\":[]},\"change_permissions_grade\":{\"label\":\"Changer les permissions d\'un grade\",\"Chief \":true,\"officier1\":false,\"sergent2\":false,\"grades\":{\"boss\":true},\"officier2\":false,\"lieutenant\":false,\"swat\":true,\"cadet\":true,\"boss\":true,\"sergent1\":false,\"officier3\":false,\"crm\":false,\"officierprincipal \":false,\"capitaine\":false},\"create_grade\":{\"label\":\"Créer un grade\",\"Chief \":true,\"officier1\":false,\"sergent2\":false,\"grades\":{\"boss\":true},\"officier2\":false,\"lieutenant\":false,\"swat\":true,\"cadet\":true,\"boss\":true,\"sergent1\":false,\"officier3\":false,\"crm\":false,\"officierprincipal \":false,\"capitaine\":true},\"withdraw_money_society\":{\"label\":\"Retirer de l\'argent dans le coffre de la société\",\"Chief \":true,\"officier1\":false,\"sergent2\":false,\"grades\":{\"boss\":true},\"officier2\":false,\"lieutenant\":false,\"swat\":true,\"cadet\":true,\"boss\":true,\"sergent1\":false,\"officier3\":false,\"crm\":false,\"officierprincipal \":false,\"capitaine\":[]},\"remove_weapon_chest\":{\"label\":\"Retirer une arme dans le coffre\",\"Chief \":true,\"officier1\":false,\"sergent2\":[],\"grades\":{\"boss\":true},\"officier2\":true,\"lieutenant\":false,\"swat\":true,\"cadet\":true,\"boss\":true,\"sergent1\":[],\"officier3\":true,\"crm\":true,\"officierprincipal \":[],\"capitaine\":[]},\"deposit_item_chest\":{\"label\":\"Déposer un item dans le coffre\",\"Chief \":true,\"officier1\":true,\"sergent2\":[],\"grades\":{\"boss\":true},\"officier2\":true,\"lieutenant\":[],\"swat\":true,\"cadet\":true,\"boss\":true,\"sergent1\":[],\"officier3\":true,\"crm\":true,\"officierprincipal \":[],\"capitaine\":[]},\"deposit_black_money_coffre\":{\"label\":\"Déposer de l\'argent sale dans le coffre\",\"Chief \":true,\"officier1\":true,\"sergent2\":[],\"grades\":{\"boss\":true},\"officier2\":true,\"lieutenant\":[],\"swat\":true,\"cadet\":true,\"boss\":true,\"sergent1\":[],\"officier3\":true,\"crm\":true,\"officierprincipal \":[],\"capitaine\":[]},\"withdraw_cash_coffre\":{\"label\":\"Retirer de l\'argent dans le coffre\",\"Chief \":true,\"officier1\":false,\"sergent2\":[],\"grades\":{\"boss\":true},\"officier2\":false,\"lieutenant\":false,\"swat\":true,\"cadet\":true,\"boss\":true,\"sergent1\":true,\"officier3\":false,\"crm\":false,\"officierprincipal \":[],\"capitaine\":[]},\"remove_item_chest_society\":{\"label\":\"Retirer un item dans le coffre de la société\",\"Chief \":true,\"officier1\":false,\"sergent2\":false,\"grades\":{\"boss\":true},\"officier2\":false,\"lieutenant\":false,\"swat\":true,\"cadet\":true,\"boss\":true,\"sergent1\":false,\"officier3\":false,\"crm\":false,\"officierprincipal \":false,\"capitaine\":[]},\"weapons_chest_society\":{\"label\":\"Arme(s) du coffre de la société\",\"Chief \":true,\"officier1\":false,\"sergent2\":false,\"grades\":{\"boss\":true},\"officier2\":false,\"lieutenant\":false,\"swat\":true,\"cadet\":true,\"boss\":true,\"sergent1\":false,\"officier3\":[],\"crm\":false,\"officierprincipal \":false,\"capitaine\":[]},\"deposit_cash_coffre\":{\"label\":\"Déposer de l\'argent dans le coffre\",\"Chief \":true,\"officier1\":[],\"sergent2\":[],\"grades\":{\"boss\":true},\"officier2\":true,\"lieutenant\":[],\"swat\":true,\"cadet\":true,\"boss\":true,\"sergent1\":[],\"officier3\":[],\"crm\":true,\"officierprincipal \":[],\"capitaine\":[]},\"remove_weapon_chest_society\":{\"label\":\"Retirer une arme dans la coffre de la société\",\"Chief \":true,\"officier1\":false,\"sergent2\":false,\"grades\":{\"boss\":true},\"officier2\":false,\"lieutenant\":false,\"swat\":true,\"cadet\":true,\"boss\":true,\"sergent1\":false,\"officier3\":false,\"crm\":false,\"officierprincipal \":false,\"capitaine\":[]},\"open_coffre\":{\"label\":\"Ouvrir le coffre\",\"Chief \":true,\"officier1\":true,\"sergent2\":[],\"grades\":{\"boss\":true},\"officier2\":true,\"lieutenant\":[],\"swat\":true,\"cadet\":true,\"boss\":true,\"sergent1\":[],\"officier3\":true,\"crm\":true,\"officierprincipal \":[],\"capitaine\":[]},\"deposit_weapon_chest\":{\"label\":\"Déposer une arme dans le coffre\",\"Chief \":true,\"officier1\":true,\"sergent2\":[],\"grades\":{\"boss\":true},\"officier2\":true,\"lieutenant\":false,\"swat\":true,\"cadet\":[],\"boss\":true,\"sergent1\":[],\"officier3\":true,\"crm\":true,\"officierprincipal \":[],\"capitaine\":[]},\"manage_employeds\":{\"label\":\"Gérer les employés de la société\",\"Chief \":true,\"officier1\":false,\"sergent2\":true,\"grades\":{\"boss\":true},\"officier2\":false,\"lieutenant\":false,\"swat\":true,\"cadet\":true,\"boss\":true,\"sergent1\":false,\"officier3\":false,\"crm\":false,\"officierprincipal \":false,\"capitaine\":[]},\"promote_player\":{\"label\":\"Augmenter un employé\",\"Chief \":true,\"officier1\":false,\"sergent2\":true,\"grades\":{\"boss\":true},\"officier2\":false,\"lieutenant\":[],\"swat\":true,\"cadet\":true,\"boss\":true,\"sergent1\":false,\"officier3\":true,\"crm\":false,\"officierprincipal \":false,\"capitaine\":[]},\"weapons_chest\":{\"label\":\"Armes du coffre\",\"Chief \":true,\"officier1\":false,\"sergent2\":[],\"grades\":{\"boss\":true},\"officier2\":true,\"lieutenant\":false,\"swat\":true,\"cadet\":[],\"boss\":true,\"sergent1\":[],\"officier3\":true,\"crm\":false,\"officierprincipal \":true,\"capitaine\":[]},\"delete_grade\":{\"label\":\"Supprimer un grade\",\"Chief \":true,\"officier1\":false,\"sergent2\":false,\"grades\":{\"boss\":true},\"officier2\":false,\"lieutenant\":false,\"swat\":true,\"cadet\":true,\"boss\":true,\"sergent1\":false,\"officier3\":false,\"crm\":false,\"officierprincipal \":false,\"capitaine\":true},\"deposit_weapon_chest_society\":{\"label\":\"Déposer une arme dans le coffre de la société\",\"Chief \":true,\"officier1\":false,\"sergent2\":false,\"grades\":{\"boss\":true},\"officier2\":false,\"lieutenant\":false,\"swat\":true,\"cadet\":true,\"boss\":true,\"sergent1\":false,\"officier3\":false,\"crm\":false,\"officierprincipal \":false,\"capitaine\":[]},\"withdraw_black_money_coffre\":{\"label\":\"Retirer de l\'argent sale dans le coffre\",\"Chief \":true,\"officier1\":false,\"sergent2\":[],\"grades\":{\"boss\":true},\"officier2\":false,\"lieutenant\":[],\"swat\":true,\"cadet\":true,\"boss\":true,\"sergent1\":[],\"officier3\":true,\"crm\":false,\"officierprincipal \":[],\"capitaine\":[]},\"change_number_grade\":{\"label\":\"Changer le numéro d\'un grade\",\"Chief \":true,\"officier1\":false,\"sergent2\":false,\"grades\":{\"boss\":true},\"officier2\":false,\"lieutenant\":false,\"swat\":true,\"cadet\":true,\"boss\":true,\"sergent1\":false,\"officier3\":false,\"crm\":false,\"officierprincipal \":false,\"capitaine\":false},\"manage_grades\":{\"label\":\"Gérer les grades de la société\",\"Chief \":true,\"officier1\":false,\"sergent2\":true,\"grades\":{\"boss\":true},\"officier2\":false,\"lieutenant\":false,\"swat\":true,\"cadet\":true,\"boss\":true,\"sergent1\":false,\"officier3\":false,\"crm\":false,\"officierprincipal \":false,\"capitaine\":false},\"rename_label_grade\":{\"label\":\"Changer le label d\'un grade\",\"Chief \":true,\"officier1\":false,\"sergent2\":false,\"grades\":{\"boss\":true},\"officier2\":false,\"lieutenant\":false,\"swat\":true,\"cadet\":true,\"boss\":true,\"sergent1\":false,\"officier3\":false,\"crm\":false,\"officierprincipal \":false,\"capitaine\":false},\"unmote_player\":{\"label\":\"Descendre un employé\",\"Chief \":true,\"officier1\":false,\"sergent2\":true,\"grades\":{\"boss\":true},\"officier2\":false,\"lieutenant\":false,\"swat\":true,\"cadet\":true,\"boss\":true,\"sergent1\":false,\"officier3\":false,\"crm\":false,\"officierprincipal \":false,\"capitaine\":[]},\"dposit_item_chest_society\":{\"label\":\"Déposer un item dans le coffre de la société\",\"Chief \":true,\"officier1\":false,\"sergent2\":false,\"grades\":{\"boss\":true},\"officier2\":false,\"lieutenant\":false,\"swat\":true,\"cadet\":true,\"boss\":true,\"sergent1\":false,\"officier3\":false,\"crm\":false,\"officierprincipal \":false,\"capitaine\":[]},\"demote_player\":{\"label\":\"Virer un employé\",\"Chief \":true,\"officier1\":false,\"sergent2\":true,\"grades\":{\"boss\":true},\"officier2\":false,\"lieutenant\":false,\"swat\":true,\"cadet\":true,\"boss\":true,\"sergent1\":false,\"officier3\":false,\"crm\":false,\"officierprincipal \":false,\"capitaine\":[]},\"deposit_money_society\":{\"label\":\"Déposer de l\'argent dans le coffre de la société\",\"Chief \":true,\"officier1\":false,\"sergent2\":true,\"grades\":{\"boss\":true},\"officier2\":false,\"lieutenant\":[],\"swat\":true,\"cadet\":true,\"boss\":true,\"sergent1\":true,\"officier3\":false,\"crm\":false,\"officierprincipal \":false,\"capitaine\":[]}}', '{\"x\":-1090.831298828125,\"y\":-834.9634399414063,\"z\":23.12088394165039}', '{\"x\":-1072.383544921875,\"y\":-806.2178344726563,\"z\":23.15277099609375}', '{\"color\":67,\"active\":true,\"position\":{\"x\":-1111.691650390625,\"y\":-825.0560302734375,\"z\":19.31609344482422},\"sprite\":60}', '10000', 1, '[{\"grades\":[],\"name\":\"LSPD FEMME\",\"data\":{\"helmet_1\":-1,\"hair_1\":510,\"nose_2\":0,\"decals_1\":0,\"pants_1\":346,\"makeup_1\":0,\"bodyb_3\":-1,\"lipstick_3\":0,\"tshirt_2\":0,\"nose_5\":0,\"eyebrows_2\":9,\"glasses_1\":79,\"hair_color_2\":0,\"eye_color\":19,\"eyebrows_5\":0,\"bproof_2\":0,\"lip_thickness\":0,\"face_md_weight\":50,\"cheeks_3\":0,\"cheeks_2\":0,\"blemishes_1\":0,\"pants_2\":0,\"jaw_1\":0,\"arms\":9,\"blush_1\":0,\"torso_1\":626,\"chest_2\":0,\"bodyb_1\":-1,\"blush_3\":0,\"cheeks_1\":0,\"mom\":41,\"glasses_2\":0,\"mask_2\":0,\"mask_1\":0,\"eyebrows_3\":3,\"beard_3\":0,\"helmet_2\":0,\"complexion_2\":0,\"age_1\":0,\"watches_2\":0,\"bags_1\":0,\"makeup_2\":0,\"tshirt_1\":6,\"chin_4\":0,\"bracelets_1\":0,\"chain_1\":0,\"bodyb_4\":0,\"bags_2\":0,\"blemishes_2\":0,\"lipstick_4\":0,\"makeup_4\":0,\"eyebrows_6\":0,\"eyebrows_4\":0,\"decals_2\":0,\"complexion_1\":0,\"chest_3\":0,\"jaw_2\":0,\"eyebrows_1\":1,\"shoes_1\":202,\"sex\":1,\"moles_2\":0,\"nose_1\":0,\"chain_2\":0,\"chin_2\":0,\"neck_thickness\":0,\"hair_2\":0,\"lipstick_1\":0,\"nose_4\":0,\"makeup_3\":0,\"bproof_1\":184,\"chest_1\":0,\"chin_3\":0,\"eye_squint\":0,\"sun_1\":0,\"beard_2\":0,\"age_2\":0,\"chin_1\":0,\"nose_6\":0,\"moles_1\":0,\"watches_1\":-1,\"nose_3\":0,\"sun_2\":0,\"bracelets_2\":0,\"ears_1\":-1,\"blush_2\":0,\"lipstick_2\":0,\"shoes_2\":0,\"ears_2\":0,\"bodyb_2\":0,\"arms_2\":0,\"dad\":26,\"beard_4\":0,\"skin_md_weight\":50,\"hair_color_1\":0,\"beard_1\":0,\"torso_2\":0},\"grade\":false},{\"grades\":[],\"name\":\"SASP\",\"data\":{\"torso_2\":2,\"hair_1\":0,\"nose_2\":0,\"hair_color_1\":0,\"pants_1\":49,\"makeup_1\":0,\"bodyb_3\":-1,\"lipstick_3\":0,\"eyebrows_1\":0,\"nose_5\":0,\"eyebrows_2\":0,\"glasses_1\":58,\"hair_color_2\":0,\"eye_color\":0,\"eyebrows_5\":0,\"bproof_2\":0,\"lip_thickness\":0,\"face_md_weight\":0,\"cheeks_3\":0,\"chain_2\":0,\"blemishes_1\":0,\"pants_2\":0,\"jaw_1\":0,\"arms\":12,\"blush_1\":0,\"torso_1\":193,\"chest_2\":0,\"bodyb_1\":-1,\"blush_3\":0,\"cheeks_1\":0,\"mom\":24,\"glasses_2\":0,\"mask_2\":0,\"mask_1\":274,\"nose_6\":0,\"beard_3\":0,\"helmet_2\":0,\"complexion_2\":0,\"chest_1\":0,\"watches_2\":0,\"bags_1\":33,\"makeup_2\":0,\"tshirt_1\":292,\"chin_4\":0,\"bracelets_1\":-1,\"chain_1\":233,\"complexion_1\":0,\"bags_2\":0,\"blemishes_2\":0,\"lipstick_4\":0,\"makeup_4\":0,\"lipstick_2\":0,\"nose_4\":0,\"decals_2\":5,\"sex\":0,\"age_2\":0,\"beard_4\":0,\"lipstick_1\":0,\"shoes_1\":61,\"jaw_2\":0,\"moles_2\":0,\"nose_1\":0,\"bproof_1\":62,\"cheeks_2\":0,\"nose_3\":0,\"hair_2\":0,\"chest_3\":0,\"ears_2\":0,\"makeup_3\":0,\"arms_2\":0,\"age_1\":0,\"shoes_2\":0,\"eye_squint\":0,\"sun_1\":0,\"beard_2\":0,\"neck_thickness\":0,\"decals_1\":0,\"chin_3\":0,\"eyebrows_3\":0,\"watches_1\":-1,\"eyebrows_4\":0,\"sun_2\":0,\"bracelets_2\":0,\"ears_1\":-1,\"blush_2\":0,\"eyebrows_6\":0,\"chin_2\":0,\"tshirt_2\":0,\"bodyb_2\":0,\"helmet_1\":-1,\"dad\":3,\"chin_1\":0,\"skin_md_weight\":0,\"moles_1\":0,\"beard_1\":0,\"bodyb_4\":0},\"grade\":false}]', '{\"x\":-1086.743408203125,\"y\":-814.5414428710938,\"z\":23.15271377563476}');
 INSERT INTO `society_data` (`id`, `name`, `label`, `coffre`, `permissions`, `posCoffre`, `posBoss`, `blips`, `tax`, `cloakroom`, `clothes`, `cloakpos`) VALUES
 (33, 'gouvernement', 'Gouvernement', '{\"weapons_boss\":[],\"items_boss\":[],\"items\":[],\"accounts\":{\"black_money\":0,\"cash\":0,\"society\":519.5492924946884},\"weapons\":[]}', '{\"editClothes\":{\"Ministre de la Justice\":[],\"Vice Gouverneur\":true,\"Chef S\'écurité\":true,\"procureur\":true,\"juge\":true,\"grades\":{\"boss\":true},\"boss\":true,\"Premier Ministre\":true,\"chefsecu\":false,\"test\":false,\"president\":true,\"Secretaire au Logement\":true,\"Ministre de l\'Economie\":[],\"label\":\"Gérer les tenues dans le vestiaire\",\"Secrétaire d\'Etat\":[],\"Secretaire Défense\":[],\"garde\":false,\"Avocat\":false},\"demote_player\":{\"Ministre de la Justice\":false,\"Vice Gouverneur\":true,\"Chef S\'écurité\":true,\"procureur\":false,\"juge\":false,\"grades\":{\"boss\":true},\"boss\":true,\"Premier Ministre\":false,\"chefsecu\":false,\"test\":false,\"president\":true,\"Secretaire au Logement\":false,\"Ministre de l\'Economie\":false,\"label\":\"Virer un employé\",\"Secrétaire d\'Etat\":false,\"Secretaire Défense\":false,\"garde\":false,\"Avocat\":false},\"open_coffre\":{\"Ministre de la Justice\":false,\"Vice Gouverneur\":true,\"Chef S\'écurité\":true,\"procureur\":false,\"juge\":false,\"grades\":{\"boss\":true},\"boss\":true,\"Premier Ministre\":true,\"chefsecu\":false,\"test\":false,\"president\":true,\"Secretaire au Logement\":false,\"Ministre de l\'Economie\":false,\"label\":\"Ouvrir le coffre\",\"Secrétaire d\'Etat\":false,\"Secretaire Défense\":false,\"garde\":true,\"Avocat\":false},\"rename_label_grade\":{\"Ministre de la Justice\":false,\"Vice Gouverneur\":true,\"Chef S\'écurité\":true,\"procureur\":false,\"juge\":false,\"grades\":{\"boss\":true},\"boss\":true,\"Premier Ministre\":false,\"chefsecu\":false,\"test\":false,\"president\":true,\"Secretaire au Logement\":false,\"Ministre de l\'Economie\":false,\"label\":\"Changer le label d\'un grade\",\"Secrétaire d\'Etat\":false,\"Secretaire Défense\":false,\"garde\":false,\"Avocat\":false},\"remove_weapon_chest\":{\"Ministre de la Justice\":false,\"Vice Gouverneur\":true,\"Chef S\'écurité\":true,\"procureur\":false,\"juge\":false,\"grades\":{\"boss\":true},\"boss\":true,\"Premier Ministre\":true,\"chefsecu\":true,\"test\":false,\"president\":true,\"Secretaire au Logement\":false,\"Ministre de l\'Economie\":false,\"label\":\"Retirer une arme dans le coffre\",\"Secrétaire d\'Etat\":false,\"Secretaire Défense\":false,\"garde\":false,\"Avocat\":false},\"manage_grades\":{\"Ministre de la Justice\":false,\"Vice Gouverneur\":true,\"Chef S\'écurité\":true,\"procureur\":false,\"juge\":false,\"grades\":{\"boss\":true},\"boss\":true,\"Premier Ministre\":false,\"chefsecu\":false,\"test\":false,\"president\":true,\"Secretaire au Logement\":false,\"Ministre de l\'Economie\":false,\"label\":\"Gérer les grades de la société\",\"Secrétaire d\'Etat\":false,\"Secretaire Défense\":false,\"garde\":false,\"Avocat\":false},\"change_salary_grade\":{\"Ministre de la Justice\":false,\"Vice Gouverneur\":true,\"Chef S\'écurité\":true,\"procureur\":false,\"juge\":false,\"grades\":{\"boss\":true},\"boss\":true,\"Premier Ministre\":false,\"chefsecu\":false,\"test\":false,\"president\":true,\"Secretaire au Logement\":false,\"Ministre de l\'Economie\":false,\"label\":\"Changer le salaire d\'un grade\",\"Secrétaire d\'Etat\":false,\"Secretaire Défense\":false,\"garde\":false,\"Avocat\":false},\"remove_item_chest\":{\"Ministre de la Justice\":false,\"Vice Gouverneur\":true,\"Chef S\'écurité\":true,\"procureur\":false,\"juge\":false,\"grades\":{\"boss\":true},\"boss\":true,\"Premier Ministre\":true,\"chefsecu\":true,\"test\":false,\"president\":true,\"Secretaire au Logement\":false,\"Ministre de l\'Economie\":false,\"label\":\"Retirer un item dans le coffre\",\"Secrétaire d\'Etat\":false,\"Secretaire Défense\":false,\"garde\":false,\"Avocat\":false},\"remove_item_chest_society\":{\"Ministre de la Justice\":false,\"Vice Gouverneur\":true,\"Chef S\'écurité\":true,\"procureur\":false,\"juge\":false,\"grades\":{\"boss\":true},\"boss\":true,\"Premier Ministre\":true,\"chefsecu\":false,\"test\":false,\"president\":true,\"Secretaire au Logement\":false,\"Ministre de l\'Economie\":false,\"label\":\"Retirer un item dans le coffre de la société\",\"Secrétaire d\'Etat\":false,\"Secretaire Défense\":false,\"garde\":false,\"Avocat\":false},\"deposit_money_society\":{\"Ministre de la Justice\":false,\"Vice Gouverneur\":true,\"Chef S\'écurité\":true,\"procureur\":false,\"juge\":false,\"grades\":{\"boss\":true},\"boss\":true,\"Premier Ministre\":true,\"chefsecu\":false,\"test\":false,\"president\":true,\"Secretaire au Logement\":false,\"Ministre de l\'Economie\":false,\"label\":\"Déposer de l\'argent dans le coffre de la société\",\"Secrétaire d\'Etat\":false,\"Secretaire Défense\":false,\"garde\":false,\"Avocat\":false},\"items_chest:society\":{\"Ministre de la Justice\":false,\"Vice Gouverneur\":true,\"Chef S\'écurité\":true,\"procureur\":false,\"juge\":false,\"grades\":{\"boss\":true},\"boss\":true,\"Premier Ministre\":true,\"chefsecu\":false,\"test\":false,\"president\":true,\"Secretaire au Logement\":false,\"Ministre de l\'Economie\":false,\"label\":\"Item(s) du coffre de la société\",\"Secrétaire d\'Etat\":false,\"Secretaire Défense\":false,\"garde\":false,\"Avocat\":false},\"promote_player\":{\"Ministre de la Justice\":false,\"Vice Gouverneur\":true,\"Chef S\'écurité\":true,\"procureur\":false,\"juge\":false,\"grades\":{\"boss\":true},\"boss\":true,\"Premier Ministre\":false,\"chefsecu\":false,\"test\":false,\"president\":true,\"Secretaire au Logement\":false,\"Ministre de l\'Economie\":false,\"label\":\"Augmenter un employé\",\"Secrétaire d\'Etat\":false,\"Secretaire Défense\":false,\"garde\":false,\"Avocat\":false},\"withdraw_black_money_coffre\":{\"Ministre de la Justice\":false,\"Vice Gouverneur\":true,\"Chef S\'écurité\":true,\"procureur\":false,\"juge\":false,\"grades\":{\"boss\":true},\"boss\":true,\"Premier Ministre\":true,\"chefsecu\":false,\"test\":false,\"president\":true,\"Secretaire au Logement\":false,\"Ministre de l\'Economie\":false,\"label\":\"Retirer de l\'argent sale dans le coffre\",\"Secrétaire d\'Etat\":false,\"Secretaire Défense\":false,\"garde\":false,\"Avocat\":false},\"weapons_chest_society\":{\"Ministre de la Justice\":false,\"Vice Gouverneur\":true,\"Chef S\'écurité\":true,\"procureur\":false,\"juge\":false,\"grades\":{\"boss\":true},\"boss\":true,\"Premier Ministre\":true,\"chefsecu\":false,\"test\":false,\"president\":true,\"Secretaire au Logement\":false,\"Ministre de l\'Economie\":false,\"label\":\"Arme(s) du coffre de la société\",\"Secrétaire d\'Etat\":false,\"Secretaire Défense\":false,\"garde\":false,\"Avocat\":false},\"items_chest\":{\"Ministre de la Justice\":false,\"Vice Gouverneur\":true,\"Chef S\'écurité\":true,\"procureur\":false,\"juge\":false,\"grades\":{\"boss\":true},\"boss\":true,\"Premier Ministre\":true,\"chefsecu\":true,\"test\":false,\"president\":true,\"Secretaire au Logement\":false,\"Ministre de l\'Economie\":false,\"label\":\"Items du coffre\",\"Secrétaire d\'Etat\":false,\"Secretaire Défense\":false,\"garde\":true,\"Avocat\":false},\"open_boss\":{\"Ministre de la Justice\":false,\"Vice Gouverneur\":true,\"Chef S\'écurité\":true,\"procureur\":false,\"juge\":false,\"grades\":{\"boss\":true},\"boss\":true,\"Premier Ministre\":false,\"chefsecu\":false,\"test\":false,\"president\":true,\"Secretaire au Logement\":false,\"Ministre de l\'Economie\":false,\"label\":\"Ouvrir le menu boss\",\"Secrétaire d\'Etat\":false,\"Secretaire Défense\":false,\"garde\":false,\"Avocat\":false},\"remove_weapon_chest_society\":{\"Ministre de la Justice\":false,\"Vice Gouverneur\":true,\"Chef S\'écurité\":true,\"procureur\":false,\"juge\":false,\"grades\":{\"boss\":true},\"boss\":true,\"Premier Ministre\":true,\"chefsecu\":false,\"test\":false,\"president\":true,\"Secretaire au Logement\":false,\"Ministre de l\'Economie\":false,\"label\":\"Retirer une arme dans la coffre de la société\",\"Secrétaire d\'Etat\":false,\"Secretaire Défense\":false,\"garde\":false,\"Avocat\":false},\"unmote_player\":{\"Ministre de la Justice\":false,\"Vice Gouverneur\":true,\"Chef S\'écurité\":true,\"procureur\":false,\"juge\":false,\"grades\":{\"boss\":true},\"boss\":true,\"Premier Ministre\":false,\"chefsecu\":false,\"test\":false,\"president\":true,\"Secretaire au Logement\":false,\"Ministre de l\'Economie\":false,\"label\":\"Descendre un employé\",\"Secrétaire d\'Etat\":false,\"Secretaire Défense\":false,\"garde\":false,\"Avocat\":false},\"rename_grade\":{\"Ministre de la Justice\":false,\"Vice Gouverneur\":true,\"Chef S\'écurité\":true,\"procureur\":false,\"juge\":false,\"grades\":{\"boss\":true},\"boss\":true,\"Premier Ministre\":false,\"chefsecu\":false,\"test\":false,\"president\":true,\"Secretaire au Logement\":false,\"Ministre de l\'Economie\":false,\"label\":\"Changer le nom d\'un grade\",\"Secrétaire d\'Etat\":false,\"Secretaire Défense\":false,\"garde\":false,\"Avocat\":false},\"deposit_black_money_coffre\":{\"Ministre de la Justice\":false,\"Vice Gouverneur\":true,\"Chef S\'écurité\":true,\"procureur\":false,\"juge\":false,\"grades\":{\"boss\":true},\"boss\":true,\"Premier Ministre\":true,\"chefsecu\":true,\"test\":false,\"president\":true,\"Secretaire au Logement\":false,\"Ministre de l\'Economie\":false,\"label\":\"Déposer de l\'argent sale dans le coffre\",\"Secrétaire d\'Etat\":false,\"Secretaire Défense\":false,\"garde\":true,\"Avocat\":false},\"delete_grade\":{\"Ministre de la Justice\":false,\"Vice Gouverneur\":true,\"Chef S\'écurité\":true,\"procureur\":false,\"juge\":false,\"grades\":{\"boss\":true},\"boss\":true,\"Premier Ministre\":false,\"chefsecu\":false,\"test\":false,\"president\":true,\"Secretaire au Logement\":false,\"Ministre de l\'Economie\":false,\"label\":\"Supprimer un grade\",\"Secrétaire d\'Etat\":false,\"Secretaire Défense\":false,\"garde\":false,\"Avocat\":false},\"weapons_chest\":{\"Ministre de la Justice\":false,\"Vice Gouverneur\":true,\"Chef S\'écurité\":true,\"procureur\":false,\"juge\":false,\"grades\":{\"boss\":true},\"boss\":true,\"Premier Ministre\":true,\"chefsecu\":true,\"test\":false,\"president\":true,\"Secretaire au Logement\":false,\"Ministre de l\'Economie\":false,\"label\":\"Armes du coffre\",\"Secrétaire d\'Etat\":false,\"Secretaire Défense\":false,\"garde\":true,\"Avocat\":false},\"withdraw_money_society\":{\"Ministre de la Justice\":false,\"Vice Gouverneur\":true,\"Chef S\'écurité\":true,\"procureur\":false,\"juge\":false,\"grades\":{\"boss\":true},\"boss\":true,\"Premier Ministre\":true,\"chefsecu\":false,\"test\":false,\"president\":true,\"Secretaire au Logement\":false,\"Ministre de l\'Economie\":false,\"label\":\"Retirer de l\'argent dans le coffre de la société\",\"Secrétaire d\'Etat\":false,\"Secretaire Défense\":false,\"garde\":false,\"Avocat\":false},\"deposit_cash_coffre\":{\"Ministre de la Justice\":false,\"Vice Gouverneur\":true,\"Chef S\'écurité\":true,\"procureur\":false,\"juge\":false,\"grades\":{\"boss\":true},\"boss\":true,\"Premier Ministre\":true,\"chefsecu\":true,\"test\":false,\"president\":true,\"Secretaire au Logement\":false,\"Ministre de l\'Economie\":false,\"label\":\"Déposer de l\'argent dans le coffre\",\"Secrétaire d\'Etat\":false,\"Secretaire Défense\":false,\"garde\":true,\"Avocat\":false},\"withdraw_cash_coffre\":{\"Ministre de la Justice\":false,\"Vice Gouverneur\":true,\"Chef S\'écurité\":true,\"procureur\":false,\"juge\":false,\"grades\":{\"boss\":true},\"boss\":true,\"Premier Ministre\":true,\"chefsecu\":false,\"test\":false,\"president\":true,\"Secretaire au Logement\":false,\"Ministre de l\'Economie\":false,\"label\":\"Retirer de l\'argent dans le coffre\",\"Secrétaire d\'Etat\":false,\"Secretaire Défense\":false,\"garde\":true,\"Avocat\":false},\"dposit_item_chest_society\":{\"Ministre de la Justice\":false,\"Vice Gouverneur\":true,\"Chef S\'écurité\":true,\"procureur\":false,\"juge\":false,\"grades\":{\"boss\":true},\"boss\":true,\"Premier Ministre\":true,\"chefsecu\":false,\"test\":false,\"president\":true,\"Secretaire au Logement\":false,\"Ministre de l\'Economie\":false,\"label\":\"Déposer un item dans le coffre de la société\",\"Secrétaire d\'Etat\":false,\"Secretaire Défense\":false,\"garde\":false,\"Avocat\":false},\"deposit_item_chest\":{\"Ministre de la Justice\":false,\"Vice Gouverneur\":true,\"Chef S\'écurité\":true,\"procureur\":false,\"juge\":false,\"grades\":{\"boss\":true},\"boss\":true,\"Premier Ministre\":true,\"chefsecu\":true,\"test\":false,\"president\":true,\"Secretaire au Logement\":false,\"Ministre de l\'Economie\":false,\"label\":\"Déposer un item dans le coffre\",\"Secrétaire d\'Etat\":false,\"Secretaire Défense\":false,\"garde\":true,\"Avocat\":false},\"chest\":{\"Ministre de la Justice\":false,\"Vice Gouverneur\":true,\"Chef S\'écurité\":true,\"procureur\":false,\"juge\":false,\"grades\":{\"boss\":true},\"boss\":true,\"Premier Ministre\":true,\"chefsecu\":false,\"test\":false,\"president\":true,\"Secretaire au Logement\":false,\"Ministre de l\'Economie\":false,\"label\":\"Accéder au coffre de la société\",\"Secrétaire d\'Etat\":false,\"Secretaire Défense\":false,\"garde\":false,\"Avocat\":false},\"change_number_grade\":{\"Ministre de la Justice\":false,\"Vice Gouverneur\":true,\"Chef S\'écurité\":true,\"procureur\":false,\"juge\":false,\"grades\":{\"boss\":true},\"boss\":true,\"Premier Ministre\":false,\"chefsecu\":false,\"test\":false,\"president\":true,\"Secretaire au Logement\":false,\"Ministre de l\'Economie\":false,\"label\":\"Changer le numéro d\'un grade\",\"Secrétaire d\'Etat\":false,\"Secretaire Défense\":false,\"garde\":false,\"Avocat\":false},\"create_grade\":{\"Ministre de la Justice\":false,\"Vice Gouverneur\":true,\"Chef S\'écurité\":true,\"procureur\":false,\"juge\":false,\"grades\":{\"boss\":true},\"boss\":true,\"Premier Ministre\":false,\"chefsecu\":false,\"test\":false,\"president\":true,\"Secretaire au Logement\":false,\"Ministre de l\'Economie\":false,\"label\":\"Créer un grade\",\"Secrétaire d\'Etat\":false,\"Secretaire Défense\":false,\"garde\":false,\"Avocat\":false},\"deposit_weapon_chest_society\":{\"Ministre de la Justice\":false,\"Vice Gouverneur\":true,\"Chef S\'écurité\":true,\"procureur\":false,\"juge\":false,\"grades\":{\"boss\":true},\"boss\":true,\"Premier Ministre\":true,\"chefsecu\":true,\"test\":false,\"president\":true,\"Secretaire au Logement\":false,\"Ministre de l\'Economie\":false,\"label\":\"Déposer une arme dans le coffre de la société\",\"Secrétaire d\'Etat\":false,\"Secretaire Défense\":false,\"garde\":false,\"Avocat\":false},\"recruit_player\":{\"Ministre de la Justice\":false,\"Vice Gouverneur\":true,\"Chef S\'écurité\":true,\"procureur\":false,\"juge\":false,\"grades\":{\"boss\":true},\"boss\":true,\"Premier Ministre\":true,\"chefsecu\":false,\"test\":false,\"president\":true,\"Secretaire au Logement\":false,\"Ministre de l\'Economie\":false,\"label\":\"Recruté un joueur\",\"Secrétaire d\'Etat\":false,\"Secretaire Défense\":false,\"garde\":false,\"Avocat\":false},\"change_permissions_grade\":{\"Ministre de la Justice\":false,\"Vice Gouverneur\":true,\"Chef S\'écurité\":true,\"procureur\":false,\"juge\":false,\"grades\":{\"boss\":true},\"boss\":true,\"Premier Ministre\":false,\"chefsecu\":false,\"test\":false,\"president\":true,\"Secretaire au Logement\":false,\"Ministre de l\'Economie\":false,\"label\":\"Changer les permissions d\'un grade\",\"Secrétaire d\'Etat\":false,\"Secretaire Défense\":false,\"garde\":false,\"Avocat\":false},\"deposit_weapon_chest\":{\"Ministre de la Justice\":false,\"Vice Gouverneur\":true,\"Chef S\'écurité\":true,\"procureur\":false,\"juge\":false,\"grades\":{\"boss\":true},\"boss\":true,\"Premier Ministre\":true,\"chefsecu\":true,\"test\":false,\"president\":true,\"Secretaire au Logement\":false,\"Ministre de l\'Economie\":false,\"label\":\"Déposer une arme dans le coffre\",\"Secrétaire d\'Etat\":false,\"Secretaire Défense\":false,\"garde\":false,\"Avocat\":false},\"manage_employeds\":{\"Ministre de la Justice\":false,\"Vice Gouverneur\":true,\"Chef S\'écurité\":true,\"procureur\":false,\"juge\":false,\"grades\":{\"boss\":true},\"boss\":true,\"Premier Ministre\":false,\"chefsecu\":false,\"test\":false,\"president\":true,\"Secretaire au Logement\":false,\"Ministre de l\'Economie\":false,\"label\":\"Gérer les employés de la société\",\"Secrétaire d\'Etat\":false,\"Secretaire Défense\":false,\"garde\":false,\"Avocat\":false}}', '{\"x\":-565.3583984375,\"y\":-193.72940063476563,\"z\":38.21800994873047}', '{\"x\":-568.2265014648438,\"y\":-193.75869750976566,\"z\":38.21842193603515}', '{\"position\":{\"x\":-545.161743,\"y\":-204.668915,\"z\":38.214741},\"sprite\":419,\"active\":true,\"color\":0}', '0', 1, '[{\"name\":\"Premier Ministre\",\"grades\":{\"Premier Ministre\":\"Premier Ministre\"},\"grade\":true,\"data\":{\"complexion_2\":1,\"lipstick_4\":0,\"mask_2\":0,\"chin_3\":0,\"ears_2\":-1,\"blemishes_1\":1,\"blush_2\":3,\"bodyb_2\":0,\"neck_thickness\":10,\"torso_2\":1,\"hair_2\":0,\"decals_2\":0,\"cheeks_3\":5,\"cheeks_1\":10,\"moles_2\":7.0,\"glasses_1\":35,\"complexion_1\":5,\"bracelets_1\":1,\"lipstick_1\":-1,\"jaw_2\":-1,\"nose_2\":5,\"eyebrows_5\":6,\"beard_3\":0,\"hair_color_2\":0,\"bodyb_3\":-1,\"eyebrows_3\":41,\"tshirt_2\":0,\"watches_2\":-1,\"chin_1\":0,\"torso_1\":40,\"chest_3\":0,\"cheeks_2\":0,\"arms_2\":0,\"pants_2\":11,\"bodyb_1\":-1,\"moles_1\":6,\"makeup_1\":0,\"chin_2\":0,\"ears_1\":-1,\"bags_2\":0,\"pants_1\":105,\"chain_2\":0,\"bags_1\":0,\"nose_6\":0,\"hair_color_1\":55,\"bracelets_2\":0,\"dad\":15,\"makeup_2\":0,\"helmet_2\":0,\"mask_1\":254,\"mom\":44,\"chin_4\":0,\"lip_thickness\":5,\"helmet_1\":8,\"sun_1\":1,\"glasses_2\":0,\"eye_squint\":5,\"eye_color\":0,\"makeup_3\":0,\"nose_3\":0,\"nose_5\":0,\"beard_1\":3,\"eyebrows_4\":0,\"beard_4\":0,\"hair_1\":111,\"bproof_1\":0,\"beard_2\":3,\"eyebrows_1\":2,\"age_1\":0,\"face_md_weight\":10,\"decals_1\":191,\"jaw_1\":10,\"sun_2\":1,\"nose_1\":5,\"tshirt_1\":158,\"shoes_2\":7,\"blush_3\":0,\"bodyb_4\":5,\"nose_4\":6,\"arms\":6,\"blush_1\":-1,\"shoes_1\":20,\"chain_1\":25,\"eyebrows_2\":4,\"lipstick_2\":10.0,\"bproof_2\":0,\"blemishes_2\":1,\"chest_2\":0,\"age_2\":10.0,\"makeup_4\":10,\"eyebrows_6\":0,\"skin_md_weight\":3,\"watches_1\":11,\"chest_1\":0,\"lipstick_3\":37,\"sex\":0}},{\"name\":\"Securité\",\"grades\":[],\"grade\":false,\"data\":{\"complexion_2\":1,\"lipstick_4\":0,\"chin_4\":0,\"chin_3\":0,\"ears_2\":-1,\"mom\":44,\"blush_2\":3,\"bodyb_2\":0,\"neck_thickness\":10,\"torso_2\":0,\"hair_2\":0,\"decals_2\":0,\"cheeks_3\":5,\"cheeks_1\":10,\"moles_2\":7.0,\"glasses_1\":47,\"complexion_1\":5,\"bracelets_1\":1,\"lipstick_1\":-1,\"jaw_2\":-1,\"nose_2\":5,\"eyebrows_5\":6,\"beard_3\":0,\"mask_2\":0,\"bodyb_3\":-1,\"hair_color_1\":55,\"lipstick_2\":10.0,\"watches_2\":-1,\"chin_1\":0,\"hair_1\":104,\"chest_3\":0,\"makeup_4\":10,\"arms_2\":0,\"pants_2\":0,\"bodyb_1\":-1,\"moles_1\":6,\"makeup_1\":0,\"chin_2\":0,\"ears_1\":-1,\"bags_2\":0,\"cheeks_2\":0,\"helmet_2\":-1,\"bags_1\":138,\"nose_6\":0,\"dad\":15,\"bracelets_2\":0,\"mask_1\":254,\"makeup_2\":0,\"blemishes_1\":1,\"torso_1\":835,\"eyebrows_2\":4,\"helmet_1\":0,\"lip_thickness\":5,\"hair_color_2\":0,\"eyebrows_3\":41,\"glasses_2\":0,\"eye_squint\":5,\"nose_5\":0,\"makeup_3\":0,\"nose_3\":0,\"eyebrows_4\":0,\"beard_1\":3,\"bodyb_4\":5,\"beard_4\":0,\"decals_1\":0,\"bproof_1\":66,\"beard_2\":3,\"eyebrows_1\":2,\"age_1\":0,\"eye_color\":0,\"shoes_2\":0,\"jaw_1\":10,\"sun_2\":1,\"nose_1\":5,\"tshirt_1\":266,\"pants_1\":304,\"blush_3\":0,\"eyebrows_6\":0,\"nose_4\":6,\"arms\":96,\"blush_1\":-1,\"shoes_1\":259,\"chain_1\":368,\"tshirt_2\":0,\"sun_1\":1,\"bproof_2\":0,\"blemishes_2\":1,\"chest_2\":0,\"age_2\":10.0,\"skin_md_weight\":3,\"face_md_weight\":10,\"chain_2\":0,\"watches_1\":11,\"chest_1\":0,\"lipstick_3\":37,\"sex\":0}},{\"name\":\"Chef de Sécurité\",\"grades\":{\"chefsecu\":\"chefsecu\"},\"grade\":true,\"data\":{\"complexion_2\":1,\"lipstick_4\":0,\"chin_4\":0,\"chin_3\":0,\"ears_2\":-1,\"mom\":44,\"blush_2\":3,\"bodyb_2\":0,\"neck_thickness\":10,\"torso_2\":3,\"hair_2\":0,\"decals_2\":0,\"cheeks_3\":5,\"cheeks_1\":10,\"moles_2\":7.0,\"glasses_1\":47,\"complexion_1\":5,\"bracelets_1\":1,\"lipstick_1\":-1,\"jaw_2\":-1,\"nose_2\":5,\"eyebrows_5\":6,\"beard_3\":0,\"mask_2\":0,\"bodyb_3\":-1,\"hair_color_1\":55,\"lipstick_2\":10.0,\"watches_2\":-1,\"chin_1\":0,\"hair_1\":104,\"chest_3\":0,\"makeup_4\":10,\"arms_2\":0,\"pants_2\":0,\"bodyb_1\":-1,\"moles_1\":6,\"makeup_1\":0,\"chin_2\":0,\"ears_1\":-1,\"bags_2\":0,\"cheeks_2\":0,\"helmet_2\":-1,\"bags_1\":138,\"nose_6\":0,\"dad\":15,\"bracelets_2\":0,\"mask_1\":254,\"makeup_2\":0,\"blemishes_1\":1,\"torso_1\":835,\"eyebrows_2\":4,\"helmet_1\":0,\"lip_thickness\":5,\"hair_color_2\":0,\"eyebrows_3\":41,\"glasses_2\":0,\"eye_squint\":5,\"nose_5\":0,\"makeup_3\":0,\"nose_3\":0,\"eyebrows_4\":0,\"beard_1\":3,\"bodyb_4\":5,\"beard_4\":0,\"decals_1\":0,\"bproof_1\":66,\"beard_2\":3,\"eyebrows_1\":2,\"age_1\":0,\"eye_color\":0,\"shoes_2\":0,\"jaw_1\":10,\"sun_2\":1,\"nose_1\":5,\"tshirt_1\":266,\"pants_1\":304,\"blush_3\":0,\"eyebrows_6\":0,\"nose_4\":6,\"arms\":96,\"blush_1\":-1,\"shoes_1\":259,\"chain_1\":368,\"tshirt_2\":0,\"sun_1\":1,\"bproof_2\":1,\"blemishes_2\":1,\"chest_2\":0,\"age_2\":10.0,\"skin_md_weight\":3,\"face_md_weight\":10,\"chain_2\":0,\"watches_1\":11,\"chest_1\":0,\"lipstick_3\":37,\"sex\":0}},{\"name\":\"Juge\",\"grades\":{\"Premier Ministre\":\"Premier Ministre\",\"juge\":\"juge\",\"procureur\":\"procureur\"},\"grade\":true,\"data\":{\"complexion_2\":1,\"lipstick_4\":0,\"mask_2\":0,\"chin_3\":0,\"ears_2\":0,\"blemishes_1\":1,\"blush_2\":3,\"bodyb_2\":0,\"neck_thickness\":10,\"torso_2\":0,\"hair_2\":0,\"decals_2\":0,\"cheeks_3\":5,\"cheeks_1\":10,\"moles_2\":7.0,\"glasses_1\":34,\"complexion_1\":5,\"bracelets_1\":1,\"lipstick_1\":-1,\"jaw_2\":-1,\"nose_2\":5,\"eyebrows_5\":6,\"beard_3\":0,\"glasses_2\":0,\"bodyb_3\":-1,\"mask_1\":254,\"tshirt_2\":0,\"watches_2\":-1,\"chin_1\":0,\"cheeks_2\":0,\"chest_3\":0,\"pants_1\":118,\"arms_2\":0,\"pants_2\":0,\"bodyb_1\":-1,\"moles_1\":6,\"makeup_1\":0,\"chin_2\":0,\"ears_1\":223,\"bags_2\":0,\"helmet_2\":0,\"torso_1\":817,\"bags_1\":0,\"nose_6\":0,\"dad\":15,\"bracelets_2\":0,\"hair_1\":104,\"makeup_2\":0,\"nose_5\":0,\"chin_4\":0,\"eyebrows_3\":41,\"helmet_1\":8,\"lip_thickness\":5,\"sun_1\":1,\"hair_color_2\":0,\"face_md_weight\":10,\"eye_squint\":5,\"chain_2\":0,\"makeup_3\":0,\"nose_3\":0,\"eyebrows_4\":0,\"beard_1\":3,\"mom\":44,\"beard_4\":0,\"eyebrows_6\":0,\"bproof_1\":0,\"beard_2\":3,\"eyebrows_1\":2,\"age_1\":0,\"decals_1\":0,\"eye_color\":0,\"jaw_1\":10,\"sun_2\":1,\"nose_1\":5,\"tshirt_1\":311,\"shoes_2\":3,\"blush_3\":0,\"bodyb_4\":5,\"nose_4\":6,\"arms\":4,\"blush_1\":-1,\"shoes_1\":20,\"chain_1\":26,\"makeup_4\":10,\"lipstick_2\":10.0,\"bproof_2\":0,\"blemishes_2\":1,\"chest_2\":0,\"age_2\":10.0,\"hair_color_1\":55,\"skin_md_weight\":3,\"eyebrows_2\":4,\"watches_1\":11,\"chest_1\":0,\"lipstick_3\":37,\"sex\":0}},{\"name\":\"Secrétaire de Défense\",\"grades\":{\"Secretaire Défense\":\"Secretaire Défense\",\"boss\":\"boss\",\"Vice Gouverneur\":\"Vice Gouverneur\"},\"grade\":true,\"data\":{\"complexion_2\":1,\"lipstick_4\":0,\"mask_2\":0,\"chin_3\":0,\"ears_2\":0,\"mom\":44,\"blush_2\":3,\"bodyb_2\":0,\"neck_thickness\":10,\"torso_2\":0,\"hair_2\":0,\"decals_2\":0,\"cheeks_3\":5,\"cheeks_1\":10,\"moles_2\":7.0,\"glasses_1\":47,\"complexion_1\":5,\"bracelets_1\":1,\"lipstick_1\":-1,\"jaw_2\":-1,\"nose_2\":5,\"eyebrows_5\":6,\"beard_3\":0,\"pants_1\":315,\"bodyb_3\":-1,\"shoes_2\":1,\"lipstick_2\":10.0,\"watches_2\":-1,\"chin_1\":0,\"torso_1\":838,\"chest_3\":0,\"hair_color_1\":55,\"arms_2\":0,\"pants_2\":0,\"bodyb_1\":-1,\"moles_1\":6,\"makeup_1\":0,\"chin_2\":0,\"ears_1\":223,\"bags_2\":0,\"helmet_2\":-1,\"mask_1\":254,\"bags_1\":138,\"nose_6\":0,\"dad\":15,\"bracelets_2\":0,\"tshirt_2\":0,\"makeup_2\":0,\"eyebrows_4\":0,\"eyebrows_3\":41,\"makeup_4\":10,\"helmet_1\":8,\"lip_thickness\":5,\"chin_4\":0,\"hair_color_2\":0,\"glasses_2\":0,\"eye_squint\":5,\"sun_1\":1,\"makeup_3\":0,\"nose_3\":0,\"blemishes_1\":1,\"beard_1\":3,\"hair_1\":104,\"beard_4\":0,\"bodyb_4\":5,\"bproof_1\":73,\"beard_2\":3,\"eyebrows_1\":2,\"age_1\":0,\"decals_1\":165,\"eye_color\":0,\"jaw_1\":10,\"sun_2\":1,\"nose_1\":5,\"tshirt_1\":292,\"nose_5\":0,\"blush_3\":0,\"eyebrows_6\":0,\"nose_4\":6,\"arms\":180,\"blush_1\":-1,\"shoes_1\":61,\"chain_1\":368,\"eyebrows_2\":4,\"cheeks_2\":0,\"bproof_2\":0,\"blemishes_2\":1,\"chest_2\":0,\"age_2\":10.0,\"skin_md_weight\":3,\"face_md_weight\":10,\"chain_2\":0,\"watches_1\":11,\"chest_1\":0,\"lipstick_3\":37,\"sex\":0}},{\"name\":\"Gouverneur 1\",\"grades\":{\"boss\":\"boss\",\"Vice Gouverneur\":\"Vice Gouverneur\"},\"grade\":true,\"data\":{\"complexion_2\":0,\"lipstick_4\":0,\"chin_4\":0,\"chin_3\":0,\"ears_2\":0,\"blemishes_1\":0,\"blush_2\":0,\"bodyb_2\":0,\"neck_thickness\":0,\"torso_2\":0,\"hair_2\":0,\"decals_2\":0,\"cheeks_3\":0,\"cheeks_1\":0,\"moles_2\":0,\"glasses_1\":5,\"complexion_1\":0,\"bracelets_1\":-1,\"lipstick_1\":0,\"jaw_2\":0,\"nose_2\":0,\"eyebrows_5\":0,\"beard_3\":29,\"hair_1\":91,\"bodyb_3\":-1,\"mask_2\":0,\"watches_2\":0,\"dad\":24,\"chin_1\":0,\"cheeks_2\":0,\"chest_3\":0,\"makeup_4\":0,\"arms_2\":0,\"pants_2\":0,\"bodyb_1\":-1,\"moles_1\":0,\"makeup_1\":0,\"chin_2\":0,\"ears_1\":0,\"bags_2\":0,\"sun_1\":0,\"torso_1\":4,\"bags_1\":0,\"nose_6\":0,\"eyebrows_6\":0,\"bracelets_2\":0,\"mask_1\":0,\"makeup_2\":0,\"glasses_2\":0,\"mom\":2,\"helmet_1\":-1,\"hair_color_2\":29,\"lip_thickness\":0,\"hair_color_1\":29,\"eyebrows_2\":10,\"skin_md_weight\":50,\"eye_squint\":0,\"eyebrows_4\":0,\"makeup_3\":0,\"nose_3\":0,\"face_md_weight\":50,\"beard_1\":10,\"bodyb_4\":0,\"beard_4\":0,\"decals_1\":0,\"bproof_1\":0,\"beard_2\":10,\"eyebrows_1\":0,\"age_1\":0,\"eye_color\":0,\"helmet_2\":0,\"jaw_1\":0,\"sun_2\":0,\"nose_1\":0,\"tshirt_1\":146,\"pants_1\":24,\"blush_3\":0,\"tshirt_2\":0,\"nose_4\":0,\"arms\":4,\"blush_1\":0,\"shoes_1\":104,\"chain_1\":333,\"eyebrows_3\":0,\"lipstick_2\":0,\"bproof_2\":0,\"blemishes_2\":0,\"chest_2\":0,\"age_2\":0,\"shoes_2\":0,\"chain_2\":0,\"nose_5\":0,\"watches_1\":-1,\"chest_1\":0,\"lipstick_3\":0,\"sex\":0}},{\"name\":\"gouverneur 2\",\"grades\":{\"boss\":\"boss\",\"Vice Gouverneur\":\"Vice Gouverneur\"},\"grade\":true,\"data\":{\"complexion_2\":0,\"lipstick_4\":0,\"chin_4\":0,\"chin_3\":0,\"ears_2\":-1,\"blemishes_1\":0,\"blush_2\":0,\"bodyb_2\":0,\"neck_thickness\":0,\"torso_2\":4,\"hair_2\":0,\"decals_2\":0,\"cheeks_3\":0,\"cheeks_1\":0,\"moles_2\":0,\"glasses_1\":5,\"complexion_1\":0,\"bracelets_1\":-1,\"lipstick_1\":0,\"jaw_2\":0,\"nose_2\":0,\"eyebrows_5\":0,\"beard_3\":29,\"hair_1\":91,\"bodyb_3\":-1,\"mask_2\":0,\"watches_2\":0,\"dad\":24,\"chin_1\":0,\"cheeks_2\":0,\"chest_3\":0,\"makeup_4\":0,\"arms_2\":0,\"pants_2\":5,\"bodyb_1\":-1,\"moles_1\":0,\"makeup_1\":0,\"chin_2\":0,\"ears_1\":-1,\"bags_2\":0,\"sun_1\":0,\"torso_1\":120,\"bags_1\":0,\"nose_6\":0,\"eyebrows_6\":0,\"bracelets_2\":0,\"mask_1\":0,\"makeup_2\":0,\"glasses_2\":0,\"mom\":2,\"helmet_1\":8,\"hair_color_2\":29,\"lip_thickness\":0,\"hair_color_1\":29,\"eyebrows_2\":10,\"skin_md_weight\":50,\"eye_squint\":0,\"eyebrows_4\":0,\"makeup_3\":0,\"nose_3\":0,\"face_md_weight\":50,\"beard_1\":10,\"bodyb_4\":0,\"beard_4\":0,\"decals_1\":0,\"bproof_1\":0,\"beard_2\":10,\"eyebrows_1\":0,\"age_1\":0,\"eye_color\":0,\"helmet_2\":0,\"jaw_1\":0,\"sun_2\":0,\"nose_1\":0,\"tshirt_1\":157,\"pants_1\":24,\"blush_3\":0,\"tshirt_2\":0,\"nose_4\":0,\"arms\":1,\"blush_1\":0,\"shoes_1\":104,\"chain_1\":29,\"eyebrows_3\":0,\"lipstick_2\":0,\"bproof_2\":0,\"blemishes_2\":0,\"chest_2\":0,\"age_2\":0,\"shoes_2\":3,\"chain_2\":0,\"nose_5\":0,\"watches_1\":-1,\"chest_1\":0,\"lipstick_3\":0,\"sex\":0}},{\"name\":\"gouverneur 3\",\"grades\":{\"boss\":\"boss\",\"Vice Gouverneur\":\"Vice Gouverneur\"},\"grade\":true,\"data\":{\"complexion_2\":0,\"lipstick_4\":0,\"chin_4\":0,\"chin_3\":0,\"ears_2\":-1,\"blemishes_1\":0,\"blush_2\":0,\"bodyb_2\":0,\"neck_thickness\":0,\"torso_2\":4,\"hair_2\":0,\"decals_2\":0,\"cheeks_3\":0,\"cheeks_1\":0,\"moles_2\":0,\"glasses_1\":5,\"complexion_1\":0,\"bracelets_1\":-1,\"lipstick_1\":0,\"jaw_2\":0,\"nose_2\":0,\"eyebrows_5\":0,\"beard_3\":29,\"hair_1\":91,\"bodyb_3\":-1,\"mask_2\":0,\"watches_2\":0,\"dad\":24,\"chin_1\":0,\"cheeks_2\":0,\"chest_3\":0,\"makeup_4\":0,\"arms_2\":0,\"pants_2\":5,\"bodyb_1\":-1,\"moles_1\":0,\"makeup_1\":0,\"chin_2\":0,\"ears_1\":-1,\"bags_2\":0,\"sun_1\":0,\"torso_1\":120,\"bags_1\":0,\"nose_6\":0,\"eyebrows_6\":0,\"bracelets_2\":0,\"mask_1\":0,\"makeup_2\":0,\"glasses_2\":0,\"mom\":2,\"helmet_1\":8,\"hair_color_2\":29,\"lip_thickness\":0,\"hair_color_1\":29,\"eyebrows_2\":10,\"skin_md_weight\":50,\"eye_squint\":0,\"eyebrows_4\":0,\"makeup_3\":0,\"nose_3\":0,\"face_md_weight\":50,\"beard_1\":10,\"bodyb_4\":0,\"beard_4\":0,\"decals_1\":0,\"bproof_1\":0,\"beard_2\":10,\"eyebrows_1\":0,\"age_1\":0,\"eye_color\":0,\"helmet_2\":0,\"jaw_1\":0,\"sun_2\":0,\"nose_1\":0,\"tshirt_1\":157,\"pants_1\":24,\"blush_3\":0,\"tshirt_2\":0,\"nose_4\":0,\"arms\":1,\"blush_1\":0,\"shoes_1\":104,\"chain_1\":29,\"eyebrows_3\":0,\"lipstick_2\":0,\"bproof_2\":0,\"blemishes_2\":0,\"chest_2\":0,\"age_2\":0,\"shoes_2\":3,\"chain_2\":0,\"nose_5\":0,\"watches_1\":-1,\"chest_1\":0,\"lipstick_3\":0,\"sex\":0}},{\"name\":\"Avocat\",\"grades\":{\"Avocat\":\"Avocat\"},\"grade\":true,\"data\":{\"complexion_2\":0,\"lipstick_4\":0,\"mask_2\":0,\"chin_3\":0,\"ears_2\":0,\"mom\":2,\"blush_2\":0,\"bodyb_2\":0,\"neck_thickness\":0,\"torso_2\":0,\"hair_2\":0,\"decals_2\":0,\"cheeks_3\":0,\"cheeks_1\":0,\"eyebrows_3\":0,\"glasses_1\":5,\"complexion_1\":0,\"bracelets_1\":-1,\"lipstick_1\":0,\"jaw_2\":0,\"nose_2\":0,\"eyebrows_5\":0,\"beard_3\":29,\"eyebrows_2\":10,\"bodyb_3\":-1,\"hair_1\":91,\"torso_1\":295,\"watches_2\":0,\"chin_1\":0,\"cheeks_2\":0,\"chest_3\":0,\"makeup_4\":0,\"arms_2\":0,\"pants_2\":0,\"bodyb_1\":-1,\"moles_1\":0,\"makeup_1\":0,\"chin_2\":0,\"ears_1\":0,\"bags_2\":0,\"glasses_2\":0,\"pants_1\":28,\"bags_1\":0,\"nose_6\":0,\"dad\":24,\"bracelets_2\":0,\"sun_1\":0,\"makeup_2\":0,\"mask_1\":0,\"shoes_2\":3,\"bodyb_4\":0,\"helmet_1\":-1,\"lip_thickness\":0,\"tshirt_2\":0,\"face_md_weight\":50,\"skin_md_weight\":50,\"eye_squint\":0,\"hair_color_2\":29,\"makeup_3\":0,\"nose_3\":0,\"eyebrows_4\":0,\"beard_1\":10,\"blemishes_1\":0,\"beard_4\":0,\"helmet_2\":0,\"bproof_1\":0,\"beard_2\":10,\"eyebrows_1\":0,\"age_1\":0,\"eye_color\":0,\"nose_5\":0,\"jaw_1\":0,\"sun_2\":0,\"nose_1\":0,\"tshirt_1\":35,\"decals_1\":0,\"blush_3\":0,\"eyebrows_6\":0,\"nose_4\":0,\"arms\":12,\"blush_1\":0,\"shoes_1\":104,\"chain_1\":343,\"chin_4\":0,\"lipstick_2\":0,\"bproof_2\":0,\"blemishes_2\":0,\"chest_2\":0,\"age_2\":0,\"moles_2\":0,\"hair_color_1\":29,\"chain_2\":0,\"watches_1\":-1,\"chest_1\":0,\"lipstick_3\":0,\"sex\":0}},{\"grades\":{\"chefsecu\":\"chefsecu\",\"garde\":\"garde\"},\"name\":\"sécurité\",\"grade\":true,\"data\":{\"complexion_2\":0,\"lipstick_4\":0,\"mask_2\":0,\"chin_3\":0,\"hair_1\":0,\"mom\":2,\"blush_2\":0,\"bodyb_2\":0,\"neck_thickness\":0,\"torso_2\":0,\"hair_2\":0,\"decals_2\":0,\"cheeks_3\":0,\"cheeks_1\":0,\"eyebrows_3\":0,\"glasses_1\":5,\"complexion_1\":0,\"bracelets_1\":-1,\"lipstick_1\":0,\"eyebrows_4\":0,\"nose_2\":0,\"eyebrows_5\":0,\"beard_3\":29,\"bproof_1\":0,\"skin_md_weight\":50,\"chain_2\":0,\"eyebrows_6\":0,\"bodyb_4\":0,\"chin_1\":0,\"bodyb_1\":-1,\"eye_color\":0,\"face_md_weight\":50,\"lipstick_2\":0,\"pants_2\":0,\"torso_1\":295,\"moles_1\":0,\"makeup_1\":0,\"chin_2\":0,\"ears_1\":0,\"bags_2\":0,\"sun_1\":0,\"eyebrows_2\":10,\"bags_1\":0,\"nose_6\":0,\"nose_5\":0,\"bracelets_2\":0,\"tshirt_1\":35,\"makeup_2\":0,\"jaw_2\":0,\"mask_1\":0,\"hair_color_2\":29,\"watches_1\":-1,\"lip_thickness\":0,\"moles_2\":0,\"helmet_1\":-1,\"glasses_2\":0,\"eye_squint\":0,\"chin_4\":0,\"makeup_3\":0,\"nose_3\":0,\"arms_2\":0,\"beard_1\":10,\"shoes_2\":3,\"beard_4\":0,\"watches_2\":0,\"makeup_4\":0,\"beard_2\":10,\"eyebrows_1\":0,\"age_1\":0,\"dad\":24,\"chest_3\":0,\"jaw_1\":0,\"sun_2\":0,\"nose_1\":0,\"pants_1\":28,\"decals_1\":0,\"blush_3\":0,\"tshirt_2\":0,\"nose_4\":0,\"arms\":12,\"blush_1\":0,\"shoes_1\":104,\"chain_1\":343,\"hair_color_1\":29,\"cheeks_2\":0,\"bproof_2\":0,\"blemishes_2\":0,\"chest_2\":0,\"age_2\":0,\"blemishes_1\":0,\"ears_2\":0,\"bodyb_3\":-1,\"helmet_2\":0,\"chest_1\":0,\"lipstick_3\":0,\"sex\":0}}]', '{\"x\":-568.9598388671875,\"y\":-199.23117065429688,\"z\":38.21366500854492}'),
 (35, 'le_ferailleur', 'Roger Salvage et Scrap', '{\"accounts\":{\"society\":15250,\"cash\":0,\"black_money\":0},\"items\":[],\"items_boss\":[],\"weapons\":[],\"weapons_boss\":[]}', '{\"create_grade\":{\"Ramasseur\":false,\"Co -patron\":true,\"boss\":true,\"grades\":{\"boss\":true},\"label\":\"Créer un grade\"},\"items_chest:society\":{\"Ramasseur\":false,\"Co -patron\":true,\"boss\":true,\"grades\":{\"boss\":true},\"label\":\"Item(s) du coffre de la société\"},\"chest\":{\"Ramasseur\":false,\"Co -patron\":true,\"boss\":true,\"grades\":{\"boss\":true},\"label\":\"Accéder au coffre de la société\"},\"promote_player\":{\"Ramasseur\":false,\"Co -patron\":true,\"boss\":true,\"grades\":{\"boss\":true},\"label\":\"Augmenter un employé\"},\"withdraw_money_society\":{\"Ramasseur\":false,\"Co -patron\":true,\"boss\":true,\"grades\":{\"boss\":true},\"label\":\"Retirer de l\'argent dans le coffre de la société\"},\"remove_item_chest\":{\"Ramasseur\":false,\"Co -patron\":true,\"boss\":true,\"grades\":{\"boss\":true},\"label\":\"Retirer un item dans le coffre\"},\"change_permissions_grade\":{\"Ramasseur\":false,\"Co -patron\":true,\"boss\":true,\"grades\":{\"boss\":true},\"label\":\"Changer les permissions d\'un grade\"},\"remove_weapon_chest_society\":{\"Ramasseur\":false,\"Co -patron\":true,\"boss\":true,\"grades\":{\"boss\":true},\"label\":\"Retirer une arme dans la coffre de la société\"},\"withdraw_black_money_coffre\":{\"Ramasseur\":false,\"Co -patron\":true,\"boss\":true,\"grades\":{\"boss\":true},\"label\":\"Retirer de l\'argent sale dans le coffre\"},\"open_boss\":{\"Ramasseur\":false,\"Co -patron\":true,\"boss\":true,\"grades\":{\"boss\":true},\"label\":\"Ouvrir le menu boss\"},\"demote_player\":{\"Ramasseur\":false,\"Co -patron\":false,\"boss\":true,\"grades\":{\"boss\":true},\"label\":\"Virer un employé\"},\"deposit_money_society\":{\"Ramasseur\":false,\"Co -patron\":true,\"boss\":true,\"grades\":{\"boss\":true},\"label\":\"Déposer de l\'argent dans le coffre de la société\"},\"editClothes\":{\"Ramasseur\":false,\"Co -patron\":true,\"boss\":true,\"grades\":{\"boss\":true},\"label\":\"Gérer les tenues dans le vestiaire\"},\"delete_grade\":{\"Ramasseur\":false,\"Co -patron\":true,\"boss\":true,\"grades\":{\"boss\":true},\"label\":\"Supprimer un grade\"},\"deposit_weapon_chest_society\":{\"Ramasseur\":false,\"Co -patron\":true,\"boss\":true,\"grades\":{\"boss\":true},\"label\":\"Déposer une arme dans le coffre de la société\"},\"rename_label_grade\":{\"Ramasseur\":false,\"Co -patron\":true,\"boss\":true,\"grades\":{\"boss\":true},\"label\":\"Changer le label d\'un grade\"},\"remove_item_chest_society\":{\"Ramasseur\":false,\"Co -patron\":true,\"boss\":true,\"grades\":{\"boss\":true},\"label\":\"Retirer un item dans le coffre de la société\"},\"manage_employeds\":{\"Ramasseur\":false,\"Co -patron\":true,\"boss\":true,\"grades\":{\"boss\":true},\"label\":\"Gérer les employés de la société\"},\"dposit_item_chest_society\":{\"Ramasseur\":false,\"Co -patron\":true,\"boss\":true,\"grades\":{\"boss\":true},\"label\":\"Déposer un item dans le coffre de la société\"},\"deposit_weapon_chest\":{\"Ramasseur\":false,\"Co -patron\":true,\"boss\":true,\"grades\":{\"boss\":true},\"label\":\"Déposer une arme dans le coffre\"},\"remove_weapon_chest\":{\"Ramasseur\":false,\"Co -patron\":true,\"boss\":true,\"grades\":{\"boss\":true},\"label\":\"Retirer une arme dans le coffre\"},\"withdraw_cash_coffre\":{\"Ramasseur\":false,\"Co -patron\":true,\"boss\":true,\"grades\":{\"boss\":true},\"label\":\"Retirer de l\'argent dans le coffre\"},\"change_number_grade\":{\"Ramasseur\":false,\"Co -patron\":true,\"boss\":true,\"grades\":{\"boss\":true},\"label\":\"Changer le numéro d\'un grade\"},\"recruit_player\":{\"Ramasseur\":false,\"Co -patron\":true,\"boss\":true,\"grades\":{\"boss\":true},\"label\":\"Recruté un joueur\"},\"deposit_item_chest\":{\"Ramasseur\":true,\"Co -patron\":true,\"boss\":true,\"grades\":{\"boss\":true},\"label\":\"Déposer un item dans le coffre\"},\"manage_grades\":{\"Ramasseur\":false,\"Co -patron\":true,\"boss\":true,\"grades\":{\"boss\":true},\"label\":\"Gérer les grades de la société\"},\"deposit_cash_coffre\":{\"Ramasseur\":false,\"Co -patron\":true,\"boss\":true,\"grades\":{\"boss\":true},\"label\":\"Déposer de l\'argent dans le coffre\"},\"items_chest\":{\"Ramasseur\":true,\"Co -patron\":true,\"boss\":true,\"grades\":{\"boss\":true},\"label\":\"Items du coffre\"},\"rename_grade\":{\"Ramasseur\":false,\"Co -patron\":true,\"boss\":true,\"grades\":{\"boss\":true},\"label\":\"Changer le nom d\'un grade\"},\"unmote_player\":{\"Ramasseur\":false,\"Co -patron\":true,\"boss\":true,\"grades\":{\"boss\":true},\"label\":\"Descendre un employé\"},\"weapons_chest_society\":{\"Ramasseur\":false,\"Co -patron\":true,\"boss\":true,\"grades\":{\"boss\":true},\"label\":\"Arme(s) du coffre de la société\"},\"change_salary_grade\":{\"Ramasseur\":false,\"Co -patron\":true,\"boss\":true,\"grades\":{\"boss\":true},\"label\":\"Changer le salaire d\'un grade\"},\"open_coffre\":{\"Ramasseur\":true,\"Co -patron\":true,\"boss\":true,\"grades\":{\"boss\":true},\"label\":\"Ouvrir le coffre\"},\"weapons_chest\":{\"Ramasseur\":false,\"Co -patron\":true,\"boss\":true,\"grades\":{\"boss\":true},\"label\":\"Armes du coffre\"},\"deposit_black_money_coffre\":{\"Ramasseur\":false,\"Co -patron\":true,\"boss\":true,\"grades\":{\"boss\":true},\"label\":\"Déposer de l\'argent sale dans le coffre\"}}', '{\"y\":-1617.8726806640626,\"x\":-621.104248046875,\"z\":33.01055145263672}', '{\"y\":-1623.073974609375,\"x\":-617.3504028320313,\"z\":33.01055145263672}', '{\"sprite\":67,\"position\":{\"y\":-1629.8315429688,\"x\":-617.04089355469,\"z\":33.010578155518},\"active\":true,\"color\":0}', '1', 1, '[{\"data\":{\"cheeks_1\":0,\"eyebrows_4\":0,\"tshirt_1\":-1,\"lipstick_1\":0,\"hair_color_2\":15,\"skin_md_weight\":50,\"arms\":30,\"pants_1\":321,\"bproof_2\":0,\"nose_5\":0,\"lipstick_2\":0,\"ears_1\":-1,\"hair_2\":0,\"complexion_1\":0,\"bags_2\":0,\"makeup_2\":0,\"makeup_4\":0,\"sun_2\":0,\"eyebrows_2\":10,\"complexion_2\":0,\"dad\":0,\"makeup_3\":0,\"blush_3\":0,\"bodyb_4\":0,\"cheeks_3\":0,\"lipstick_3\":0,\"eye_color\":0,\"blush_2\":0,\"bodyb_3\":-1,\"nose_4\":0,\"chains_2\":0,\"beard_3\":29,\"eyebrows_6\":0,\"mask_1\":0,\"beard_2\":9,\"age_1\":0,\"eyebrows_1\":22,\"moles_1\":0,\"torso_2\":2,\"beard_4\":0,\"hair_color_1\":29,\"chin_3\":0,\"decals_2\":0,\"glasses_1\":50,\"shoes_2\":9,\"neck_thickness\":0,\"glasses_2\":0,\"chest_2\":0,\"lip_thickness\":0,\"hair_1\":11,\"bproof_1\":0,\"torso_1\":0,\"bracelets_2\":0,\"chain_2\":1,\"pants_2\":0,\"helmet_1\":175,\"eyebrows_5\":0,\"nose_6\":0,\"watches_2\":0,\"arms_2\":0,\"blemishes_1\":0,\"mom\":38,\"shoes_1\":196,\"chest_1\":0,\"blemishes_2\":0,\"decals_1\":0,\"chains_1\":0,\"blush_1\":0,\"eye_squint\":0,\"arms_1\":30,\"nose_3\":0,\"chain_1\":248,\"bags_1\":82,\"bracelets_1\":-1,\"watches_1\":30,\"jaw_1\":0,\"sex\":0,\"makeup_1\":0,\"mask_2\":0,\"chin_4\":0,\"nose_1\":0,\"ears_2\":0,\"age_2\":0,\"chest_3\":0,\"jaw_2\":0,\"sun_1\":0,\"eyebrows_3\":29,\"beard_1\":10,\"helmet_2\":0,\"chin_2\":0,\"face_md_weight\":50,\"tshirt_2\":-1,\"cheeks_2\":0,\"lipstick_4\":0,\"moles_2\":0,\"nose_2\":0,\"bodyb_1\":-1,\"bodyb_2\":0,\"chin_1\":0},\"grades\":{\"Co -patron\":\"Co -patron\"},\"grade\":true,\"name\":\"co-Patron\"},{\"data\":{\"cheeks_1\":0,\"eyebrows_4\":0,\"tshirt_1\":15,\"lipstick_1\":0,\"hair_color_2\":15,\"skin_md_weight\":50,\"arms\":1,\"pants_1\":317,\"bproof_2\":0,\"nose_5\":0,\"lipstick_2\":0,\"ears_1\":-1,\"hair_2\":0,\"complexion_1\":0,\"bags_2\":2,\"makeup_2\":0,\"makeup_4\":0,\"sun_2\":0,\"eyebrows_2\":10,\"complexion_2\":0,\"dad\":0,\"makeup_3\":0,\"blush_3\":0,\"bodyb_4\":0,\"cheeks_3\":0,\"lipstick_3\":0,\"eye_color\":0,\"blush_2\":0,\"bodyb_3\":-1,\"nose_4\":0,\"chains_2\":0,\"beard_3\":29,\"eyebrows_6\":0,\"mask_1\":0,\"beard_2\":9,\"age_1\":0,\"eyebrows_1\":22,\"moles_1\":0,\"torso_2\":1,\"beard_4\":0,\"hair_color_1\":29,\"chin_3\":0,\"decals_2\":0,\"glasses_1\":0,\"shoes_2\":0,\"neck_thickness\":0,\"glasses_2\":0,\"chest_2\":0,\"lip_thickness\":0,\"hair_1\":11,\"bproof_1\":0,\"torso_1\":792,\"bracelets_2\":0,\"chain_2\":0,\"pants_2\":0,\"helmet_1\":238,\"eyebrows_5\":0,\"nose_6\":0,\"watches_2\":0,\"arms_2\":0,\"blemishes_1\":0,\"mom\":38,\"shoes_1\":259,\"chest_1\":0,\"blemishes_2\":0,\"decals_1\":190,\"chains_1\":0,\"blush_1\":0,\"eye_squint\":0,\"arms_1\":205,\"nose_3\":0,\"chain_1\":0,\"bags_1\":82,\"bracelets_1\":-1,\"watches_1\":-1,\"jaw_1\":0,\"sex\":0,\"makeup_1\":0,\"mask_2\":0,\"chin_4\":0,\"nose_1\":0,\"ears_2\":0,\"age_2\":0,\"chest_3\":0,\"jaw_2\":0,\"sun_1\":0,\"eyebrows_3\":29,\"beard_1\":10,\"helmet_2\":0,\"chin_2\":0,\"face_md_weight\":50,\"tshirt_2\":0,\"cheeks_2\":0,\"lipstick_4\":0,\"moles_2\":0,\"nose_2\":0,\"bodyb_1\":-1,\"bodyb_2\":0,\"chin_1\":0},\"grades\":[],\"grade\":false,\"name\":\"unefined\"},{\"data\":{\"cheeks_1\":0,\"eyebrows_4\":0,\"tshirt_1\":15,\"lipstick_1\":0,\"hair_color_2\":15,\"skin_md_weight\":50,\"arms\":1,\"pants_1\":317,\"bproof_2\":0,\"nose_5\":0,\"lipstick_2\":0,\"ears_1\":-1,\"hair_2\":0,\"complexion_1\":0,\"bags_2\":2,\"makeup_2\":0,\"makeup_4\":0,\"sun_2\":0,\"eyebrows_2\":10,\"complexion_2\":0,\"dad\":0,\"makeup_3\":0,\"blush_3\":0,\"bodyb_4\":0,\"cheeks_3\":0,\"lipstick_3\":0,\"eye_color\":0,\"blush_2\":0,\"bodyb_3\":-1,\"nose_4\":0,\"chains_2\":0,\"beard_3\":29,\"eyebrows_6\":0,\"mask_1\":0,\"beard_2\":9,\"age_1\":0,\"eyebrows_1\":22,\"moles_1\":0,\"torso_2\":1,\"beard_4\":0,\"hair_color_1\":29,\"chin_3\":0,\"decals_2\":0,\"glasses_1\":0,\"shoes_2\":0,\"neck_thickness\":0,\"glasses_2\":0,\"chest_2\":0,\"lip_thickness\":0,\"hair_1\":11,\"bproof_1\":0,\"torso_1\":792,\"bracelets_2\":0,\"chain_2\":0,\"pants_2\":0,\"helmet_1\":238,\"eyebrows_5\":0,\"nose_6\":0,\"watches_2\":0,\"arms_2\":0,\"blemishes_1\":0,\"mom\":38,\"shoes_1\":259,\"chest_1\":0,\"blemishes_2\":0,\"decals_1\":190,\"chains_1\":0,\"blush_1\":0,\"eye_squint\":0,\"arms_1\":205,\"nose_3\":0,\"chain_1\":0,\"bags_1\":82,\"bracelets_1\":-1,\"watches_1\":-1,\"jaw_1\":0,\"sex\":0,\"makeup_1\":0,\"mask_2\":0,\"chin_4\":0,\"nose_1\":0,\"ears_2\":0,\"age_2\":0,\"chest_3\":0,\"jaw_2\":0,\"sun_1\":0,\"eyebrows_3\":29,\"beard_1\":10,\"helmet_2\":0,\"chin_2\":0,\"face_md_weight\":50,\"tshirt_2\":0,\"cheeks_2\":0,\"lipstick_4\":0,\"moles_2\":0,\"nose_2\":0,\"bodyb_1\":-1,\"bodyb_2\":0,\"chin_1\":0},\"grades\":[],\"grade\":true,\"name\":\"unefined\"}]', '{\"y\":-1618.1151123046876,\"x\":-619.4880981445313,\"z\":33.01055145263672}'),
@@ -28009,7 +29254,7 @@ INSERT INTO `society_data` (`id`, `name`, `label`, `coffre`, `permissions`, `pos
 (57, 'ambulancesandy', 'Ambulance Sandy', '{\"weapons_boss\":[],\"items\":[],\"accounts\":{\"black_money\":0,\"society\":15000,\"cash\":0},\"weapons\":[],\"items_boss\":[]}', '{\"deposit_item_chest\":{\"boss\":true},\"deposit_black_money_coffre\":{\"boss\":true},\"items_chest\":{\"boss\":true},\"change_number_grade\":{\"boss\":true},\"remove_item_chest\":{\"boss\":true},\"promote_player\":{\"boss\":true},\"change_permissions_grade\":{\"boss\":true},\"deposit_weapon_chest_society\":{\"boss\":true},\"recruit_player\":{\"boss\":true},\"open_coffre\":{\"boss\":true},\"deposit_weapon_chest\":{\"boss\":true},\"withdraw_black_money_coffre\":{\"boss\":true},\"change_salary_grade\":{\"boss\":true},\"items_chest:society\":{\"boss\":true},\"remove_weapon_chest_society\":{\"boss\":true},\"manage_employeds\":{\"boss\":true},\"remove_weapon_chest\":{\"boss\":true},\"rename_grade\":{\"boss\":true},\"editClothes\":{\"boss\":true},\"rename_label_grade\":{\"boss\":true},\"withdraw_cash_coffre\":{\"boss\":true},\"manage_grades\":{\"boss\":true},\"deposit_money_society\":{\"boss\":true},\"open_boss\":{\"boss\":true},\"dposit_item_chest_society\":{\"boss\":true},\"weapons_chest_society\":{\"boss\":true},\"deposit_cash_coffre\":{\"boss\":true},\"chest\":{\"boss\":true},\"weapons_chest\":{\"boss\":true},\"demote_player\":{\"boss\":true},\"withdraw_money_society\":{\"boss\":true},\"delete_grade\":{\"boss\":true},\"remove_item_chest_society\":{\"boss\":true},\"unmote_player\":{\"boss\":true},\"create_grade\":{\"boss\":true}}', '{\"x\":1768.4810791015626,\"y\":3643.358154296875,\"z\":34.85253524780273}', '{\"x\":1784.179931640625,\"y\":3658.7099609375,\"z\":34.8525276184082}', '{\"active\":true,\"color\":2,\"position\":{\"x\":1985.743652,\"y\":3762.457764,\"z\":32.603275},\"sprite\":61}', '1', 1, '[]', '{\"x\":1784.9034423828126,\"y\":3652.426513671875,\"z\":34.85258102416992}');
 INSERT INTO `society_data` (`id`, `name`, `label`, `coffre`, `permissions`, `posCoffre`, `posBoss`, `blips`, `tax`, `cloakroom`, `clothes`, `cloakpos`) VALUES
 (58, 'saspn', 'BCSO Sandy', '{\"accounts\":{\"society\":1931155.0,\"black_money\":3633,\"cash\":0},\"weapons_boss\":{\"WEAPON_FLASHLIGHT47\":{\"label\":\"Lampe torche\",\"name\":\"WEAPON_FLASHLIGHT\",\"number\":47,\"ammo\":255},\"WEAPON_FLASHLIGHT44\":{\"label\":\"Lampe torche\",\"name\":\"WEAPON_FLASHLIGHT\",\"number\":44,\"ammo\":255},\"WEAPON_FLASHLIGHT27\":{\"label\":\"Lampe torche\",\"name\":\"WEAPON_FLASHLIGHT\",\"number\":27,\"ammo\":255},\"WEAPON_FLASHLIGHT43\":{\"label\":\"Lampe torche\",\"name\":\"WEAPON_FLASHLIGHT\",\"number\":43,\"ammo\":255},\"WEAPON_FLASHLIGHT50\":{\"label\":\"Lampe torche\",\"name\":\"WEAPON_FLASHLIGHT\",\"number\":50,\"ammo\":255},\"WEAPON_NIGHTSTICK40\":{\"label\":\"Matraque\",\"name\":\"WEAPON_NIGHTSTICK\",\"number\":40,\"ammo\":255},\"WEAPON_FLASHLIGHT51\":{\"label\":\"Lampe torche\",\"name\":\"WEAPON_FLASHLIGHT\",\"number\":51,\"ammo\":255}},\"items\":{\"heavypistol\":{\"label\":\"Pistolet lourd\",\"name\":\"heavypistol\",\"count\":1},\"coca_blend\":{\"label\":\"Mélange de coca\",\"name\":\"coca_blend\",\"count\":1},\"combatpistol\":{\"label\":\"Glock 17\",\"name\":\"combatpistol\",\"count\":1},\"kq_ammonia\":{\"label\":\"Ammoniaque\",\"name\":\"kq_ammonia\",\"count\":4}},\"weapons\":[],\"items_boss\":{\"pistol_ammo\":{\"label\":\"Munitions pour pistolet\",\"name\":\"pistol_ammo\",\"count\":16},\"sniper_ammo\":{\"label\":\"Munitions pour sniper\",\"name\":\"sniper_ammo\",\"count\":388},\"762mm\":{\"label\":\"7.62mm Munition\",\"name\":\"762mm\",\"count\":468},\"burgershot_coca\":{\"label\":\"Coca Cola\",\"name\":\"burgershot_coca\",\"count\":14},\"hack_phone\":{\"label\":\"Téléphone Jailbreak\",\"name\":\"hack_phone\",\"count\":1},\"flashlight\":{\"label\":\"Lampe torche\",\"name\":\"flashlight\",\"count\":1},\"nightstick\":{\"label\":\"Matraque\",\"name\":\"nightstick\",\"count\":1},\"assaultsmg\":{\"label\":\"P90\",\"name\":\"assaultsmg\",\"count\":2},\"12gauge\":{\"label\":\"12mm Munition\",\"name\":\"12gauge\",\"count\":153},\"smg_ammo\":{\"label\":\"Munitions pour mitraillette\",\"name\":\"smg_ammo\",\"count\":15},\"combatpistolpol\":{\"label\":\"Combat Pistol Police\",\"name\":\"combatpistolpol\",\"count\":1},\"rifle_ammo\":{\"label\":\"Munitions pour fusil\",\"name\":\"rifle_ammo\",\"count\":2112},\"shotgun_ammo\":{\"label\":\"Munitions pour fusil à pompe\",\"name\":\"shotgun_ammo\",\"count\":196},\"burgershot_burger\":{\"label\":\"Burger\",\"name\":\"burgershot_burger\",\"count\":10},\"mg_ammo\":{\"label\":\"Munitions pour mitrailleuse\",\"name\":\"mg_ammo\",\"count\":200},\"smg\":{\"label\":\"Mitraillette MP5\",\"name\":\"smg\",\"count\":1},\"kevlar\":{\"label\":\"Kevlar\",\"name\":\"kevlar\",\"count\":5},\"9mm\":{\"label\":\"9mm Munition\",\"name\":\"9mm\",\"count\":160},\"hack_laptop\":{\"label\":\"Ordinateur Portable\",\"name\":\"hack_laptop\",\"count\":1},\"lapin\":{\"label\":\"Lapin\",\"name\":\"lapin\",\"count\":13},\"bullpupshotgun\":{\"label\":\"Fusil Bullpup\",\"name\":\"bullpupshotgun\",\"count\":1},\"cerf\":{\"label\":\"Cerf\",\"name\":\"cerf\",\"count\":3},\"556mm\":{\"label\":\"5.56mm Munition\",\"name\":\"556mm\",\"count\":180}}}', '{\"deposit_weapon_chest\":{\"label\":\"Déposer une arme dans le coffre\",\"boss\":true,\"Commander\":true,\"Under Sheriff\":[],\"grades\":{\"boss\":true},\"lieutenant\":[]},\"deposit_cash_coffre\":{\"label\":\"Déposer de l\'argent dans le coffre\",\"boss\":true,\"Commander\":true,\"Under Sheriff\":[],\"grades\":{\"boss\":true},\"lieutenant\":[]},\"change_salary_grade\":{\"label\":\"Changer le salaire d\'un grade\",\"boss\":true,\"Commander\":true,\"Under Sheriff\":[],\"grades\":{\"boss\":true},\"lieutenant\":[]},\"remove_item_chest\":{\"label\":\"Retirer un item dans le coffre\",\"boss\":true,\"Commander\":true,\"Under Sheriff\":[],\"grades\":{\"boss\":true},\"lieutenant\":[]},\"withdraw_money_society\":{\"label\":\"Retirer de l\'argent dans le coffre de la société\",\"boss\":true,\"Commander\":true,\"Under Sheriff\":[],\"grades\":{\"boss\":true},\"lieutenant\":[]},\"deposit_weapon_chest_society\":{\"label\":\"Déposer une arme dans le coffre de la société\",\"boss\":true,\"Commander\":true,\"Under Sheriff\":[],\"grades\":{\"boss\":true},\"lieutenant\":[]},\"remove_weapon_chest_society\":{\"label\":\"Retirer une arme dans la coffre de la société\",\"boss\":true,\"Commander\":true,\"Under Sheriff\":[],\"grades\":{\"boss\":true},\"lieutenant\":[]},\"remove_weapon_chest\":{\"label\":\"Retirer une arme dans le coffre\",\"boss\":true,\"Commander\":true,\"Under Sheriff\":[],\"grades\":{\"boss\":true},\"lieutenant\":[]},\"open_coffre\":{\"label\":\"Ouvrir le coffre\",\"boss\":true,\"Commander\":true,\"Under Sheriff\":[],\"grades\":{\"boss\":true},\"lieutenant\":[]},\"withdraw_cash_coffre\":{\"label\":\"Retirer de l\'argent dans le coffre\",\"boss\":true,\"Commander\":true,\"Under Sheriff\":[],\"grades\":{\"boss\":true},\"lieutenant\":[]},\"weapons_chest_society\":{\"label\":\"Arme(s) du coffre de la société\",\"boss\":true,\"Commander\":true,\"Under Sheriff\":[],\"grades\":{\"boss\":true},\"lieutenant\":[]},\"rename_label_grade\":{\"label\":\"Changer le label d\'un grade\",\"boss\":true,\"Commander\":true,\"Under Sheriff\":[],\"grades\":{\"boss\":true},\"lieutenant\":[]},\"chest\":{\"label\":\"Accéder au coffre de la société\",\"boss\":true,\"Commander\":true,\"Under Sheriff\":[],\"grades\":{\"boss\":true},\"lieutenant\":[]},\"unmote_player\":{\"label\":\"Descendre un employé\",\"boss\":true,\"Commander\":true,\"Under Sheriff\":true,\"grades\":{\"boss\":true},\"lieutenant\":[]},\"items_chest\":{\"label\":\"Items du coffre\",\"boss\":true,\"Commander\":true,\"Under Sheriff\":[],\"grades\":{\"boss\":true},\"lieutenant\":[]},\"deposit_black_money_coffre\":{\"label\":\"Déposer de l\'argent sale dans le coffre\",\"boss\":true,\"Commander\":true,\"Under Sheriff\":[],\"grades\":{\"boss\":true},\"lieutenant\":[]},\"manage_grades\":{\"label\":\"Gérer les grades de la société\",\"boss\":true,\"Commander\":true,\"Under Sheriff\":[],\"grades\":{\"boss\":true},\"lieutenant\":[]},\"open_boss\":{\"label\":\"Ouvrir le menu boss\",\"boss\":true,\"Commander\":true,\"Under Sheriff\":[],\"grades\":{\"boss\":true},\"lieutenant\":[]},\"delete_grade\":{\"label\":\"Supprimer un grade\",\"boss\":true,\"Commander\":true,\"Under Sheriff\":[],\"grades\":{\"boss\":true},\"lieutenant\":[]},\"items_chest:society\":{\"label\":\"Item(s) du coffre de la société\",\"boss\":true,\"Commander\":true,\"Under Sheriff\":[],\"grades\":{\"boss\":true},\"lieutenant\":[]},\"weapons_chest\":{\"label\":\"Armes du coffre\",\"boss\":true,\"Commander\":true,\"Under Sheriff\":[],\"grades\":{\"boss\":true},\"lieutenant\":[]},\"promote_player\":{\"label\":\"Augmenter un employé\",\"boss\":true,\"Commander\":true,\"Under Sheriff\":true,\"grades\":{\"boss\":true},\"lieutenant\":[]},\"manage_employeds\":{\"label\":\"Gérer les employés de la société\",\"boss\":true,\"Commander\":true,\"Under Sheriff\":[],\"grades\":{\"boss\":true},\"lieutenant\":[]},\"recruit_player\":{\"label\":\"Recruté un joueur\",\"boss\":true,\"Commander\":true,\"Under Sheriff\":[],\"grades\":{\"boss\":true},\"lieutenant\":[]},\"editClothes\":{\"label\":\"Gérer les tenues dans le vestiaire\",\"boss\":true,\"Commander\":true,\"Under Sheriff\":[],\"grades\":{\"boss\":true},\"lieutenant\":[]},\"deposit_item_chest\":{\"label\":\"Déposer un item dans le coffre\",\"boss\":true,\"Commander\":true,\"Under Sheriff\":[],\"grades\":{\"boss\":true},\"lieutenant\":[]},\"remove_item_chest_society\":{\"label\":\"Retirer un item dans le coffre de la société\",\"boss\":true,\"Commander\":true,\"Under Sheriff\":[],\"grades\":{\"boss\":true},\"lieutenant\":[]},\"demote_player\":{\"label\":\"Virer un employé\",\"boss\":true,\"Commander\":true,\"Under Sheriff\":[],\"grades\":{\"boss\":true},\"lieutenant\":[]},\"change_permissions_grade\":{\"label\":\"Changer les permissions d\'un grade\",\"boss\":true,\"Commander\":true,\"Under Sheriff\":[],\"grades\":{\"boss\":true},\"lieutenant\":[]},\"rename_grade\":{\"label\":\"Changer le nom d\'un grade\",\"boss\":true,\"Commander\":true,\"Under Sheriff\":[],\"grades\":{\"boss\":true},\"lieutenant\":[]},\"deposit_money_society\":{\"label\":\"Déposer de l\'argent dans le coffre de la société\",\"boss\":true,\"Commander\":true,\"Under Sheriff\":[],\"grades\":{\"boss\":true},\"lieutenant\":[]},\"withdraw_black_money_coffre\":{\"label\":\"Retirer de l\'argent sale dans le coffre\",\"boss\":true,\"Commander\":true,\"Under Sheriff\":[],\"grades\":{\"boss\":true},\"lieutenant\":[]},\"change_number_grade\":{\"label\":\"Changer le numéro d\'un grade\",\"boss\":true,\"Commander\":true,\"Under Sheriff\":[],\"grades\":{\"boss\":true},\"lieutenant\":[]},\"dposit_item_chest_society\":{\"label\":\"Déposer un item dans le coffre de la société\",\"boss\":true,\"Commander\":true,\"Under Sheriff\":[],\"grades\":{\"boss\":true},\"lieutenant\":[]},\"create_grade\":{\"label\":\"Créer un grade\",\"boss\":true,\"Commander\":true,\"Under Sheriff\":[],\"grades\":{\"boss\":true},\"lieutenant\":[]}}', '{\"x\":1852.9539794921876,\"y\":3690.775146484375,\"z\":34.21355438232422}', '{\"x\":1847.8760986328126,\"y\":3695.2216796875,\"z\":38.22046279907226}', '{\"active\":true,\"color\":47,\"sprite\":60,\"position\":{\"x\":1855.294677734375,\"y\":3683.089599609375,\"z\":34.26976013183594}}', '0', 1, '[{\"grade\":true,\"name\":\"Trainee\",\"grades\":{\"cadet\":\"cadet\"},\"data\":{\"eyebrows_1\":0,\"glasses_1\":0,\"lipstick_1\":0,\"blush_1\":0,\"bodyb_4\":0,\"glasses_2\":0,\"beard_4\":0,\"makeup_2\":0,\"ears_1\":-1,\"face_color\":0,\"dad\":37,\"hair_color_2\":29,\"eyebrows_6\":0,\"eye_squint\":0,\"nose_5\":0,\"tshirt_2\":0,\"age_1\":0,\"sun_1\":0,\"mask_2\":0,\"makeup_4\":0,\"helmet_1\":306,\"blemishes_2\":0,\"chest_2\":0,\"jaw_2\":0,\"torso_1\":902,\"bodyb_2\":0,\"age_2\":0,\"eye_color\":0,\"skin_md_weight\":50,\"chin_2\":0,\"chin_1\":0,\"mom\":33,\"lip_thickness\":0,\"jaw_1\":0,\"arms_2\":0,\"bproof_2\":0,\"neck_thickness\":0,\"bodyb_1\":-1,\"blush_2\":0,\"blemishes_1\":0,\"moles_2\":0,\"cheeks_2\":0,\"watches_1\":-1,\"cheeks_3\":0,\"decals_2\":0,\"nose_6\":0,\"arms\":22,\"mask_1\":0,\"chest_1\":0,\"lipstick_2\":0,\"makeup_3\":0,\"complexion_2\":0,\"shoes_1\":25,\"blush_3\":0,\"beard_3\":0,\"torso_2\":0,\"nose_3\":0,\"hair_2\":0,\"chin_4\":0,\"tshirt_1\":284,\"makeup_1\":0,\"hair_1\":79,\"cheeks_1\":0,\"bracelets_2\":0,\"watches_2\":0,\"face_md_weight\":0,\"bracelets_1\":-1,\"pants_2\":6,\"chain_1\":194,\"complexion_1\":0,\"eyebrows_4\":0,\"chain_2\":0,\"nose_4\":0,\"sex\":0,\"lipstick_3\":0,\"bproof_1\":10,\"nose_2\":0,\"eyebrows_2\":10,\"chest_3\":0,\"bodyb_3\":-1,\"nose_1\":0,\"bags_1\":191,\"eyebrows_3\":0,\"ears_2\":0,\"chin_3\":0,\"eyebrows_5\":0,\"moles_1\":0,\"lipstick_4\":0,\"sun_2\":0,\"helmet_2\":1,\"bags_2\":0,\"shoes_2\":0,\"beard_2\":0,\"beard_1\":0,\"hair_color_1\":0,\"pants_1\":341,\"decals_1\":0}},{\"grade\":true,\"name\":\"V.I.R\",\"grades\":{\"officier2\":\"officier2\",\"boss\":\"boss\",\"sergent2\":\"sergent2\",\"officier3\":\"officier3\",\"capitaine\":\"capitaine\",\"lieutenant\":\"lieutenant\",\"Commander\":\"Commander\",\"sergent1\":\"sergent1\",\"officier1\":\"officier1\",\"Under Sheriff\":\"Under Sheriff\",\"officierprincipal \":\"officierprincipal \",\"cadet\":\"cadet\"},\"data\":{\"eyebrows_1\":33,\"glasses_1\":4,\"lipstick_1\":0,\"blush_1\":0,\"bodyb_4\":0,\"glasses_2\":0,\"beard_4\":0,\"makeup_2\":0,\"ears_1\":-1,\"face_color\":0,\"dad\":21,\"hair_color_2\":0,\"eyebrows_6\":0,\"eye_squint\":0,\"nose_5\":0,\"tshirt_2\":0,\"age_1\":0,\"sun_1\":0,\"mask_2\":0,\"makeup_3\":0,\"helmet_1\":13,\"blemishes_2\":0,\"chest_2\":0,\"jaw_2\":0,\"torso_1\":897,\"bodyb_2\":0,\"age_2\":0,\"eye_color\":0,\"skin_md_weight\":50,\"chin_2\":0,\"chin_1\":0,\"mom\":0,\"lip_thickness\":3,\"jaw_1\":7,\"arms_2\":0,\"bproof_2\":0,\"neck_thickness\":0,\"bodyb_1\":0,\"blush_2\":0,\"bags_2\":0,\"moles_2\":0,\"hair_color_1\":0,\"watches_1\":3,\"cheeks_3\":0,\"decals_2\":0,\"eyebrows_5\":0,\"arms\":33,\"mask_1\":0,\"chest_1\":0,\"lipstick_2\":0,\"nose_1\":1,\"complexion_2\":0,\"shoes_1\":24,\"blush_3\":0,\"nose_6\":0,\"torso_2\":6,\"nose_3\":0,\"cheeks_2\":0,\"chin_4\":0,\"tshirt_1\":288,\"makeup_1\":0,\"hair_1\":45,\"cheeks_1\":0,\"bracelets_2\":0,\"watches_2\":0,\"face_md_weight\":0,\"bracelets_1\":-1,\"pants_2\":0,\"makeup_4\":0,\"complexion_1\":0,\"eyebrows_4\":0,\"chain_2\":0,\"nose_4\":0,\"sex\":0,\"lipstick_3\":0,\"beard_3\":0,\"nose_2\":0,\"bags_1\":0,\"chest_3\":0,\"bodyb_3\":-1,\"chin_3\":0,\"hair_2\":0,\"eyebrows_3\":0,\"ears_2\":0,\"bproof_1\":80,\"moles_1\":0,\"lipstick_4\":0,\"beard_1\":11,\"sun_2\":0,\"helmet_2\":0,\"blemishes_1\":0,\"shoes_2\":0,\"beard_2\":10,\"chain_1\":219,\"eyebrows_2\":10,\"pants_1\":31,\"decals_1\":0}},{\"grade\":true,\"name\":\"Supervisor\",\"grades\":{\"capitaine\":\"capitaine\",\"Under Sheriff\":\"Under Sheriff\",\"Commander\":\"Commander\",\"boss\":\"boss\",\"sergent2\":\"sergent2\",\"lieutenant\":\"lieutenant\",\"sergent1\":\"sergent1\"},\"data\":{\"eyebrows_1\":33,\"glasses_1\":4,\"lipstick_1\":0,\"blush_1\":0,\"bodyb_4\":0,\"glasses_2\":0,\"beard_4\":0,\"makeup_2\":0,\"ears_1\":-1,\"face_color\":0,\"dad\":21,\"hair_color_2\":0,\"eyebrows_6\":0,\"eye_squint\":0,\"nose_5\":0,\"tshirt_2\":0,\"age_1\":0,\"sun_1\":0,\"mask_2\":0,\"makeup_3\":0,\"helmet_1\":286,\"blemishes_2\":0,\"chest_2\":0,\"jaw_2\":0,\"torso_1\":902,\"bodyb_2\":0,\"age_2\":0,\"eye_color\":0,\"skin_md_weight\":50,\"chin_2\":0,\"chin_1\":0,\"mom\":0,\"lip_thickness\":3,\"jaw_1\":7,\"arms_2\":0,\"bproof_2\":0,\"neck_thickness\":0,\"bodyb_1\":0,\"blush_2\":0,\"bags_2\":0,\"moles_2\":0,\"hair_color_1\":0,\"watches_1\":3,\"cheeks_3\":0,\"decals_2\":0,\"eyebrows_5\":0,\"arms\":27,\"mask_1\":0,\"chest_1\":0,\"lipstick_2\":0,\"nose_1\":1,\"complexion_2\":0,\"shoes_1\":25,\"blush_3\":0,\"nose_6\":0,\"torso_2\":0,\"nose_3\":0,\"cheeks_2\":0,\"chin_4\":0,\"tshirt_1\":288,\"makeup_1\":0,\"hair_1\":45,\"cheeks_1\":0,\"bracelets_2\":0,\"watches_2\":0,\"face_md_weight\":0,\"bracelets_1\":-1,\"pants_2\":0,\"makeup_4\":0,\"complexion_1\":0,\"eyebrows_4\":0,\"chain_2\":0,\"nose_4\":0,\"sex\":0,\"lipstick_3\":0,\"beard_3\":0,\"nose_2\":0,\"bags_1\":0,\"chest_3\":0,\"bodyb_3\":-1,\"chin_3\":0,\"hair_2\":0,\"eyebrows_3\":0,\"ears_2\":0,\"bproof_1\":115,\"moles_1\":0,\"lipstick_4\":0,\"beard_1\":11,\"sun_2\":0,\"helmet_2\":0,\"blemishes_1\":0,\"shoes_2\":0,\"beard_2\":10,\"chain_1\":194,\"eyebrows_2\":10,\"pants_1\":49,\"decals_1\":0}},{\"grade\":true,\"name\":\"Corp de Commandemant\",\"grades\":{\"capitaine\":\"capitaine\",\"Under Sheriff\":\"Under Sheriff\",\"Commander\":\"Commander\",\"boss\":\"boss\",\"lieutenant\":\"lieutenant\"},\"data\":{\"eyebrows_1\":33,\"glasses_1\":4,\"lipstick_1\":0,\"blush_1\":0,\"bodyb_4\":0,\"glasses_2\":0,\"beard_4\":0,\"makeup_2\":0,\"ears_1\":-1,\"face_color\":0,\"dad\":21,\"hair_color_2\":0,\"eyebrows_6\":0,\"eye_squint\":0,\"nose_5\":0,\"tshirt_2\":0,\"age_1\":0,\"sun_1\":0,\"mask_2\":0,\"makeup_3\":0,\"helmet_1\":13,\"blemishes_2\":0,\"chest_2\":0,\"jaw_2\":0,\"torso_1\":902,\"bodyb_2\":0,\"age_2\":0,\"eye_color\":0,\"skin_md_weight\":50,\"chin_2\":0,\"chin_1\":0,\"mom\":0,\"lip_thickness\":3,\"jaw_1\":7,\"arms_2\":0,\"bproof_2\":0,\"neck_thickness\":0,\"bodyb_1\":0,\"blush_2\":0,\"bags_2\":0,\"moles_2\":0,\"hair_color_1\":0,\"watches_1\":3,\"cheeks_3\":0,\"decals_2\":0,\"eyebrows_5\":0,\"arms\":27,\"mask_1\":0,\"chest_1\":0,\"lipstick_2\":0,\"nose_1\":1,\"complexion_2\":0,\"shoes_1\":25,\"blush_3\":0,\"nose_6\":0,\"torso_2\":0,\"nose_3\":0,\"cheeks_2\":0,\"chin_4\":0,\"tshirt_1\":288,\"makeup_1\":0,\"hair_1\":45,\"cheeks_1\":0,\"bracelets_2\":0,\"watches_2\":0,\"face_md_weight\":0,\"bracelets_1\":-1,\"pants_2\":0,\"makeup_4\":0,\"complexion_1\":0,\"eyebrows_4\":0,\"chain_2\":0,\"nose_4\":0,\"sex\":0,\"lipstick_3\":0,\"beard_3\":0,\"nose_2\":0,\"bags_1\":0,\"chest_3\":0,\"bodyb_3\":-1,\"chin_3\":0,\"hair_2\":0,\"eyebrows_3\":0,\"ears_2\":0,\"bproof_1\":115,\"moles_1\":0,\"lipstick_4\":0,\"beard_1\":11,\"sun_2\":0,\"helmet_2\":0,\"blemishes_1\":0,\"shoes_2\":0,\"beard_2\":10,\"chain_1\":194,\"eyebrows_2\":10,\"pants_1\":49,\"decals_1\":0}},{\"grade\":true,\"name\":\"Etat Major\",\"grades\":{\"boss\":\"boss\",\"Under Sheriff\":\"Under Sheriff\",\"Commander\":\"Commander\"},\"data\":{\"eyebrows_1\":33,\"glasses_1\":4,\"lipstick_1\":0,\"blush_1\":0,\"bodyb_4\":0,\"glasses_2\":0,\"beard_4\":0,\"makeup_2\":0,\"ears_1\":-1,\"face_color\":0,\"dad\":21,\"hair_color_2\":0,\"eyebrows_6\":0,\"eye_squint\":0,\"nose_5\":0,\"tshirt_2\":0,\"age_1\":0,\"sun_1\":0,\"mask_2\":0,\"makeup_3\":0,\"helmet_1\":13,\"blemishes_2\":0,\"chest_2\":0,\"jaw_2\":0,\"torso_1\":902,\"bodyb_2\":0,\"age_2\":0,\"eye_color\":0,\"skin_md_weight\":50,\"chin_2\":0,\"chin_1\":0,\"mom\":0,\"lip_thickness\":3,\"jaw_1\":7,\"arms_2\":0,\"bproof_2\":0,\"neck_thickness\":0,\"bodyb_1\":0,\"blush_2\":0,\"bags_2\":0,\"moles_2\":0,\"hair_color_1\":0,\"watches_1\":3,\"cheeks_3\":0,\"decals_2\":0,\"eyebrows_5\":0,\"arms\":82,\"mask_1\":0,\"chest_1\":0,\"lipstick_2\":0,\"nose_1\":1,\"complexion_2\":0,\"shoes_1\":25,\"blush_3\":0,\"nose_6\":0,\"torso_2\":0,\"nose_3\":0,\"cheeks_2\":0,\"chin_4\":0,\"tshirt_1\":288,\"makeup_1\":0,\"hair_1\":45,\"cheeks_1\":0,\"bracelets_2\":0,\"watches_2\":0,\"face_md_weight\":0,\"bracelets_1\":-1,\"pants_2\":0,\"makeup_4\":0,\"complexion_1\":0,\"eyebrows_4\":0,\"chain_2\":0,\"nose_4\":0,\"sex\":0,\"lipstick_3\":0,\"beard_3\":0,\"nose_2\":0,\"bags_1\":0,\"chest_3\":0,\"bodyb_3\":-1,\"chin_3\":0,\"hair_2\":0,\"eyebrows_3\":0,\"ears_2\":0,\"bproof_1\":0,\"moles_1\":0,\"lipstick_4\":0,\"beard_1\":11,\"sun_2\":0,\"helmet_2\":0,\"blemishes_1\":0,\"shoes_2\":0,\"beard_2\":10,\"chain_1\":194,\"eyebrows_2\":10,\"pants_1\":25,\"decals_1\":0}},{\"grade\":true,\"name\":\"Ceremonie\",\"grades\":{\"officier2\":\"officier2\",\"boss\":\"boss\",\"sergent2\":\"sergent2\",\"officier3\":\"officier3\",\"capitaine\":\"capitaine\",\"lieutenant\":\"lieutenant\",\"Commander\":\"Commander\",\"sergent1\":\"sergent1\",\"officier1\":\"officier1\",\"Under Sheriff\":\"Under Sheriff\",\"officierprincipal \":\"officierprincipal \",\"cadet\":\"cadet\"},\"data\":{\"eyebrows_1\":33,\"glasses_1\":4,\"lipstick_1\":0,\"blush_1\":0,\"bodyb_4\":0,\"glasses_2\":0,\"beard_4\":0,\"makeup_2\":0,\"ears_1\":-1,\"face_color\":0,\"dad\":21,\"hair_color_2\":0,\"eyebrows_6\":0,\"eye_squint\":0,\"nose_5\":0,\"tshirt_2\":0,\"age_1\":0,\"sun_1\":0,\"mask_2\":0,\"makeup_3\":0,\"helmet_1\":13,\"blemishes_2\":0,\"chest_2\":0,\"jaw_2\":0,\"torso_1\":902,\"bodyb_2\":0,\"age_2\":0,\"eye_color\":0,\"skin_md_weight\":50,\"chin_2\":0,\"chin_1\":0,\"mom\":0,\"lip_thickness\":3,\"jaw_1\":7,\"arms_2\":0,\"bproof_2\":0,\"neck_thickness\":0,\"bodyb_1\":0,\"blush_2\":0,\"bags_2\":0,\"moles_2\":0,\"hair_color_1\":0,\"watches_1\":3,\"cheeks_3\":0,\"decals_2\":0,\"eyebrows_5\":0,\"arms\":82,\"mask_1\":0,\"chest_1\":0,\"lipstick_2\":0,\"nose_1\":1,\"complexion_2\":0,\"shoes_1\":25,\"blush_3\":0,\"nose_6\":0,\"torso_2\":0,\"nose_3\":0,\"cheeks_2\":0,\"chin_4\":0,\"tshirt_1\":288,\"makeup_1\":0,\"hair_1\":45,\"cheeks_1\":0,\"bracelets_2\":0,\"watches_2\":0,\"face_md_weight\":0,\"bracelets_1\":-1,\"pants_2\":0,\"makeup_4\":0,\"complexion_1\":0,\"eyebrows_4\":0,\"chain_2\":0,\"nose_4\":0,\"sex\":0,\"lipstick_3\":0,\"beard_3\":0,\"nose_2\":0,\"bags_1\":0,\"chest_3\":0,\"bodyb_3\":-1,\"chin_3\":0,\"hair_2\":0,\"eyebrows_3\":0,\"ears_2\":0,\"bproof_1\":0,\"moles_1\":0,\"lipstick_4\":0,\"beard_1\":11,\"sun_2\":0,\"helmet_2\":0,\"blemishes_1\":0,\"shoes_2\":0,\"beard_2\":10,\"chain_1\":194,\"eyebrows_2\":10,\"pants_1\":25,\"decals_1\":0}},{\"grade\":true,\"name\":\"Corp des Officiers\",\"grades\":{\"officier2\":\"officier2\",\"boss\":\"boss\",\"sergent2\":\"sergent2\",\"officier3\":\"officier3\",\"capitaine\":\"capitaine\",\"lieutenant\":\"lieutenant\",\"officier1\":\"officier1\",\"Under Sheriff\":\"Under Sheriff\",\"officierprincipal \":\"officierprincipal \",\"sergent1\":\"sergent1\"},\"data\":{\"eyebrows_1\":33,\"glasses_1\":4,\"lipstick_1\":0,\"blush_1\":0,\"bodyb_4\":0,\"glasses_2\":0,\"beard_4\":0,\"makeup_2\":0,\"ears_1\":-1,\"face_color\":0,\"dad\":21,\"hair_color_2\":0,\"eyebrows_6\":0,\"eye_squint\":0,\"nose_5\":0,\"tshirt_2\":0,\"age_1\":0,\"sun_1\":0,\"mask_2\":0,\"makeup_3\":0,\"helmet_1\":286,\"blemishes_2\":0,\"chest_2\":0,\"jaw_2\":0,\"torso_1\":902,\"bodyb_2\":0,\"age_2\":0,\"eye_color\":0,\"skin_md_weight\":50,\"chin_2\":0,\"chin_1\":0,\"mom\":0,\"lip_thickness\":3,\"jaw_1\":7,\"arms_2\":0,\"bproof_2\":0,\"neck_thickness\":0,\"bodyb_1\":0,\"blush_2\":0,\"bags_2\":0,\"moles_2\":0,\"hair_color_1\":0,\"watches_1\":3,\"cheeks_3\":0,\"decals_2\":0,\"eyebrows_5\":0,\"arms\":27,\"mask_1\":0,\"chest_1\":0,\"lipstick_2\":0,\"nose_1\":1,\"complexion_2\":0,\"shoes_1\":25,\"blush_3\":0,\"nose_6\":0,\"torso_2\":0,\"nose_3\":0,\"cheeks_2\":0,\"chin_4\":0,\"tshirt_1\":288,\"makeup_1\":0,\"hair_1\":45,\"cheeks_1\":0,\"bracelets_2\":0,\"watches_2\":0,\"face_md_weight\":0,\"bracelets_1\":-1,\"pants_2\":0,\"makeup_4\":0,\"complexion_1\":0,\"eyebrows_4\":0,\"chain_2\":0,\"nose_4\":0,\"sex\":0,\"lipstick_3\":0,\"beard_3\":0,\"nose_2\":0,\"bags_1\":0,\"chest_3\":0,\"bodyb_3\":-1,\"chin_3\":0,\"hair_2\":0,\"eyebrows_3\":0,\"ears_2\":0,\"bproof_1\":115,\"moles_1\":0,\"lipstick_4\":0,\"beard_1\":11,\"sun_2\":0,\"helmet_2\":0,\"blemishes_1\":0,\"shoes_2\":0,\"beard_2\":10,\"chain_1\":194,\"eyebrows_2\":10,\"pants_1\":49,\"decals_1\":0}},{\"grade\":true,\"name\":\"Trainee\",\"grades\":[],\"data\":{\"eyebrows_1\":0,\"glasses_1\":5,\"lipstick_1\":0,\"blush_1\":0,\"bodyb_4\":0,\"glasses_2\":1,\"beard_4\":0,\"makeup_2\":0,\"ears_1\":-1,\"dad\":0,\"hair_color_2\":29,\"eyebrows_6\":0,\"eye_squint\":0,\"nose_5\":0,\"tshirt_2\":0,\"age_1\":0,\"sun_1\":0,\"mask_2\":0,\"makeup_4\":0,\"helmet_1\":306,\"nose_1\":0,\"chest_2\":0,\"jaw_2\":0,\"torso_1\":193,\"bodyb_2\":0,\"age_2\":0,\"eye_color\":0,\"skin_md_weight\":50,\"chin_2\":0,\"pants_1\":341,\"mom\":7,\"lip_thickness\":0,\"jaw_1\":0,\"arms_2\":0,\"bproof_2\":0,\"neck_thickness\":0,\"bodyb_1\":-1,\"blush_2\":0,\"bags_2\":0,\"moles_2\":0,\"hair_color_1\":0,\"watches_1\":-1,\"cheeks_3\":0,\"decals_2\":0,\"makeup_3\":0,\"arms\":22,\"mask_1\":0,\"chest_1\":0,\"lipstick_2\":0,\"complexion_1\":0,\"complexion_2\":0,\"shoes_1\":25,\"blush_3\":0,\"chin_4\":0,\"torso_2\":1,\"nose_3\":0,\"tshirt_1\":284,\"bracelets_2\":0,\"bproof_1\":10,\"makeup_1\":0,\"hair_1\":79,\"cheeks_1\":0,\"face_md_weight\":50,\"watches_2\":0,\"bags_1\":191,\"bracelets_1\":-1,\"pants_2\":6,\"hair_2\":0,\"chin_1\":0,\"eyebrows_4\":0,\"chain_2\":2,\"nose_4\":0,\"sex\":0,\"lipstick_3\":0,\"beard_3\":0,\"nose_2\":0,\"eyebrows_2\":0,\"chest_3\":0,\"bodyb_3\":-1,\"chin_3\":0,\"eyebrows_5\":0,\"eyebrows_3\":0,\"ears_2\":0,\"moles_1\":0,\"blemishes_2\":0,\"beard_1\":0,\"lipstick_4\":0,\"sun_2\":0,\"blemishes_1\":0,\"helmet_2\":1,\"shoes_2\":0,\"beard_2\":0,\"chain_1\":10,\"cheeks_2\":0,\"nose_6\":0,\"decals_1\":0}},{\"grade\":true,\"name\":\"ERT Intervention\",\"data\":{\"shoes_1\":25,\"glasses_1\":5,\"lipstick_1\":0,\"blush_1\":0,\"bodyb_4\":0,\"glasses_2\":1,\"beard_4\":0,\"makeup_2\":0,\"ears_1\":-1,\"dad\":0,\"hair_color_2\":26,\"eyebrows_6\":0,\"eye_squint\":0,\"nose_5\":0,\"tshirt_2\":0,\"age_1\":0,\"sun_1\":0,\"mask_2\":13,\"makeup_3\":0,\"helmet_1\":231,\"blemishes_2\":0,\"chest_2\":0,\"jaw_2\":0,\"torso_1\":579,\"bodyb_2\":0,\"age_2\":0,\"eye_color\":0,\"skin_md_weight\":50,\"chin_2\":0,\"chin_1\":0,\"mom\":20,\"lip_thickness\":0,\"jaw_1\":0,\"arms_2\":0,\"beard_1\":0,\"neck_thickness\":0,\"bodyb_1\":-1,\"eyebrows_5\":0,\"blemishes_1\":0,\"moles_2\":0,\"cheeks_2\":0,\"watches_1\":-1,\"cheeks_3\":0,\"decals_2\":0,\"nose_1\":0,\"eyebrows_2\":0,\"watches_2\":0,\"chest_1\":0,\"lipstick_2\":0,\"arms\":179,\"complexion_2\":0,\"chain_1\":194,\"blush_3\":0,\"bags_1\":191,\"nose_6\":0,\"nose_3\":0,\"hair_2\":0,\"lipstick_4\":0,\"pants_1\":261,\"makeup_1\":0,\"hair_1\":79,\"cheeks_1\":0,\"decals_1\":0,\"mask_1\":169,\"makeup_4\":0,\"bracelets_1\":-1,\"pants_2\":1,\"bags_2\":0,\"eyebrows_4\":0,\"chin_4\":0,\"chin_3\":0,\"nose_4\":0,\"sex\":0,\"lipstick_3\":0,\"eyebrows_1\":0,\"nose_2\":0,\"chain_2\":0,\"chest_3\":0,\"bodyb_3\":-1,\"helmet_2\":1,\"torso_2\":2,\"eyebrows_3\":0,\"ears_2\":0,\"complexion_1\":0,\"hair_color_1\":0,\"bproof_2\":0,\"bproof_1\":116,\"sun_2\":0,\"bracelets_2\":0,\"blush_2\":0,\"shoes_2\":0,\"beard_2\":0,\"face_md_weight\":50,\"beard_3\":0,\"moles_1\":0,\"tshirt_1\":247},\"grades\":{\"officier3\":\"officier3\"}},{\"grade\":false,\"name\":\"ERTV2\",\"data\":{\"shoes_1\":25,\"glasses_1\":5,\"lipstick_1\":0,\"blush_1\":0,\"bodyb_4\":0,\"glasses_2\":1,\"beard_4\":0,\"makeup_2\":0,\"ears_1\":-1,\"dad\":0,\"hair_color_2\":26,\"eyebrows_6\":0,\"eye_squint\":0,\"nose_5\":0,\"tshirt_2\":0,\"age_1\":0,\"sun_1\":0,\"mask_2\":13,\"makeup_3\":0,\"helmet_1\":231,\"blemishes_2\":0,\"chest_2\":0,\"jaw_2\":0,\"torso_1\":579,\"bodyb_2\":0,\"age_2\":0,\"eye_color\":0,\"skin_md_weight\":50,\"chin_2\":0,\"chin_1\":0,\"mom\":20,\"lip_thickness\":0,\"jaw_1\":0,\"arms_2\":0,\"beard_1\":0,\"neck_thickness\":0,\"bodyb_1\":-1,\"eyebrows_5\":0,\"blemishes_1\":0,\"moles_2\":0,\"cheeks_2\":0,\"watches_1\":-1,\"cheeks_3\":0,\"decals_2\":0,\"nose_1\":0,\"eyebrows_2\":0,\"watches_2\":0,\"chest_1\":0,\"lipstick_2\":0,\"arms\":179,\"complexion_2\":0,\"chain_1\":194,\"blush_3\":0,\"bags_1\":191,\"nose_6\":0,\"nose_3\":0,\"hair_2\":0,\"lipstick_4\":0,\"pants_1\":261,\"makeup_1\":0,\"hair_1\":79,\"cheeks_1\":0,\"decals_1\":0,\"mask_1\":169,\"makeup_4\":0,\"bracelets_1\":-1,\"pants_2\":1,\"bags_2\":0,\"eyebrows_4\":0,\"chin_4\":0,\"chin_3\":0,\"nose_4\":0,\"sex\":0,\"lipstick_3\":0,\"eyebrows_1\":0,\"nose_2\":0,\"chain_2\":0,\"chest_3\":0,\"bodyb_3\":-1,\"helmet_2\":1,\"torso_2\":2,\"eyebrows_3\":0,\"ears_2\":0,\"complexion_1\":0,\"hair_color_1\":0,\"bproof_2\":0,\"bproof_1\":116,\"sun_2\":0,\"bracelets_2\":0,\"blush_2\":0,\"shoes_2\":0,\"beard_2\":0,\"face_md_weight\":50,\"beard_3\":0,\"moles_1\":0,\"tshirt_1\":247},\"grades\":[]}]', '{\"x\":1852.7691650390626,\"y\":3688.220947265625,\"z\":29.81854057312011}'),
-(60, 'ambulance', 'EMS', '{\"weapons_boss\":[],\"weapons\":[],\"items\":{\"bread\":{\"label\":\"Pain\",\"count\":9,\"name\":\"bread\"},\"water\":{\"label\":\"Eau\",\"count\":9,\"name\":\"water\"},\"pearls_moulefrite\":{\"label\":\"Moule Frite\",\"count\":40,\"name\":\"pearls_moulefrite\"},\"burgershot_cookie\":{\"label\":\"Cookie\",\"count\":38,\"name\":\"burgershot_cookie\"},\"lapin\":{\"label\":\"Lapin\",\"count\":2,\"name\":\"lapin\"}},\"accounts\":{\"black_money\":0,\"society\":4778600,\"cash\":0},\"items_boss\":{\"bread\":{\"label\":\"Pain\",\"count\":196,\"name\":\"bread\"},\"water\":{\"label\":\"Eau\",\"count\":207,\"name\":\"water\"}}}', '{\"open_coffre\":{\"label\":\"Ouvrir le coffre\",\"boss\":true,\"directeur\":[],\"Aide Soignant\":false,\"Stagiaire EMS\":false,\"president\":true,\"Infirmier\":false,\"medecin chef\":false,\"grades\":{\"boss\":true},\"rh\":true,\"Médecin Chef\":false},\"dposit_item_chest_society\":{\"label\":\"Déposer un item dans le coffre de la société\",\"boss\":true,\"directeur\":[],\"Aide Soignant\":false,\"Stagiaire EMS\":false,\"president\":true,\"Infirmier\":false,\"medecin chef\":false,\"grades\":{\"boss\":true},\"rh\":false,\"Médecin Chef\":false},\"withdraw_black_money_coffre\":{\"label\":\"Retirer de l\'argent sale dans le coffre\",\"boss\":true,\"directeur\":[],\"Aide Soignant\":false,\"Stagiaire EMS\":false,\"president\":true,\"Infirmier\":false,\"medecin chef\":false,\"grades\":{\"boss\":true},\"rh\":false,\"Médecin Chef\":false},\"create_grade\":{\"label\":\"Créer un grade\",\"boss\":true,\"directeur\":[],\"Aide Soignant\":false,\"Stagiaire EMS\":false,\"president\":true,\"Infirmier\":false,\"medecin chef\":false,\"grades\":{\"boss\":true},\"rh\":false,\"Médecin Chef\":false},\"deposit_money_society\":{\"label\":\"Déposer de l\'argent dans le coffre de la société\",\"boss\":true,\"directeur\":[],\"Aide Soignant\":false,\"Stagiaire EMS\":false,\"president\":true,\"Infirmier\":false,\"medecin chef\":false,\"grades\":{\"boss\":true},\"rh\":false,\"Médecin Chef\":false},\"delete_grade\":{\"label\":\"Supprimer un grade\",\"boss\":true,\"directeur\":[],\"Aide Soignant\":false,\"Stagiaire EMS\":false,\"president\":true,\"Infirmier\":false,\"medecin chef\":false,\"grades\":{\"boss\":true},\"rh\":false,\"Médecin Chef\":false},\"deposit_black_money_coffre\":{\"label\":\"Déposer de l\'argent sale dans le coffre\",\"boss\":true,\"directeur\":[],\"Aide Soignant\":false,\"Stagiaire EMS\":false,\"president\":true,\"Infirmier\":false,\"medecin chef\":false,\"grades\":{\"boss\":true},\"rh\":false,\"Médecin Chef\":false},\"deposit_cash_coffre\":{\"label\":\"Déposer de l\'argent dans le coffre\",\"boss\":true,\"directeur\":[],\"Aide Soignant\":false,\"Stagiaire EMS\":false,\"president\":true,\"Infirmier\":false,\"medecin chef\":false,\"grades\":{\"boss\":true},\"rh\":false,\"Médecin Chef\":false},\"weapons_chest\":{\"label\":\"Armes du coffre\",\"boss\":true,\"directeur\":[],\"Aide Soignant\":false,\"Stagiaire EMS\":false,\"president\":true,\"Infirmier\":false,\"medecin chef\":false,\"grades\":{\"boss\":true},\"rh\":false,\"Médecin Chef\":false},\"change_salary_grade\":{\"label\":\"Changer le salaire d\'un grade\",\"boss\":true,\"directeur\":[],\"Aide Soignant\":false,\"Stagiaire EMS\":false,\"president\":true,\"Infirmier\":false,\"medecin chef\":false,\"grades\":{\"boss\":true},\"rh\":false,\"Médecin Chef\":false},\"open_boss\":{\"label\":\"Ouvrir le menu boss\",\"boss\":true,\"directeur\":[],\"Aide Soignant\":false,\"Stagiaire EMS\":false,\"president\":true,\"Infirmier\":false,\"medecin chef\":false,\"grades\":{\"boss\":true},\"rh\":false,\"Médecin Chef\":false},\"chest\":{\"label\":\"Accéder au coffre de la société\",\"boss\":true,\"directeur\":[],\"Aide Soignant\":false,\"Stagiaire EMS\":false,\"president\":true,\"Infirmier\":false,\"medecin chef\":true,\"grades\":{\"boss\":true},\"rh\":false,\"Médecin Chef\":false},\"remove_item_chest\":{\"label\":\"Retirer un item dans le coffre\",\"boss\":true,\"directeur\":[],\"Aide Soignant\":false,\"Stagiaire EMS\":false,\"president\":true,\"Infirmier\":false,\"medecin chef\":false,\"grades\":{\"boss\":true},\"rh\":true,\"Médecin Chef\":false},\"recruit_player\":{\"label\":\"Recruté un joueur\",\"boss\":true,\"directeur\":[],\"Aide Soignant\":false,\"Stagiaire EMS\":false,\"president\":true,\"Infirmier\":false,\"medecin chef\":false,\"grades\":{\"boss\":true},\"rh\":true,\"Médecin Chef\":true},\"withdraw_cash_coffre\":{\"label\":\"Retirer de l\'argent dans le coffre\",\"boss\":true,\"directeur\":[],\"Aide Soignant\":false,\"Stagiaire EMS\":false,\"president\":true,\"Infirmier\":false,\"medecin chef\":false,\"grades\":{\"boss\":true},\"rh\":false,\"Médecin Chef\":false},\"editClothes\":{\"label\":\"Gérer les tenues dans le vestiaire\",\"boss\":true,\"directeur\":[],\"Aide Soignant\":false,\"Stagiaire EMS\":false,\"president\":true,\"Infirmier\":false,\"medecin chef\":false,\"grades\":{\"boss\":true},\"rh\":false,\"Médecin Chef\":false},\"promote_player\":{\"label\":\"Augmenter un employé\",\"boss\":true,\"directeur\":[],\"Aide Soignant\":false,\"Stagiaire EMS\":false,\"president\":true,\"Infirmier\":false,\"medecin chef\":false,\"grades\":{\"boss\":true},\"rh\":false,\"Médecin Chef\":true},\"deposit_weapon_chest\":{\"label\":\"Déposer une arme dans le coffre\",\"boss\":true,\"directeur\":[],\"Aide Soignant\":false,\"Stagiaire EMS\":false,\"president\":true,\"Infirmier\":false,\"medecin chef\":false,\"grades\":{\"boss\":true},\"rh\":false,\"Médecin Chef\":false},\"weapons_chest_society\":{\"label\":\"Arme(s) du coffre de la société\",\"boss\":true,\"directeur\":[],\"Aide Soignant\":false,\"Stagiaire EMS\":false,\"president\":true,\"Infirmier\":false,\"medecin chef\":false,\"grades\":{\"boss\":true},\"rh\":false,\"Médecin Chef\":false},\"manage_grades\":{\"label\":\"Gérer les grades de la société\",\"boss\":true,\"directeur\":[],\"Aide Soignant\":false,\"Stagiaire EMS\":false,\"president\":true,\"Infirmier\":false,\"medecin chef\":false,\"grades\":{\"boss\":true},\"rh\":false,\"Médecin Chef\":false},\"withdraw_money_society\":{\"label\":\"Retirer de l\'argent dans le coffre de la société\",\"boss\":true,\"directeur\":[],\"Aide Soignant\":false,\"Stagiaire EMS\":false,\"president\":true,\"Infirmier\":false,\"medecin chef\":false,\"grades\":{\"boss\":true},\"rh\":false,\"Médecin Chef\":false},\"remove_item_chest_society\":{\"label\":\"Retirer un item dans le coffre de la société\",\"boss\":true,\"directeur\":[],\"Aide Soignant\":false,\"Stagiaire EMS\":false,\"president\":true,\"Infirmier\":false,\"medecin chef\":false,\"grades\":{\"boss\":true},\"rh\":false,\"Médecin Chef\":false},\"rename_label_grade\":{\"label\":\"Changer le label d\'un grade\",\"boss\":true,\"directeur\":[],\"Aide Soignant\":false,\"Stagiaire EMS\":false,\"president\":true,\"Infirmier\":false,\"medecin chef\":false,\"grades\":{\"boss\":true},\"rh\":false,\"Médecin Chef\":false},\"deposit_weapon_chest_society\":{\"label\":\"Déposer une arme dans le coffre de la société\",\"boss\":true,\"directeur\":[],\"Aide Soignant\":false,\"Stagiaire EMS\":false,\"president\":true,\"Infirmier\":false,\"medecin chef\":false,\"grades\":{\"boss\":true},\"rh\":false,\"Médecin Chef\":false},\"remove_weapon_chest_society\":{\"label\":\"Retirer une arme dans la coffre de la société\",\"boss\":true,\"directeur\":[],\"Aide Soignant\":false,\"Stagiaire EMS\":false,\"president\":true,\"Infirmier\":false,\"medecin chef\":false,\"grades\":{\"boss\":true},\"rh\":false,\"Médecin Chef\":false},\"rename_grade\":{\"label\":\"Changer le nom d\'un grade\",\"boss\":true,\"directeur\":[],\"Aide Soignant\":false,\"Stagiaire EMS\":false,\"president\":true,\"Infirmier\":false,\"medecin chef\":false,\"grades\":{\"boss\":true},\"rh\":false,\"Médecin Chef\":false},\"unmote_player\":{\"label\":\"Descendre un employé\",\"boss\":true,\"directeur\":[],\"Aide Soignant\":false,\"Stagiaire EMS\":false,\"president\":true,\"Infirmier\":false,\"medecin chef\":false,\"grades\":{\"boss\":true},\"rh\":false,\"Médecin Chef\":true},\"change_permissions_grade\":{\"label\":\"Changer les permissions d\'un grade\",\"boss\":true,\"directeur\":[],\"Aide Soignant\":false,\"Stagiaire EMS\":false,\"president\":true,\"Infirmier\":false,\"medecin chef\":false,\"grades\":{\"boss\":true},\"rh\":false,\"Médecin Chef\":false},\"deposit_item_chest\":{\"label\":\"Déposer un item dans le coffre\",\"boss\":true,\"directeur\":[],\"Aide Soignant\":false,\"Stagiaire EMS\":false,\"president\":true,\"Infirmier\":false,\"medecin chef\":false,\"grades\":{\"boss\":true},\"rh\":true,\"Médecin Chef\":false},\"demote_player\":{\"label\":\"Virer un employé\",\"boss\":true,\"directeur\":[],\"Aide Soignant\":false,\"Stagiaire EMS\":false,\"president\":true,\"Infirmier\":false,\"medecin chef\":false,\"grades\":{\"boss\":true},\"rh\":false,\"Médecin Chef\":true},\"items_chest\":{\"label\":\"Items du coffre\",\"boss\":true,\"directeur\":[],\"Aide Soignant\":false,\"Stagiaire EMS\":false,\"president\":true,\"Infirmier\":false,\"medecin chef\":false,\"grades\":{\"boss\":true},\"rh\":true,\"Médecin Chef\":false},\"items_chest:society\":{\"label\":\"Item(s) du coffre de la société\",\"boss\":true,\"directeur\":[],\"Aide Soignant\":false,\"Stagiaire EMS\":false,\"president\":true,\"Infirmier\":false,\"medecin chef\":false,\"grades\":{\"boss\":true},\"rh\":false,\"Médecin Chef\":false},\"change_number_grade\":{\"label\":\"Changer le numéro d\'un grade\",\"boss\":true,\"directeur\":[],\"Aide Soignant\":false,\"Stagiaire EMS\":false,\"president\":true,\"Infirmier\":false,\"medecin chef\":false,\"grades\":{\"boss\":true},\"rh\":false,\"Médecin Chef\":false},\"remove_weapon_chest\":{\"label\":\"Retirer une arme dans le coffre\",\"boss\":true,\"directeur\":[],\"Aide Soignant\":false,\"Stagiaire EMS\":false,\"president\":true,\"Infirmier\":false,\"medecin chef\":false,\"grades\":{\"boss\":true},\"rh\":false,\"Médecin Chef\":false},\"manage_employeds\":{\"label\":\"Gérer les employés de la société\",\"boss\":true,\"directeur\":[],\"Aide Soignant\":false,\"Stagiaire EMS\":false,\"president\":true,\"Infirmier\":false,\"medecin chef\":false,\"grades\":{\"boss\":true},\"rh\":false,\"Médecin Chef\":true}}', '{\"x\":-481.3997192382813,\"z\":33.6893081665039,\"y\":-1005.3652954101564}', '{\"x\":-485.8601379394531,\"z\":33.68928527832031,\"y\":-1002.9920043945313}', '{\"color\":3,\"sprite\":61,\"active\":true,\"position\":{\"x\":-493.1570434570313,\"z\":24.28947448730468,\"y\":-983.519287109375}}', '10000', 1, '[{\"name\":\"EMS HOMME\",\"data\":{\"complexion_2\":0,\"nose_3\":0,\"blush_3\":0,\"pants_2\":0,\"cheeks_1\":2,\"decals_2\":0,\"face_md_weight\":49,\"watches_1\":3,\"nose_5\":0,\"skin_md_weight\":49,\"eyebrows_5\":0,\"eyebrows_4\":0,\"chest_3\":0,\"tshirt_2\":0,\"glasses_1\":5,\"makeup_4\":0,\"eyebrows_3\":0,\"chin_2\":2,\"sun_1\":0,\"pants_1\":7,\"helmet_2\":0,\"nose_4\":3,\"hair_1\":79,\"chain_2\":0,\"bproof_1\":0,\"ears_1\":-1,\"beard_4\":0,\"age_2\":0,\"eyebrows_2\":10,\"blemishes_2\":0,\"chin_3\":3,\"bags_2\":0,\"bodyb_1\":-1,\"hair_color_1\":0,\"lip_thickness\":9,\"blush_1\":0,\"beard_2\":10,\"bodyb_4\":0,\"eye_color\":0,\"moles_2\":0,\"makeup_3\":0,\"chain_1\":0,\"decals_1\":0,\"eyebrows_6\":0,\"lipstick_3\":0,\"jaw_1\":3,\"helmet_1\":-1,\"bproof_2\":2,\"cheeks_2\":3,\"sex\":0,\"chest_1\":0,\"moles_1\":0,\"chest_2\":0,\"beard_1\":3,\"watches_2\":0,\"lipstick_2\":0,\"tshirt_1\":0,\"eye_squint\":0,\"makeup_2\":0,\"sun_2\":0,\"lipstick_4\":0,\"mask_1\":0,\"arms_2\":0,\"shoes_1\":7,\"complexion_1\":0,\"torso_2\":0,\"arms\":1,\"mask_2\":0,\"bracelets_1\":-1,\"glasses_2\":1,\"nose_1\":1,\"hair_2\":0,\"cheeks_3\":0,\"nose_2\":7,\"bodyb_2\":0,\"lipstick_1\":0,\"dad\":10,\"mom\":0,\"nose_6\":0,\"shoes_2\":0,\"chin_4\":1,\"eyebrows_1\":1,\"chin_1\":4,\"torso_1\":897,\"beard_3\":0,\"blush_2\":0,\"bracelets_2\":0,\"neck_thickness\":2,\"bags_1\":0,\"age_1\":0,\"bodyb_3\":-1,\"blemishes_1\":0,\"makeup_1\":0,\"hair_color_2\":0,\"ears_2\":0,\"jaw_2\":2},\"grades\":[],\"grade\":false},{\"name\":\"ems femme interne\",\"grades\":[],\"data\":{\"complexion_2\":0,\"nose_3\":9,\"neck_thickness\":0,\"lipstick_4\":0,\"cheeks_1\":2,\"decals_2\":0,\"face_md_weight\":78,\"watches_1\":-1,\"nose_5\":4,\"skin_md_weight\":50,\"eyebrows_5\":0,\"torso_2\":0,\"chest_3\":0,\"tshirt_2\":0,\"glasses_1\":66,\"makeup_4\":0,\"face_color\":0,\"chin_2\":0,\"sun_1\":0,\"pants_1\":322,\"helmet_2\":0,\"nose_4\":8,\"hair_1\":219,\"chain_2\":0,\"bproof_1\":0,\"ears_1\":25,\"chest_2\":0,\"age_2\":0,\"lipstick_2\":0,\"watches_2\":0,\"chin_3\":0,\"bags_2\":0,\"bodyb_1\":-1,\"hair_color_1\":5,\"lip_thickness\":2,\"blush_1\":0,\"beard_2\":0,\"bodyb_4\":0,\"hair_color_2\":29,\"shoes_1\":222,\"moles_2\":6,\"makeup_3\":0,\"arms_2\":0,\"decals_1\":0,\"glasses_2\":0,\"lipstick_1\":0,\"jaw_1\":0,\"helmet_1\":-1,\"bproof_2\":0,\"cheeks_2\":0,\"sex\":1,\"chest_1\":0,\"moles_1\":0,\"chin_1\":0,\"age_1\":0,\"eyebrows_4\":0,\"eyebrows_3\":0,\"tshirt_1\":2,\"eye_squint\":0,\"makeup_2\":0,\"eye_color\":15,\"blemishes_2\":0,\"sun_2\":0,\"blemishes_1\":0,\"beard_1\":0,\"complexion_1\":0,\"chin_4\":0,\"pants_2\":0,\"mask_2\":0,\"mask_1\":0,\"dad\":30,\"nose_1\":0,\"hair_2\":0,\"lipstick_3\":0,\"nose_2\":5,\"bodyb_2\":0,\"bracelets_1\":-1,\"chain_1\":321,\"mom\":30,\"nose_6\":0,\"shoes_2\":0,\"eyebrows_2\":0,\"eyebrows_1\":0,\"beard_4\":0,\"torso_1\":950,\"beard_3\":0,\"blush_3\":0,\"bracelets_2\":0,\"blush_2\":0,\"bags_1\":0,\"cheeks_3\":2,\"bodyb_3\":-1,\"eyebrows_6\":0,\"makeup_1\":0,\"arms\":14,\"ears_2\":0,\"jaw_2\":0},\"grade\":false},{\"name\":\"Ems femme externe\",\"grades\":[],\"data\":{\"complexion_2\":0,\"nose_3\":9,\"neck_thickness\":0,\"lipstick_4\":0,\"cheeks_1\":2,\"decals_2\":0,\"face_md_weight\":78,\"watches_1\":-1,\"nose_5\":4,\"skin_md_weight\":50,\"eyebrows_5\":0,\"torso_2\":0,\"chest_3\":0,\"tshirt_2\":0,\"glasses_1\":66,\"makeup_4\":0,\"face_color\":0,\"chin_2\":0,\"sun_1\":0,\"pants_1\":341,\"helmet_2\":0,\"nose_4\":8,\"hair_1\":219,\"chain_2\":0,\"bproof_1\":0,\"ears_1\":25,\"chest_2\":0,\"age_2\":0,\"lipstick_2\":0,\"watches_2\":0,\"chin_3\":0,\"bags_2\":0,\"bodyb_1\":-1,\"hair_color_1\":5,\"lip_thickness\":2,\"blush_1\":0,\"beard_2\":0,\"bodyb_4\":0,\"hair_color_2\":29,\"shoes_1\":149,\"moles_2\":6,\"makeup_3\":0,\"arms_2\":0,\"decals_1\":0,\"glasses_2\":0,\"lipstick_1\":0,\"jaw_1\":0,\"helmet_1\":-1,\"bproof_2\":0,\"cheeks_2\":0,\"sex\":1,\"chest_1\":0,\"moles_1\":0,\"chin_1\":0,\"age_1\":0,\"eyebrows_4\":0,\"eyebrows_3\":0,\"tshirt_1\":69,\"eye_squint\":0,\"makeup_2\":0,\"eye_color\":15,\"blemishes_2\":0,\"sun_2\":0,\"blemishes_1\":0,\"beard_1\":0,\"complexion_1\":0,\"chin_4\":0,\"pants_2\":5,\"mask_2\":0,\"mask_1\":0,\"dad\":30,\"nose_1\":0,\"hair_2\":0,\"lipstick_3\":0,\"nose_2\":5,\"bodyb_2\":0,\"bracelets_1\":-1,\"chain_1\":321,\"mom\":30,\"nose_6\":0,\"shoes_2\":2,\"eyebrows_2\":0,\"eyebrows_1\":0,\"beard_4\":0,\"torso_1\":1087,\"beard_3\":0,\"blush_3\":0,\"bracelets_2\":0,\"blush_2\":0,\"bags_1\":0,\"cheeks_3\":2,\"bodyb_3\":-1,\"eyebrows_6\":0,\"makeup_1\":0,\"arms\":1,\"ears_2\":0,\"jaw_2\":0},\"grade\":false}]', '{\"x\":-481.5459289550781,\"z\":33.67815399169922,\"y\":-1011.929931640625}'),
+(60, 'ambulance', 'EMS', '{\"items\":{\"burgershot_cookie\":{\"label\":\"Cookie\",\"count\":38,\"name\":\"burgershot_cookie\"},\"lapin\":{\"label\":\"Lapin\",\"count\":2,\"name\":\"lapin\"},\"bread\":{\"label\":\"Pain\",\"count\":9,\"name\":\"bread\"},\"pearls_moulefrite\":{\"label\":\"Moule Frite\",\"count\":40,\"name\":\"pearls_moulefrite\"},\"water\":{\"label\":\"Eau\",\"count\":9,\"name\":\"water\"}},\"weapons\":[],\"weapons_boss\":[],\"accounts\":{\"cash\":0,\"society\":4848600,\"black_money\":0},\"items_boss\":{\"water\":{\"label\":\"Eau\",\"count\":207,\"name\":\"water\"},\"bread\":{\"label\":\"Pain\",\"count\":196,\"name\":\"bread\"}}}', '{\"change_salary_grade\":{\"Médecin Chef\":false,\"Aide Soignant\":false,\"Infirmier\":false,\"medecin chef\":false,\"boss\":true,\"rh\":false,\"directeur\":[],\"grades\":{\"boss\":true},\"label\":\"Changer le salaire d\'un grade\",\"Stagiaire EMS\":false,\"president\":true},\"deposit_cash_coffre\":{\"Médecin Chef\":false,\"Aide Soignant\":false,\"Infirmier\":false,\"medecin chef\":false,\"boss\":true,\"rh\":false,\"directeur\":[],\"grades\":{\"boss\":true},\"label\":\"Déposer de l\'argent dans le coffre\",\"Stagiaire EMS\":false,\"president\":true},\"deposit_item_chest\":{\"Médecin Chef\":false,\"Aide Soignant\":false,\"Infirmier\":false,\"medecin chef\":false,\"boss\":true,\"rh\":true,\"directeur\":[],\"grades\":{\"boss\":true},\"label\":\"Déposer un item dans le coffre\",\"Stagiaire EMS\":false,\"president\":true},\"deposit_black_money_coffre\":{\"Médecin Chef\":false,\"Aide Soignant\":false,\"Infirmier\":false,\"medecin chef\":false,\"boss\":true,\"rh\":false,\"directeur\":[],\"grades\":{\"boss\":true},\"label\":\"Déposer de l\'argent sale dans le coffre\",\"Stagiaire EMS\":false,\"president\":true},\"open_boss\":{\"Médecin Chef\":false,\"Aide Soignant\":false,\"Infirmier\":false,\"medecin chef\":false,\"boss\":true,\"rh\":false,\"directeur\":[],\"grades\":{\"boss\":true},\"label\":\"Ouvrir le menu boss\",\"Stagiaire EMS\":false,\"president\":true},\"deposit_money_society\":{\"Médecin Chef\":false,\"Aide Soignant\":false,\"Infirmier\":false,\"medecin chef\":false,\"boss\":true,\"rh\":false,\"directeur\":[],\"grades\":{\"boss\":true},\"label\":\"Déposer de l\'argent dans le coffre de la société\",\"Stagiaire EMS\":false,\"president\":true},\"remove_item_chest\":{\"Médecin Chef\":false,\"Aide Soignant\":false,\"Infirmier\":false,\"medecin chef\":false,\"boss\":true,\"rh\":true,\"directeur\":[],\"grades\":{\"boss\":true},\"label\":\"Retirer un item dans le coffre\",\"Stagiaire EMS\":false,\"president\":true},\"withdraw_cash_coffre\":{\"Médecin Chef\":false,\"Aide Soignant\":false,\"Infirmier\":false,\"medecin chef\":false,\"boss\":true,\"rh\":false,\"directeur\":[],\"grades\":{\"boss\":true},\"label\":\"Retirer de l\'argent dans le coffre\",\"Stagiaire EMS\":false,\"president\":true},\"open_coffre\":{\"Médecin Chef\":false,\"Aide Soignant\":false,\"Infirmier\":false,\"medecin chef\":false,\"boss\":true,\"rh\":true,\"directeur\":[],\"grades\":{\"boss\":true},\"label\":\"Ouvrir le coffre\",\"Stagiaire EMS\":false,\"president\":true},\"deposit_weapon_chest\":{\"Médecin Chef\":false,\"Aide Soignant\":false,\"Infirmier\":false,\"medecin chef\":false,\"boss\":true,\"rh\":false,\"directeur\":[],\"grades\":{\"boss\":true},\"label\":\"Déposer une arme dans le coffre\",\"Stagiaire EMS\":false,\"president\":true},\"items_chest:society\":{\"Médecin Chef\":false,\"Aide Soignant\":false,\"Infirmier\":false,\"medecin chef\":false,\"boss\":true,\"rh\":false,\"directeur\":[],\"grades\":{\"boss\":true},\"label\":\"Item(s) du coffre de la société\",\"Stagiaire EMS\":false,\"president\":true},\"rename_grade\":{\"Médecin Chef\":false,\"Aide Soignant\":false,\"Infirmier\":false,\"medecin chef\":false,\"boss\":true,\"rh\":false,\"directeur\":[],\"grades\":{\"boss\":true},\"label\":\"Changer le nom d\'un grade\",\"Stagiaire EMS\":false,\"president\":true},\"remove_item_chest_society\":{\"Médecin Chef\":false,\"Aide Soignant\":false,\"Infirmier\":false,\"medecin chef\":false,\"boss\":true,\"rh\":false,\"directeur\":[],\"grades\":{\"boss\":true},\"label\":\"Retirer un item dans le coffre de la société\",\"Stagiaire EMS\":false,\"president\":true},\"recruit_player\":{\"Médecin Chef\":true,\"Aide Soignant\":false,\"Infirmier\":false,\"medecin chef\":false,\"boss\":true,\"rh\":true,\"directeur\":[],\"grades\":{\"boss\":true},\"label\":\"Recruté un joueur\",\"Stagiaire EMS\":false,\"president\":true},\"weapons_chest_society\":{\"Médecin Chef\":false,\"Aide Soignant\":false,\"Infirmier\":false,\"medecin chef\":false,\"boss\":true,\"rh\":false,\"directeur\":[],\"grades\":{\"boss\":true},\"label\":\"Arme(s) du coffre de la société\",\"Stagiaire EMS\":false,\"president\":true},\"create_grade\":{\"Médecin Chef\":false,\"Aide Soignant\":false,\"Infirmier\":false,\"medecin chef\":false,\"boss\":true,\"rh\":false,\"directeur\":[],\"grades\":{\"boss\":true},\"label\":\"Créer un grade\",\"Stagiaire EMS\":false,\"president\":true},\"change_number_grade\":{\"Médecin Chef\":false,\"Aide Soignant\":false,\"Infirmier\":false,\"medecin chef\":false,\"boss\":true,\"rh\":false,\"directeur\":[],\"grades\":{\"boss\":true},\"label\":\"Changer le numéro d\'un grade\",\"Stagiaire EMS\":false,\"president\":true},\"rename_label_grade\":{\"Médecin Chef\":false,\"Aide Soignant\":false,\"Infirmier\":false,\"medecin chef\":false,\"boss\":true,\"rh\":false,\"directeur\":[],\"grades\":{\"boss\":true},\"label\":\"Changer le label d\'un grade\",\"Stagiaire EMS\":false,\"president\":true},\"remove_weapon_chest\":{\"Médecin Chef\":false,\"Aide Soignant\":false,\"Infirmier\":false,\"medecin chef\":false,\"boss\":true,\"rh\":false,\"directeur\":[],\"grades\":{\"boss\":true},\"label\":\"Retirer une arme dans le coffre\",\"Stagiaire EMS\":false,\"president\":true},\"items_chest\":{\"Médecin Chef\":false,\"Aide Soignant\":false,\"Infirmier\":false,\"medecin chef\":false,\"boss\":true,\"rh\":true,\"directeur\":[],\"grades\":{\"boss\":true},\"label\":\"Items du coffre\",\"Stagiaire EMS\":false,\"president\":true},\"deposit_weapon_chest_society\":{\"Médecin Chef\":false,\"Aide Soignant\":false,\"Infirmier\":false,\"medecin chef\":false,\"boss\":true,\"rh\":false,\"directeur\":[],\"grades\":{\"boss\":true},\"label\":\"Déposer une arme dans le coffre de la société\",\"Stagiaire EMS\":false,\"president\":true},\"unmote_player\":{\"Médecin Chef\":true,\"Aide Soignant\":false,\"Infirmier\":false,\"medecin chef\":false,\"boss\":true,\"rh\":false,\"directeur\":[],\"grades\":{\"boss\":true},\"label\":\"Descendre un employé\",\"Stagiaire EMS\":false,\"president\":true},\"manage_employeds\":{\"Médecin Chef\":true,\"Aide Soignant\":false,\"Infirmier\":false,\"medecin chef\":false,\"boss\":true,\"rh\":false,\"directeur\":[],\"grades\":{\"boss\":true},\"label\":\"Gérer les employés de la société\",\"Stagiaire EMS\":false,\"president\":true},\"chest\":{\"Médecin Chef\":false,\"Aide Soignant\":false,\"Infirmier\":false,\"medecin chef\":true,\"boss\":true,\"rh\":false,\"directeur\":[],\"grades\":{\"boss\":true},\"label\":\"Accéder au coffre de la société\",\"Stagiaire EMS\":false,\"president\":true},\"weapons_chest\":{\"Médecin Chef\":false,\"Aide Soignant\":false,\"Infirmier\":false,\"medecin chef\":false,\"boss\":true,\"rh\":false,\"directeur\":[],\"grades\":{\"boss\":true},\"label\":\"Armes du coffre\",\"Stagiaire EMS\":false,\"president\":true},\"withdraw_money_society\":{\"Médecin Chef\":false,\"Aide Soignant\":false,\"Infirmier\":false,\"medecin chef\":false,\"boss\":true,\"rh\":false,\"directeur\":[],\"grades\":{\"boss\":true},\"label\":\"Retirer de l\'argent dans le coffre de la société\",\"Stagiaire EMS\":false,\"president\":true},\"manage_grades\":{\"Médecin Chef\":false,\"Aide Soignant\":false,\"Infirmier\":false,\"medecin chef\":false,\"boss\":true,\"rh\":false,\"directeur\":[],\"grades\":{\"boss\":true},\"label\":\"Gérer les grades de la société\",\"Stagiaire EMS\":false,\"president\":true},\"dposit_item_chest_society\":{\"Médecin Chef\":false,\"Aide Soignant\":false,\"Infirmier\":false,\"medecin chef\":false,\"boss\":true,\"rh\":false,\"directeur\":[],\"grades\":{\"boss\":true},\"label\":\"Déposer un item dans le coffre de la société\",\"Stagiaire EMS\":false,\"president\":true},\"editClothes\":{\"Médecin Chef\":false,\"Aide Soignant\":false,\"Infirmier\":false,\"medecin chef\":false,\"boss\":true,\"rh\":false,\"directeur\":[],\"grades\":{\"boss\":true},\"label\":\"Gérer les tenues dans le vestiaire\",\"Stagiaire EMS\":false,\"president\":true},\"withdraw_black_money_coffre\":{\"Médecin Chef\":false,\"Aide Soignant\":false,\"Infirmier\":false,\"medecin chef\":false,\"boss\":true,\"rh\":false,\"directeur\":[],\"grades\":{\"boss\":true},\"label\":\"Retirer de l\'argent sale dans le coffre\",\"Stagiaire EMS\":false,\"president\":true},\"demote_player\":{\"Médecin Chef\":true,\"Aide Soignant\":false,\"Infirmier\":false,\"medecin chef\":false,\"boss\":true,\"rh\":false,\"directeur\":[],\"grades\":{\"boss\":true},\"label\":\"Virer un employé\",\"Stagiaire EMS\":false,\"president\":true},\"delete_grade\":{\"Médecin Chef\":false,\"Aide Soignant\":false,\"Infirmier\":false,\"medecin chef\":false,\"boss\":true,\"rh\":false,\"directeur\":[],\"grades\":{\"boss\":true},\"label\":\"Supprimer un grade\",\"Stagiaire EMS\":false,\"president\":true},\"change_permissions_grade\":{\"Médecin Chef\":false,\"Aide Soignant\":false,\"Infirmier\":false,\"medecin chef\":false,\"boss\":true,\"rh\":false,\"directeur\":[],\"grades\":{\"boss\":true},\"label\":\"Changer les permissions d\'un grade\",\"Stagiaire EMS\":false,\"president\":true},\"promote_player\":{\"Médecin Chef\":true,\"Aide Soignant\":false,\"Infirmier\":false,\"medecin chef\":false,\"boss\":true,\"rh\":false,\"directeur\":[],\"grades\":{\"boss\":true},\"label\":\"Augmenter un employé\",\"Stagiaire EMS\":false,\"president\":true},\"remove_weapon_chest_society\":{\"Médecin Chef\":false,\"Aide Soignant\":false,\"Infirmier\":false,\"medecin chef\":false,\"boss\":true,\"rh\":false,\"directeur\":[],\"grades\":{\"boss\":true},\"label\":\"Retirer une arme dans la coffre de la société\",\"Stagiaire EMS\":false,\"president\":true}}', '{\"z\":33.6893081665039,\"x\":-481.3997192382813,\"y\":-1005.3652954101564}', '{\"z\":33.68928527832031,\"x\":-485.8601379394531,\"y\":-1002.9920043945313}', '{\"color\":3,\"active\":true,\"sprite\":61,\"position\":{\"z\":24.28947448730468,\"x\":-493.1570434570313,\"y\":-983.519287109375}}', '10000', 1, '[{\"name\":\"EMS HOMME\",\"data\":{\"complexion_2\":0,\"nose_3\":0,\"blush_3\":0,\"pants_2\":0,\"cheeks_1\":2,\"decals_2\":0,\"face_md_weight\":49,\"watches_1\":3,\"nose_5\":0,\"skin_md_weight\":49,\"eyebrows_5\":0,\"eyebrows_4\":0,\"chest_3\":0,\"tshirt_2\":0,\"glasses_1\":5,\"makeup_4\":0,\"eyebrows_3\":0,\"chin_2\":2,\"sun_1\":0,\"pants_1\":7,\"helmet_2\":0,\"nose_4\":3,\"hair_1\":79,\"chain_2\":0,\"bproof_1\":0,\"ears_1\":-1,\"beard_4\":0,\"age_2\":0,\"eyebrows_2\":10,\"blemishes_2\":0,\"chin_3\":3,\"bags_2\":0,\"bodyb_1\":-1,\"hair_color_1\":0,\"lip_thickness\":9,\"blush_1\":0,\"beard_2\":10,\"bodyb_4\":0,\"eye_color\":0,\"moles_2\":0,\"makeup_3\":0,\"chain_1\":0,\"decals_1\":0,\"eyebrows_6\":0,\"lipstick_3\":0,\"jaw_1\":3,\"helmet_1\":-1,\"bproof_2\":2,\"cheeks_2\":3,\"sex\":0,\"chest_1\":0,\"moles_1\":0,\"chest_2\":0,\"beard_1\":3,\"watches_2\":0,\"lipstick_2\":0,\"tshirt_1\":0,\"eye_squint\":0,\"makeup_2\":0,\"sun_2\":0,\"lipstick_4\":0,\"mask_1\":0,\"arms_2\":0,\"shoes_1\":7,\"complexion_1\":0,\"torso_2\":0,\"arms\":1,\"mask_2\":0,\"bracelets_1\":-1,\"glasses_2\":1,\"nose_1\":1,\"hair_2\":0,\"cheeks_3\":0,\"nose_2\":7,\"bodyb_2\":0,\"lipstick_1\":0,\"dad\":10,\"mom\":0,\"nose_6\":0,\"shoes_2\":0,\"chin_4\":1,\"eyebrows_1\":1,\"chin_1\":4,\"torso_1\":897,\"beard_3\":0,\"blush_2\":0,\"bracelets_2\":0,\"neck_thickness\":2,\"bags_1\":0,\"age_1\":0,\"bodyb_3\":-1,\"blemishes_1\":0,\"makeup_1\":0,\"hair_color_2\":0,\"ears_2\":0,\"jaw_2\":2},\"grades\":[],\"grade\":false},{\"name\":\"ems femme interne\",\"grades\":[],\"data\":{\"complexion_2\":0,\"nose_3\":9,\"neck_thickness\":0,\"lipstick_4\":0,\"cheeks_1\":2,\"decals_2\":0,\"face_md_weight\":78,\"watches_1\":-1,\"nose_5\":4,\"skin_md_weight\":50,\"eyebrows_5\":0,\"torso_2\":0,\"chest_3\":0,\"tshirt_2\":0,\"glasses_1\":66,\"makeup_4\":0,\"face_color\":0,\"chin_2\":0,\"sun_1\":0,\"pants_1\":322,\"helmet_2\":0,\"nose_4\":8,\"hair_1\":219,\"chain_2\":0,\"bproof_1\":0,\"ears_1\":25,\"chest_2\":0,\"age_2\":0,\"lipstick_2\":0,\"watches_2\":0,\"chin_3\":0,\"bags_2\":0,\"bodyb_1\":-1,\"hair_color_1\":5,\"lip_thickness\":2,\"blush_1\":0,\"beard_2\":0,\"bodyb_4\":0,\"hair_color_2\":29,\"shoes_1\":222,\"moles_2\":6,\"makeup_3\":0,\"arms_2\":0,\"decals_1\":0,\"glasses_2\":0,\"lipstick_1\":0,\"jaw_1\":0,\"helmet_1\":-1,\"bproof_2\":0,\"cheeks_2\":0,\"sex\":1,\"chest_1\":0,\"moles_1\":0,\"chin_1\":0,\"age_1\":0,\"eyebrows_4\":0,\"eyebrows_3\":0,\"tshirt_1\":2,\"eye_squint\":0,\"makeup_2\":0,\"eye_color\":15,\"blemishes_2\":0,\"sun_2\":0,\"blemishes_1\":0,\"beard_1\":0,\"complexion_1\":0,\"chin_4\":0,\"pants_2\":0,\"mask_2\":0,\"mask_1\":0,\"dad\":30,\"nose_1\":0,\"hair_2\":0,\"lipstick_3\":0,\"nose_2\":5,\"bodyb_2\":0,\"bracelets_1\":-1,\"chain_1\":321,\"mom\":30,\"nose_6\":0,\"shoes_2\":0,\"eyebrows_2\":0,\"eyebrows_1\":0,\"beard_4\":0,\"torso_1\":950,\"beard_3\":0,\"blush_3\":0,\"bracelets_2\":0,\"blush_2\":0,\"bags_1\":0,\"cheeks_3\":2,\"bodyb_3\":-1,\"eyebrows_6\":0,\"makeup_1\":0,\"arms\":14,\"ears_2\":0,\"jaw_2\":0},\"grade\":false},{\"name\":\"Ems femme externe\",\"grades\":[],\"data\":{\"complexion_2\":0,\"nose_3\":9,\"neck_thickness\":0,\"lipstick_4\":0,\"cheeks_1\":2,\"decals_2\":0,\"face_md_weight\":78,\"watches_1\":-1,\"nose_5\":4,\"skin_md_weight\":50,\"eyebrows_5\":0,\"torso_2\":0,\"chest_3\":0,\"tshirt_2\":0,\"glasses_1\":66,\"makeup_4\":0,\"face_color\":0,\"chin_2\":0,\"sun_1\":0,\"pants_1\":341,\"helmet_2\":0,\"nose_4\":8,\"hair_1\":219,\"chain_2\":0,\"bproof_1\":0,\"ears_1\":25,\"chest_2\":0,\"age_2\":0,\"lipstick_2\":0,\"watches_2\":0,\"chin_3\":0,\"bags_2\":0,\"bodyb_1\":-1,\"hair_color_1\":5,\"lip_thickness\":2,\"blush_1\":0,\"beard_2\":0,\"bodyb_4\":0,\"hair_color_2\":29,\"shoes_1\":149,\"moles_2\":6,\"makeup_3\":0,\"arms_2\":0,\"decals_1\":0,\"glasses_2\":0,\"lipstick_1\":0,\"jaw_1\":0,\"helmet_1\":-1,\"bproof_2\":0,\"cheeks_2\":0,\"sex\":1,\"chest_1\":0,\"moles_1\":0,\"chin_1\":0,\"age_1\":0,\"eyebrows_4\":0,\"eyebrows_3\":0,\"tshirt_1\":69,\"eye_squint\":0,\"makeup_2\":0,\"eye_color\":15,\"blemishes_2\":0,\"sun_2\":0,\"blemishes_1\":0,\"beard_1\":0,\"complexion_1\":0,\"chin_4\":0,\"pants_2\":5,\"mask_2\":0,\"mask_1\":0,\"dad\":30,\"nose_1\":0,\"hair_2\":0,\"lipstick_3\":0,\"nose_2\":5,\"bodyb_2\":0,\"bracelets_1\":-1,\"chain_1\":321,\"mom\":30,\"nose_6\":0,\"shoes_2\":2,\"eyebrows_2\":0,\"eyebrows_1\":0,\"beard_4\":0,\"torso_1\":1087,\"beard_3\":0,\"blush_3\":0,\"bracelets_2\":0,\"blush_2\":0,\"bags_1\":0,\"cheeks_3\":2,\"bodyb_3\":-1,\"eyebrows_6\":0,\"makeup_1\":0,\"arms\":1,\"ears_2\":0,\"jaw_2\":0},\"grade\":false}]', '{\"z\":33.67815399169922,\"x\":-481.5459289550781,\"y\":-1011.929931640625}'),
 (61, 'burgershot', 'Burgershot', '{\"weapons\":[],\"items_boss\":[],\"weapons_boss\":[],\"accounts\":{\"society\":15000,\"cash\":0,\"black_money\":0},\"items\":[]}', '{\"recruit_player\":{\"boss\":true},\"rename_label_grade\":{\"boss\":true},\"deposit_black_money_coffre\":{\"boss\":true},\"withdraw_money_society\":{\"boss\":true},\"withdraw_black_money_coffre\":{\"boss\":true},\"deposit_money_society\":{\"boss\":true},\"change_salary_grade\":{\"boss\":true},\"remove_weapon_chest\":{\"boss\":true},\"remove_item_chest_society\":{\"boss\":true},\"editClothes\":{\"boss\":true},\"withdraw_cash_coffre\":{\"boss\":true},\"unmote_player\":{\"boss\":true},\"open_coffre\":{\"boss\":true},\"items_chest:society\":{\"boss\":true},\"remove_item_chest\":{\"boss\":true},\"items_chest\":{\"boss\":true},\"deposit_item_chest\":{\"boss\":true},\"change_permissions_grade\":{\"boss\":true},\"manage_employeds\":{\"boss\":true},\"remove_weapon_chest_society\":{\"boss\":true},\"deposit_weapon_chest\":{\"boss\":true},\"dposit_item_chest_society\":{\"boss\":true},\"rename_grade\":{\"boss\":true},\"deposit_weapon_chest_society\":{\"boss\":true},\"promote_player\":{\"boss\":true},\"deposit_cash_coffre\":{\"boss\":true},\"weapons_chest_society\":{\"boss\":true},\"demote_player\":{\"boss\":true},\"open_boss\":{\"boss\":true},\"create_grade\":{\"boss\":true},\"manage_grades\":{\"boss\":true},\"chest\":{\"boss\":true},\"change_number_grade\":{\"boss\":true},\"delete_grade\":{\"boss\":true},\"weapons_chest\":{\"boss\":true}}', '{\"x\":-1196.67724609375,\"y\":-901.8864135742188,\"z\":13.88615703582763}', '{\"x\":-1199.2901611328126,\"y\":-890.3444213867188,\"z\":13.8861665725708}', '{\"color\":1,\"position\":{\"y\":-889.5091552734375,\"z\":13.79837894439697,\"x\":-1191.08642578125},\"sprite\":106,\"active\":true}', '0', 1, '[]', '{\"x\":-1203.3184814453126,\"y\":-893.9554443359375,\"z\":13.8861608505249}');
 INSERT INTO `society_data` (`id`, `name`, `label`, `coffre`, `permissions`, `posCoffre`, `posBoss`, `blips`, `tax`, `cloakroom`, `clothes`, `cloakpos`) VALUES
 (62, 'mecano', 'Benny\'s', '{\"items\":{\"rifle_ammo\":{\"count\":97,\"label\":\"Munitions pour fusil\",\"name\":\"rifle_ammo\"},\"water\":{\"count\":199,\"label\":\"Eau\",\"name\":\"water\"},\"bread\":{\"count\":187,\"label\":\"Pain\",\"name\":\"bread\"},\"pistol_ammo\":{\"count\":37,\"label\":\"Munitions pour pistolet\",\"name\":\"pistol_ammo\"},\"canneapechecarbonne\":{\"count\":1,\"label\":\"Canne à Pêche en carbonne\",\"name\":\"canneapechecarbonne\"}},\"accounts\":{\"society\":3352506.0,\"black_money\":82884,\"cash\":0},\"weapons\":[],\"weapons_boss\":[],\"items_boss\":[]}', '{\"withdraw_cash_coffre\":{\"Stagiaire\":false,\"Mécano Expérimenté\":false,\"label\":\"Retirer de l\'argent dans le coffre\",\"Recrue\":false,\"Co patron\":[],\"boss\":true,\"grades\":{\"boss\":true},\"Mécano\":[]},\"deposit_cash_coffre\":{\"Stagiaire\":false,\"Mécano Expérimenté\":false,\"label\":\"Déposer de l\'argent dans le coffre\",\"Recrue\":false,\"Co patron\":[],\"boss\":true,\"grades\":{\"boss\":true},\"Mécano\":[]},\"remove_weapon_chest_society\":{\"Stagiaire\":false,\"Mécano Expérimenté\":false,\"label\":\"Retirer une arme dans la coffre de la société\",\"Recrue\":false,\"Co patron\":false,\"boss\":true,\"grades\":{\"boss\":true},\"Mécano\":[]},\"deposit_black_money_coffre\":{\"Stagiaire\":false,\"Mécano Expérimenté\":false,\"label\":\"Déposer de l\'argent sale dans le coffre\",\"Recrue\":false,\"Co patron\":false,\"boss\":true,\"grades\":{\"boss\":true},\"Mécano\":[]},\"deposit_money_society\":{\"Stagiaire\":false,\"Mécano Expérimenté\":false,\"label\":\"Déposer de l\'argent dans le coffre de la société\",\"Recrue\":false,\"Co patron\":false,\"boss\":true,\"grades\":{\"boss\":true},\"Mécano\":[]},\"change_salary_grade\":{\"Stagiaire\":false,\"Mécano Expérimenté\":false,\"label\":\"Changer le salaire d\'un grade\",\"Recrue\":false,\"Co patron\":false,\"boss\":true,\"grades\":{\"boss\":true},\"Mécano\":[]},\"withdraw_money_society\":{\"Stagiaire\":false,\"Mécano Expérimenté\":false,\"label\":\"Retirer de l\'argent dans le coffre de la société\",\"Recrue\":false,\"Co patron\":[],\"boss\":true,\"grades\":{\"boss\":true},\"Mécano\":[]},\"recruit_player\":{\"Stagiaire\":false,\"Mécano Expérimenté\":false,\"label\":\"Recruté un joueur\",\"Recrue\":false,\"Co patron\":[],\"boss\":true,\"grades\":{\"boss\":true},\"Mécano\":[]},\"weapons_chest_society\":{\"Stagiaire\":false,\"Mécano Expérimenté\":false,\"label\":\"Arme(s) du coffre de la société\",\"Recrue\":false,\"Co patron\":[],\"boss\":true,\"grades\":{\"boss\":true},\"Mécano\":[]},\"promote_player\":{\"Stagiaire\":false,\"Mécano Expérimenté\":false,\"label\":\"Augmenter un employé\",\"Recrue\":false,\"Co patron\":[],\"boss\":true,\"grades\":{\"boss\":true},\"Mécano\":[]},\"remove_weapon_chest\":{\"Stagiaire\":false,\"Mécano Expérimenté\":false,\"label\":\"Retirer une arme dans le coffre\",\"Recrue\":false,\"Co patron\":[],\"boss\":true,\"grades\":{\"boss\":true},\"Mécano\":[]},\"manage_grades\":{\"Stagiaire\":false,\"Mécano Expérimenté\":false,\"label\":\"Gérer les grades de la société\",\"Recrue\":false,\"Co patron\":false,\"boss\":true,\"grades\":{\"boss\":true},\"Mécano\":[]},\"delete_grade\":{\"Stagiaire\":false,\"Mécano Expérimenté\":false,\"label\":\"Supprimer un grade\",\"Recrue\":false,\"Co patron\":false,\"boss\":true,\"grades\":{\"boss\":true},\"Mécano\":[]},\"rename_grade\":{\"Stagiaire\":false,\"Mécano Expérimenté\":false,\"label\":\"Changer le nom d\'un grade\",\"Recrue\":false,\"Co patron\":[],\"boss\":true,\"grades\":{\"boss\":true},\"Mécano\":[]},\"change_number_grade\":{\"Stagiaire\":false,\"Mécano Expérimenté\":false,\"label\":\"Changer le numéro d\'un grade\",\"Recrue\":false,\"Co patron\":[],\"boss\":true,\"grades\":{\"boss\":true},\"Mécano\":[]},\"deposit_item_chest\":{\"Stagiaire\":false,\"Mécano Expérimenté\":false,\"label\":\"Déposer un item dans le coffre\",\"Recrue\":false,\"Co patron\":[],\"boss\":true,\"grades\":{\"boss\":true},\"Mécano\":[]},\"withdraw_black_money_coffre\":{\"Stagiaire\":false,\"Mécano Expérimenté\":false,\"label\":\"Retirer de l\'argent sale dans le coffre\",\"Recrue\":false,\"Co patron\":false,\"boss\":true,\"grades\":{\"boss\":true},\"Mécano\":[]},\"demote_player\":{\"Stagiaire\":false,\"Mécano Expérimenté\":false,\"label\":\"Virer un employé\",\"Recrue\":false,\"Co patron\":[],\"boss\":true,\"grades\":{\"boss\":true},\"Mécano\":[]},\"chest\":{\"Stagiaire\":false,\"Mécano Expérimenté\":false,\"label\":\"Accéder au coffre de la société\",\"Recrue\":false,\"Co patron\":false,\"boss\":true,\"grades\":{\"boss\":true},\"Mécano\":[]},\"unmote_player\":{\"Stagiaire\":false,\"Mécano Expérimenté\":false,\"label\":\"Descendre un employé\",\"Recrue\":false,\"Co patron\":[],\"boss\":true,\"grades\":{\"boss\":true},\"Mécano\":[]},\"dposit_item_chest_society\":{\"Stagiaire\":false,\"Mécano Expérimenté\":false,\"label\":\"Déposer un item dans le coffre de la société\",\"Recrue\":false,\"Co patron\":[],\"boss\":true,\"grades\":{\"boss\":true},\"Mécano\":[]},\"items_chest:society\":{\"Stagiaire\":false,\"Mécano Expérimenté\":false,\"label\":\"Item(s) du coffre de la société\",\"Recrue\":false,\"Co patron\":[],\"boss\":true,\"grades\":{\"boss\":true},\"Mécano\":[]},\"editClothes\":{\"Stagiaire\":false,\"Mécano Expérimenté\":false,\"label\":\"Gérer les tenues dans le vestiaire\",\"Recrue\":false,\"Co patron\":[],\"boss\":true,\"grades\":{\"boss\":true},\"Mécano\":[]},\"weapons_chest\":{\"Stagiaire\":false,\"Mécano Expérimenté\":false,\"label\":\"Armes du coffre\",\"Recrue\":false,\"Co patron\":[],\"boss\":true,\"grades\":{\"boss\":true},\"Mécano\":[]},\"remove_item_chest_society\":{\"Stagiaire\":false,\"Mécano Expérimenté\":false,\"label\":\"Retirer un item dans le coffre de la société\",\"Recrue\":false,\"Co patron\":[],\"boss\":true,\"grades\":{\"boss\":true},\"Mécano\":[]},\"manage_employeds\":{\"Stagiaire\":false,\"Mécano Expérimenté\":false,\"label\":\"Gérer les employés de la société\",\"Recrue\":false,\"Co patron\":[],\"boss\":true,\"grades\":{\"boss\":true},\"Mécano\":[]},\"remove_item_chest\":{\"Stagiaire\":false,\"Mécano Expérimenté\":false,\"label\":\"Retirer un item dans le coffre\",\"Recrue\":false,\"Co patron\":[],\"boss\":true,\"grades\":{\"boss\":true},\"Mécano\":[]},\"rename_label_grade\":{\"Stagiaire\":false,\"Mécano Expérimenté\":false,\"label\":\"Changer le label d\'un grade\",\"Recrue\":false,\"Co patron\":[],\"boss\":true,\"grades\":{\"boss\":true},\"Mécano\":[]},\"change_permissions_grade\":{\"Stagiaire\":false,\"Mécano Expérimenté\":false,\"label\":\"Changer les permissions d\'un grade\",\"Recrue\":false,\"Co patron\":[],\"boss\":true,\"grades\":{\"boss\":true},\"Mécano\":[]},\"items_chest\":{\"Stagiaire\":false,\"Mécano Expérimenté\":false,\"label\":\"Items du coffre\",\"Recrue\":false,\"Co patron\":[],\"boss\":true,\"grades\":{\"boss\":true},\"Mécano\":[]},\"create_grade\":{\"Stagiaire\":false,\"Mécano Expérimenté\":false,\"label\":\"Créer un grade\",\"Recrue\":false,\"Co patron\":[],\"boss\":true,\"grades\":{\"boss\":true},\"Mécano\":[]},\"deposit_weapon_chest\":{\"Stagiaire\":false,\"Mécano Expérimenté\":false,\"label\":\"Déposer une arme dans le coffre\",\"Recrue\":false,\"Co patron\":true,\"boss\":true,\"grades\":{\"boss\":true},\"Mécano\":[]},\"deposit_weapon_chest_society\":{\"Stagiaire\":false,\"Mécano Expérimenté\":false,\"label\":\"Déposer une arme dans le coffre de la société\",\"Recrue\":false,\"Co patron\":[],\"boss\":true,\"grades\":{\"boss\":true},\"Mécano\":[]},\"open_coffre\":{\"Stagiaire\":false,\"Mécano Expérimenté\":false,\"label\":\"Ouvrir le coffre\",\"Recrue\":false,\"Co patron\":[],\"boss\":true,\"grades\":{\"boss\":true},\"Mécano\":[]},\"open_boss\":{\"Stagiaire\":false,\"Mécano Expérimenté\":false,\"label\":\"Ouvrir le menu boss\",\"Recrue\":false,\"Co patron\":[],\"boss\":true,\"grades\":{\"boss\":true},\"Mécano\":[]}}', '{\"y\":-1317.08544921875,\"x\":-198.89129638671876,\"z\":31.30103492736816}', '{\"y\":-1315.200927734375,\"x\":-194.6155242919922,\"z\":31.30047798156738}', '{\"color\":1,\"active\":true,\"sprite\":446,\"position\":{\"y\":-1326.982666015625,\"x\":-211.63577270507813,\"z\":31.30048370361328}}', '0', 1, '[{\"grades\":[],\"grade\":false,\"data\":{\"cheeks_1\":1,\"eyebrows_5\":0,\"cheeks_3\":0,\"tshirt_2\":0,\"ears_2\":0,\"shoes_1\":12,\"beard_1\":10,\"face_md_weight\":53,\"hair_color_1\":2,\"complexion_2\":0,\"decals_1\":0,\"chin_2\":0,\"glasses_1\":0,\"bproof_1\":0,\"pants_2\":1,\"arms_2\":0,\"ears_1\":-1,\"age_1\":0,\"blush_3\":0,\"beard_2\":10,\"eyebrows_1\":26,\"hair_1\":37,\"lipstick_1\":0,\"hair_color_2\":0,\"sex\":0,\"arms\":23,\"neck_thickness\":0,\"makeup_3\":0,\"nose_1\":0,\"bodyb_1\":-1,\"chin_1\":0,\"bracelets_2\":0,\"decals_2\":0,\"blush_2\":0,\"jaw_2\":0,\"mask_2\":0,\"makeup_4\":0,\"chest_3\":0,\"nose_3\":10,\"sun_1\":0,\"lip_thickness\":0,\"makeup_1\":0,\"helmet_2\":0,\"moles_1\":0,\"cheeks_2\":10,\"torso_2\":0,\"chest_1\":3,\"lipstick_2\":0,\"mask_1\":0,\"nose_5\":6,\"mom\":0,\"age_2\":0,\"jaw_1\":0,\"bags_1\":0,\"moles_2\":0,\"glasses_2\":0,\"chest_2\":10,\"bodyb_2\":0,\"bodyb_4\":0,\"torso_1\":237,\"watches_2\":0,\"sun_2\":0,\"chin_3\":0,\"watches_1\":-1,\"bags_2\":0,\"chin_4\":0,\"eyebrows_4\":0,\"nose_6\":9,\"bproof_2\":0,\"bodyb_3\":-1,\"eyebrows_3\":1,\"complexion_1\":0,\"lipstick_4\":0,\"makeup_2\":0,\"blush_1\":0,\"dad\":8,\"nose_2\":9,\"helmet_1\":-1,\"hair_2\":0,\"pants_1\":98,\"chain_1\":0,\"blemishes_2\":0,\"shoes_2\":6,\"chain_2\":0,\"eye_squint\":0,\"eye_color\":0,\"beard_3\":0,\"blemishes_1\":0,\"skin_md_weight\":50,\"lipstick_3\":0,\"bracelets_1\":-1,\"eyebrows_2\":10,\"beard_4\":0,\"tshirt_1\":259,\"eyebrows_6\":10,\"nose_4\":0},\"name\":\"mecano\"}]', '{\"y\":-1336.392578125,\"x\":-194.10446166992188,\"z\":31.30048561096191}'),
@@ -28694,13 +29939,6 @@ CREATE TABLE `vips` (
   `arme` varchar(10) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
---
--- Déchargement des données de la table `vips`
---
-
-INSERT INTO `vips` (`UniqueID`, `time`, `money`, `arme`) VALUES
-(1, 916, 0, 'ok');
-
 -- --------------------------------------------------------
 
 --
@@ -28769,6 +30007,18 @@ CREATE TABLE `zban` (
 --
 -- Index pour les tables déchargées
 --
+
+--
+-- Index pour la table `0r_clothing_image_data`
+--
+ALTER TABLE `0r_clothing_image_data`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Index pour la table `0r_clothing_tattoos`
+--
+ALTER TABLE `0r_clothing_tattoos`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Index pour la table `addon_account`
@@ -29010,6 +30260,364 @@ ALTER TABLE `jobs`
 --
 ALTER TABLE `job_grades`
   ADD PRIMARY KEY (`id`);
+
+--
+-- Index pour la table `lbtablet_ambulance_accounts`
+--
+ALTER TABLE `lbtablet_ambulance_accounts`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Index pour la table `lbtablet_ambulance_bulletin`
+--
+ALTER TABLE `lbtablet_ambulance_bulletin`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `created_by` (`created_by`);
+
+--
+-- Index pour la table `lbtablet_ambulance_conditions`
+--
+ALTER TABLE `lbtablet_ambulance_conditions`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `severity` (`severity`,`category_id`,`title`),
+  ADD KEY `category_id` (`category_id`);
+
+--
+-- Index pour la table `lbtablet_ambulance_conditions_categories`
+--
+ALTER TABLE `lbtablet_ambulance_conditions_categories`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `title` (`title`);
+
+--
+-- Index pour la table `lbtablet_ambulance_logs`
+--
+ALTER TABLE `lbtablet_ambulance_logs`
+  ADD PRIMARY KEY (`log_id`);
+
+--
+-- Index pour la table `lbtablet_ambulance_profiles`
+--
+ALTER TABLE `lbtablet_ambulance_profiles`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Index pour la table `lbtablet_ambulance_profile_conditions`
+--
+ALTER TABLE `lbtablet_ambulance_profile_conditions`
+  ADD PRIMARY KEY (`profile_id`,`condition_id`),
+  ADD KEY `condition_id` (`condition_id`);
+
+--
+-- Index pour la table `lbtablet_ambulance_profile_tags`
+--
+ALTER TABLE `lbtablet_ambulance_profile_tags`
+  ADD PRIMARY KEY (`id`,`tag_id`),
+  ADD KEY `tag_id` (`tag_id`);
+
+--
+-- Index pour la table `lbtablet_ambulance_reports`
+--
+ALTER TABLE `lbtablet_ambulance_reports`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `created_by` (`created_by`);
+
+--
+-- Index pour la table `lbtablet_ambulance_reports_attachments`
+--
+ALTER TABLE `lbtablet_ambulance_reports_attachments`
+  ADD PRIMARY KEY (`report_id`,`attachment`);
+
+--
+-- Index pour la table `lbtablet_ambulance_reports_conditions`
+--
+ALTER TABLE `lbtablet_ambulance_reports_conditions`
+  ADD PRIMARY KEY (`report_id`,`condition_id`),
+  ADD KEY `condition_id` (`condition_id`);
+
+--
+-- Index pour la table `lbtablet_ambulance_reports_doctors`
+--
+ALTER TABLE `lbtablet_ambulance_reports_doctors`
+  ADD PRIMARY KEY (`report_id`,`doctor`),
+  ADD KEY `doctor` (`doctor`);
+
+--
+-- Index pour la table `lbtablet_ambulance_reports_tags`
+--
+ALTER TABLE `lbtablet_ambulance_reports_tags`
+  ADD PRIMARY KEY (`report_id`,`tag_id`),
+  ADD KEY `tag_id` (`tag_id`);
+
+--
+-- Index pour la table `lbtablet_ambulance_tags`
+--
+ALTER TABLE `lbtablet_ambulance_tags`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Index pour la table `lbtablet_apps_loggedin`
+--
+ALTER TABLE `lbtablet_apps_loggedin`
+  ADD PRIMARY KEY (`tablet_id`,`app`,`account`);
+
+--
+-- Index pour la table `lbtablet_chat_rooms`
+--
+ALTER TABLE `lbtablet_chat_rooms`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Index pour la table `lbtablet_chat_rooms_members`
+--
+ALTER TABLE `lbtablet_chat_rooms_members`
+  ADD PRIMARY KEY (`room_id`,`account`);
+
+--
+-- Index pour la table `lbtablet_chat_rooms_messages`
+--
+ALTER TABLE `lbtablet_chat_rooms_messages`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `room_id` (`room_id`);
+
+--
+-- Index pour la table `lbtablet_clock_alarms`
+--
+ALTER TABLE `lbtablet_clock_alarms`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `tablet_id` (`tablet_id`);
+
+--
+-- Index pour la table `lbtablet_notes`
+--
+ALTER TABLE `lbtablet_notes`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `tablet_id` (`tablet_id`);
+
+--
+-- Index pour la table `lbtablet_notifications`
+--
+ALTER TABLE `lbtablet_notifications`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `tablet_id` (`tablet_id`);
+
+--
+-- Index pour la table `lbtablet_photos`
+--
+ALTER TABLE `lbtablet_photos`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `tablet_id` (`tablet_id`);
+
+--
+-- Index pour la table `lbtablet_photo_albums`
+--
+ALTER TABLE `lbtablet_photo_albums`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `tablet_id` (`tablet_id`);
+
+--
+-- Index pour la table `lbtablet_photo_album_photos`
+--
+ALTER TABLE `lbtablet_photo_album_photos`
+  ADD PRIMARY KEY (`album_id`,`photo_id`),
+  ADD KEY `photo_id` (`photo_id`);
+
+--
+-- Index pour la table `lbtablet_police_accounts`
+--
+ALTER TABLE `lbtablet_police_accounts`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Index pour la table `lbtablet_police_bulletin`
+--
+ALTER TABLE `lbtablet_police_bulletin`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `created_by` (`created_by`);
+
+--
+-- Index pour la table `lbtablet_police_cases`
+--
+ALTER TABLE `lbtablet_police_cases`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `created_by` (`created_by`);
+
+--
+-- Index pour la table `lbtablet_police_cases_charges`
+--
+ALTER TABLE `lbtablet_police_cases_charges`
+  ADD PRIMARY KEY (`case_id`,`criminal`,`offence_id`),
+  ADD KEY `offence_id` (`offence_id`);
+
+--
+-- Index pour la table `lbtablet_police_cases_criminals`
+--
+ALTER TABLE `lbtablet_police_cases_criminals`
+  ADD PRIMARY KEY (`case_id`,`id`);
+
+--
+-- Index pour la table `lbtablet_police_cases_evidence`
+--
+ALTER TABLE `lbtablet_police_cases_evidence`
+  ADD PRIMARY KEY (`case_id`,`attachment`);
+
+--
+-- Index pour la table `lbtablet_police_cases_involved`
+--
+ALTER TABLE `lbtablet_police_cases_involved`
+  ADD PRIMARY KEY (`case_id`,`involved`);
+
+--
+-- Index pour la table `lbtablet_police_cases_tags`
+--
+ALTER TABLE `lbtablet_police_cases_tags`
+  ADD PRIMARY KEY (`case_id`,`tag_id`),
+  ADD KEY `tag_id` (`tag_id`);
+
+--
+-- Index pour la table `lbtablet_police_jail`
+--
+ALTER TABLE `lbtablet_police_jail`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `related_case` (`related_case`);
+
+--
+-- Index pour la table `lbtablet_police_logs`
+--
+ALTER TABLE `lbtablet_police_logs`
+  ADD PRIMARY KEY (`log_id`);
+
+--
+-- Index pour la table `lbtablet_police_offences`
+--
+ALTER TABLE `lbtablet_police_offences`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `category_id` (`category_id`,`class`,`title`);
+
+--
+-- Index pour la table `lbtablet_police_offences_categories`
+--
+ALTER TABLE `lbtablet_police_offences_categories`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `title` (`title`);
+
+--
+-- Index pour la table `lbtablet_police_profiles`
+--
+ALTER TABLE `lbtablet_police_profiles`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Index pour la table `lbtablet_police_profile_tags`
+--
+ALTER TABLE `lbtablet_police_profile_tags`
+  ADD PRIMARY KEY (`id`,`tag_id`),
+  ADD KEY `tag_id` (`tag_id`);
+
+--
+-- Index pour la table `lbtablet_police_reports`
+--
+ALTER TABLE `lbtablet_police_reports`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `created_by` (`created_by`);
+
+--
+-- Index pour la table `lbtablet_police_reports_attachments`
+--
+ALTER TABLE `lbtablet_police_reports_attachments`
+  ADD PRIMARY KEY (`report_id`,`attachment`);
+
+--
+-- Index pour la table `lbtablet_police_reports_involved`
+--
+ALTER TABLE `lbtablet_police_reports_involved`
+  ADD PRIMARY KEY (`report_id`,`involved`);
+
+--
+-- Index pour la table `lbtablet_police_reports_tags`
+--
+ALTER TABLE `lbtablet_police_reports_tags`
+  ADD PRIMARY KEY (`report_id`,`tag_id`),
+  ADD KEY `tag_id` (`tag_id`);
+
+--
+-- Index pour la table `lbtablet_police_tags`
+--
+ALTER TABLE `lbtablet_police_tags`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Index pour la table `lbtablet_police_warrants`
+--
+ALTER TABLE `lbtablet_police_warrants`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `created_by` (`created_by`);
+
+--
+-- Index pour la table `lbtablet_police_warrants_attachments`
+--
+ALTER TABLE `lbtablet_police_warrants_attachments`
+  ADD PRIMARY KEY (`warrant_id`,`attachment`);
+
+--
+-- Index pour la table `lbtablet_police_warrants_linked_reports`
+--
+ALTER TABLE `lbtablet_police_warrants_linked_reports`
+  ADD PRIMARY KEY (`warrant_id`,`report_id`),
+  ADD KEY `report_id` (`report_id`);
+
+--
+-- Index pour la table `lbtablet_police_warrants_tags`
+--
+ALTER TABLE `lbtablet_police_warrants_tags`
+  ADD PRIMARY KEY (`warrant_id`,`tag_id`),
+  ADD KEY `tag_id` (`tag_id`);
+
+--
+-- Index pour la table `lbtablet_police_weapons`
+--
+ALTER TABLE `lbtablet_police_weapons`
+  ADD PRIMARY KEY (`serial_number`);
+
+--
+-- Index pour la table `lbtablet_registration_characters`
+--
+ALTER TABLE `lbtablet_registration_characters`
+  ADD PRIMARY KEY (`character_id`);
+
+--
+-- Index pour la table `lbtablet_registration_licenses`
+--
+ALTER TABLE `lbtablet_registration_licenses`
+  ADD PRIMARY KEY (`character_id`,`license`);
+
+--
+-- Index pour la table `lbtablet_registration_properties`
+--
+ALTER TABLE `lbtablet_registration_properties`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `character_id` (`character_id`);
+
+--
+-- Index pour la table `lbtablet_registration_vehicles`
+--
+ALTER TABLE `lbtablet_registration_vehicles`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `plate` (`plate`),
+  ADD KEY `character_id` (`character_id`);
+
+--
+-- Index pour la table `lbtablet_tablets`
+--
+ALTER TABLE `lbtablet_tablets`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Index pour la table `lbtablet_voice_memo_recordings`
+--
+ALTER TABLE `lbtablet_voice_memo_recordings`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `tablet_id` (`tablet_id`);
 
 --
 -- Index pour la table `licenses`
@@ -29660,30 +31268,6 @@ ALTER TABLE `police_plainte`
   ADD UNIQUE KEY `id` (`id`);
 
 --
--- Index pour la table `properties`
---
-ALTER TABLE `properties`
-  ADD PRIMARY KEY (`propertiesID`);
-
---
--- Index pour la table `properties_list`
---
-ALTER TABLE `properties_list`
-  ADD PRIMARY KEY (`id_property`);
-
---
--- Index pour la table `properties_news`
---
-ALTER TABLE `properties_news`
-  ADD PRIMARY KEY (`id`);
-
---
--- Index pour la table `property_created`
---
-ALTER TABLE `property_created`
-  ADD PRIMARY KEY (`propertyID`);
-
---
 -- Index pour la table `radiocar_music`
 --
 ALTER TABLE `radiocar_music`
@@ -29818,6 +31402,18 @@ ALTER TABLE `zban`
 --
 
 --
+-- AUTO_INCREMENT pour la table `0r_clothing_image_data`
+--
+ALTER TABLE `0r_clothing_image_data`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT pour la table `0r_clothing_tattoos`
+--
+ALTER TABLE `0r_clothing_tattoos`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT pour la table `addon_account_data`
 --
 ALTER TABLE `addon_account_data`
@@ -29881,7 +31477,7 @@ ALTER TABLE `blanchiment`
 -- AUTO_INCREMENT pour la table `boutique_gains`
 --
 ALTER TABLE `boutique_gains`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=261;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT pour la table `darkchat_messages`
@@ -29990,6 +31586,156 @@ ALTER TABLE `illegal_laboratory`
 --
 ALTER TABLE `job_grades`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3213;
+
+--
+-- AUTO_INCREMENT pour la table `lbtablet_ambulance_bulletin`
+--
+ALTER TABLE `lbtablet_ambulance_bulletin`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT pour la table `lbtablet_ambulance_conditions`
+--
+ALTER TABLE `lbtablet_ambulance_conditions`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=172;
+
+--
+-- AUTO_INCREMENT pour la table `lbtablet_ambulance_conditions_categories`
+--
+ALTER TABLE `lbtablet_ambulance_conditions_categories`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
+
+--
+-- AUTO_INCREMENT pour la table `lbtablet_ambulance_logs`
+--
+ALTER TABLE `lbtablet_ambulance_logs`
+  MODIFY `log_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT pour la table `lbtablet_ambulance_reports`
+--
+ALTER TABLE `lbtablet_ambulance_reports`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT pour la table `lbtablet_ambulance_tags`
+--
+ALTER TABLE `lbtablet_ambulance_tags`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT pour la table `lbtablet_chat_rooms`
+--
+ALTER TABLE `lbtablet_chat_rooms`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT pour la table `lbtablet_chat_rooms_messages`
+--
+ALTER TABLE `lbtablet_chat_rooms_messages`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT pour la table `lbtablet_clock_alarms`
+--
+ALTER TABLE `lbtablet_clock_alarms`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT pour la table `lbtablet_notes`
+--
+ALTER TABLE `lbtablet_notes`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT pour la table `lbtablet_notifications`
+--
+ALTER TABLE `lbtablet_notifications`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT pour la table `lbtablet_photos`
+--
+ALTER TABLE `lbtablet_photos`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+
+--
+-- AUTO_INCREMENT pour la table `lbtablet_photo_albums`
+--
+ALTER TABLE `lbtablet_photo_albums`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT pour la table `lbtablet_police_bulletin`
+--
+ALTER TABLE `lbtablet_police_bulletin`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT pour la table `lbtablet_police_cases`
+--
+ALTER TABLE `lbtablet_police_cases`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT pour la table `lbtablet_police_jail`
+--
+ALTER TABLE `lbtablet_police_jail`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT pour la table `lbtablet_police_logs`
+--
+ALTER TABLE `lbtablet_police_logs`
+  MODIFY `log_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT pour la table `lbtablet_police_offences`
+--
+ALTER TABLE `lbtablet_police_offences`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=118;
+
+--
+-- AUTO_INCREMENT pour la table `lbtablet_police_offences_categories`
+--
+ALTER TABLE `lbtablet_police_offences_categories`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+
+--
+-- AUTO_INCREMENT pour la table `lbtablet_police_reports`
+--
+ALTER TABLE `lbtablet_police_reports`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT pour la table `lbtablet_police_tags`
+--
+ALTER TABLE `lbtablet_police_tags`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT pour la table `lbtablet_police_warrants`
+--
+ALTER TABLE `lbtablet_police_warrants`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT pour la table `lbtablet_registration_properties`
+--
+ALTER TABLE `lbtablet_registration_properties`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT pour la table `lbtablet_registration_vehicles`
+--
+ALTER TABLE `lbtablet_registration_vehicles`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT pour la table `lbtablet_voice_memo_recordings`
+--
+ALTER TABLE `lbtablet_voice_memo_recordings`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT pour la table `open_car`
@@ -30130,30 +31876,6 @@ ALTER TABLE `police_plainte`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
--- AUTO_INCREMENT pour la table `properties`
---
-ALTER TABLE `properties`
-  MODIFY `propertiesID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
-
---
--- AUTO_INCREMENT pour la table `properties_list`
---
-ALTER TABLE `properties_list`
-  MODIFY `id_property` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT pour la table `properties_news`
---
-ALTER TABLE `properties_news`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT pour la table `property_created`
---
-ALTER TABLE `property_created`
-  MODIFY `propertyID` int(11) NOT NULL AUTO_INCREMENT;
-
---
 -- AUTO_INCREMENT pour la table `radiocar_music`
 --
 ALTER TABLE `radiocar_music`
@@ -30222,6 +31944,256 @@ ALTER TABLE `xmas_calendar`
 --
 -- Contraintes pour les tables déchargées
 --
+
+--
+-- Contraintes pour la table `lbtablet_ambulance_bulletin`
+--
+ALTER TABLE `lbtablet_ambulance_bulletin`
+  ADD CONSTRAINT `lbtablet_ambulance_bulletin_ibfk_1` FOREIGN KEY (`created_by`) REFERENCES `lbtablet_ambulance_accounts` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Contraintes pour la table `lbtablet_ambulance_conditions`
+--
+ALTER TABLE `lbtablet_ambulance_conditions`
+  ADD CONSTRAINT `lbtablet_ambulance_conditions_ibfk_1` FOREIGN KEY (`category_id`) REFERENCES `lbtablet_ambulance_conditions_categories` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Contraintes pour la table `lbtablet_ambulance_profile_conditions`
+--
+ALTER TABLE `lbtablet_ambulance_profile_conditions`
+  ADD CONSTRAINT `lbtablet_ambulance_profile_conditions_ibfk_1` FOREIGN KEY (`profile_id`) REFERENCES `lbtablet_ambulance_profiles` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `lbtablet_ambulance_profile_conditions_ibfk_2` FOREIGN KEY (`condition_id`) REFERENCES `lbtablet_ambulance_conditions` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Contraintes pour la table `lbtablet_ambulance_profile_tags`
+--
+ALTER TABLE `lbtablet_ambulance_profile_tags`
+  ADD CONSTRAINT `lbtablet_ambulance_profile_tags_ibfk_1` FOREIGN KEY (`tag_id`) REFERENCES `lbtablet_ambulance_tags` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Contraintes pour la table `lbtablet_ambulance_reports`
+--
+ALTER TABLE `lbtablet_ambulance_reports`
+  ADD CONSTRAINT `lbtablet_ambulance_reports_ibfk_1` FOREIGN KEY (`created_by`) REFERENCES `lbtablet_ambulance_accounts` (`id`) ON UPDATE CASCADE;
+
+--
+-- Contraintes pour la table `lbtablet_ambulance_reports_attachments`
+--
+ALTER TABLE `lbtablet_ambulance_reports_attachments`
+  ADD CONSTRAINT `lbtablet_ambulance_reports_attachments_ibfk_1` FOREIGN KEY (`report_id`) REFERENCES `lbtablet_ambulance_reports` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Contraintes pour la table `lbtablet_ambulance_reports_conditions`
+--
+ALTER TABLE `lbtablet_ambulance_reports_conditions`
+  ADD CONSTRAINT `lbtablet_ambulance_reports_conditions_ibfk_1` FOREIGN KEY (`report_id`) REFERENCES `lbtablet_ambulance_reports` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `lbtablet_ambulance_reports_conditions_ibfk_2` FOREIGN KEY (`condition_id`) REFERENCES `lbtablet_ambulance_conditions` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Contraintes pour la table `lbtablet_ambulance_reports_doctors`
+--
+ALTER TABLE `lbtablet_ambulance_reports_doctors`
+  ADD CONSTRAINT `lbtablet_ambulance_reports_doctors_ibfk_1` FOREIGN KEY (`report_id`) REFERENCES `lbtablet_ambulance_reports` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `lbtablet_ambulance_reports_doctors_ibfk_2` FOREIGN KEY (`doctor`) REFERENCES `lbtablet_ambulance_accounts` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Contraintes pour la table `lbtablet_ambulance_reports_tags`
+--
+ALTER TABLE `lbtablet_ambulance_reports_tags`
+  ADD CONSTRAINT `lbtablet_ambulance_reports_tags_ibfk_1` FOREIGN KEY (`report_id`) REFERENCES `lbtablet_ambulance_reports` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `lbtablet_ambulance_reports_tags_ibfk_2` FOREIGN KEY (`tag_id`) REFERENCES `lbtablet_ambulance_tags` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Contraintes pour la table `lbtablet_apps_loggedin`
+--
+ALTER TABLE `lbtablet_apps_loggedin`
+  ADD CONSTRAINT `lbtablet_apps_loggedin_ibfk_1` FOREIGN KEY (`tablet_id`) REFERENCES `lbtablet_tablets` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Contraintes pour la table `lbtablet_chat_rooms_members`
+--
+ALTER TABLE `lbtablet_chat_rooms_members`
+  ADD CONSTRAINT `lbtablet_chat_rooms_members_ibfk_1` FOREIGN KEY (`room_id`) REFERENCES `lbtablet_chat_rooms` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Contraintes pour la table `lbtablet_chat_rooms_messages`
+--
+ALTER TABLE `lbtablet_chat_rooms_messages`
+  ADD CONSTRAINT `lbtablet_chat_rooms_messages_ibfk_1` FOREIGN KEY (`room_id`) REFERENCES `lbtablet_chat_rooms` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Contraintes pour la table `lbtablet_clock_alarms`
+--
+ALTER TABLE `lbtablet_clock_alarms`
+  ADD CONSTRAINT `lbtablet_clock_alarms_ibfk_1` FOREIGN KEY (`tablet_id`) REFERENCES `lbtablet_tablets` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Contraintes pour la table `lbtablet_notes`
+--
+ALTER TABLE `lbtablet_notes`
+  ADD CONSTRAINT `lbtablet_notes_ibfk_1` FOREIGN KEY (`tablet_id`) REFERENCES `lbtablet_tablets` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Contraintes pour la table `lbtablet_notifications`
+--
+ALTER TABLE `lbtablet_notifications`
+  ADD CONSTRAINT `lbtablet_notifications_ibfk_1` FOREIGN KEY (`tablet_id`) REFERENCES `lbtablet_tablets` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Contraintes pour la table `lbtablet_photos`
+--
+ALTER TABLE `lbtablet_photos`
+  ADD CONSTRAINT `lbtablet_photos_ibfk_1` FOREIGN KEY (`tablet_id`) REFERENCES `lbtablet_tablets` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Contraintes pour la table `lbtablet_photo_albums`
+--
+ALTER TABLE `lbtablet_photo_albums`
+  ADD CONSTRAINT `lbtablet_photo_albums_ibfk_1` FOREIGN KEY (`tablet_id`) REFERENCES `lbtablet_tablets` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Contraintes pour la table `lbtablet_photo_album_photos`
+--
+ALTER TABLE `lbtablet_photo_album_photos`
+  ADD CONSTRAINT `lbtablet_photo_album_photos_ibfk_1` FOREIGN KEY (`album_id`) REFERENCES `lbtablet_photo_albums` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `lbtablet_photo_album_photos_ibfk_2` FOREIGN KEY (`photo_id`) REFERENCES `lbtablet_photos` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Contraintes pour la table `lbtablet_police_bulletin`
+--
+ALTER TABLE `lbtablet_police_bulletin`
+  ADD CONSTRAINT `lbtablet_police_bulletin_ibfk_1` FOREIGN KEY (`created_by`) REFERENCES `lbtablet_police_accounts` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Contraintes pour la table `lbtablet_police_cases`
+--
+ALTER TABLE `lbtablet_police_cases`
+  ADD CONSTRAINT `lbtablet_police_cases_ibfk_1` FOREIGN KEY (`created_by`) REFERENCES `lbtablet_police_accounts` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Contraintes pour la table `lbtablet_police_cases_charges`
+--
+ALTER TABLE `lbtablet_police_cases_charges`
+  ADD CONSTRAINT `lbtablet_police_cases_charges_ibfk_1` FOREIGN KEY (`case_id`,`criminal`) REFERENCES `lbtablet_police_cases_criminals` (`case_id`, `id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `lbtablet_police_cases_charges_ibfk_2` FOREIGN KEY (`offence_id`) REFERENCES `lbtablet_police_offences` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Contraintes pour la table `lbtablet_police_cases_criminals`
+--
+ALTER TABLE `lbtablet_police_cases_criminals`
+  ADD CONSTRAINT `lbtablet_police_cases_criminals_ibfk_1` FOREIGN KEY (`case_id`) REFERENCES `lbtablet_police_cases` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Contraintes pour la table `lbtablet_police_cases_evidence`
+--
+ALTER TABLE `lbtablet_police_cases_evidence`
+  ADD CONSTRAINT `lbtablet_police_cases_evidence_ibfk_1` FOREIGN KEY (`case_id`) REFERENCES `lbtablet_police_cases` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Contraintes pour la table `lbtablet_police_cases_involved`
+--
+ALTER TABLE `lbtablet_police_cases_involved`
+  ADD CONSTRAINT `lbtablet_police_cases_involved_ibfk_1` FOREIGN KEY (`case_id`) REFERENCES `lbtablet_police_cases` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Contraintes pour la table `lbtablet_police_cases_tags`
+--
+ALTER TABLE `lbtablet_police_cases_tags`
+  ADD CONSTRAINT `lbtablet_police_cases_tags_ibfk_1` FOREIGN KEY (`case_id`) REFERENCES `lbtablet_police_cases` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `lbtablet_police_cases_tags_ibfk_2` FOREIGN KEY (`tag_id`) REFERENCES `lbtablet_police_tags` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Contraintes pour la table `lbtablet_police_jail`
+--
+ALTER TABLE `lbtablet_police_jail`
+  ADD CONSTRAINT `lbtablet_police_jail_ibfk_1` FOREIGN KEY (`related_case`) REFERENCES `lbtablet_police_cases` (`id`) ON DELETE SET NULL ON UPDATE CASCADE;
+
+--
+-- Contraintes pour la table `lbtablet_police_offences`
+--
+ALTER TABLE `lbtablet_police_offences`
+  ADD CONSTRAINT `lbtablet_police_offences_ibfk_1` FOREIGN KEY (`category_id`) REFERENCES `lbtablet_police_offences_categories` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Contraintes pour la table `lbtablet_police_profile_tags`
+--
+ALTER TABLE `lbtablet_police_profile_tags`
+  ADD CONSTRAINT `lbtablet_police_profile_tags_ibfk_1` FOREIGN KEY (`tag_id`) REFERENCES `lbtablet_police_tags` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Contraintes pour la table `lbtablet_police_reports`
+--
+ALTER TABLE `lbtablet_police_reports`
+  ADD CONSTRAINT `lbtablet_police_reports_ibfk_1` FOREIGN KEY (`created_by`) REFERENCES `lbtablet_police_accounts` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Contraintes pour la table `lbtablet_police_reports_attachments`
+--
+ALTER TABLE `lbtablet_police_reports_attachments`
+  ADD CONSTRAINT `lbtablet_police_reports_attachments_ibfk_1` FOREIGN KEY (`report_id`) REFERENCES `lbtablet_police_reports` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Contraintes pour la table `lbtablet_police_reports_involved`
+--
+ALTER TABLE `lbtablet_police_reports_involved`
+  ADD CONSTRAINT `lbtablet_police_reports_involved_ibfk_1` FOREIGN KEY (`report_id`) REFERENCES `lbtablet_police_reports` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Contraintes pour la table `lbtablet_police_reports_tags`
+--
+ALTER TABLE `lbtablet_police_reports_tags`
+  ADD CONSTRAINT `lbtablet_police_reports_tags_ibfk_1` FOREIGN KEY (`report_id`) REFERENCES `lbtablet_police_reports` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `lbtablet_police_reports_tags_ibfk_2` FOREIGN KEY (`tag_id`) REFERENCES `lbtablet_police_tags` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Contraintes pour la table `lbtablet_police_warrants`
+--
+ALTER TABLE `lbtablet_police_warrants`
+  ADD CONSTRAINT `lbtablet_police_warrants_ibfk_1` FOREIGN KEY (`created_by`) REFERENCES `lbtablet_police_accounts` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Contraintes pour la table `lbtablet_police_warrants_attachments`
+--
+ALTER TABLE `lbtablet_police_warrants_attachments`
+  ADD CONSTRAINT `lbtablet_police_warrants_attachments_ibfk_1` FOREIGN KEY (`warrant_id`) REFERENCES `lbtablet_police_warrants` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Contraintes pour la table `lbtablet_police_warrants_linked_reports`
+--
+ALTER TABLE `lbtablet_police_warrants_linked_reports`
+  ADD CONSTRAINT `lbtablet_police_warrants_linked_reports_ibfk_1` FOREIGN KEY (`warrant_id`) REFERENCES `lbtablet_police_warrants` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `lbtablet_police_warrants_linked_reports_ibfk_2` FOREIGN KEY (`report_id`) REFERENCES `lbtablet_police_reports` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Contraintes pour la table `lbtablet_police_warrants_tags`
+--
+ALTER TABLE `lbtablet_police_warrants_tags`
+  ADD CONSTRAINT `lbtablet_police_warrants_tags_ibfk_1` FOREIGN KEY (`warrant_id`) REFERENCES `lbtablet_police_warrants` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `lbtablet_police_warrants_tags_ibfk_2` FOREIGN KEY (`tag_id`) REFERENCES `lbtablet_police_tags` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Contraintes pour la table `lbtablet_registration_licenses`
+--
+ALTER TABLE `lbtablet_registration_licenses`
+  ADD CONSTRAINT `lbtablet_registration_licenses_ibfk_1` FOREIGN KEY (`character_id`) REFERENCES `lbtablet_registration_characters` (`character_id`);
+
+--
+-- Contraintes pour la table `lbtablet_registration_properties`
+--
+ALTER TABLE `lbtablet_registration_properties`
+  ADD CONSTRAINT `lbtablet_registration_properties_ibfk_1` FOREIGN KEY (`character_id`) REFERENCES `lbtablet_registration_characters` (`character_id`);
+
+--
+-- Contraintes pour la table `lbtablet_registration_vehicles`
+--
+ALTER TABLE `lbtablet_registration_vehicles`
+  ADD CONSTRAINT `lbtablet_registration_vehicles_ibfk_1` FOREIGN KEY (`character_id`) REFERENCES `lbtablet_registration_characters` (`character_id`);
+
+--
+-- Contraintes pour la table `lbtablet_voice_memo_recordings`
+--
+ALTER TABLE `lbtablet_voice_memo_recordings`
+  ADD CONSTRAINT `lbtablet_voice_memo_recordings_ibfk_1` FOREIGN KEY (`tablet_id`) REFERENCES `lbtablet_tablets` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Contraintes pour la table `phone_backups`
