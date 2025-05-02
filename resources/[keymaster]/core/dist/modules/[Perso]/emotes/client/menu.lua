@@ -107,7 +107,7 @@ function AnimationMenu()
                     ClearFacialIdleAnimOverride(PlayerPedId())
                 end
             })
-            RageUI.List("Bind sur la touche", {"num 1","num 2", "num 3","num 4","num 5","num 6","num 7","num 8","num 9"}, Animations.BindIndex, nil, {}, true, {
+            RageUI.List("Bind sur la touche", {"Num 1","Num 2", "Num 3","Num 4","Num 5","Num 6","Num 7","Num 8","Num 9"}, Animations.BindIndex, nil, {}, true, {
                 onListChange = function(Index, Item)
                     Animations.BindIndex = Index
                 end,
@@ -125,7 +125,7 @@ function AnimationMenu()
                     end 
                 end,
             })
-            RageUI.List("Supprimer un bind", {"num 1","num 2", "num 3","num 4","num 5","num 6","num 7","num 8","num 9"}, Animations.UnBindIndex, nil, {}, true, {
+            RageUI.List("Supprimer un bind", {"Num 1","Num 2", "Num 3","Num 4","Num 5","Num 6","Num 7","Num 8","Num 9"}, Animations.UnBindIndex, nil, {}, true, {
                 onListChange = function(Index, Item)
                     Animations.UnBindIndex = Index
                 end,
@@ -373,8 +373,6 @@ function SetBindAnimation()
             for id in kvpcache:gmatch('([^,]+)') do table.insert(bindanimation, id) end
             if bindanimation[1] and bindanimation[2] then
                 SetAnimationKvp(numpad, {emoteType = bindanimation[1], emoteName = bindanimation[2]})
-            elseif bindanimation[1] and bindanimation[2] and bindanimation[3] then
-                SetAnimationKvp(numpad, {emoteType = bindanimation[1], emoteName = bindanimation[2]})
             else
                 SetAnimationKvp(numpad, false)
             end
@@ -383,30 +381,30 @@ function SetBindAnimation()
         end
         RegisterKeyMapping(string.format('animBind%s', numpad),string.format("Jouer l'animation n°%s", numpad),"keyboard", string.format("NUMPAD%s", numpad))
         RegisterCommand(string.format('animBind%s', numpad), function()
-        if GetSelectedPedWeapon(PlayerPedId()) ~= GetHashKey("weapon_musket") then
-            if Bind[numpad].usable then
-                if not exports.inv:getOpenInventory() then
+            if GetSelectedPedWeapon(PlayerPedId()) ~= GetHashKey("weapon_musket") then
+                if Bind[numpad] and Bind[numpad].usable then
                     local extractdata = Bind[numpad].animation;
-                    local emoteType, emoteName = table.unpack(extractdata)
-                    if emoteType == "props" then
-                        if OnEmotePlay(Animation.Props[emoteName]) then end
-                    elseif emoteType == "emotes" then
-                        if OnEmotePlay(Animation.Emotes[emoteName]) then end
-                    elseif emoteType == "dances" then
-                        if OnEmotePlay(Animation.Dances[emoteName]) then end
-                    elseif emoteType == "shared" then
-                        target, distance = GetClosestPlayer()
-                        if (distance ~= -1 and distance < 3) then
-                            TriggerServerEvent("ServerEmoteRequest", GetPlayerServerId(target), onEmoteName)
-                        else
-                            ESX.ShowNotification("~r~Aucun individu à proximité.")
+                    if extractdata and #extractdata >= 2 then
+                        local emoteType, emoteName = extractdata[1], extractdata[2]
+                        if emoteType == "props" then
+                            if OnEmotePlay(Animation.Props[emoteName]) then end
+                        elseif emoteType == "emotes" then
+                            if OnEmotePlay(Animation.Emotes[emoteName]) then end
+                        elseif emoteType == "dances" then
+                            if OnEmotePlay(Animation.Dances[emoteName]) then end
+                        elseif emoteType == "shared" then
+                            target, distance = GetClosestPlayer()
+                            if (distance ~= -1 and distance < 3) then
+                                TriggerServerEvent("ServerEmoteRequest", GetPlayerServerId(target), emoteName)
+                            else
+                                ESX.ShowNotification("~r~Aucun individu à proximité.")
+                            end
+                        elseif emoteType == "expressions" then
+                            if OnEmotePlay(Animation.Expressions[emoteName]) then end
                         end
-                    elseif emoteType == "expressions" then
-                        if OnEmotePlay(Animation.Expressions[emoteName]) then end
                     end
                 end
             end
-        end
         end)
     end
 end
