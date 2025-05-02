@@ -1,33 +1,4 @@
-local PlayerPedId = PlayerPedId
-local GetEntityCoords = GetEntityCoords
-
 function Properties:openArcadiusMenu(type)
-    if not Properties.admin then
-        Properties.admin = {
-            name = nil,
-            label = nil,
-            price = nil,
-            enter = nil,
-            exit = nil,
-            trunk = nil,
-            visitmode = false,
-            visitmode2 = false,
-            typeValue = false,
-            typeData = 'achat',
-            entrepot = false,
-            pound = nil,
-            current_zone = nil,
-            logementType = nil,
-            zones = GetNameOfZone and {} or {},
-            Menu = {
-                list = 1,
-                action = {'Motel', 'Low', 'Mid', 'High', 'Luxe', 'Entrepôt', 'Entrepôt2', 'Entrepôt3', 'Entrepôt4'},
-                garage = false
-            },
-            visitmodeGarage = {}
-        }
-    end
-
     local main = RageUI.CreateMenu('', 'Actions Disponibles')
     local createProperties = RageUI.CreateSubMenu(main, '', 'Création de propriété')
     local Garage = RageUI.CreateSubMenu(createProperties, '')
@@ -86,21 +57,6 @@ function Properties:openArcadiusMenu(type)
             end
         end)
 
-        -- Move repeated coords outside loops
-        local interiorCoords = {
-            [1] = vector3(151.45,-1007.57,-98.9999),
-            [2] = vector3(265.307,-1002.802,-101.008),
-            [3] = vector3(-612.16,59.06,97.2),
-            [4] = vector3(-785.13,315.79,187.91),
-            [5] = vector3(-1459.17,-520.58,54.929),
-            [6] = vector3(-680.6088,590.5321,145.39),
-            [7] = vector3(1026.5056,-3099.8320,-38.9998),
-            [8] = vector3(1048.5067,-3097.0817,-38.9999),
-            [9] = vector3(1088.1834, -3099.3547, -38.9999),
-            [0] = vector3(151.45, 1007.57, 98.9999)
-        }
-
-        -- Optimize menu callbacks
         RageUI.IsVisible(createProperties, function()
             local PlayerCoords = GetEntityCoords(PlayerPedId())
 
@@ -143,10 +99,12 @@ function Properties:openArcadiusMenu(type)
             RageUI.List('Intérieur', Properties.admin.Menu.action, Properties.admin.Menu.list, nil, {}, true, {
                 onListChange = function(Index)
                     Properties.admin.Menu.list = Index
+
                     Properties.admin.logementType = Properties.admin.Menu.action[Properties.admin.Menu.list]
                 end,
                 onActive = function()
                     if Properties.admin.Menu.list == 1 then
+                        RenderSprite('prop', 'Motel', 0, 550, 530, 250, 80)
                         ipl = '["hei_hw1_blimp_interior_v_motel_mp_milo_"]'
                         inside = '{"x":151.45,"y":-1007.57,"z":-98.9999}'
                         exit = '{"x":151.3258,"y":-1007.7642,"z":-100.0000}'
@@ -154,6 +112,7 @@ function Properties:openArcadiusMenu(type)
                         isRoom = 1
                         isGateway = current_zone
                     elseif Properties.admin.Menu.list == 2 then
+                        RenderSprite('prop', 'Low', 0, 550, 530, 250, 80)
                         ipl = '[]'
                         inside = '{"x":265.307,"y":-1002.802,"z":-101.008}'
                         exit = '{"x":266.0773,"y":-1007.3900,"z":-101.008}'
@@ -161,6 +120,7 @@ function Properties:openArcadiusMenu(type)
                         isRoom = 1
                         isGateway = current_zone
                     elseif Properties.admin.Menu.list == 3 then
+                        RenderSprite('prop', 'Middle', 0, 550, 530, 250, 80)
                         ipl = '[]'
                         inside = '{"x":-612.16,"y":59.06,"z":97.2}'
                         exit = '{"x":-603.4308,"y":58.9184,"z":97.2001}'
@@ -168,6 +128,7 @@ function Properties:openArcadiusMenu(type)
                         isRoom = 1
                         isGateway = current_zone
                     elseif Properties.admin.Menu.list == 4 then
+                        RenderSprite('prop', 'Modern',0, 550, 530, 250, 80)
                         ipl = '["apa_v_mp_h_01_a"]'
                         inside = '{"x":-785.13,"y":315.79,"z":187.91}'
                         exit = '{"x":-786.87,"y":315.7497,"z":186.91}'
@@ -175,6 +136,7 @@ function Properties:openArcadiusMenu(type)
                         isRoom = 1
                         isGateway = current_zone
                     elseif Properties.admin.Menu.list == 5 then
+                        RenderSprite('prop', 'High', 0, 550, 530, 250, 80)
                         ipl = '[]'
                         inside = '{"x":-1459.17,"y":-520.58,"z":54.929}'
                         exit = '{"x":-1451.6394,"y":-523.5562,"z":55.9290}'
@@ -182,6 +144,7 @@ function Properties:openArcadiusMenu(type)
                         isRoom = 1
                         isGateway = current_zone
                     elseif Properties.admin.Menu.list == 6 then
+                        RenderSprite('prop', 'Luxe', 0, 550, 530, 250, 80)
                         ipl = '[]'
                         inside = '{"x":-680.6088,"y":590.5321,"z":145.39}'
                         exit = '{"x":-681.6273,"y":591.9663,"z":144.3930}'
@@ -189,6 +152,7 @@ function Properties:openArcadiusMenu(type)
                         isRoom = 1
                         isGateway = current_zone
                     elseif Properties.admin.Menu.list == 7 then
+                        RenderSprite('prop', 'Entrepot_grand', 0, 550, 530, 250, 80)
                         ipl = '[]'
                         inside = '{"x":1026.5056,"y":-3099.8320,"z":-38.9998}'
                         exit   = '{"x":998.1795"y":-3091.9169,"z":-39.9999}'
@@ -196,6 +160,7 @@ function Properties:openArcadiusMenu(type)
                         isRoom = 1
                         isGateway = current_zone
                     elseif Properties.admin.Menu.list == 8 then
+                        RenderSprite('prop', 'Entrepot_moyen', 0, 550, 530, 250, 80)
                         ipl = '[]'
                         inside = '{"x":1048.5067,"y":-3097.0817,"z":-38.9999}'
                         exit   = '{"x":1072.5505,"y":-3102.5522,"z":-39.9999}'
@@ -203,6 +168,7 @@ function Properties:openArcadiusMenu(type)
                         isRoom = 1
                         isGateway = current_zone
                     elseif Properties.admin.Menu.list == 9 then
+                        RenderSprite('prop', 'Entrepot_petit', 0, 550, 530, 250, 80)
                         ipl = '[]'
                         inside = '{"x":1088.1834,"y":-3099.3547,"z":-38.9999}'
                         exit  = '{"x":1104.6102,"y":-3099.4333,"z":-39.9999}'
@@ -210,6 +176,7 @@ function Properties:openArcadiusMenu(type)
                         isRoom = 1
                         isGateway = current_zone
                     elseif Properties.admin.Menu.list == 0 or index == nil then
+                        RenderSprite('prop', 'Motel', 0, 550, 530, 250, 80)
                         ipl = '["hei_hw1_blimp_interior_v_motel_mp_milo_"]'
                         inside = '{"x":151.45,"y":-1007.57,"z":-98.9999}'
                         exit = '{"x":151.3258,"y":-1007.7642,"z":-100.0000}'
@@ -256,7 +223,28 @@ function Properties:openArcadiusMenu(type)
                     local ped = PlayerPedId()
                     Properties.admin.visitmode = true
                     Properties.Lastplayerpos = GetEntityCoords(ped)
-                    SetEntityCoords(ped, interiorCoords[Properties.admin.Menu.list])
+                    SetEntityCoords(ped, inside)
+                    if Properties.admin.Menu.list == 1 then
+                        SetEntityCoords(ped, vector3(151.45,-1007.57,-98.9999))
+                    elseif Properties.admin.Menu.list == 2 then
+                        SetEntityCoords(ped, vector3(265.307,-1002.802,-101.008))
+                    elseif Properties.admin.Menu.list == 3 then
+                        SetEntityCoords(ped, vector3(-612.16,59.06,97.2))
+                    elseif Properties.admin.Menu.list == 4 then
+                        SetEntityCoords(ped, vector3(-785.13,315.79,187.91))
+                    elseif Properties.admin.Menu.list == 5 then
+                        SetEntityCoords(ped, vector3(-1459.17,-520.58,54.929))
+                    elseif Properties.admin.Menu.list == 6 then
+                        SetEntityCoords(ped, vector3(-680.6088,590.5321,145.39))
+                    elseif Properties.admin.Menu.list == 7 then
+                        SetEntityCoords(ped, vector3(1026.5056,-3099.8320,-38.9998))
+                    elseif Properties.admin.Menu.list == 8 then
+                        SetEntityCoords(ped, vector3(1048.5067,-3097.0817,-38.9999))
+                    elseif Properties.admin.Menu.list == 9 then
+                        SetEntityCoords(ped, vector3(1088.1834, -3099.3547, -38.9999))
+                    elseif Properties.admin.Menu.list == 0 or index == nil then
+                        SetEntityCoords(ped, vector3(151.45, 1007.57, 98.9999))
+                    end
                 end,
                 onUnChecked = function()
                     Properties.admin.visitmode = false
@@ -323,29 +311,12 @@ function Properties:openArcadiusMenu(type)
             RageUI.Checkbox('Garage', nil, Properties.admin.Menu.action.garage, {}, {
                 onChecked = function()
                     Properties.admin.Menu.action.garage = true
-                    if not Properties.admin.visitmodeGarage then
-                        Properties.admin.visitmodeGarage = {}
+                    for k,v in pairs(Properties.garage.interior) do
+                        Properties.admin.visitmodeGarage[k] = {active = false, name = nil, interior = nil}
                     end
-                    
-                    Properties.garageSelected = "car"
-                    
-                    if not Properties.admin.visitmodeGarage["car"] then
-                        Properties.admin.visitmodeGarage["car"] = {active = true, name = "car"}
-                    else
-                        Properties.admin.visitmodeGarage["car"].active = true
-                    end
-                    
-                    print("Type de garage défini par défaut: car")
                 end,
                 onUnChecked = function()
                     Properties.admin.Menu.action.garage = false
-                    Properties.garageSelected = nil
-                    
-                    if Properties.admin.visitmodeGarage then
-                        for k,v in pairs(Properties.admin.visitmodeGarage) do
-                            Properties.admin.visitmodeGarage[k].active = false
-                        end
-                    end
                 end
             })
         
@@ -359,104 +330,42 @@ function Properties:openArcadiusMenu(type)
 
             RageUI.Button('Confirmer', nil, {}, true, {
                 onSelected = function()
-                    -- print("=== DONNÉES DE CRÉATION DE PROPRIÉTÉ ===")
-                    -- print("Nom: " .. tostring(Properties.admin.name))
-                    -- print("Label: " .. tostring(Properties.admin.label))
-                    -- print("Prix: " .. tostring(Properties.admin.price))
-                    -- print("Entrée: " .. tostring(json.encode(Properties.admin.enter)))
-                    -- print("Sortie: " .. tostring(json.encode(Properties.admin.exit)))
-                    -- print("Coffre: " .. tostring(json.encode(Properties.admin.trunk)))
-                    
-                    if Properties.admin.Menu.action.garage then
-                        -- print("=== DONNÉES DU GARAGE ===")
-                        -- print("Garage activé: " .. tostring(Properties.admin.Menu.action.garage))
-                        -- print("Position garage: " .. tostring(json.encode(Properties.admin.posGarage)))
-                        -- print("Position spawn: " .. tostring(json.encode(Properties.admin.posGarageSpawn)))
-                        -- print("Rotation spawn: " .. tostring(Properties.admin.rotGarageSpawn))
-                        -- print("Type de garage: " .. tostring(Properties.garageSelected))
-                        -- print("Lastplayerpos2: " .. tostring(Properties.Lastplayerpos2 ~= nil))
-                    end
-                    
-                    if Properties.admin.name == nil or Properties.admin.label == nil or Properties.admin.price == nil or Properties.admin.enter == nil or Properties.admin.exit == nil or Properties.admin.trunk == nil then 
-                        -- print("Échec: Champs de base incomplets")
+                    if Properties.admin.name == nil or Properties.admin.trunk == nil or Properties.admin.label == nil or Properties.admin.price == nil or Properties.admin.enter == nil or Properties.admin.exit == nil then 
                         return ESX.ShowNotification('❌ Tout les champs ne sont pas correctement complétés') 
                     end 
             
                     if Properties.admin.Menu.action.garage then
-                        local garageChampsMissing = false
-                        local champManquant = ""
-                        
-                        if Properties.admin.posGarage == nil then 
-                            garageChampsMissing = true 
-                            champManquant = "position du garage"
-                            -- print("Position du garage manquante")
-                        elseif Properties.admin.posGarageSpawn == nil then 
-                            garageChampsMissing = true 
-                            champManquant = "spawn du garage"
-                            -- print("Position du spawn manquante")
-                        elseif Properties.admin.rotGarageSpawn == nil then 
-                            garageChampsMissing = true 
-                            champManquant = "rotation du garage"
-                            -- print("Rotation du spawn manquante")
-                        elseif Properties.garageSelected == nil then 
-                            garageChampsMissing = true 
-                            champManquant = "type de garage"
-                            -- print("Type de garage manquant")
-                        end
-                        
-                        if garageChampsMissing then
-                            return ESX.ShowNotification('❌ Le ' .. champManquant .. ' n\'est pas défini')
-                        end
+                        if Properties.admin.posGarage == nil or Properties.admin.posGarageSpawn == nil or Properties.admin.rotGarageSpawn == nil or Properties.Lastplayerpos2 == nil then 
+                            return ESX.ShowNotification('❌ Tout les champs ne sont pas correctement complétés') 
+                        end 
                     end
             
-                    if Properties.admin.entrepot == true and Properties.admin.pound == nil then 
-                        -- print("Échec: Poids de l'entrepôt manquant")
-                        return ESX.ShowNotification('❌ Le poids de l\'entrepôt n\'est pas défini') 
-                    end 
+                    if Properties.admin.entrepot == true then
+                        if Properties.admin.pound == nil then 
+                            return ESX.ShowNotification('❌ Tout les champs ne sont pas correctement complétés') 
+                        end 
+                    end
             
                     exports['prompt']:createPrompt(
                         SunnyConfigServ.ServerName,
                         'Êtes-vous sûr de vouloir créer cette propriété ?',
                         '',
                         function(response)
-                            if response then
+                            if response then -- Oui
                                 if Properties.admin.visitmode then
                                     SetEntityCoords(PlayerPedId(), Properties.Lastplayerpos)
                                 end
             
                                 if Properties.admin.Menu.action.garage then
-                                    if Properties.Lastplayerpos2 then
-                                        SetEntityCoords(PlayerPedId(), Properties.Lastplayerpos2)
-                                    end
-                                end
-                                
-                                -- print("=== ENVOI DES DONNÉES AU SERVEUR ===")
-                                local garageTypeToSend = Properties.garageSelected
-                                if not garageTypeToSend then
-                                    garageTypeToSend = Properties.admin.Menu.action.garage and "garage2" or nil
-                                    -- print("Type de garage défini par défaut: " .. tostring(garageTypeToSend))
+                                    SetEntityCoords(PlayerPedId(), Properties.Lastplayerpos2)
                                 end
             
-                                TriggerServerEvent('sunny:properties:createProperties', 
-                                    Properties.admin.name, 
-                                    Properties.admin.label, 
-                                    Properties.admin.price, 
-                                    Properties.admin.enter, 
-                                    Properties.admin.exit, 
-                                    Properties.admin.Menu.action.garage, 
-                                    Properties.admin.posGarage, 
-                                    Properties.admin.posGarageSpawn, 
-                                    Properties.admin.rotGarageSpawn, 
-                                    garageTypeToSend, 
-                                    Properties.admin.typeData, 
-                                    Properties.admin.trunk, 
-                                    Properties.admin.logementType, 
-                                    Properties.admin.current_zone, 
-                                    Properties.admin.entrepot, 
-                                    Properties.admin.pound
-                                )
-                            else
-                                ESX.ShowNotification('Action annulée')
+                                local data = {
+                                    name = Properties.garageSelected,
+                                }
+                                TriggerServerEvent('sunny:properties:createProperties', Properties.admin.name, Properties.admin.label, Properties.admin.price, Properties.admin.enter, Properties.admin.exit, Properties.admin.Menu.action.garage, Properties.admin.posGarage, Properties.admin.posGarageSpawn, Properties.admin.rotGarageSpawn, data.name, Properties.admin.typeData, Properties.admin.trunk, Properties.admin.logementType, Properties.admin.current_zone, Properties.admin.entrepot, Properties.admin.pound)
+                            else -- Non
+                                ESX.ShowNotification('Vous avez annulé l\'action')
                             end
                         end
                     )
@@ -656,7 +565,7 @@ function Properties:openArcadiusMenu(type)
                         end
                 
                         exports['prompt']:createPrompt(
-                            SunnyConfigServ.ServerName,
+                            SunnyConfigServ.ServerName, 
                             'Êtes-vous sûr de vouloir attribuer ce logement ?',
                             '',
                             function(response)
@@ -667,7 +576,7 @@ function Properties:openArcadiusMenu(type)
                                     }
                                     TriggerServerEvent('sunny:properties:job:addPropertiesForPlayer', GetPlayerServerId(closestPlayer), Properties.job.SelectedProperties.price, Properties.job.SelectedProperties.id, paid[Properties.job.PropertiesListIndexPaid], Properties.job.time or 0)
                                 else -- Non
-                                    ESX.ShowNotification('Action annulée')
+                                    ESX.ShowNotification('Vous avez annulé l\'action')
                                 end
                             end
                         )
@@ -799,29 +708,3 @@ AddEventHandler('sunny:properties:job:service', function()
         end
     end
 end)
-
-RegisterNetEvent('sunny:properties:updateSocietyMoney', function(jobName, money)
-    if ESX.PlayerData.job.name ~= jobName then return end
-    Config.Personalmenu.soceityMoney = money
-end)
-
-RegisterNetEvent('sunny:properties:updateOwner', function(propertiesID, owner, ownerName)
-    if not Properties.PropertiesList[propertiesID] then return end
-    
-    Properties.PropertiesList[propertiesID].owner = owner
-    Properties.PropertiesList[propertiesID].ownerName = ownerName
-end)
-
-
-RegisterNetEvent('sunny:properties:delete', function(propertiesID)
-    Properties.PropertiesList[propertiesID] = nil
-    if Properties.job.SelectedProperties and Properties.job.SelectedProperties.id == propertiesID then
-        Properties.job.SelectedProperties = {}
-    end
-end)
-
-function RefrehEntrepriseMoney()
-    ESX.TriggerServerCallback('esx_society:getSocietyMoney', function(money)
-        Config.Personalmenu.soceityMoney = money
-    end, ESX.PlayerData.job.name)
-end

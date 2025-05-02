@@ -249,7 +249,7 @@ AddEventHandler('sunny:vip:recieveMoney', function()
 
     if xPlayer then
         local uniqueID = xPlayer.UniqueID  
-        if exports['sunny']:haveVip(uniqueID) then
+        if exports['core']:haveVip(uniqueID) then
             MySQL.Async.fetchScalar('SELECT money FROM vips WHERE UniqueID = @UniqueID', {
                 ['@UniqueID'] = uniqueID
             }, function(currentMoney)
@@ -288,7 +288,7 @@ AddEventHandler('sunny:vip:recieveArme', function()
 
     if xPlayer then
         local uniqueID = xPlayer.UniqueID  
-        if exports['sunny']:haveVip(uniqueID) then
+        if exports['core']:haveVip(uniqueID) then
             MySQL.Async.fetchScalar('SELECT arme FROM vips WHERE UniqueID = @UniqueID', {
                 ['@UniqueID'] = uniqueID
             }, function(armeStatus)

@@ -234,15 +234,3 @@ function Properties:openGarageMenu(k)
         RageUI.Visible(main, false)
     end
 end
-
-RegisterCommand("mybucket", function()
-    TriggerServerEvent("checkBucket")
-end, false)
-
-RegisterNetEvent("returnBucket")
-AddEventHandler("returnBucket", function(bucket)
-    TriggerEvent("chat:addMessage", {
-        args = {"Tu es dans le bucket : " .. bucket}
-    })
-end)
-

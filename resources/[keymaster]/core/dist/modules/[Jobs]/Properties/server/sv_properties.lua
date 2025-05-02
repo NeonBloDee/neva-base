@@ -1,88 +1,59 @@
--- Initialize Properties object first
-Properties = {
-    PropertiesList = {},
-    Loaded = false,
-    garage = {
-        count2 = {}
-    }
-}
-
 function Properties:Load()
-    MySQL.Async.fetchAll('SELECT * FROM properties', {}, function(result)
-        -- Clear existing data
-        self.PropertiesList = {}
-        
-        -- Debug print
-        -- print("^3Loading properties... Found " .. #result .. " properties^7")
-        
-        if result then
-            for _, v in pairs(result) do
-                -- Add validation
-                if not v.propertiesID then
-                    print("^1Error: Invalid property data - missing ID^7")
-                    goto continue
-                end
 
-                local defaultTrunk = {
-                    items = {},
-                    weapons = {},
-                    accounts = {cash = 0, black_money = 0},
-                    code = {active = false, blocked = false, code = nil}
+    MySQL.Async.fetchAll('SELECT * FROM properties', {}, function(p)
+
+        local pcount = 0
+
+        for k,v in pairs(p) do
+            Properties.PropertiesList[v.propertiesID] = {
+                id = v.propertiesID,
+                owner = v.propertiesOWNER,
+                ownerName = v.ownerName,
+                name = v.name,
+                label = v.label,
+                price = v.price,
+                enter = json.decode(v.enter),
+                exit = json.decode(v.exit),
+                street_name = v.street,
+                trunkPos = json.decode(v.trunkPos),
+                garage = v.garage,
+                garagePos = json.decode(v.garagePos),
+                garageSpawn = json.decode(v.garageSpawn),
+                garageRotation = v.garageRotation,
+                garageType = v.garageType,
+                players = json.decode(v.players),
+                type = v.type,
+                logementType = v.logementType,
+                open = false,
+                playersIG = {},
+                coffreOpen = false,
+                interphone = {},
+                entrepot = v.entrepot,
+                pound = v.pound
+            }
+
+            if json.encode(v.trunk) == '[]' or json.encode(v.trunk) == 'null' then
+                Properties.PropertiesList[v.propertiesID].trunk = {
+                    ['items'] = {},
+                    ['weapons'] = {},
+                    ['accounts'] = {
+                        cash = 0,
+                        black_money = 0
+                    },
+                    ['code'] = {
+                        active = false,
+                        blocked = false,
+                        code = nil
+                    }
                 }
-
-                -- Safely decode JSON fields with error handling
-                local function safeJsonDecode(str, default)
-                    if not str or str == "" or str == "null" then return default end
-                    local success, result = pcall(json.decode, str)
-                    return success and result or default
-                end
-
-                -- Decode all JSON fields
-                local enter = safeJsonDecode(v.enter, {})
-                local exit = safeJsonDecode(v.exitPos, {})
-                local trunk = safeJsonDecode(v.trunk, defaultTrunk)
-                local garagePos = safeJsonDecode(v.garagePos, {})
-                local garageSpawn = safeJsonDecode(v.garageSpawn, {})
-                local players = safeJsonDecode(v.players, {})
-
-                -- Debug print
-                -- print(("^2Loading property ID %d - %s^7"):format(v.propertiesID, v.name))
-
-                self.PropertiesList[v.propertiesID] = {
-                    id = v.propertiesID,
-                    owner = v.propertiesOWNER or 'none',
-                    ownerName = v.ownerName or 'none',
-                    name = v.name,
-                    label = v.label,
-                    price = v.price,
-                    enter = enter,
-                    exit = exit,
-                    street_name = v.street,
-                    trunkPos = safeJsonDecode(v.trunk, {}),
-                    garage = v.garage == 1,
-                    garagePos = garagePos,
-                    garageSpawn = garageSpawn,
-                    garageRotation = v.garageRotation,
-                    garageType = v.garageType,
-                    players = players,
-                    type = v.type,
-                    logementType = v.logementType,
-                    trunk = trunk,
-                    open = false,
-                    playersIG = {},
-                    coffreOpen = false,
-                    interphone = {},
-                    entrepot = v.entrepot == 1,
-                    pound = v.pound,
-                    time = v.time
-                }
-
-                ::continue::
+            else
+                Properties.PropertiesList[v.propertiesID].trunk = json.decode(v.trunk)
             end
+
+            pcount += 1
         end
 
-        self.Loaded = true
-        -- print(("^2Successfully loaded %d properties^7"):format(#result))
+
     end)
 end
 
@@ -110,6 +81,7 @@ end
 CreateThread(function()
     Wait(1000)
     Properties:Load()
+
     Properties.Loaded = true
 end)
 
@@ -132,7 +104,7 @@ AddEventHandler('Achat:Maison', function(Infos)
 
         xPlayer.removeAccountMoney('cash', PrixMaison)
 
-        MySQL.Async.execute('UPDATE properties SET propertiesOWNER = @propertiesOwner WHERE propertiesID = @propertiesID', {
+        MySQL.Async.execute('UPDATE properties SET propertiesOwner = @propertiesOwner WHERE propertiesID = @propertiesID', {
             ['@propertiesOwner'] = IdUnique,
             ['@propertiesID'] = IdMaison
         }, function(affectedRows)
@@ -189,96 +161,93 @@ end)
 RegisterNetEvent('sunny:properties:createProperties', function(name, label, price, enter, exit, garage, posGarage, posGarageSpawn, rotGarageSpawn, garageType, type, trunkPos, logementType, current_zone, entrepot, pound)
     local source = source
     local xPlayer = ESX.GetPlayerFromId(source)
-    if not xPlayer then return end
 
     local society = Society:getSociety(xPlayer.job.name)
+
     if not society then return end
 
-    if not name or not label or not price then
-        return TriggerClientEvent('esx:showNotification', source, 'Données invalides: nom, label ou prix manquant')
+    if garage == false or garage == nil then
+        garage = 0 posGarage = 'none' posGarageSpawn = 'none' rotGarageSpawn = 'none' garageType = 'none'
+    else
+        garage = 1
     end
-    
-    if garage and (not posGarage or not posGarageSpawn or not rotGarageSpawn or not garageType) then
-        return TriggerClientEvent('esx:showNotification', source, 'Informations de garage incomplètes')
-    end
-    
-    if not posGarage then posGarage = {} end
-    if not posGarageSpawn then posGarageSpawn = {} end
-    if not garageType then garageType = "garage2" end
-    if not rotGarageSpawn then rotGarageSpawn = 0.0 end
 
-    MySQL.Async.execute('INSERT INTO properties (propertiesOWNER, name, label, price, enter, exitPos, garage, garagePos, garageSpawn, garageRotation, garageType, type, trunk, logementType, street, entrepot, pound, ownerName, time) VALUES (@owner, @name, @label, @price, @enter, @exit, @garage, @garagePos, @garageSpawn, @garageRotation, @garageType, @type, @trunk, @logementType, @street, @entrepot, @pound, @ownerName, @time)', {
-        ['@owner'] = 'none',
-        ['@name'] = name,
-        ['@label'] = label,
-        ['@price'] = price,
-        ['@enter'] = json.encode(enter),
-        ['@exit'] = json.encode(exit),
-        ['@garage'] = garage and 1 or 0,
-        ['@garagePos'] = json.encode(posGarage),
-        ['@garageSpawn'] = json.encode(posGarageSpawn),
-        ['@garageRotation'] = rotGarageSpawn,
+    if entrepot == false or entrepot == nil then
+        entrepot = 0 pound = 0
+    else
+        entrepot = 1 pound = pound
+    end
+
+    MySQL.Async.execute('INSERT INTO properties (propertiesOWNER, name, label, price, enter, `exit`, garage, garagePos, garageSpawn, garageRotation, garageType, players, type, `trunkPos`, logementType, street, entrepot, pound) VALUES (@propertiesOWNER, @name, @label, @price, @enter, @exit, @garage, @garagePos, @garageSpawn, @garageRotation, @garageType, @players, @type, @trunkPos, @logementType, @street, @entrepot, @pound)', {
+        ['@propertiesOWNER'] = 'none', 
+        ['@name'] = name, 
+        ['@label'] = label, 
+        ['@price'] = price, 
+        ['@enter'] = json.encode(enter), 
+        ['@exit'] = json.encode(exit), 
+        ['@garage'] = garage, 
+        ['@garagePos'] = json.encode(posGarage), 
+        ['@garageSpawn'] = json.encode(posGarageSpawn), 
+        ['@garageRotation'] = rotGarageSpawn, 
         ['@garageType'] = garageType,
+        ['@players'] = json.encode({}),
         ['@type'] = type,
-        ['@trunk'] = json.encode(trunkPos),
+        ['@trunkPos'] = json.encode(trunkPos),
         ['@logementType'] = logementType,
         ['@street'] = current_zone,
-        ['@entrepot'] = entrepot and 1 or 0,
-        ['@pound'] = pound or 0,
-        ['@ownerName'] = 'none',
-        ['@time'] = 0
-    }, function(affectedRows)
-        if affectedRows == 0 then
-            return TriggerClientEvent('esx:showNotification', source, 'Erreur lors de la création')
-        end
+        ['@entrepot'] = entrepot,
+        ['@pound'] = pound
+    }, function()
 
-        MySQL.Async.fetchAll('SELECT LAST_INSERT_ID() as id', {}, function(result)
-            if not result[1] then return end
-            
-            local insertId = result[1].id
+        society.removeSocietyMoney(price/100*75)
 
-            society.removeSocietyMoney(price/100*75)
 
-            Properties.PropertiesList[insertId] = {
-                id = insertId,
-                owner = 'none',
-                ownerName = 'none',
-                name = name,
-                label = label,
-                price = price,
-                enter = enter,
-                exit = exit,
-                street_name = current_zone,
-                trunkPos = trunkPos,
-                garage = garage == 1,
-                garagePos = posGarage,
-                garageSpawn = posGarageSpawn,
-                garageRotation = rotGarageSpawn,
-                garageType = garageType,
-                players = {},
-                type = type,
-                logementType = logementType,
-                trunk = {
-                    items = {},
-                    weapons = {},
-                    accounts = {
-                        cash = 0,
-                        black_money = 0
+        MySQL.Async.fetchAll('SELECT * FROM properties WHERE name = @name', {
+            ['@name'] = name
+        }, function(result)
+            for k,v in pairs(result) do
+                Properties.PropertiesList[v.propertiesID] = {
+                    id = v.propertiesID,
+                    owner = 'none',
+                    ownerName = 'none',
+                    name = v.name,
+                    label = v.label,
+                    price = v.price,
+                    enter = json.decode(v.enter),
+                    exit = json.decode(v.exit),
+                    street_name = current_zone,
+                    trunkPos = json.decode(v.trunkPos),
+                    garage = v.garage,
+                    garagePos = json.decode(v.garagePos),
+                    garageSpawn = json.decode(v.garageSpawn),
+                    garageRotation = v.garageRotation,
+                    garageType = v.garageType,
+                    players = json.decode(v.players),
+                    type = v.type,
+                    logementType = v.logementType,
+                    trunk = {
+                        ['items'] = {},
+                        ['weapons'] = {},
+                        ['accounts'] = {
+                            cash = 0,
+                            black_money = 0
+                        },
+                        ['code'] = {
+                            active = false,
+                            blocked = false,
+                            code = nil
+                        }
                     },
-                    code = {
-                        active = false,
-                        blocked = false,
-                        code = nil
-                    }
-                },
-                entrepot = entrepot == 1,
-                pound = pound,
-                open = false,
-                time = 0
-            }
+                    entrepot = v.entrepot,
+                    pound = v.pound,
+                    open = false,
+                }
+            end
 
-            TriggerClientEvent('sunny:properties:add', -1, insertId, Properties.PropertiesList[insertId])
-            TriggerClientEvent('esx:showNotification', source, ('Propriété %s créée'):format(name))
+            TriggerClientEvent('esx:showNotification', source, ('La propriétée %s a été cree avec succès'):format(name))
+            Wait(1000)
+
+            TriggerClientEvent('sunny:properties:add', -1, result[1].propertiesID, Properties.PropertiesList[result[1].propertiesID])
         end)
     end)
 end)
@@ -322,6 +291,7 @@ RegisterNetEvent('sunny:properties:removePlayer', function(target, value, pId, p
         TriggerClientEvent('sunny:properties:changePlayerSate', source, pId, false)
     elseif value == 'all' then
         for k,v in pairs(Properties.PropertiesList[pId].playersIG) do
+            -- print(v.UniqueID)
             Properties:addPlayer(v.source, 0)
             TriggerClientEvent('sunny:properties:teleport', v.source, vector3(Properties.PropertiesList[pId].enter.x, Properties.PropertiesList[pId].enter.y, Properties.PropertiesList[pId].enter.z))
 
@@ -337,8 +307,35 @@ end)
 AddEventHandler('esx:playerLoaded', function(source)
     local source = source
     local xPlayer = ESX.GetPlayerFromId(source)
+
     Properties.garage.count2[xPlayer.UniqueID] = 0
+
+    Wait(5000)
+
+    for k,v in pairs(Properties.PropertiesList) do
+        if v.owner ~= 'none' then
+            if v.players[tostring(xPlayer.UniqueID)] ~= nil then
+                if v.players[tostring(xPlayer.UniqueID)] == true then
+                    Properties:addPlayer(source, 0)
+                    TriggerClientEvent('sunny:properties:teleport', source, vector3(Properties.PropertiesList[k].enter.x, Properties.PropertiesList[k].enter.y, Properties.PropertiesList[k].enter.z))
+                    TriggerClientEvent('esx:showNotification', source, '🏠 Vous avez été déconnecté en étant dans une propriété')
+                    TriggerClientEvent('sunny:properties:changePlayerSate', source, k, false)
+                end
+            end
+        else
+            if v.players[tostring(xPlayer.UniqueID)] ~= nil then
+                if v.players[tostring(xPlayer.UniqueID)] == true then
+                    Properties:addPlayer(source, 0)
+                    TriggerClientEvent('sunny:properties:teleport', source, vector3(Properties.PropertiesList[k].enter.x, Properties.PropertiesList[k].enter.y, Properties.PropertiesList[k].enter.z))
+                    TriggerClientEvent('esx:showNotification', source, '🏠 Vous avez été déconnecté en étant dans une propriété')
+                    TriggerClientEvent('sunny:properties:changePlayerSate', source, k, false)
+                end
+            end
+        end
+    end
 end)
+
+
 
 RegisterNetEvent('sunny:properties:locked', function(k, statut)
     Properties.PropertiesList[k].open = statut
@@ -358,11 +355,10 @@ RegisterNetEvent('sunny:properties:sell', function(propertiesID)
 
     if not xPlayer then return end
 
-    MySQL.Async.execute('UPDATE properties SET propertiesOWNER = @owner, ownerName = @ownerName, time = @time WHERE propertiesID = @propertiesID', {
+    MySQL.Async.execute('UPDATE properties SET propertiesOWNER = @owner, players = @players WHERE propertiesID = @propertiesID', {
         ['@propertiesID'] = propertiesID,
         ['@owner'] = 'none',
-        ['@ownerName'] = 'none',
-        ['@time'] = 0
+        ['@players'] = {}
     }, function()
         for k,v in pairs(Properties.PropertiesList[propertiesID].playersIG) do
             Properties:addPlayer(v.source, 0)
@@ -474,9 +470,6 @@ RegisterNetEvent('sunny:properties:interphone:call:refuseEnter', function(proper
     TriggerClientEvent('sunny:propeties:updatePlayers', -1, Properties.PropertiesList[propertiesData.id])
 end)
 
-
--- Systeme de location : 
-
 -- -- CreateThread(function()
 -- --     while true do 
 -- --         Wait(3600000)
@@ -532,7 +525,7 @@ end)
 -- --                     --                 ['@UniqueID'] = v.propertiesOWNER,
 -- --                     --                 ['@accounts'] = json.encode(accounts)
 -- --                     --             }, function()
-                                  
+                                    
 -- --                     --             end)
 -- --                     --         end)      
 -- --                     --     end
@@ -557,19 +550,3 @@ end)
 -- --         end)
 -- --     end
 -- -- end)
-
-AddEventHandler('playerDropped', function(reason)
-    local source = source
-    local xPlayer = ESX.GetPlayerFromId(source)
-    if not xPlayer then return end
-
-    for k,v in pairs(Properties.PropertiesList) do
-        if v.players and v.players[tostring(xPlayer.UniqueID)] then
-            MySQL.Async.execute('UPDATE users SET position = @position WHERE identifier = @identifier', {
-                ['@identifier'] = xPlayer.identifier,
-                ['@position'] = json.encode({x = v.enter.x, y = v.enter.y, z = v.enter.z})
-            })
-            break
-        end
-    end
-end)

@@ -19,81 +19,61 @@ RegisterNetEvent('sunny:properties:job:addPropertiesForPlayer', function(target,
         ['@p'] = targetPlayer.UniqueID,
         ['@n'] = targetPlayer.name,
         ['@time'] = time
-    }, function(rowsChanged)
-        if rowsChanged == 0 then
-            return TriggerClientEvent('esx:showNotification', source, 'Erreur lors de la mise à jour de la propriété')
-        end
-
+    }, function()
         Properties.PropertiesList[propertiesID].owner = tostring(targetPlayer.UniqueID)
         Properties.PropertiesList[propertiesID].ownerName = targetPlayer.name
-        Properties.PropertiesList[propertiesID].time = time
 
-        TriggerClientEvent('sunny:properties:updateOwner', -1, propertiesID, Properties.PropertiesList[propertiesID].owner, Properties.PropertiesList[propertiesID].ownerName)
+        TriggerClientEvent('sunny:properties:updateOwner', -1, propertiesID, Properties.PropertiesList[propertiesID].owner, Properties.PropertiesList[propertiesID].ownerNmame)
 
-        TriggerClientEvent('esx:showNotification', source, ('Propriété attribuée à %s'):format(targetPlayer.name))
         TriggerClientEvent('esx:showNotification', target, ('💲 Vous avez été prélevé de ~y~%s$~s~'):format(price))
+
     end)
 end)
 
 RegisterNetEvent('sunny:properties:delete', function(propertiesID)
-    local source = source
-    if not Properties.PropertiesList[propertiesID] then
-        return TriggerClientEvent('esx:showNotification', source, 'Propriété invalide')
-    end
-
     MySQL.Async.execute('DELETE FROM properties WHERE propertiesID = @propertiesID', {
         ['@propertiesID'] = propertiesID
-    }, function(rowsChanged)
-        if rowsChanged > 0 then
-            Properties.PropertiesList[propertiesID] = nil
-            TriggerClientEvent('sunny:properties:delete', -1, propertiesID)
-            TriggerClientEvent('esx:showNotification', source, 'Propriété supprimée avec succès')
-        end
+    }, function()
+        TriggerClientEvent('sunny:properties:delete', -1, propertiesID)
     end)
 end)
 
 RegisterNetEvent('sunny:properties:moneyBoss', function(society, amount, action)
     local source = source
     local xPlayer = ESX.GetPlayerFromId(source)
-    
-    if not xPlayer then return end
-    
-    local society = Society:getSociety(xPlayer.job.name)
+
+    local society = Society:getSociety(seller.job.name)
+
     if not society then return end
 
-    amount = tonumber(amount)
-    if not amount or amount <= 0 then
-        return TriggerClientEvent('esx:showNotification', source, 'Montant invalide')
-    end
-
     if action == 'deposit' then
-        if xPlayer.getAccount('bank').money < amount then 
-            return TriggerClientEvent('esx:showNotification', source, 'Solde insuffisant') 
-        end
+        if xPlayer.getAccount('bank').money < amount then return TriggerClientEvent('esx:showNotification', source, 'Votre solde bancaire n\'est pas assez élevé') end
 
         society.addSocietyMoney(amount)
         xPlayer.removeAccountMoney('bank', amount)
-        
-        TriggerEvent('sunny:properties:refreshSocietyMoney', xPlayer.job.name)
-    elseif action == 'remove' then    
-        local societyAccount = society.getSocietyMoney()
-        if societyAccount < amount then
-            return TriggerClientEvent('esx:showNotification', source, 'Fonds insuffisants dans la société')
-        end
 
+        TriggerClientEvent('esx:showNotification', source, ('Vous avez déposé ~y~%s$~s~'):format(amount))
+
+        -- TriggerEvent('esx_addonaccount:getSharedAccount', society, function(account)
+        --     account.addMoney(amount)
+        --     xPlayer.removeAccountMoney('bank', amount)
+    
+        --     TriggerClientEvent('esx:showNotification', source, ('Vous avez déposez ~y~%s$~s~'):format(amount))
+        -- end)
+    elseif action == 'remove' then    
         society.removeSocietyMoney(amount)
         xPlayer.addAccountMoney('bank', amount)
-        
-        TriggerEvent('sunny:properties:refreshSocietyMoney', xPlayer.job.name)
+
+        TriggerClientEvent('esx:showNotification', source, ('Vous avez pris ~y~%s$~s~'):format(amount))
+
+        -- TriggerEvent('esx_addonaccount:getSharedAccount', society, function(account)
+        --     if account.money < amount then return TriggerClientEvent('esx:showNotification', source, 'Il n\'y a pas assez d\'argent dans le coffre') end
+        --     account.removeMoney(amount)
+        --     xPlayer.addAccountMoney('bank', amount)
+    
+        --     TriggerClientEvent('esx:showNotification', source, ('Vous avez pris ~y~%s$~s~'):format(amount))
+        -- end)
     end
-end)
-
-RegisterNetEvent('sunny:properties:refreshSocietyMoney', function(jobName)
-    local society = Society:getSociety(jobName)
-    if not society then return end
-
-    local money = society.getSocietyMoney()
-    TriggerClientEvent('sunny:properties:updateSocietyMoney', -1, jobName, money)
 end)
 
 RegisterNetEvent('sunny:properties:disouLogement', function(propertiesID)

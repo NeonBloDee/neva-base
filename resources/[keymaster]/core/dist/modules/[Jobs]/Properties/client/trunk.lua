@@ -1,50 +1,20 @@
-local defaultTrunk = {
-    items = {},
-    weapons = {},
-    accounts = {
-        cash = 0,
-        black_money = 0
-    },
-    code = {
-        active = false,
-        blocked = false,
-        code = nil
-    }
-}
-
-RegisterNetEvent('sunny:properties:trunk:refresh', function(propertiesID, trunkData)
-    if not propertiesID or not trunkData then return end
-    Properties.PropertiesList[propertiesID].trunk = trunkData 
+RegisterNetEvent('sunny:properties:trunk:refresh', function(propertiesID, k)
+    if k == nil then
+    else
+        Properties.PropertiesList[propertiesID].trunk = k
+    end
 end)
+
 
 local used = false
 
 function Properties:openTrunkMenu(k)
-    if not Properties.PropertiesList[k].trunk then
-        Properties.PropertiesList[k].trunk = {
-            items = {},
-            weapons = {},
-            accounts = {
-                cash = 0,
-                black_money = 0
-            },
-            code = {
-                active = false,
-                blocked = false,
-                code = nil
-            }
-        }
+    if Properties.PropertiesList[k].trunk['code'].active == true then
+        Properties.PropertiesList[k].trunkUnLocked = false
+    else
+        Properties.PropertiesList[k].trunkUnLocked = true
     end
-
-    if Properties.PropertiesList[k].entrepot == nil then
-        Properties.PropertiesList[k].entrepot = false
-    end
-
-    Properties.PropertiesList[k].trunk.items = Properties.PropertiesList[k].trunk.items or {}
-    Properties.PropertiesList[k].trunk.weapons = Properties.PropertiesList[k].trunk.weapons or {}
-    Properties.PropertiesList[k].trunk.accounts = Properties.PropertiesList[k].trunk.accounts or {cash = 0, black_money = 0}
-    Properties.PropertiesList[k].trunk.code = Properties.PropertiesList[k].trunk.code or {active = false, blocked = false, code = nil}
-
+    Properties.PropertiesList[k].trunkUnLocked = false
     local main = RageUI.CreateMenu('', 'Actions Disponibles')
     local money = RageUI.CreateSubMenu(main, '', 'Actions Disponibles')
     local items = RageUI.CreateSubMenu(main, '', 'Actions Disponibles') 
@@ -59,7 +29,7 @@ function Properties:openTrunkMenu(k)
     FreezeEntityPosition(PlayerPedId(), true)
     while main do Wait(1)
         RageUI.IsVisible(main, function()
-            if Properties.PropertiesList[k] and Properties.PropertiesList[k].type == 'location' and Properties.PropertiesList[k].time and Properties.PropertiesList[k].time <= 0 then 
+            if Properties:ReturnPropertiesData(k).type == 'location' and Properties:ReturnPropertiesData(k).time <= 0 then 
                 RageUI.Separator('Erreur\nCette location n\'éxiste plus !')
                 goto continue
             end
@@ -85,11 +55,11 @@ function Properties:openTrunkMenu(k)
                             'Êtes-vous sûr de vouloir ne pas utiliser de code ?',
                             '',
                             function(response)
-                                if response then
+                                if response then -- Oui
                                     Properties.PropertiesList[k].trunk['code'].active = 'none'
                                     TriggerServerEvent('sunny:properties:trunk:updateCode', k, Properties.PropertiesList[k].trunk['code'])
-                                else
-                                    ESX.ShowNotification('Action annulée')
+                                else -- Non
+                                    ESX.ShowNotification('Action annulée') 
                                 end
                             end
                         )
@@ -134,7 +104,7 @@ function Properties:openTrunkMenu(k)
             end
 
             if Properties.PropertiesList[k].entrepot == 1 or Properties.PropertiesList[k].entrepot == true then
-                RageUI.Separator(('Poid du coffre ~y~%s/KG~s~'):format(Properties.PropertiesList[k].pound or 0))
+                RageUI.Separator(('Poid du coffre ~y~%s/KG~s~'):format(Properties.PropertiesList[k].pound))
             end
 
             RageUI.Button('Argent(s)', nil, {}, true, {
@@ -210,21 +180,18 @@ function Properties:openTrunkMenu(k)
                 end
             }, playerInventory)
             RageUI.WLine()
+            for _,v in pairs(Properties.PropertiesList[k].trunk['items']) do
+                RageUI.Button(v.label, nil, {RightLabel = '~r~'..v.count}, true, {
+                    onSelected = function()
+                        KeyboardUtils.use('Quantité', function(data)
+                            local data = tonumber(data)
 
-            if Properties.PropertiesList[k].trunk.items then
-                for _,v in pairs(Properties.PropertiesList[k].trunk.items) do
-                    RageUI.Button(v.label, nil, {RightLabel = '~r~'..v.count}, true, {
-                        onSelected = function()
-                            KeyboardUtils.use('Quantité', function(data)
-                                local data = tonumber(data)
+                            if data == nil or data <= 0 then return end
 
-                                if data == nil or data <= 0 then return end
-
-                                TriggerServerEvent('sunny:properties:trunk:actionsCoffre', k, v, data, 'remove', 'item', _)
-                            end)
-                        end
-                    })
-                end
+                            TriggerServerEvent('sunny:properties:trunk:actionsCoffre', k, v, data, 'remove', 'item', _)
+                        end)
+                    end
+                })
             end
         end)
 
@@ -256,14 +223,14 @@ function Properties:openTrunkMenu(k)
                 RageUI.Button(v.label, nil, {RightLabel = '~r~'..v.ammo}, true, {
                     onSelected = function()
                         exports['prompt']:createPrompt(
-                            SunnyConfigServ.ServerName,
+                            SunnyConfigServ.ServerName, 
                             'Êtes-vous sûr de vouloir retirer cette arme ?',
                             '',
                             function(response)
-                                if response then
+                                if response then -- Oui
                                     TriggerServerEvent('sunny:properties:trunk:actionsCoffre', k, v, v.ammo, 'remove', 'weapon', v.number, _)
-                                else
-                                    ESX.ShowNotification('Action annulée') 
+                                else -- Non
+                                    ESX.ShowNotification('Action annulée')
                                 end
                             end
                         )
@@ -285,9 +252,9 @@ function Properties:openTrunkMenu(k)
                                 'Êtes-vous sûr de vouloir ajouter cette arme ?',
                                 '',
                                 function(response)
-                                    if response then
+                                    if response then -- Oui
                                         TriggerServerEvent('sunny:properties:trunk:actionsCoffre', k, v, v.ammo, 'add', 'weapon', v.number, _)
-                                    else
+                                    else -- Non
                                         ESX.ShowNotification('Action annulée')
                                     end
                                 end
@@ -319,10 +286,10 @@ function Properties:openTrunkMenu(k)
                             'Êtes-vous sûr de vouloir désactiver le code ?',
                             '',
                             function(response)
-                                if response then
+                                if response then -- Oui
                                     Properties.PropertiesList[k].trunk['code'].active = 'none'
                                     TriggerServerEvent('sunny:properties:trunk:updateCode', k, Properties.PropertiesList[k].trunk['code'])
-                                else
+                                else -- Non
                                     ESX.ShowNotification('Action annulée')
                                 end
                             end
@@ -339,23 +306,24 @@ function Properties:openTrunkMenu(k)
                             'Êtes-vous sûr de vouloir activer le code ?',
                             '',
                             function(response)
-                                if response then
+                                if response then -- Oui
                                     KeyboardUtils.use('Taper un CODE', function(data2)
                                         if data2 and data2 ~= "" then
                                             Properties.PropertiesList[k].trunk['code'].active = true
                                             Properties.PropertiesList[k].trunk['code'].code = data2
+                
                                             TriggerServerEvent('sunny:properties:trunk:updateCode', k, Properties.PropertiesList[k].trunk['code'])
                                         else
                                             ESX.ShowNotification('Le code ne peut pas être vide')
                                         end
                                     end)
-                                else
+                                else -- Non
                                     ESX.ShowNotification('Action annulée')
                                 end
                             end
                         )
-                    end
                 })
+                
             end
         end)
 

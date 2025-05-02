@@ -18,19 +18,19 @@ Properties = {
                     {pos = vector3(175.1755, -1002.846, -99.42455), heading = 178.6955871582},
                 }
             },
-            ["garage6"] = {
-                label = "Garage 6 places",
-                interior = vector3(206.6894, -999.0654, -98.99989),
-                max = 6,
-                position = {
-                    {pos = vector3(194.408, -1004.851, -99.42418), heading = 270.47576904297},
-                    {pos = vector3(194.5036, -1001.007, -99.42425), heading = 271.66897583008},
-                    {pos = vector3(194.4164, -997.3073, -99.42166), heading = 270.88955688477},
-                    {pos = vector3(202.9585, -1004.814, -99.42412), heading = 90.237487792969},
-                    {pos = vector3(202.7753, -1000.916, -99.4239), heading = 91.076049804688},
-                    {pos = vector3(202.8017, -996.7482, -99.42432), heading = 92.65860748291},
-                }
-            },
+            -- ["garage6"] = {
+            --     label = "Garage 6 places",
+            --     interior = vector3(206.6894, -999.0654, -98.99989),
+            --     max = 6,
+            --     position = {
+            --         {pos = vector3(194.408, -1004.851, -99.42418), heading = 270.47576904297},
+            --         {pos = vector3(194.5036, -1001.007, -99.42425), heading = 271.66897583008},
+            --         {pos = vector3(194.4164, -997.3073, -99.42166), heading = 270.88955688477},
+            --         {pos = vector3(202.9585, -1004.814, -99.42412), heading = 90.237487792969},
+            --         {pos = vector3(202.7753, -1000.916, -99.4239), heading = 91.076049804688},
+            --         {pos = vector3(202.8017, -996.7482, -99.42432), heading = 92.65860748291},
+            --     }
+            -- },
             ["garage12"] = {
                 label = "Garage 12 places",
                 interior = vector3(238.0304, -1004.904, -98.99994),
@@ -218,43 +218,23 @@ Properties = {
     }
 }
 
-local PlayerPedId = PlayerPedId
-local GetEntityCoords = GetEntityCoords
-local DrawMarker = DrawMarker
-
 RegisterNetEvent('sunny:properties:updateProperties', function(propertyId, propertyData)
-    if not propertyId or not propertyData then return end
-    
-    propertyData.players = propertyData.players or {}
-    propertyData.exit = propertyData.exit or {x = 0, y = 0, z = 0}
-    
-    Properties.PropertiesList[propertyId] = propertyData
+    if Properties.PropertiesList[propertyId] then
+        Properties.PropertiesList[propertyId] = propertyData
+    else
+        Properties.PropertiesList[propertyId] = propertyData
+    end
+
     Properties:updateBlips()
+
 end)
 
 RegisterNetEvent('sunny:properties:load', function(data)
-    print("^3Loading properties...^7")
-    
-    if not Properties then return end -- Vérification supplémentaire
-    
-    Properties.PropertiesList = {}
-    for k,v in pairs(data) do
-        if not v.trunk then
-            v.trunk = {
-                items = {},
-                weapons = {},
-                accounts = {cash = 0, black_money = 0},
-                code = {active = false, blocked = false, code = nil}
-            }
-        end
-        Properties.PropertiesList[k] = v
-    end
-    
-    if Properties.updateBlips then
-        Properties:updateBlips()
-    end
+    Properties.PropertiesList = data
+
+    Properties:updateBlips()
+
     Properties.Load = true
-    print("^2Properties loaded successfully^7")
 end)
 
 RegisterNetEvent('sunny:properties:add', function(i,data)
@@ -278,47 +258,46 @@ RegisterNetEvent('sunny:properties:delete', function(k)
     Properties.PropertiesList[k] = nil
 end)
 
-function Properties:getPropertyLabel(property)
-    local status = property.owner == 'none' and 'À Vendre' or 'Occupé'
-    local type = property.type == 'location' and 'Location' or 'Vente'
-    local price = property.price and ESX.Math.GroupDigits(property.price) or ''
-    
-    if property.owner == tostring(ESX.GetPlayerData().UniqueID) then
-        return ('Ma propriété - %s'):format(property.label)
-    end
-    
-    return ('%s - %s\n%s$'):format(property.label, status, price)
-end
-
 function Properties:updateBlips()
-    for _, blip in pairs(self.blips) do
-        RemoveBlip(blip)
+    for k,v in pairs(Properties.blips) do
+        RemoveBlip(v)
     end
-    self.blips = {}
+    for k,v in pairs(Properties.PropertiesList) do
+        if tostring(v.owner) == tostring(ESX.GetPlayerData().UniqueID) then
+            local blip = AddBlipForCoord(v.enter.x, v.enter.y, v.enter.z)
+            SetBlipSprite(blip, 40)
+            SetBlipDisplay(blip, 4)
+            SetBlipScale(blip, 0.3)
+            SetBlipColour(blip, 4)
+            SetBlipAsShortRange(blip, true)
+            BeginTextCommandSetBlipName("STRING")
+            if v.type == 'location' then
+                AddTextComponentString('[LOCATAIRE] Propriété')
+            else
+                AddTextComponentString('[PROPRIETAIRE] Propriété')
+            end
+            EndTextCommandSetBlipName(blip)
 
-    for _, property in pairs(self.PropertiesList) do
-        if not property.enter then goto continue end
+            Properties.blips[blip] = blip
+        else
+            if v.owner == 'none' then
+                local blip = AddBlipForCoord(v.enter.x, v.enter.y, v.enter.z)
+                SetBlipSprite(blip, 350)
+                SetBlipDisplay(blip, 4)
+                SetBlipScale(blip, 0.5)
+                SetBlipColour(blip, 2)
+                SetBlipAsShortRange(blip, true)
+                BeginTextCommandSetBlipName("STRING")
+                if v.type == 'location' then
+                    AddTextComponentString('[LOCATION] Propriété')
+                else
+                    AddTextComponentString('[ACHAT] Propriété')
+                end
+                EndTextCommandSetBlipName(blip)
 
-        local blipData = {
-            sprite = property.owner == 'none' and 350 or 40,
-            color = property.owner == tostring(ESX.GetPlayerData().UniqueID) and 4 or 2,
-            scale = property.owner == 'none' and 0.5 or 0.3,
-            label = self:getPropertyLabel(property)
-        }
-
-        local blip = AddBlipForCoord(property.enter.x, property.enter.y, property.enter.z)
-        SetBlipSprite(blip, blipData.sprite)
-        SetBlipDisplay(blip, 4)
-        SetBlipScale(blip, blipData.scale)
-        SetBlipColour(blip, blipData.color)
-        SetBlipAsShortRange(blip, true)
-        BeginTextCommandSetBlipName("STRING")
-        AddTextComponentString(blipData.label)
-        EndTextCommandSetBlipName(blip)
-
-        self.blips[GetBlipFromEntity(blip)] = blip
-
-        ::continue::
+                Properties.blips[blip] = blip
+            end
+        end
     end
 end
 
@@ -420,9 +399,7 @@ CreateThread(function()
                 if trunkPos[v.id] <= 1 then
                     DrawInstructionBarNotification(v.trunkPos.x, v.trunkPos.y, v.trunkPos.z, "Appuyez sur [ ~g~E~w~ ] pour intéragir (coffre)")
                     if IsControlJustPressed(0, 54) then
-                        ExecuteCommand('closemenu')
-                        Wait(100)
-                        Properties:openTrunkMenu(k) -- Cette fonction est maintenant celle définie dans trunk.lua
+                        Properties:openTrunkMenu(k)
                     end
                 end
             end
@@ -492,10 +469,12 @@ function Properties:openBuilderMenu()
             RageUI.List('Intérieur', Properties.admin.Menu.action, Properties.admin.Menu.list, nil, {}, true, {
                 onListChange = function(Index)
                     Properties.admin.Menu.list = Index
+
                     Properties.admin.logementType = Properties.admin.Menu.action[Properties.admin.Menu.list]
                 end,
                 onActive = function()
                     if Properties.admin.Menu.list == 1 then
+                        RenderSprite('prop', 'Motel', 0, 550, 530, 250, 80)
                         ipl = '["hei_hw1_blimp_interior_v_motel_mp_milo_"]'
                         inside = '{"x":151.45,"y":-1007.57,"z":-98.9999}'
                         exit = '{"x":151.3258,"y":-1007.7642,"z":-100.0000}'
@@ -503,6 +482,7 @@ function Properties:openBuilderMenu()
                         isRoom = 1
                         isGateway = current_zone
                     elseif Properties.admin.Menu.list == 2 then
+                        RenderSprite('prop', 'Low', 0, 550, 530, 250, 80)
                         ipl = '[]'
                         inside = '{"x":265.307,"y":-1002.802,"z":-101.008}'
                         exit = '{"x":266.0773,"y":-1007.3900,"z":-101.008}'
@@ -510,6 +490,7 @@ function Properties:openBuilderMenu()
                         isRoom = 1
                         isGateway = current_zone
                     elseif Properties.admin.Menu.list == 3 then
+                        RenderSprite('prop', 'Middle', 0, 550, 530, 250, 80)
                         ipl = '[]'
                         inside = '{"x":-612.16,"y":59.06,"z":97.2}'
                         exit = '{"x":-603.4308,"y":58.9184,"z":97.2001}'
@@ -517,6 +498,7 @@ function Properties:openBuilderMenu()
                         isRoom = 1
                         isGateway = current_zone
                     elseif Properties.admin.Menu.list == 4 then
+                        RenderSprite('prop', 'Modern',0, 550, 530, 250, 80)
                         ipl = '["apa_v_mp_h_01_a"]'
                         inside = '{"x":-785.13,"y":315.79,"z":187.91}'
                         exit = '{"x":-786.87,"y":315.7497,"z":186.91}'
@@ -524,6 +506,7 @@ function Properties:openBuilderMenu()
                         isRoom = 1
                         isGateway = current_zone
                     elseif Properties.admin.Menu.list == 5 then
+                        RenderSprite('prop', 'High', 0, 550, 530, 250, 80)
                         ipl = '[]'
                         inside = '{"x":-1459.17,"y":-520.58,"z":54.929}'
                         exit = '{"x":-1451.6394,"y":-523.5562,"z":55.9290}'
@@ -531,6 +514,7 @@ function Properties:openBuilderMenu()
                         isRoom = 1
                         isGateway = current_zone
                     elseif Properties.admin.Menu.list == 6 then
+                        RenderSprite('prop', 'Luxe', 0, 550, 530, 250, 80)
                         ipl = '[]'
                         inside = '{"x":-680.6088,"y":590.5321,"z":145.39}'
                         exit = '{"x":-681.6273,"y":591.9663,"z":144.3930}'
@@ -538,6 +522,7 @@ function Properties:openBuilderMenu()
                         isRoom = 1
                         isGateway = current_zone
                     elseif Properties.admin.Menu.list == 7 then
+                        RenderSprite('prop', 'Entrepot_grand', 0, 550, 530, 250, 80)
                         ipl = '[]'
                         inside = '{"x":1026.5056,"y":-3099.8320,"z":-38.9998}'
                         exit   = '{"x":998.1795"y":-3091.9169,"z":-39.9999}'
@@ -545,6 +530,7 @@ function Properties:openBuilderMenu()
                         isRoom = 1
                         isGateway = current_zone
                     elseif Properties.admin.Menu.list == 8 then
+                        RenderSprite('prop', 'Entrepot_moyen', 0, 550, 530, 250, 80)
                         ipl = '[]'
                         inside = '{"x":1048.5067,"y":-3097.0817,"z":-38.9999}'
                         exit   = '{"x":1072.5505,"y":-3102.5522,"z":-39.9999}'
@@ -552,6 +538,7 @@ function Properties:openBuilderMenu()
                         isRoom = 1
                         isGateway = current_zone
                     elseif Properties.admin.Menu.list == 9 then
+                        RenderSprite('prop', 'Entrepot_petit', 0, 550, 530, 250, 80)
                         ipl = '[]'
                         inside = '{"x":1088.1834,"y":-3099.3547,"z":-38.9999}'
                         exit  = '{"x":1104.6102,"y":-3099.4333,"z":-39.9999}'
@@ -559,6 +546,7 @@ function Properties:openBuilderMenu()
                         isRoom = 1
                         isGateway = current_zone
                     elseif Properties.admin.Menu.list == 0 or index == nil then
+                        RenderSprite('prop', 'Motel', 0, 550, 530, 250, 80)
                         ipl = '["hei_hw1_blimp_interior_v_motel_mp_milo_"]'
                         inside = '{"x":151.45,"y":-1007.57,"z":-98.9999}'
                         exit = '{"x":151.3258,"y":-1007.7642,"z":-100.0000}'
@@ -708,11 +696,11 @@ function Properties:openBuilderMenu()
                     end
             
                     exports['prompt']:createPrompt(
-                        SunnyConfigServ.ServerName, 
+                        SunnyConfigServ.ServerName,
                         'Êtes-vous sûr de vouloir confirmer ?',
                         '',
                         function(response)
-                            if response then
+                            if response then -- Oui
                                 if Properties.admin.visitmode then
                                     SetEntityCoords(PlayerPedId(), Properties.Lastplayerpos)
                                 end
@@ -726,9 +714,9 @@ function Properties:openBuilderMenu()
                                 }
             
                                 TriggerServerEvent(
-                                    'sunny:properties:createProperties',
+                                    'neva:properties:createProperties',
                                     Properties.admin.name,
-                                    Properties.admin.label, 
+                                    Properties.admin.label,
                                     Properties.admin.price,
                                     Properties.admin.enter,
                                     Properties.admin.exit,
@@ -746,7 +734,7 @@ function Properties:openBuilderMenu()
                                 )
             
                                 ESX.ShowNotification('Propriété créée avec succès')
-                            else
+                            else -- Non
                                 ESX.ShowNotification('Action annulée')
                             end
                         end
@@ -827,28 +815,7 @@ RegisterCommand('Properties', function()
     Properties:openBuilderMenu()
 end)
 
--- Optimize menu interactions
-function Properties:openMenu(propertyId)
-    if not self.PropertiesList[propertyId] then return end
-    
-    local property = self.PropertiesList[propertyId]
-    -- Initialize missing fields with defaults
-    property.players = property.players or {}
-    property.exit = property.exit or {x = 0, y = 0, z = 0}
-    
-    local playerData = ESX.GetPlayerData()
-
-    local menuElements = {}
-    
-    if property.owner == 'none' then
-        table.insert(menuElements, {
-            label = ('Acheter: %s$'):format(property.price),
-            action = function()
-                TriggerServerEvent('Achat:Maison', property)
-            end
-        })
-    end
-
+function Properties:openMenu(k)
     local main = RageUI.CreateMenu('', 'Actions Disponibles')
 
     local interphoneMenu = RageUI.CreateSubMenu(main, '', 'Actions Disponibles')
@@ -860,17 +827,17 @@ function Properties:openMenu(propertyId)
     FreezeEntityPosition(PlayerPedId(), true)
     while main do Wait(1)
         RageUI.IsVisible(main, function()
-            if Properties.PropertiesList[propertyId].owner == 'none' then
-                RageUI.Separator(('Propriétée disponible à %s'):format(Properties.PropertiesList[propertyId].type == 'location' and 'la location' or 'l\'achat'))
-                if Properties.PropertiesList[propertyId].owner == 'none' and ESX.PlayerData.job.name == 'realestateagent' then
-                    RageUI.Checkbox(('Statut de la propriétée (%s)'):format(Properties.PropertiesList[propertyId].open == true and '~g~Ouvert~s~' or '~r~Fermé~s~'), nil, Properties.PropertiesList[propertyId].open, {}, {
+            if Properties.PropertiesList[k].owner == 'none' then
+                RageUI.Separator(('Propriétée disponible à %s'):format(Properties.PropertiesList[k].type == 'location' and 'la location' or 'l\'achat'))
+                if Properties.PropertiesList[k].owner == 'none' and ESX.PlayerData.job.name == 'realestateagent' then
+                    RageUI.Checkbox(('Statut de la propriétée (%s)'):format(Properties.PropertiesList[k].open == true and '~g~Ouvert~s~' or '~r~Fermé~s~'), nil, Properties.PropertiesList[k].open, {}, {
                         onChecked = function()
-                            Properties.PropertiesList[propertyId].open = true
-                            TriggerServerEvent('sunny:properties:locked', propertyId, Properties.PropertiesList[propertyId].open)
+                            Properties.PropertiesList[k].open = true
+                            TriggerServerEvent('sunny:properties:locked', k, Properties.PropertiesList[k].open)
                         end,
                         onUnChecked = function()
-                            Properties.PropertiesList[propertyId].open = false
-                            TriggerServerEvent('sunny:properties:locked', propertyId, Properties.PropertiesList[propertyId].open)
+                            Properties.PropertiesList[k].open = false
+                            TriggerServerEvent('sunny:properties:locked', k, Properties.PropertiesList[k].open)
                         end
                     })
                 end
@@ -881,50 +848,50 @@ function Properties:openMenu(propertyId)
                         ESX.ShowNotification('🧭 GPS défini avec succès')
                     end
                 })
-                RageUI.Button('Acheter la propriété : ~g~'..Properties.PropertiesList[propertyId].price..'$', nil, {}, true, {
+                RageUI.Button('Acheter la propriété : ~g~'..Properties.PropertiesList[k].price..'$', nil, {}, true, {
                     onSelected = function()
-                        local table = Properties.PropertiesList[propertyId]
+                        local table = Properties.PropertiesList[k]
                         TriggerServerEvent('Achat:Maison', table)
                     end
                 })
             end
-            if Properties.PropertiesList[propertyId].owner ~= 'none' then
-                RageUI.Separator(('%s %s'):format(propertyId, Properties:ReturnPropertiesData(propertyId).street_name))
+            if Properties.PropertiesList[k].owner ~= 'none' then
+                RageUI.Separator(('%s %s'):format(k, Properties:ReturnPropertiesData(k).street_name))
                 RageUI.WLine()
             end
-            if Properties.PropertiesList[propertyId].owner ~= 'none' and Properties.PropertiesList[propertyId].owner ~= tostring(ESX.PlayerData.UniqueID) then
-                RageUI.Button('Sonner à la propriété', nil, {}, not Properties.belled[propertyId], {
+            if Properties.PropertiesList[k].owner ~= 'none' and Properties.PropertiesList[k].owner ~= tostring(ESX.PlayerData.UniqueID) then
+                RageUI.Button('Sonner à la propriété', nil, {}, not Properties.belled[k], {
                     onSelected = function()
                         TriggerEvent('InteractSound_CL:PlayOnOne', 'doorbell', 0.5)
-                        Properties.belled[propertyId] = true
+                        Properties.belled[k] = true
 
-                        TriggerServerEvent('sunny:properties:interphone:call', Properties.PropertiesList[propertyId])
+                        TriggerServerEvent('sunny:properties:interphone:call', Properties.PropertiesList[k])
                     end
                 })
             end
-            if Properties.PropertiesList[propertyId].owner == tostring(ESX.PlayerData.UniqueID) then
-                RageUI.Checkbox('Propriété Ouverte', nil, Properties.PropertiesList[propertyId].open, {}, {
+            if Properties.PropertiesList[k].owner == tostring(ESX.PlayerData.UniqueID) then
+                RageUI.Checkbox('Propriété Ouverte', nil, Properties.PropertiesList[k].open, {}, {
                     onChecked = function()
-                        Properties.PropertiesList[propertyId].open = true
-                        TriggerServerEvent('sunny:properties:locked', propertyId, Properties.PropertiesList[propertyId].open)
+                        Properties.PropertiesList[k].open = true
+                        TriggerServerEvent('sunny:properties:locked', k, Properties.PropertiesList[k].open)
                     end,
                     onUnChecked = function()
-                        Properties.PropertiesList[propertyId].open = false
-                        TriggerServerEvent('sunny:properties:locked', propertyId, Properties.PropertiesList[propertyId].open)
+                        Properties.PropertiesList[k].open = false
+                        TriggerServerEvent('sunny:properties:locked', k, Properties.PropertiesList[k].open)
                     end
                 })
             end
-            if Properties:haveAccess(Properties.PropertiesList[propertyId]) and Properties.PropertiesList[propertyId].owner ~= 'none' or Properties.PropertiesList[propertyId].open == true then
+            if Properties:haveEnter(Properties.PropertiesList[k], tostring(ESX.PlayerData.UniqueID)) and Properties.PropertiesList[k].owner ~= 'none' or Properties.PropertiesList[k].open == true then
                 RageUI.Button('Entrer dans la propriété', nil, {}, true, {
                     onSelected = function()
                         RageUI.CloseAll()
-                        Properties.PropertiesList[propertyId].players[tostring(ESX.PlayerData.UniqueID)] = true
-                        TriggerServerEvent('sunny:properties:addPlayer', nil, 'me', propertyId, Properties.PropertiesList[propertyId].players)
+                        Properties.PropertiesList[k].players[tostring(ESX.PlayerData.UniqueID)] = true
+                        TriggerServerEvent('sunny:properties:addPlayer', nil, 'me', k, Properties.PropertiesList[k].players)
                         ESX.ShowNotification('🏠 Vous venez d\'entrer dans la propriété')
                     end
                 })
             end
-            -- if Properties.PropertiesList[propertyId].owner == tostring(ESX.PlayerData.UniqueID) then
+            -- if Properties.PropertiesList[k].owner == tostring(ESX.PlayerData.UniqueID) then
             --     RageUI.Button('Interphone', nil, {}, true, {
             --         onSelected = function()
                         
@@ -936,7 +903,7 @@ function Properties:openMenu(propertyId)
         RageUI.IsVisible(interphoneMenu, function()
             RageUI.Separator('Interphone')
             RageUI.WLine()
-            for k,v in pairs(Properties.PropertiesList[propertyId].interphone) do
+            for k,v in pairs(Properties.PropertiesList[k].interphone) do
                 RageUI.Button(('(%s) %s | %s %s'):format(v.UniqueID, v.name, v.firstname, v.lastname), nil, {RightLabel = v.at}, true, {
                     onSelected = function()
                         selectedPlayerInterphone = v
@@ -990,12 +957,12 @@ function Properties:openExitMenu(k)
                                 'Êtes-vous sûr de vouloir vendre la propriété ?',
                                 '',
                                 function(response)
-                                    if response then
+                                    if response then -- Oui
                                         TriggerServerEvent('sunny:properties:sell', propertiesData.id)
                                         RageUI.GoBack()
                                         ESX.ShowNotification('Propriété vendue avec succès')
-                                    else
-                                        ESX.ShowNotification('Action annulée')
+                                    else -- Non
+                                        ESX.ShowNotification('Action annulée') 
                                     end
                                 end
                             )
@@ -1025,7 +992,7 @@ function Properties:openExitMenu(k)
                         TriggerServerEvent('sunny:properties:lockedCoffre', k, Properties.PropertiesList[k].coffreOpen)
                     end
                 })
-                RageUI.Button('Entrer dans le Garage', nil, {}, Properties.PropertiesList[k].open == true and Properties.PropertiesList[k].owner ~= 'none' or Properties:haveAccess(Properties.PropertiesList[k]) and Properties.PropertiesList[k].garage, {
+                RageUI.Button('Entrer dans le Garage', nil, {}, Properties.PropertiesList[k].open == true and Properties.PropertiesList[k].owner ~= 'none' or Properties:haveEnter(Properties.PropertiesList[k], tostring(ESX.PlayerData.UniqueID)) and Properties.PropertiesList[k].garage, {
                     onSelected = function()
                         TriggerServerEvent('sunny:properties:garage:enter', k, ESX.PlayerData.UniqueID)
                     end
@@ -1095,54 +1062,6 @@ function Properties:openExitMenu(k)
     end
 end
 
-function Properties:openTrunkMenu(k)
-    if not Properties.PropertiesList[k].trunk then
-        Properties.PropertiesList[k].trunk = {
-            items = {},
-            weapons = {},
-            accounts = {
-                cash = 0,
-                black_money = 0
-            },
-            code = {
-                active = false,
-                blocked = false,
-                code = nil
-            }
-        }
-    end
-
-    if not Properties.PropertiesList[k].trunk.code then
-        Properties.PropertiesList[k].trunk.code = {
-            active = false,
-            blocked = false,
-            code = nil
-        }
-    end
-
-    local main = RageUI.CreateMenu('', 'Actions Disponibles')
-    local money = RageUI.CreateSubMenu(main, '', 'Actions Disponibles')
-    local items = RageUI.CreateSubMenu(main, '', 'Actions Disponibles') 
-    local weapons = RageUI.CreateSubMenu(main, '', 'Actions Disponibles')
-
-    RageUI.Visible(main, not RageUI.Visible(main))
-    FreezeEntityPosition(PlayerPedId(), true)
-    
-    while main do
-        Wait(1)
-        RageUI.IsVisible(main, function()
-            RageUI.Button('Argent', nil, {}, true, {}, money)
-            RageUI.Button('Items', nil, {}, true, {}, items)
-            RageUI.Button('Armes', nil, {}, true, {}, weapons)
-        end)
-
-        if not RageUI.Visible(main) and not RageUI.Visible(money) and not RageUI.Visible(items) and not RageUI.Visible(weapons) then
-            main = RMenu:DeleteType('main')
-            FreezeEntityPosition(PlayerPedId(), false)
-        end
-    end
-end
-
 RegisterCommand('fakeCall', function()
     TriggerEvent('InteractSound_CL:PlayOnOne', 'doorbell', 0.5)
 
@@ -1164,15 +1083,20 @@ RegisterNetEvent('sunny:properties:lockedCoffre', function(k,statut)
     Properties.PropertiesList[k].coffreOpen = statut
 end)
 
--- Optimize property checks
-function Properties:haveAccess(property)
-    if not property then return false end
-    
-    local playerData = ESX.GetPlayerData()
-    local isOwner = property.owner == tostring(playerData.UniqueID)
-    local isAgent = playerData.job.name == 'realestateagent'
-    
-    return isOwner or (property.owner == 'none' and isAgent)
+function Properties:haveEnter(propertiesData, owner)
+    local myPlayerData = ESX.GetPlayerData()
+
+    if propertiesData.owner == owner then
+        return true
+    end
+
+    if  propertiesData.owner == 'none' then
+        if myPlayerData.job.name == 'realestateagent' then
+            return true
+        end
+    end
+
+    return false
 end
 
 function Properties:ReturnPropertiesData(propertiesId)
@@ -1214,158 +1138,4 @@ Properties.propertiesIDIN = {}
 RegisterNetEvent('sunny:properties:changePlayerSate', function(pid, state)
     Properties.propertiesIDIN[pid] = pid
     Properties.isIn[ESX.GetPlayerData().UniqueID] = state
-end)
-
-RegisterNetEvent('sunny:properties:addPlayer', function(target, value, pId, players)
-    if not Properties.PropertiesList[pId] then return end
-
-    -- Initialize if nil
-    Properties.PropertiesList[pId].players = Properties.PropertiesList[pId].players or {}
-    Properties.PropertiesList[pId].exit = Properties.PropertiesList[pId].exit or {x = 0, y = 0, z = 0}
-    
-    if value == 'me' then
-        Properties:addPlayer(source, pId)
-        
-        if Properties.PropertiesList[pId].exit then
-            TriggerClientEvent('sunny:properties:teleport', source, vector3(
-                Properties.PropertiesList[pId].exit.x,
-                Properties.PropertiesList[pId].exit.y, 
-                Properties.PropertiesList[pId].exit.z
-            ))
-        end
-
-        TriggerClientEvent('sunny:properties:changePlayerSate', source, pId, true)
-    end
-end)
-
--- Remplacer le CreateThread existant par celui-ci:
-CreateThread(function()
-    while not ESX.IsPlayerLoaded() do Wait(100) end
-    while not Properties.Load do Wait(100) end
-    
-    print("^2Properties markers initialized^7")
-
-    while true do
-        local sleep = 1000
-        local playerPed = PlayerPedId()
-        local coords = GetEntityCoords(playerPed)
-        local hasFound = false
-
-        if Properties.PropertiesList then
-            for k,v in pairs(Properties.PropertiesList) do
-                if v.enter then -- Vérifier que enter existe
-                    local distance = #(coords - vector3(v.enter.x, v.enter.y, v.enter.z))
-                    
-                    if distance < 30.0 then
-                        hasFound = true
-                        sleep = 0
-                        
-                        -- Dessiner le marker
-                        DrawMarker(25, v.enter.x, v.enter.y, v.enter.z-0.98, 
-                            0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 
-                            0.55, 0.55, 0.55, 
-                            tonumber(UTILS.ServerColor.r), 
-                            tonumber(UTILS.ServerColor.g), 
-                            tonumber(UTILS.ServerColor.b), 
-                            255, false, false, 2, false, false, false, false)
-
-                        if distance < 2.0 then
-                            ESX.ShowHelpNotification("Appuyez sur ~INPUT_CONTEXT~ pour interagir")
-                            if IsControlJustPressed(0, 38) then
-                                Properties:openMenu(k) -- Cette fonction va maintenant téléporter directement le joueur
-                            end
-                        end
-                    end
-                end
-            end
-        end
-
-        if hasFound then
-            Wait(0)
-        else
-            Wait(sleep)
-        end
-    end
-end)
-
-CreateThread(function()
-    local isInitialized = false
-    
-    while not ESXLoaded or not ESX.PlayerData.coords do 
-        Wait(100)
-    end
-    
-    TriggerServerEvent('sunny:properties:load')
-    
-    while not Properties.Load do 
-        Wait(100)
-    end
-    
-    isInitialized = true
-    print("^2Properties system initialized^7")
-
-    while true do
-        local wait = 1000
-        
-        if isInitialized and Properties.PropertiesList then
-            local playerCoords = GetEntityCoords(PlayerPedId())
-            local isNearMarker = false
-
-            for k,v in pairs(Properties.PropertiesList) do
-                if v.enter then
-                    local dist = #(playerCoords - vector3(v.enter.x, v.enter.y, v.enter.z))
-                    
-                    if dist <= 30.0 then
-                        wait = 0
-                        isNearMarker = true
-                        
-                        if not v.players or not v.players[tostring(ESX.PlayerData.UniqueID)] then
-                            DrawMarker(25, v.enter.x, v.enter.y, v.enter.z-0.98, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 
-                                0.55, 0.55, 0.55, 
-                                tonumber(UTILS.ServerColor.r), 
-                                tonumber(UTILS.ServerColor.g), 
-                                tonumber(UTILS.ServerColor.b), 
-                                255, false, false, 2, false, false, false, false)
-                
-                            if dist <= 1.0 then
-                                DrawInstructionBarNotification(v.enter.x, v.enter.y, v.enter.z, 
-                                    "Appuyez sur [ ~g~E~w~ ] pour interagir")
-                                    
-                                if IsControlJustPressed(0, 54) then
-                                    Properties:openMenu(k)
-                                end
-                            end
-                        end
-                    end
-                end
-            end
-            
-            if isNearMarker then
-                print("^3Near marker - coords: ^7" .. playerCoords)
-            end
-        end
-        
-        Wait(wait)
-    end
-end)
-
-RegisterNetEvent('sunny:properties:load', function(data)
-    print("^3Loading properties...^7")
-    Properties.PropertiesList = {}
-    
-    for k,v in pairs(data) do
-        if not v.trunk then
-            v.trunk = {
-                items = {},
-                weapons = {},
-                accounts = {cash = 0, black_money = 0},
-                code = {active = false, blocked = false, code = nil}
-            }
-        end
-        Properties.PropertiesList[k] = v
-    end
-    
-    Properties:updateBlips()
-    Properties.Load = true
-    print("^2Properties loaded successfully^7")
 end)

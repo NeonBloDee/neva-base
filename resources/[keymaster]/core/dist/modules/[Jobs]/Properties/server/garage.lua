@@ -176,7 +176,7 @@ function Properties.garage:self_garage_place(src, owner, propertiesID)
     return Properties.garage.value1[propertiesID]
 end
 
-RegisterNetEvent('sunny:properties:garage:enter', function(p, UniqueID)
+RegisterNetEvent('nevacorp:properties:garage:enter', function(p, UniqueID)
     local source = source
     local xPlayer = ESX.GetPlayerFromId(source)
 
@@ -206,7 +206,7 @@ RegisterNetEvent('sunny:properties:garage:enter', function(p, UniqueID)
 
         Properties.garage.count[xPlayer.UniqueID] = 0
 
-        TriggerClientEvent('sunny:properties:loadVehicle', source, Properties.PropertiesList[p], garage)
+        TriggerClientEvent('nevacorp:properties:loadVehicle', source, Properties.PropertiesList[p], garage)
 
         local garageType = Properties.PropertiesList[p].garageType
         if not Properties.garage.interior[garageType] then
@@ -220,13 +220,13 @@ RegisterNetEvent('sunny:properties:garage:enter', function(p, UniqueID)
             return
         end
 
-        TriggerClientEvent('sunny:properties:teleport', source, vector3(interior.x, interior.y, interior.z))
+        TriggerClientEvent('nevacorp:properties:teleport', source, vector3(interior.x, interior.y, interior.z))
     else
         -- print("Erreur: garageLoaded est false ou garage est nil")
     end
 end)
 
-RegisterNetEvent('sunny:properties:garage:exitWithVehicle', function(p, plate)
+RegisterNetEvent('nevacorp:properties:garage:exitWithVehicle', function(p, plate)
     local source = source
     local xPlayer = ESX.GetPlayerFromId(source)
 
@@ -247,7 +247,7 @@ RegisterNetEvent('sunny:properties:garage:exitWithVehicle', function(p, plate)
 
             local veh = json.decode(result[1].vehicle)
 
-            TriggerClientEvent('sunny:properties:garage:exitWithVehicle', source, p, result[1].vehicle, veh.model)
+            TriggerClientEvent('nevacorp:properties:garage:exitWithVehicle', source, p, result[1].vehicle, veh.model)
 
             Wait(5000)
     
@@ -261,7 +261,7 @@ RegisterNetEvent('sunny:properties:garage:exitWithVehicle', function(p, plate)
     end
 end)
 
-ESX.RegisterServerCallback('sunny:properties:garage:rentVehicle', function(source, cb, propertiesID, plate, vehicleProperties)
+ESX.RegisterServerCallback('nevacorp:properties:garage:rentVehicle', function(source, cb, propertiesID, plate, vehicleProperties)
     local source = source
     local xPlayer = ESX.GetPlayerFromId(source)
 
@@ -293,7 +293,7 @@ ESX.RegisterServerCallback('sunny:properties:garage:rentVehicle', function(sourc
     end)
 end)
 
-ESX.RegisterServerCallback('sunny:properties:garage:exit', function(source, cb, propertiesID)
+ESX.RegisterServerCallback('nevacorp:properties:garage:exit', function(source, cb, propertiesID)
     local source = source
     local xPlayer = ESX.GetPlayerFromId(source)
 
@@ -307,13 +307,6 @@ ESX.RegisterServerCallback('sunny:properties:garage:exit', function(source, cb, 
 
         cb(true)
 
-        TriggerClientEvent('sunny:properties:teleport', source, vector3(Properties.PropertiesList[propertiesID].garagePos.x,Properties.PropertiesList[propertiesID].garagePos.y,Properties.PropertiesList[propertiesID].garagePos.z))
+        TriggerClientEvent('nevacorp:properties:teleport', source, vector3(Properties.PropertiesList[propertiesID].garagePos.x,Properties.PropertiesList[propertiesID].garagePos.y,Properties.PropertiesList[propertiesID].garagePos.z))
     end
-end)
-
-RegisterNetEvent("checkBucket")
-AddEventHandler("checkBucket", function()
-    local src = source
-    local bucket = GetPlayerRoutingBucket(src)
-    TriggerClientEvent("returnBucket", src, bucket)
 end)
