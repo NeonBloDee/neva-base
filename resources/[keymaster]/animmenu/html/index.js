@@ -17,6 +17,24 @@ const EMOTE_SLICE_SIZE = 8;
 let layout = 0;
 let favoritesActive = false;
 
+if (typeof IapU !== "function") {
+  window.IapU = function (url) {
+    return url || "";
+  };
+}
+
+if (typeof EvhR !== "function") {
+  window.EvhR = function (path) {
+    return path || "";
+  };
+}
+
+if (typeof EXiU !== "function") {
+  window.EXiU = function (category, imgId) {
+    return `files/${category}-${imgId}.png`;
+  };
+}
+
 $("#layout0").click(function (e) {
   layout = 0;
   $("#layout1").attr("src", "files/layout2.png");
@@ -158,8 +176,6 @@ window.addEventListener("message", function (event) {
     $("#mainDivRightSideBottomTop").css({ "flex-direction": "row" });
     $("#lay1").css({ display: "none" });
     $("#lay0").css({ display: "flex" });
-
-    console.log("DONE");
   } else if (ed.action === "resetQuicks") {
     quickAnimations = [];
   }
@@ -439,126 +455,171 @@ document
   .setAttribute("tabindex", "0");
 
 function getArraySlice(array, startIndex, endIndex) {
-  return array.slice(startIndex, Math.min(endIndex, array.length) + 7);
+  if (!Array.isArray(array) || array.length === 0) {
+    console.error("getArraySlice: array invalid ou vide");
+    return [];
+  }
+
+  startIndex = Math.max(0, startIndex);
+  endIndex = Math.min(endIndex, array.length);
+
+  return array.slice(startIndex, endIndex + 7);
 }
 
 function updateContent(emotes) {
-  document.getElementById("mainDivRightSideBottomTop").innerHTML = "";
+  const container = document.getElementById("mainDivRightSideBottomTop");
+  if (!container) {
+    console.error("Container mainDivRightSideBottomTop not found");
+    return;
+  }
+
+  container.innerHTML = "";
+
+  if (!emotes || emotes.length === 0) {
+    container.innerHTML =
+      '<div class="p-4 text-white">Aucune animation disponible.</div>';
+    return;
+  }
+
   const fragment = document.createDocumentFragment();
+
   emotes.forEach((item, index) => {
-    let existingAnim = currentCategoryAnims.find(
-      (animation) => animation.id === item.id
-    );
+    try {
+      if (!item || !item.id) {
+        console.warn("Élément d'émote invalide:", item);
+        return;
+      }
 
-    if (existingAnim) {
-      let name = "/e " + item.name;
-      if (name.length > 9) {
-        name = name.slice(0, 9) + "...";
-      }
-      // Fav Exists
-      let dclass = "";
-      let existingFavAnim = favoriteAnimations.find(
-        (animation) => animation.id === item.id
-      );
-      if (existingFavAnim) {
-        dclass = "MDRSBTDTopDivFav";
-      }
-      let category = item.category;
-      if (item.category === "general") {
-        category = "emotes";
-      }
-      let src = IapU(EXiU(category, item.imgId));
-      if (category === "placedemotes" || category == "syncedemotes") {
-        src = "files/unknown.png";
-      }
-      const divItem = document.createElement("div");
-      //divItem.addEventListener("click", function(e) {clFunc('playAnim', item.animId, item.category)}, false);
+      let existingAnim = Array.isArray(currentCategoryAnims)
+        ? currentCategoryAnims.find((animation) => animation.id === item.id)
+        : null;
 
-      // divItem.id = `mainDivRightSideBottomTopDiv-${item.id}`;
-      // $(`mainDivRightSideBottomTopDiv-${item.id}`).data("animData", existingAnim);
-      $(divItem).data("animData", item);
-      $(divItem).hover(
-        function () {
-          $(`#MDRSBTDTopDivCommand-${item.id}`).html(
-            `<h4>/e ${item.name}</h4>`
-          );
-        },
-        function () {
-          $(`#MDRSBTDTopDivCommand-${item.id}`).html(`<h4>${name}</h4>`);
+      if (existingAnim) {
+        let name = "/e " + item.name;
+        if (name.length > 9) {
+          name = name.slice(0, 9) + "...";
         }
-      );
-      if (layout == 0) {
-        divItem.innerHTML = `
-                <div id="lay0" class="flex flex-col justify-end items-start px-[0.2vw] py-[1.4vh] w-[7.2917vw] h-[12.963vh] shrink-0 border [background:rgba(255,255,255,0.03)] rounded-[.2604vw] border-solid border-[rgba(255,255,255,0.05)]"  onclick="clFunc('playAnim', '${item.animId}', '${item.category}')">
-                <div id="MDRSBTDTopDiv-${item.id}" class="MDRSBTDTopDiv ${dclass}">
-                <img src="./files/fav.png" onclick="clFunc('addAnimToFavorites', '${item.id}')" class="w-[11px] h-[11px] z-[12312321]">
-                </div>
-                <div class="flex justify-center items-center w-full h-[70%]" id="geniun-${item.id}">
-                
-                </div>
-                <div class="w-full h-[25%]">
-                        <div class="w-full h-[20%]"></div>
-                        <div class="flex justify-center items-center w-full h-[30%] text-[#FFF] [font-family:'DM_Sans'] text-[.7292vw] textttb">${item.label}</div>
-                        <div class="flex justify-center items-start w-full h-[30%] text-[#AAA] [font-family:'DM_Sans'] text-[.5771vw] textttb">commands : ${name}</div>
-                        <div class="w-full h-[20%]"></div>
-                </div>
-                <div class="w-full h-[5%]"></div>
-                </div>`;
-      } else if (layout == 1) {
-        divItem.innerHTML = `
-                <div id="lay1" class="flex w-[15.2083vw] h-[5.5556vh] shrink-0 border [background:rgba(255,255,255,0.03)] rounded-[.2604vw] border-solid border-[rgba(255,255,255,0.05)]"  onclick="clFunc('playAnim', '${item.animId}', '${item.category}')">
-                <img onclick="clFunc('addAnimToFavorites', '${item.id}')">
-                            <div class="flex justify-center items-center w-[20%] h-full">
-                                <div class="flex justify-center items-center w-[1.8229vw] h-[3.2407vh] shrink-0 border [background:rgba(255,255,255,0.03)] rounded-[.2604vw] border-solid border-[rgba(255,255,255,0.05)]">
-                                    <img src="./files/danceicon.png" class="h-[1.5741vh]">
-                                </div>
-                            </div>
-                            <div class="flex w-[80%] h-full">
-                                <div class="w-[50%] h-full">
-                                    <div class="w-full h-[20%]"></div>
-                                    <div class="w-full h-[30%] text-[#FFF] [font-family:'DM_Sans'] text-[.7292vw] textttb">${item.label}</div>
-                                    <div class="w-full h-[30%] text-[#AAA] [font-family:'DM_Sans'] text-[.6771vw] textttb"> ${name}</div>
-                                    <div class="flex justify-center items-end w-full h-[20%]"></div>
-                                </div>
-                                <div class="w-[50%] h-full flex justify-end items-center px-[0.7vw] z-[12312321]">
-                                <div id="MDRSBTDTopDiv-${item.id}" class="MDRSBTDTopDiv ${dclass}">
-                                    <img src="./files/fav.png" onclick="clFunc('addAnimToFavorites', '${item.id}')" class="w-[11px] h-[11px]">
-                                    </div>
-                                </div>
-                               
-                            </div>
-                        </div>`;
-      }
-      createStaticImageFromGif(src, function (staticImageUrl) {
-        const img = new Image();
-        img.classList.add("h-full");
-        img.src = staticImageUrl;
-        img.classList.add("mainDivRightSideBottomTopDivWEBP");
-        img.addEventListener("mouseenter", function () {
-          img.src = src;
-        });
-        img.addEventListener("mouseleave", function () {
-          img.src = staticImageUrl;
-        });
-        img.onerror = function () {
-          img.src = "files/unknown.png";
-        };
-        img.setAttribute(
-          "onclick",
-          `clFunc('playAnim', '${item.animId}', '${item.category}')`
-        );
-        // divItem.appendChild(img);
-        document.getElementById(`geniun-${item.id}`).innerHTML = "";
-        document.getElementById(`geniun-${item.id}`).appendChild(img);
-      });
 
-      fragment.appendChild(divItem);
-    }
+        let dclass = "";
+        let existingFavAnim = Array.isArray(favoriteAnimations)
+          ? favoriteAnimations.find((animation) => animation.id === item.id)
+          : null;
+
+        if (existingFavAnim) {
+          dclass = "MDRSBTDTopDivFav";
+        }
+
+        let category = item.category;
+        if (item.category === "general") {
+          category = "emotes";
+        }
+
+        let src = "";
+        try {
+          src = IapU(EXiU(category, item.imgId));
+          if (category === "placedemotes" || category == "syncedemotes") {
+            src = "files/unknown.png";
+          }
+        } catch (e) {
+          console.error("Erreur URL:", e);
+          src = "files/unknown.png";
+        }
+
+        const divItem = document.createElement("div");
+        $(divItem).data("animData", item);
+
+        if (layout == 0) {
+          divItem.innerHTML = `
+              <div id="lay0" class="flex flex-col justify-end items-start px-[0.2vw] py-[1.4vh] w-[7.2917vw] h-[12.963vh] shrink-0 border [background:rgba(255,255,255,0.03)] rounded-[.2604vw] border-solid border-[rgba(255,255,255,0.05)]"  onclick="clFunc('playAnim', '${item.animId}', '${item.category}')">
+              <div id="MDRSBTDTopDiv-${item.id}" class="MDRSBTDTopDiv ${dclass}">
+              <img src="./files/fav.png" onclick="clFunc('addAnimToFavorites', '${item.id}')" class="w-[11px] h-[11px] z-[12312321]">
+              </div>
+              <div class="flex justify-center items-center w-full h-[70%]" id="geniun-${item.id}">
+              
+              </div>
+              <div class="w-full h-[25%]">
+                      <div class="w-full h-[20%]"></div>
+                      <div class="flex justify-center items-center w-full h-[30%] text-[#FFF] [font-family:'DM_Sans'] text-[.7292vw] textttb">${item.label}</div>
+                      <div class="flex justify-center items-start w-full h-[30%] text-[#AAA] [font-family:'DM_Sans'] text-[.5771vw] textttb">commands : ${name}</div>
+                      <div class="w-full h-[20%]"></div>
+              </div>
+              <div class="w-full h-[5%]"></div>
+              </div>`;
+        } else if (layout == 1) {
+          divItem.innerHTML = `
+              <div id="lay1" class="flex w-[15.2083vw] h-[5.5556vh] shrink-0 border [background:rgba(255,255,255,0.03)] rounded-[.2604vw] border-solid border-[rgba(255,255,255,0.05)]"  onclick="clFunc('playAnim', '${item.animId}', '${item.category}')">
+              <img onclick="clFunc('addAnimToFavorites', '${item.id}')">
+                          <div class="flex justify-center items-center w-[20%] h-full">
+                              <div class="flex justify-center items-center w-[1.8229vw] h-[3.2407vh] shrink-0 border [background:rgba(255,255,255,0.03)] rounded-[.2604vw] border-solid border-[rgba(255,255,255,0.05)]">
+                                  <img src="./files/danceicon.png" class="h-[1.5741vh]">
+                              </div>
+                          </div>
+                          <div class="flex w-[80%] h-full">
+                              <div class="w-[50%] h-full">
+                                  <div class="w-full h-[20%]"></div>
+                                  <div class="w-full h-[30%] text-[#FFF] [font-family:'DM_Sans'] text-[.7292vw] textttb">${item.label}</div>
+                                  <div class="w-full h-[30%] text-[#AAA] [font-family:'DM_Sans'] text-[.6771vw] textttb"> ${name}</div>
+                                  <div class="flex justify-center items-end w-full h-[20%]"></div>
+                              </div>
+                              <div class="w-[50%] h-full flex justify-end items-center px-[0.7vw] z-[12312321]">
+                              <div id="MDRSBTDTopDiv-${item.id}" class="MDRSBTDTopDiv ${dclass}">
+                                  <img src="./files/fav.png" onclick="clFunc('addAnimToFavorites', '${item.id}')" class="w-[11px] h-[11px]">
+                                  </div>
+                              </div>
+                             
+                          </div>
+                      </div>`;
+        }
+
+        let imgLoaded = false;
+        createStaticImageFromGif(src, function (staticImageUrl) {
+          if (document.getElementById(`geniun-${item.id}`)) {
+            const img = new Image();
+            img.classList.add("h-full");
+            img.src = staticImageUrl || "files/unknown.png";
+            img.classList.add("mainDivRightSideBottomTopDivWEBP");
+
+            img.addEventListener("mouseenter", function () {
+              img.src = src;
+            });
+
+            img.addEventListener("mouseleave", function () {
+              img.src = staticImageUrl || "files/unknown.png";
+            });
+
+            img.onerror = function () {
+              img.src = "files/unknown.png";
+            };
+
+            img.setAttribute(
+              "onclick",
+              `clFunc('playAnim', '${item.animId}', '${item.category}')`
+            );
+
+            const container = document.getElementById(`geniun-${item.id}`);
+            if (container) {
+              container.innerHTML = "";
+              container.appendChild(img);
+              imgLoaded = true;
+            }
+          }
+        });
+
+        fragment.appendChild(divItem);
+      }
+    } catch (error) {}
   });
-  document.getElementById("mainDivRightSideBottomTop").appendChild(fragment);
-  handleDragDrop();
+
+  container.appendChild(fragment);
+
+  try {
+    handleDragDrop();
+  } catch (error) {
+    console.error("Erreur handleDragDrop:", error);
+  }
+
   setTimeout(() => {
-    document.getElementById("mainDivRightSideBottomTop").scrollTop = 0;
+    container.scrollTop = 0;
   }, 150);
 }
 
@@ -598,12 +659,34 @@ function checkIfImageExists(url, callback) {
 }
 
 function updateRange() {
-  let newEmoteRange = getArraySlice(
-    XEMOTES,
-    currentRangeStart,
-    currentRangeEnd
-  );
-  updateContent(newEmoteRange);
+  try {
+    if (!Array.isArray(XEMOTES) || XEMOTES.length === 0) {
+      document.getElementById("mainDivRightSideBottomTop").innerHTML =
+        '<div class="p-4 text-white">Aucune animation disponible.</div>';
+      return;
+    }
+
+    if (
+      typeof currentRangeStart !== "number" ||
+      typeof currentRangeEnd !== "number"
+    ) {
+      currentRangeStart = 0;
+      currentRangeEnd = 8;
+    }
+
+    let newEmoteRange = getArraySlice(
+      XEMOTES,
+      currentRangeStart,
+      currentRangeEnd
+    );
+
+    updateContent(newEmoteRange);
+  } catch (error) {
+    console.error("Erreur dans updateRange: ", error);
+
+    document.getElementById("mainDivRightSideBottomTop").innerHTML =
+      '<div class="p-4 text-white">Une erreur s\'est produite. Veuillez réessayer.</div>';
+  }
 }
 
 const inputElement = document.getElementById("MDBSearchInput");
@@ -638,7 +721,6 @@ function playSound(sound, type) {
 
 IsDragging = false;
 function handleDragDrop() {
-  // Normal
   $(".mainDivRightSideBottomTopDivDraggable").draggable({
     helper: "clone",
     appendTo: "body",
@@ -806,7 +888,6 @@ function removeAnimFromQuick(id) {
 }
 
 $(document).ready(function () {
-  console.log("s");
   var xhr = new XMLHttpRequest();
   xhr.open("POST", `https://${GetParentResourceName()}/callback`, true);
   xhr.setRequestHeader("Content-Type", "application/json");
