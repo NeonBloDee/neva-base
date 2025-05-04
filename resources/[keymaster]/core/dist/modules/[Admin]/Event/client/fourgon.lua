@@ -3,6 +3,11 @@ local props = {}
 local on = false
 
 RegisterNetEvent('sunny:autoEvent:start', function(data)
+    if not data or not data.position then
+        print("Error: Invalid data received in sunny:autoEvent:start")
+        return
+    end
+
     ESX.addBlips({
         name = ('event_van_%s'):format(data.position),
         label = 'Fourgon Blindé',
@@ -16,6 +21,11 @@ RegisterNetEvent('sunny:autoEvent:start', function(data)
     })
 
     ESX.Game.SpawnLocalVehicle(GetHashKey('stockade'), data.position, 90.0, function(vehicle)
+        if not vehicle then
+            print("Error: Failed to spawn vehicle")
+            return
+        end
+
         event[data.position] = {
             entity = vehicle,
             on = true,
@@ -32,7 +42,7 @@ RegisterNetEvent('sunny:autoEvent:start', function(data)
         SetVehicleDoorsLocked(vehicle, true)
 
         CreateThread(function()
-            while event[data.position].on do
+            while event[data.position] and event[data.position].on do
                 Wait(event[data.position].interval)
                 event[data.position].interval = 1000
 
@@ -44,31 +54,37 @@ RegisterNetEvent('sunny:autoEvent:start', function(data)
                 if dist > 25 then
                     exports['core-ui']:hideInfo()
                 else
-                    local vehicleHealth = GetEntityHealth(vehicle)
-                    local finalHealth = vehicleHealth * 1000
+                    if DoesEntityExist(vehicle) then
+                        local vehicleHealth = GetEntityHealth(vehicle)
+                        local finalHealth = vehicleHealth * 1000
 
-                    exports['core-ui']:drawInfo('Informations Van', {
-                        {title = 'Temps', subtitle = tostring(event[data.position].time)},
-                        {title = 'Dégats', subtitle = tostring(finalHealth)},
-                    })
+                        exports['core-ui']:drawInfo('Informations Van', {
+                            {title = 'Temps', subtitle = tostring(event[data.position].time)},
+                            {title = 'Dégats', subtitle = tostring(finalHealth)},
+                        })
 
-                    if finalHealth <= 0 then
-                        TriggerServerEvent('sunny:autoEvent:broke', data)
+                        if finalHealth <= 0 then
+                            TriggerServerEvent('sunny:autoEvent:broke', data)
+                            event[data.position].on = false
+                            exports['core-ui']:hideInfo()
+                        elseif event[data.position].time <= 0 then
+                            TriggerServerEvent('sunny:autoEvent:stop', data.position)
+                        end
+                    else
                         event[data.position].on = false
                         exports['core-ui']:hideInfo()
-                    elseif event[data.position].time <= 0 then
-                        TriggerServerEvent('sunny:autoEvent:stop', data.position)
+                        break
                     end
                 end
 
-                if not event[data.position].on then
+                if not event[data.position] or not event[data.position].on then
                     break
                 end
             end
         end)
 
         CreateThread(function()
-            while event[data.position].on do
+            while event[data.position] and event[data.position].on do
                 Wait(event[data.position].interval)
                 event[data.position].interval = 2000
 
@@ -80,7 +96,7 @@ RegisterNetEvent('sunny:autoEvent:start', function(data)
                     event[data.position].drawNotification('Casser le véhicule !', data.position)
                 end
 
-                if not event[data.position].on then
+                if not event[data.position] or not event[data.position].on then
                     break
                 end
             end
@@ -89,19 +105,32 @@ RegisterNetEvent('sunny:autoEvent:start', function(data)
 end)
 
 RegisterNetEvent('sunny:autoEvent:broke', function(data)
+    if not data then
+        print("Error: Invalid data received in sunny:autoEvent:broke")
+        return
+    end
     TriggerServerEvent('sunny:autoEvent:secondBroke', data)
 end)
 
 RegisterNetEvent('sunny:autoEvent:secondBroke', function(data)
+    if not data or not data.reward or not data.position then
+        print("Error: Invalid data received in sunny:autoEvent:secondBroke")
+        return
+    end
+
     for k, v in pairs(data.reward) do
-        ESX.Game.SpawnLocalObject('prop_large_gold_alt_c', vector3(v.pos.x, v.pos.y, v.pos.z - 0.98), function(obj)
-            FreezeEntityPosition(obj, true)
-            table.insert(props, {
-                obj = obj,
-                coords = GetEntityCoords(obj),
-                money = v.money
-            })
-        end)
+        if v and v.pos then
+            ESX.Game.SpawnLocalObject('prop_large_gold_alt_c', vector3(v.pos.x, v.pos.y, v.pos.z - 0.98), function(obj)
+                if obj then
+                    FreezeEntityPosition(obj, true)
+                    table.insert(props, {
+                        obj = obj,
+                        coords = GetEntityCoords(obj),
+                        money = v.money or 0
+                    })
+                end
+            end)
+        end
     end
 
     on = true
