@@ -311,28 +311,6 @@ AddEventHandler('esx:playerLoaded', function(source)
     Properties.garage.count2[xPlayer.UniqueID] = 0
 
     Wait(5000)
-
-    for k,v in pairs(Properties.PropertiesList) do
-        if v.owner ~= 'none' then
-            if v.players[tostring(xPlayer.UniqueID)] ~= nil then
-                if v.players[tostring(xPlayer.UniqueID)] == true then
-                    Properties:addPlayer(source, 0)
-                    TriggerClientEvent('sunny:properties:teleport', source, vector3(Properties.PropertiesList[k].enter.x, Properties.PropertiesList[k].enter.y, Properties.PropertiesList[k].enter.z))
-                    TriggerClientEvent('esx:showNotification', source, '🏠 Vous avez été déconnecté en étant dans une propriété')
-                    TriggerClientEvent('sunny:properties:changePlayerSate', source, k, false)
-                end
-            end
-        else
-            if v.players[tostring(xPlayer.UniqueID)] ~= nil then
-                if v.players[tostring(xPlayer.UniqueID)] == true then
-                    Properties:addPlayer(source, 0)
-                    TriggerClientEvent('sunny:properties:teleport', source, vector3(Properties.PropertiesList[k].enter.x, Properties.PropertiesList[k].enter.y, Properties.PropertiesList[k].enter.z))
-                    TriggerClientEvent('esx:showNotification', source, '🏠 Vous avez été déconnecté en étant dans une propriété')
-                    TriggerClientEvent('sunny:properties:changePlayerSate', source, k, false)
-                end
-            end
-        end
-    end
 end)
 
 

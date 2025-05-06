@@ -1,17 +1,10 @@
---[[
-  This file is part of Slide RolePlay.
-  Copyright (c) Slide RolePlay - All Rights Reserved
-  Unauthorized using, copying, modifying and/or distributing of this file,
-  via any medium is strictly prohibited. This code is confidential.
---]]
-
 dmeC = {
     language = 'fr',
-    color = { r = 223, g = 88, b = 0, a = 220 }, -- Text color
-    font = 0, -- Text font
-    time = 5000, -- Duration to display the text (in ms)
-    scale = 0.5, -- Text scale
-    dist = 250, -- Min. distance to draw 
+    color = { r = 223, g = 88, b = 0, a = 220 },
+    font = 0,
+    time = 5000,
+    scale = 0.5,
+    dist = 250,
 }
 
 Languages = {

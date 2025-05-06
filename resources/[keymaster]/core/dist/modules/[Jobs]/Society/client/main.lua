@@ -5,6 +5,7 @@ local badgePosition = {0.13, 0.03, -0.04, 80.0, 350.0, 180.0}
 function ShowJobBadge(jobName)
     if ShowBadgeInProgress then return end
     ShowBadgeInProgress = true
+
     Citizen.CreateThread(function()
         local playerPed = PlayerPedId()
         local animDict = 'paper_1_rcm_alt1-9'
@@ -14,26 +15,38 @@ function ShowJobBadge(jobName)
         while not HasAnimDictLoaded(animDict) do
             Citizen.Wait(100)
         end
+
+        RequestModel(hash)
+        while not HasModelLoaded(hash) do
+            Citizen.Wait(100)
+        end
+
+        local coords = GetEntityCoords(playerPed)
+        local prop = CreateObject(hash, coords.x, coords.y, coords.z + 0.2, true, true, true)
+        local boneIndex = GetPedBoneIndex(playerPed, 28422)
         
+        AttachEntityToEntity(prop, playerPed, boneIndex, 
+            badgePosition[1], badgePosition[2], badgePosition[3],
+            badgePosition[4], badgePosition[5], badgePosition[6], 
+            true, true, false, true, 1, true)
+            
         TaskPlayAnim(playerPed, animDict, anim, 1.0, -1.0, -1, 51, 0, false, false, false)
 
-        ESX.Streaming.RequestModel(hash)
-        local prop = CreateObject(hash, GetEntityCoords(playerPed), true, true, true)
-        SetEntityAsNoLongerNeeded(prop)
-        local boneIndex = GetPedBoneIndex(playerPed, 36029)
+        local playerData = ESX.GetPlayerData()
+        local badgeMessage = string.format("~b~[BADGE OFFICIEL]~s~ %s présente son badge de %s", playerData.name, ESX.GetJobLabel(jobName))
+        TriggerServerEvent('3dme:shareDisplay', badgeMessage)
 
-        local xPos, yPos, zPos, xRot, yRot, zRot = table.unpack(badgePosition)
-        AttachEntityToEntity(prop, playerPed, boneIndex, xPos, yPos, zPos, xRot, yRot, zRot, true, true, false, true, 1, true)
-
-        local closestPlayer, closestDistance = ESX.Game.GetClosestPlayer()
-        if closestDistance ~= -1 and closestDistance <= 3.0 then
-            TriggerServerEvent('esx_license:showBadge', GetPlayerServerId(PlayerId()), jobName, GetPlayerServerId(closestPlayer))
+        local coords = GetEntityCoords(playerPed)
+        RequestNamedPtfxAsset("scr_rcbarry2")
+        while not HasNamedPtfxAssetLoaded("scr_rcbarry2") do
+            Citizen.Wait(100)
         end
-        
-        TriggerServerEvent('esx_license:showBadge', GetPlayerServerId(PlayerId()), jobName, GetPlayerServerId(PlayerId()))
-        
+        UseParticleFxAssetNextCall("scr_rcbarry2")
+        StartParticleFxLoopedAtCoord("scr_clown_appears", coords.x, coords.y, coords.z, 0.0, 0.0, 0.0, 1.0, false, false, false, false)
+
         Citizen.Wait(3000)
-        ESX.Game.DeleteObject(prop)
+        
+        DeleteObject(prop)
         ClearPedTasks(playerPed)
         ShowBadgeInProgress = false
     end)

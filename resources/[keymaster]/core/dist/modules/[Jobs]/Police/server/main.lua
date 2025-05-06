@@ -433,14 +433,29 @@ ESX.RegisterServerCallback('sunny:police:amendes', function(source, cb, player)
         return 
     end
 
-    MySQL.Async.fetchAll('SELECT * FROM billing WHERE identifier = @identifier AND target = @target AND paid = 0', {
-        ['@identifier'] = target.identifier,
-        ['@target'] = 'society_police'
+    MySQL.Async.fetchAll('SELECT * FROM billing WHERE identifier = @identifier', {
+        ['@identifier'] = target.identifier
     }, function(result)
         if result and #result > 0 then
-            cb(result)
+            local sortedBills = {
+                police = {},
+                other = {}
+            }
+            
+            for _, bill in ipairs(result) do
+                if bill.target == 'society_police' or bill.target == 'society_bcso' then
+                    table.insert(sortedBills.police, bill)
+                else
+                    table.insert(sortedBills.other, bill)
+                end
+            end
+            
+            cb(sortedBills)
         else
-            cb({})
+            cb({
+                police = {},
+                other = {}
+            })
         end
     end)
 end)
@@ -451,7 +466,6 @@ RegisterNetEvent('sunny:police.removeWeapon', function()
     if xPlayer.job.name ~= "police" and xPlayer.job.name ~= "gouvernement" then return end
     local xPlayerName = ('%s %s'):format(xPlayer.firstname, xPlayer.lastname)
 
-    -- Liste des armes à vérifier et à supprimer
     local weaponList = {
         {required_grade = 0, name = 'stungun'},
         {required_grade = 0, name = 'kevlar'},
@@ -465,7 +479,6 @@ RegisterNetEvent('sunny:police.removeWeapon', function()
         {required_grade = 8, name = 'bullpupshotgun'}
     }
 
-    -- Vérification et suppression des armes
     for _, weapon in ipairs(weaponList) do
         if xPlayer.getInventoryItem(weapon.name).count > 0 then
             xPlayer.removeInventoryItem(weapon.name, xPlayer.getInventoryItem(weapon.name).count)

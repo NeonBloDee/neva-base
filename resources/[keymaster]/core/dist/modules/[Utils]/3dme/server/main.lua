@@ -1,48 +1,37 @@
---[[
-  This file is part of Slide RolePlay.
-  Copyright (c) Slide RolePlay - All Rights Reserved
-  Unauthorized using, copying, modifying and/or distributing of this file,
-  via any medium is strictly prohibited. This code is confidential.
---]]
-
 local lang = Languages[dmeC.language]
 
-local function onMeCommand(source, args)
-    local source = source
-    local xPlayer = ESX.GetPlayerFromId(source) 
-    local text = "* " .. lang.prefix .. table.concat(args, " ") .. " *"
-    if (string.find(text, "<img src")) then
-       DropPlayer(source, 'usebug me image');
-      return
-    end
-    if (string.find(text, "discord")) then
-      DropPlayer(source, 'usebug me');
-    return
-  end
-  if (string.find(text, "tiktok")) then
-    DropPlayer(source, 'usebug me');
-  return
-end
-    TriggerClientEvent('3dme:shareDisplay', -1, text, source)
-end
-
-local function onMeCommand2(source, args)
-    local source = source
+local function processMe(source, text)
     local xPlayer = ESX.GetPlayerFromId(source)
-    local text = "* " .. lang.prefix .. ""..args .. " *"
-    if (string.find(text, "<img src")) then
-        DropPlayer(source, 'usebug me image');
-      return
+    
+    local formattedText = "* " .. lang.prefix .. text .. " *"
+    
+    if string.find(formattedText, "<img src") then
+        DropPlayer(source, 'usebug me image')
+        return
     end
-    if (string.find(text, "discord")) then
-      DropPlayer(source, 'usebug me');
-    return
-  end
-  if (string.find(text, "tiktok")) then
-    DropPlayer(source, 'usebug me');
-  return
-end
-    TriggerClientEvent('3dme:shareDisplay', -1, text, source)
+    
+    if string.find(formattedText, "discord") then
+        DropPlayer(source, 'usebug me')
+        return
+    end
+    
+    if string.find(formattedText, "tiktok") then
+        DropPlayer(source, 'usebug me')
+        return
+    end
+    
+    TriggerClientEvent('3dme:shareDisplay', -1, formattedText, source)
 end
 
-RegisterCommand(lang.commandName, onMeCommand)
+RegisterCommand(lang.commandName, function(source, args)
+    if #args > 0 then
+        local text = table.concat(args, " ")
+        processMe(source, text)
+    end
+end)
+
+RegisterServerEvent('3dme:sendMe')
+AddEventHandler('3dme:sendMe', function(text)
+    local source = source
+    processMe(source, text)
+end)

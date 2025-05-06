@@ -1,14 +1,6 @@
---[[
-  This file is part of Slide RolePlay.
-  Copyright (c) Slide RolePlay - All Rights Reserved
-  Unauthorized using, copying, modifying and/or distributing of this file,
-  via any medium is strictly prohibited. This code is confidential.
---]]
-
 local c = dmeC 
 local lang = Languages[dmeC.language]
 local peds = {}
-
 
 local GetGameTimer = GetGameTimer
 
@@ -30,7 +22,6 @@ function draw3dTextMe(coords, text)
     SetDrawOrigin(coords, 0)
     EndTextCommandDisplayText(0.0, 0.0)
     ClearDrawOrigin()
-
 end
 
 local function displayText(ped, text)
@@ -60,23 +51,30 @@ local function displayText(ped, text)
 
             peds[ped] = nil
         end
-
     end
 end
 
 local function onShareDisplay(text, target)
     local player = GetPlayerFromServerId(target)
+    
     if player ~= -1 or target == GetPlayerServerId(PlayerId()) then
         local ped = GetPlayerPed(player)
-        displayText(ped, text)
+        if DoesEntityExist(ped) then
+            displayText(ped, text)
+        end
     end
 end
 
-RegisterNetEvent("troll:me")
-AddEventHandler("troll:me", function(text)
-    ExecuteCommand('me '..text..'')
-end)
+RegisterNetEvent('3dme:shareDisplay')
+AddEventHandler('3dme:shareDisplay', onShareDisplay)
 
-RegisterNetEvent('3dme:shareDisplay', onShareDisplay)
+RegisterCommand(lang.commandName, function(source, args)
+    if #args > 0 then
+        local text = table.concat(args, " ")
+        TriggerServerEvent('3dme:sendMe', text)
+    else
+        print("Arguments manquants pour la commande /me")
+    end
+end, false)
 
 TriggerEvent('chat:addSuggestion', '/' .. lang.commandName, lang.commandDescription, lang.commandSuggestion)

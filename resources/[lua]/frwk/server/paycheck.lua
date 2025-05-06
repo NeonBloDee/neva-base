@@ -9,15 +9,15 @@ ESX.StartPayCheck = function()
 				local society = exports['core']:getSociety(xPlayer.job.name)
 				if society then
 					if society.coffre['accounts'].society < xPlayer.job.grade_salary then
-						TriggerClientEvent('esx:showAdvancedNotification', xPlayer.source, '~g~Banque', '', 'Votre société n\'a plus d\'argent pour vous payer!', 9)
+						TriggerClientEvent('esx:showAdvancedNotification', xPlayer.source, 'Banque', '', 'Votre société n\'a plus d\'argent pour vous payer!', 'CHAR_BANK_MAZE', 1, "~r~")
 					else
 						society.removeSocietyMoney(xPlayer.job.grade_salary)
 						xPlayer.addAccountMoney('bank', xPlayer.job.grade_salary)
 
-						TriggerClientEvent('esx:showAdvancedNotification', xPlayer.source, '~g~Banque', _U('received_paycheck'), 'Vous avez reçu votre salaire: ^2$^0'..xPlayer.job.grade_salary, 9)
+						TriggerClientEvent('esx:showAdvancedNotification', xPlayer.source, 'Banque', 'Salaire', 'Vous avez reçu votre salaire: ~g~$' ..xPlayer.job.grade_salary, 'CHAR_BANK_MAZE', 1)
 					end
 				else
-					TriggerClientEvent('esx:showAdvancedNotification', xPlayer.source, '~g~Banque', _U('received_paycheck'), _U('received_help', '^2$^0150'), 9)
+					TriggerClientEvent('esx:showAdvancedNotification', xPlayer.source, 'Banque', 'Salaire', 'Vous avez reçu une aide sociale: ~g~$150', 'CHAR_BANK_MAZE', 1)
 				end
 			end
 		end
