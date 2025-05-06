@@ -36,7 +36,7 @@ function Properties:openArcadiusMenu(type)
                 ShowJobBadge(ESX.PlayerData.job.name)
                 end
                 })
-                RageUI.Button('Cree une propriété', nil, {}, type == 'f6', {
+                RageUI.Button('Créer une propriété', nil, {}, type == 'f6', {
                     onSelected = function() 
                     end
                 }, createProperties)

@@ -5136,23 +5136,23 @@ function adminManagement:staffMenu()
     end
 end
 
-AddEventHandler("staff:addTerritoryEventData", function (name)
-    if Config.eventsMenu["Attaque Territoire"]["menu"]["zone"]["list"] == nil then
-        Config.eventsMenu["Attaque Territoire"]["menu"]["zone"]["list"] = {}
-    end
+-- AddEventHandler("staff:addTerritoryEventData", function (name)
+--     if Config.eventsMenu["Attaque Territoire"]["menu"]["zone"]["list"] == nil then
+--         Config.eventsMenu["Attaque Territoire"]["menu"]["zone"]["list"] = {}
+--     end
 
-    table.insert(Config.eventsMenu["Attaque Territoire"]["menu"]["zone"]["list"], name)
-end)
+--     table.insert(Config.eventsMenu["Attaque Territoire"]["menu"]["zone"]["list"], name)
+-- end)
 
-AddEventHandler("staff:removeTerritoryEventData", function (name)
-    for k, v in pairs(Config.eventsMenu["Attaque Territoire"]["menu"]["zone"]["list"]) do
-        if v ~= name then goto continue end
+-- AddEventHandler("staff:removeTerritoryEventData", function (name)
+--     for k, v in pairs(Config.eventsMenu["Attaque Territoire"]["menu"]["zone"]["list"]) do
+--         if v ~= name then goto continue end
 
-        table.remove(Config.eventsMenu["Attaque Territoire"]["menu"]["zone"]["list"], k)
+--         table.remove(Config.eventsMenu["Attaque Territoire"]["menu"]["zone"]["list"], k)
 
-        ::continue::
-    end
-end)
+--         ::continue::
+--     end
+-- end)
 
 RegisterNetEvent('sunny:admin:atazone', function()
     local playerPed = PlayerPedId()

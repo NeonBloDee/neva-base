@@ -139,13 +139,14 @@ function Police_openF6()
     local dogMenu = RageUI.CreateSubMenu(main, '', 'Menu K9')
     local code = RageUI.CreateSubMenu(main, '', 'Menu Codes Radio')
     local AppelTakeMenu = RageUI.CreateSubMenu(main, "", "Alerte Drogues")
-    local playerAmender = RageUI.CreateSubMenu(interactMenu, '', 'Actions Disponibles')
+    local playerAmender = RageUI.CreateSubMenu(interactMenu, '', 'Amendes impayées')
     local drugsAlerte = RageUI.CreateSubMenu(main, '', 'Actions Disponibles')
     
     local cbVehicle = {}
     local CallsTable = {}
     local CallInfo = {coords = {}, raison = '', id = nil}
     local timerRenfort = true
+    local playerAmende = {}
 
     vehicleInfoWithPlate.Closed = function()
         ClearPedTasks(PlayerPedId())
@@ -312,14 +313,19 @@ function Police_openF6()
             
             RageUI.Button('Vérifier les amendes impayé', nil, {}, true, {
                 onSelected = function()
-                    if closestDistance == -1 or closestDistance > 3 then return ESX.ShowNotification('Personne aux alentours') end
+                    if closestDistance == -1 or closestDistance > 3 then 
+                        ESX.ShowNotification('Personne aux alentours')
+                        return 
+                    end
 
                     playerAmende = {}
 
                     ESX.TriggerServerCallback('sunny:police:amendes', function(cb)
-                        if cb then
+                        if cb and #cb > 0 then
                             playerAmende = cb
                             RageUI.Visible(playerAmender, true)
+                        else
+                            ESX.ShowNotification("~b~Information~s~: Cette personne n'a pas d'amendes impayées")
                         end
                     end, GetPlayerServerId(closestPlayer))
                 end

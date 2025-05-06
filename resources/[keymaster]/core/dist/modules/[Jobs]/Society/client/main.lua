@@ -9,25 +9,31 @@ function ShowJobBadge(jobName)
         local playerPed = PlayerPedId()
         local animDict = 'paper_1_rcm_alt1-9'
         local anim = 'player_one_dual-9'
-        ESX.Streaming.RequestAnimDict(animDict)
+        
+        RequestAnimDict(animDict)
+        while not HasAnimDictLoaded(animDict) do
+            Citizen.Wait(100)
+        end
+        
         TaskPlayAnim(playerPed, animDict, anim, 1.0, -1.0, -1, 51, 0, false, false, false)
 
         ESX.Streaming.RequestModel(hash)
         local prop = CreateObject(hash, GetEntityCoords(playerPed), true, true, true)
         SetEntityAsNoLongerNeeded(prop)
-        local boneIndex = GetPedBoneIndex(playerPed, 0xDEAD)
+        local boneIndex = GetPedBoneIndex(playerPed, 36029)
 
         local xPos, yPos, zPos, xRot, yRot, zRot = table.unpack(badgePosition)
         AttachEntityToEntity(prop, playerPed, boneIndex, xPos, yPos, zPos, xRot, yRot, zRot, true, true, false, true, 1, true)
 
         local closestPlayer, closestDistance = ESX.Game.GetClosestPlayer()
         if closestDistance ~= -1 and closestDistance <= 3.0 then
-            TriggerServerEvent('jsfour-idcard:open', GetPlayerServerId(PlayerId()), GetPlayerServerId(closestPlayer), 'job')
+            TriggerServerEvent('esx_license:showBadge', GetPlayerServerId(PlayerId()), jobName, GetPlayerServerId(closestPlayer))
         end
         
-        TriggerServerEvent("jsfour-idcard:open", GetPlayerServerId(PlayerId()), GetPlayerServerId(PlayerId()), 'job')
+        TriggerServerEvent('esx_license:showBadge', GetPlayerServerId(PlayerId()), jobName, GetPlayerServerId(PlayerId()))
+        
         Citizen.Wait(3000)
-        ESX.Game.DeleteEntity(prop)
+        ESX.Game.DeleteObject(prop)
         ClearPedTasks(playerPed)
         ShowBadgeInProgress = false
     end)

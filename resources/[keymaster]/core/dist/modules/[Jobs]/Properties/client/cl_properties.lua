@@ -219,6 +219,11 @@ Properties = {
 }
 
 RegisterNetEvent('sunny:properties:updateProperties', function(propertyId, propertyData)
+    if not propertyId or not propertyData then
+        print("ERROR: Missing propertyId or propertyData in updateProperties event")
+        return
+    end
+    
     if Properties.PropertiesList[propertyId] then
         Properties.PropertiesList[propertyId] = propertyData
     else
@@ -226,10 +231,16 @@ RegisterNetEvent('sunny:properties:updateProperties', function(propertyId, prope
     end
 
     Properties:updateBlips()
-
 end)
 
 RegisterNetEvent('sunny:properties:load', function(data)
+    if data == nil then
+        print("ERROR: Received nil data in properties:load event")
+        Properties.Load = true
+        Properties.PropertiesList = {}
+        return
+    end
+    
     Properties.PropertiesList = data
 
     Properties:updateBlips()
@@ -262,60 +273,82 @@ function Properties:updateBlips()
     for k,v in pairs(Properties.blips) do
         RemoveBlip(v)
     end
+    
+    if not Properties.PropertiesList then
+        print("ERROR: PropertiesList is nil in updateBlips")
+        return
+    end
+    
+    if not ESX.GetPlayerData() or not ESX.GetPlayerData().UniqueID then
+        print("ERROR: ESX.GetPlayerData().UniqueID is nil in updateBlips")
+        return
+    end
+    
     for k,v in pairs(Properties.PropertiesList) do
-        if tostring(v.owner) == tostring(ESX.GetPlayerData().UniqueID) then
-            local blip = AddBlipForCoord(v.enter.x, v.enter.y, v.enter.z)
-            SetBlipSprite(blip, 40)
-            SetBlipDisplay(blip, 4)
-            SetBlipScale(blip, 0.3)
-            SetBlipColour(blip, 4)
-            SetBlipAsShortRange(blip, true)
-            BeginTextCommandSetBlipName("STRING")
-            if v.type == 'location' then
-                AddTextComponentString('[LOCATAIRE] Propriété')
-            else
-                AddTextComponentString('[PROPRIETAIRE] Propriété')
-            end
-            EndTextCommandSetBlipName(blip)
-
-            Properties.blips[blip] = blip
-        else
-            if v.owner == 'none' then
+        if v.enter and v.owner then
+            if tostring(v.owner) == tostring(ESX.GetPlayerData().UniqueID) then
                 local blip = AddBlipForCoord(v.enter.x, v.enter.y, v.enter.z)
-                SetBlipSprite(blip, 350)
+                SetBlipSprite(blip, 40)
                 SetBlipDisplay(blip, 4)
-                SetBlipScale(blip, 0.5)
-                SetBlipColour(blip, 2)
+                SetBlipScale(blip, 0.3)
+                SetBlipColour(blip, 4)
                 SetBlipAsShortRange(blip, true)
                 BeginTextCommandSetBlipName("STRING")
                 if v.type == 'location' then
-                    AddTextComponentString('[LOCATION] Propriété')
+                    AddTextComponentString('[LOCATAIRE] Propriété')
                 else
-                    AddTextComponentString('[ACHAT] Propriété')
+                    AddTextComponentString('[PROPRIETAIRE] Propriété')
                 end
                 EndTextCommandSetBlipName(blip)
 
                 Properties.blips[blip] = blip
+            else
+                if v.owner == 'none' then
+                    local blip = AddBlipForCoord(v.enter.x, v.enter.y, v.enter.z)
+                    SetBlipSprite(blip, 350)
+                    SetBlipDisplay(blip, 4)
+                    SetBlipScale(blip, 0.5)
+                    SetBlipColour(blip, 2)
+                    SetBlipAsShortRange(blip, true)
+                    BeginTextCommandSetBlipName("STRING")
+                    if v.type == 'location' then
+                        AddTextComponentString('[LOCATION] Propriété')
+                    else
+                        AddTextComponentString('[ACHAT] Propriété')
+                    end
+                    EndTextCommandSetBlipName(blip)
+
+                    Properties.blips[blip] = blip
+                end
             end
+        else
+            print("ERROR: Missing required property data in updateBlips for property: " .. tostring(k))
         end
     end
 end
 
-RegisterNetEvent('sunny:properties:updateProperties', function(i, data)
-    Properties:updateBlips()
-
-    Properties.PropertiesList[i] = data
-end)
-
-RegisterNetEvent('sunny:properties:updateOwner', function(i, owner, ownerName)
-    Properties.PropertiesList[i].owner = owner
-    Properties.PropertiesList[i].ownerName = ownerName
-end)
+local function waitForESX()
+    CreateThread(function()
+        while not ESX do
+            TriggerEvent('esx:getSharedObject', function(obj) ESX = obj end)
+            Wait(100)
+        end
+        
+        Wait(1000)
+        TriggerServerEvent('sunny:properties:load')
+    end)
+end
 
 CreateThread(function()
-    while not ESXLoaded do Wait(1) end
-    while not Properties.Load do Wait(1) end
-
+    waitForESX()
+    
+    while not Properties.Load do 
+        Wait(100)
+        if not Properties.Load then
+            print("Waiting for properties to load...")
+        end
+    end
+    
     while true do 
         Wait(Properties.WaitNearby)
 
@@ -412,6 +445,22 @@ end)
 CreateThread(function()
     Wait(1000)
     TriggerServerEvent('sunny:properties:load')
+    
+    CreateThread(function()
+        local attempts = 0
+        while not Properties.Load and attempts < 5 do
+            Wait(5000)
+            attempts = attempts + 1
+            print("Retry loading properties attempt " .. attempts)
+            TriggerServerEvent('sunny:properties:load')
+        end
+        
+        if not Properties.Load then
+            print("ERROR: Failed to load properties after 5 attempts")
+            Properties.Load = true
+            Properties.PropertiesList = {}
+        end
+    end)
 end)
 
 function Properties:openBuilderMenu()
@@ -568,27 +617,6 @@ function Properties:openBuilderMenu()
                 end
             })
         
-    
-            RageUI.Button('Sortie', nil, {RightLabel = Properties.admin.exit and '~g~Défini' or '~r~Indéfini~s~'}, true, {
-                onSelected = function()
-                    Properties.admin.exit = GetEntityCoords(PlayerPedId())
-                end,
-                onActive = function()
-                    DrawMarker(25, PlayerCoords.x, PlayerCoords.y, PlayerCoords.z-0.98, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.55, 0.55, 0.55, 240, 255, 0, 255, false, false, 2, false, false, false, false)
-                    DrawInstructionBarNotification(PlayerCoords.x, PlayerCoords.y, PlayerCoords.z, 'Position de la sortie')
-                end
-            })
-
-            RageUI.Button('Coffre', nil, {RightLabel = Properties.admin.trunk and '~g~Défini' or '~r~Indéfini~s~'}, true, {
-                onSelected = function()
-                    Properties.admin.trunk = GetEntityCoords(PlayerPedId())
-                end,
-                onActive = function()
-                    DrawMarker(25, PlayerCoords.x, PlayerCoords.y, PlayerCoords.z-0.98, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.55, 0.55, 0.55, 240, 255, 0, 255, false, false, 2, false, false, false, false)
-                    DrawInstructionBarNotification(PlayerCoords.x, PlayerCoords.y, PlayerCoords.z, 'Position du Coffre')
-                end
-            })
-
             RageUI.Checkbox('Mode Visite', nil, Properties.admin.visitmode, {}, {
                 onChecked = function()
                     local ped = PlayerPedId()
@@ -622,6 +650,27 @@ function Properties:openBuilderMenu()
                     SetEntityCoords(PlayerPedId(), Properties.Lastplayerpos)
                 end
             })
+    
+            RageUI.Button('Sortie', nil, {RightLabel = Properties.admin.exit and '~g~Défini' or '~r~Indéfini~s~'}, true, {
+                onSelected = function()
+                    Properties.admin.exit = GetEntityCoords(PlayerPedId())
+                end,
+                onActive = function()
+                    DrawMarker(25, PlayerCoords.x, PlayerCoords.y, PlayerCoords.z-0.98, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.55, 0.55, 0.55, 240, 255, 0, 255, false, false, 2, false, false, false, false)
+                    DrawInstructionBarNotification(PlayerCoords.x, PlayerCoords.y, PlayerCoords.z, 'Position de la sortie')
+                end
+            })
+
+            RageUI.Button('Coffre', nil, {RightLabel = Properties.admin.trunk and '~g~Défini' or '~r~Indéfini~s~'}, true, {
+                onSelected = function()
+                    Properties.admin.trunk = GetEntityCoords(PlayerPedId())
+                end,
+                onActive = function()
+                    DrawMarker(25, PlayerCoords.x, PlayerCoords.y, PlayerCoords.z-0.98, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.55, 0.55, 0.55, 240, 255, 0, 255, false, false, 2, false, false, false, false)
+                    DrawInstructionBarNotification(PlayerCoords.x, PlayerCoords.y, PlayerCoords.z, 'Position du Coffre')
+                end
+            })
+
 
             RageUI.Checkbox('Location', nil, Properties.admin.typeValue, {}, {
                 onChecked = function()
@@ -816,6 +865,12 @@ RegisterCommand('Properties', function()
 end)
 
 function Properties:openMenu(k)
+    -- Vérification que la propriété existe avant de l'ouvrir
+    if not Properties.PropertiesList or not Properties.PropertiesList[k] then
+        ESX.ShowNotification("~r~Erreur: Cette propriété n'existe pas")
+        return
+    end
+
     local main = RageUI.CreateMenu('', 'Actions Disponibles')
 
     local interphoneMenu = RageUI.CreateSubMenu(main, '', 'Actions Disponibles')
@@ -1084,14 +1139,19 @@ RegisterNetEvent('sunny:properties:lockedCoffre', function(k,statut)
 end)
 
 function Properties:haveEnter(propertiesData, owner)
+    if not propertiesData or not owner then
+        return false
+    end
+    
     local myPlayerData = ESX.GetPlayerData()
+    if not myPlayerData then return false end
 
     if propertiesData.owner == owner then
         return true
     end
 
-    if  propertiesData.owner == 'none' then
-        if myPlayerData.job.name == 'realestateagent' then
+    if propertiesData.owner == 'none' then
+        if myPlayerData.job and myPlayerData.job.name == 'realestateagent' then
             return true
         end
     end

@@ -422,19 +422,26 @@ end)
 ESX.RegisterServerCallback('sunny:police:amendes', function(source, cb, player)
     local xPlayer = ESX.GetPlayerFromId(source)
     local target = ESX.GetPlayerFromId(player)
-    if xPlayer.job.name ~= "police" and xPlayer.job.name ~= "bcso" then return end
+    
+    if not xPlayer or (xPlayer.job.name ~= "police" and xPlayer.job.name ~= "bcso") then 
+        cb({})
+        return 
+    end
 
-    --if not target then cb({}) return end
+    if not target then 
+        cb({})
+        return 
+    end
 
-    MySQL.Async.fetchAll('SELECT * FROM billing WHERE target = @target', {
+    MySQL.Async.fetchAll('SELECT * FROM billing WHERE identifier = @identifier AND target = @target AND paid = 0', {
+        ['@identifier'] = target.identifier,
         ['@target'] = 'society_police'
     }, function(result)
-        local amendes = {}
-        for k,v in pairs(result) do
-            table.insert(amendes, v)
+        if result and #result > 0 then
+            cb(result)
+        else
+            cb({})
         end
-
-        cb(amendes)
     end)
 end)
 
