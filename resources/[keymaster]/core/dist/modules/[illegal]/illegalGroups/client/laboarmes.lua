@@ -60,6 +60,20 @@ end
 
 
 RegisterCommand('craftarmes', function()
-    openCraftingMenu()
+    local hasAccess = false
+    for cat, _ in pairs(weaponCategories) do
+        IsPlayerInCategory(cat, function(playerInCat)
+            if playerInCat then
+                hasAccess = true
+                openCraftingMenu()
+            end
+        end)
+    end
+    
+    Citizen.SetTimeout(1000, function()
+        if not hasAccess then
+            ESX.ShowNotification('Vous n\'avez pas accès au craft d\'armes.')
+        end
+    end)
 end, false)
 
