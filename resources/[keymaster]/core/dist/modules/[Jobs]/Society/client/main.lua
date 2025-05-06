@@ -2,6 +2,13 @@ local ShowBadgeInProgress = false
 local hash = `p_ld_id_card_002`
 local badgePosition = {0.13, 0.03, -0.04, 80.0, 350.0, 180.0}
 
+local function GetJobLabel(jobName)
+    if Society.List[jobName] then
+        return Society.List[jobName].label
+    end
+    return jobName
+end
+
 function ShowJobBadge(jobName)
     if ShowBadgeInProgress then return end
     ShowBadgeInProgress = true
@@ -33,7 +40,8 @@ function ShowJobBadge(jobName)
         TaskPlayAnim(playerPed, animDict, anim, 1.0, -1.0, -1, 51, 0, false, false, false)
 
         local playerData = ESX.GetPlayerData()
-        local badgeMessage = string.format("~b~[BADGE OFFICIEL]~s~ %s présente son badge de %s", playerData.name, ESX.GetJobLabel(jobName))
+        local jobLabel = GetJobLabel(jobName)
+        local badgeMessage = string.format("~b~[BADGE OFFICIEL]~s~ %s présente son badge de %s", playerData.name, jobLabel)
         TriggerServerEvent('3dme:shareDisplay', badgeMessage)
 
         local coords = GetEntityCoords(playerPed)
