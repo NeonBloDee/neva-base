@@ -37,8 +37,8 @@ ConfigwGunFight = {
     },
 
     TypeDeMap = {
-        {Name = "~p~ThePit~s~", Value = 1},
-        {Name = "~p~Navire Militaire~s~", Value = 3},
+        -- {Name = "~p~ThePit~s~", Value = 1},
+        {Name = "~p~Navire Militaire~s~", Value = 1},
     },
 
     SpawnSelectionThePit = {
