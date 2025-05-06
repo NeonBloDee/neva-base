@@ -51,7 +51,7 @@ AddEventHandler('jsfour-idcard:open', function(ID, targetID, type)
 					}
 
 					TriggerClientEvent('jsfour-idcard:open', _source, array, type)
-					--TriggerClientEvent('sunny:id:idcard', src)
+					TriggerClientEvent('sunny:id:idcard', src)
 				else
 					TriggerClientEvent('esx:showNotification', _source, "Vous n'avez pas ce type de licence...")
 				end

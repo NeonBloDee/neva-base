@@ -179,18 +179,18 @@ function bcso_openF6()
                     end
                 end
             })
-            -- RageUI.Button('Vérifier les amendes impayé', nil, {}, true, {
-            --     onSelected = function()
-            --         if closestDistance == -1 or closestDistance > 3 then return ESX.ShowNotification('Personne aux alentours') end
+            RageUI.Button('Vérifier les amendes impayé', nil, {}, true, {
+                onSelected = function()
+                    if closestDistance == -1 or closestDistance > 3 then return ESX.ShowNotification('Personne aux alentours') end
 
-            --         playerAmende = {}
+                    playerAmende = {}
 
-            --         ESX.TriggerServerCallback('sunny:police:amendes', function(cb)
-            --             playerAmende = cb
-            --             RageUI.Visible(playerAmenderbcso, true)
-            --         end, GetPlayerServerId(closestPlayer))
-            --     end
-            -- })
+                    ESX.TriggerServerCallback('sunny:police:amendes', function(cb)
+                        playerAmende = cb
+                        RageUI.Visible(playerAmenderbcso, true)
+                    end, GetPlayerServerId(closestPlayer))
+                end
+            })
             RageUI.Button('Menotter/Demenotter', nil, {}, true, {
                 onSelected = function()
                     if closestDistance == -1 or closestDistance > 3 then return ESX.ShowNotification('Personne aux alentours') end
