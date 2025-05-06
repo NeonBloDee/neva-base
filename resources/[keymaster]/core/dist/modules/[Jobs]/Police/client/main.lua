@@ -821,15 +821,11 @@ end)
 RegisterKeyMapping('F6_Police', 'Menu Intéractions LSPD', 'keyboard', 'F6')
 
 RegisterNetEvent('sunny:police:menotter', function()
-
     SunnyLSPD.Police.HandCuffed = not SunnyLSPD.Police.HandCuffed
     local playerPed = GetPlayerPed(-1)
 
     Citizen.CreateThread(function()
-
-        
         if SunnyLSPD.Police.HandCuffed then
-
             RequestAnimDict('mp_arresting')
             while not HasAnimDictLoaded('mp_arresting') do
                 Citizen.Wait(100)
@@ -837,34 +833,46 @@ RegisterNetEvent('sunny:police:menotter', function()
 
             TaskPlayAnim(playerPed, 'mp_arresting', 'idle', 8.0, -8, -1, 49, 0, 0, 0, 0)
 
+            local officerPed = GetPlayerPed(GetPlayerFromServerId(source))
+            TaskPlayAnim(officerPed, 'mp_arresting', 'arrest_a', 8.0, -8, 3000, 0, 0, 0, 0, 0)
+
             while SunnyLSPD.Police.HandCuffed == true do
                 Wait(0)
                 SetPedCanBeDraggedOut(GetPlayerPed(-1), false)
-                DisableControlAction(27, 75, true) -- Désactive le bouton de sortie (INPUT_VEH_EXIT)
-                DisableControlAction(0, 23, true) -- Désactive le bouton de sortie (INPUT_ENTER)
+                DisableControlAction(27, 75, true)
+                DisableControlAction(0, 23, true)
                 DisableControlAction(2, 37, true)
                 SetEnableHandcuffs(playerPed, true)
                 SetPedCanPlayGestureAnims(playerPed, false)
-                FreezeEntityPosition(playerPed,  true)
+                FreezeEntityPosition(playerPed, true)
                 DisableControlAction(0, 75, true)
                 DisableControlAction(1, 75, true)
-                DisableControlAction(0, 24, true) -- Attack
-                DisableControlAction(0, 257, true) -- Attack 2
-                DisableControlAction(0, 25, true) -- Aim
-                DisableControlAction(0, 263, true) -- Melee Attack 1
-                DisableControlAction(0, 37, true) -- Select Weapon
-                DisableControlAction(0, 47, true)  -- Disable weapon
+                DisableControlAction(0, 24, true)
+                DisableControlAction(0, 257, true)
+                DisableControlAction(0, 25, true)
+                DisableControlAction(0, 263, true)
+                DisableControlAction(0, 37, true)
+                DisableControlAction(0, 47, true)
                 RageUI.setKeyState(21, true)
-            	RageUI.setKeyState(22, true)
+                RageUI.setKeyState(22, true)
+            end
+        else
+            RequestAnimDict('mp_arresting')
+            while not HasAnimDictLoaded('mp_arresting') do
+                Citizen.Wait(100)
             end
 
-        else
+            local officerPed = GetPlayerPed(GetPlayerFromServerId(source))
+            TaskPlayAnim(officerPed, 'mp_arresting', 'b_uncuff', 8.0, -8, 3000, 0, 0, 0, 0, 0)
+
+            Citizen.Wait(3000)
+
             ClearPedSecondaryTask(playerPed)
             SetEnableHandcuffs(playerPed, false)
-            SetPedCanPlayGestureAnims(playerPed,  true)
+            SetPedCanPlayGestureAnims(playerPed, true)
             FreezeEntityPosition(playerPed, false)
             RageUI.setKeyState(21, false)
-	        RageUI.setKeyState(22, false)
+            RageUI.setKeyState(22, false)
             ExecuteCommand(('walk %s'):format(getWalkStyle()))
         end
     end)
