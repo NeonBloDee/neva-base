@@ -471,57 +471,57 @@ Config.Staff.GamertagsGroup = {
 }
 
 Config.eventsMenu = {
-    -- ["Attaque Territoire"] = {
-    --     menu =  {
-    --         ['zone'] =  {
-    --             label = "Territoire",
-    --             description = false,
-    --             type = 'list',
-    --             list = {},
-    --             index = 1,
-    --         },
+    ["Attaque Territoire"] = {
+        menu =  {
+            ['zone'] =  {
+                label = "Territoire",
+                description = false,
+                type = 'list',
+                list = {},
+                index = 1,
+            },
 
-    --         ['attacker'] =  {
-    --             label = "Groupe Attaquant",
-    --             description = "Choissiez un groupe attaquant",
+            ['attacker'] =  {
+                label = "Groupe Attaquant",
+                description = "Choissiez un groupe attaquant",
 
-    --             action = function()
-    --                 local result = ""
-    --                 local name = ZGEG.GetTextInput("Groupe")
+                action = function()
+                    local result = ""
+                    local name = ZGEG.GetTextInput("Groupe")
 
-    --                 if name and name ~= nil and name ~= '' then
-    --                     result = name
-    --                 end
+                    if name and name ~= nil and name ~= '' then
+                        result = name
+                    end
 
-    --                 return result
-    --             end
-    --         },
+                    return result
+                end
+            },
 
-    --         ['time'] =  {
-    --             label = "Durée de l'attaque",
-    --             description = "Temps en minutes.",
-    --             action = function()
-    --                 local result = ZGEG.GetNumberInput("Durée")
-    --                 if result == nil then
-    --                     ZGEG.ShowNotification("~r~La durée doit être un nombre")
+            ['time'] =  {
+                label = "Durée de l'attaque",
+                description = "Temps en minutes.",
+                action = function()
+                    local result = ZGEG.GetNumberInput("Durée")
+                    if result == nil then
+                        ZGEG.ShowNotification("~r~La durée doit être un nombre")
 
-    --                     return nil
-    --                 end
+                        return nil
+                    end
 
-    --                 return result
-    --             end
-    --         }
-    --     },
+                    return result
+                end
+            }
+        },
 
-    --     preview = function()
+        preview = function()
 
-    --     end,
+        end,
 
-    --     event = function (result)
-    --         local zoneId = exports.Slide:getZoneByName(result.zone)
-    --         TriggerServerEvent("territories:createRaid", zoneId, result.attacker, result.time)
-    --     end,
-    -- },
+        event = function (result)
+            local zoneId = exports.Slide:getZoneByName(result.zone)
+            TriggerServerEvent("territories:createRaid", zoneId, result.attacker, result.time)
+        end,
+    },
     ["Braquage Véhicule (Attaque)"] = {
         menu =  {
             ['name'] =  {
