@@ -1,7 +1,3 @@
-Properties = Properties or {}
-Properties.isIn = Properties.isIn or {}
-Properties.PropertiesList = Properties.PropertiesList or {}
-
 RegisterNetEvent('sunny:properties:trunk:refresh', function(propertiesID, k)
     if k == nil then
     else
@@ -23,52 +19,17 @@ function Properties:openTrunkMenu(k)
         return
     end
 
-    local trunk_data_path = Properties.PropertiesList[k]
-    local current_trunk_value = trunk_data_path.trunk
-    local trunk_type = type(current_trunk_value)
-
-    if trunk_type == 'string' then
-        local success, decoded_trunk = pcall(json.decode, current_trunk_value)
-        if success and type(decoded_trunk) == 'table' then
-            trunk_data_path.trunk = decoded_trunk
-            print(('[PropertiesClient][Trunk] INFO: Trunk for prop %s was a JSON string and successfully parsed.'):format(tostring(k)))
-        else
-            print(('[PropertiesClient][Trunk] WARNING: Trunk for prop %s was a string but failed to decode as JSON or result was not a table. Initializing as empty. Original: %s'):format(tostring(k), current_trunk_value))
-            trunk_data_path.trunk = {}
-        end
-    elseif trunk_type ~= 'table' then
-        print(('[PropertiesClient][Trunk] WARNING: Trunk for prop %s was not a table or string (type: %s). Initializing as empty.'):format(tostring(k), trunk_type))
-        trunk_data_path.trunk = {}
+    if type(Properties.PropertiesList[k].trunk) ~= 'table' then
+        Properties.PropertiesList[k].trunk = {}
+        print(('[PropertiesClient][Trunk] WARNING: Properties.PropertiesList[%s].trunk was not a table (type: %s). Initialized as empty table.'):format(tostring(k), type(Properties.PropertiesList[k].trunk)))
     end
 
-    if type(trunk_data_path.trunk) ~= 'table' then
-        print(('[PropertiesClient][Trunk] CRITICAL: Trunk for prop %s is STILL NOT a table after init attempts. Forcing to empty table.'):format(tostring(k)))
-        trunk_data_path.trunk = {}
+    if not Properties.PropertiesList[k].trunk.code then
+        Properties.PropertiesList[k].trunk.code = { active = false, code = nil, blocked = false }
+        print(('[PropertiesClient][Trunk] WARNING: Properties.PropertiesList[%s].trunk.code was nil. Initialized with default structure.'):format(tostring(k)))
     end
 
-    local trunk_table = trunk_data_path.trunk
-
-    if not trunk_table.code or type(trunk_table.code) ~= 'table' then
-        print(('[PropertiesClient][Trunk] WARNING: Properties.PropertiesList[%s].trunk.code was missing or not a table. Initialized with default structure.'):format(tostring(k)))
-        trunk_table.code = { active = false, code = nil, blocked = false }
-    end
-
-    if not trunk_table.items or type(trunk_table.items) ~= 'table' then
-        print(('[PropertiesClient][Trunk] WARNING: Properties.PropertiesList[%s].trunk.items was missing or not a table. Initialized as empty list.'):format(tostring(k)))
-        trunk_table.items = {}
-    end
-
-    if not trunk_table.accounts or type(trunk_table.accounts) ~= 'table' then
-        print(('[PropertiesClient][Trunk] WARNING: Properties.PropertiesList[%s].trunk.accounts was missing or not a table. Initialized with default (0 cash, 0 black_money).'):format(tostring(k)))
-        trunk_table.accounts = { cash = 0, black_money = 0 }
-    end
-
-    if not trunk_table.weapons or type(trunk_table.weapons) ~= 'table' then
-        print(('[PropertiesClient][Trunk] WARNING: Properties.PropertiesList[%s].trunk.weapons was missing or not a table. Initialized as empty list.'):format(tostring(k)))
-        trunk_table.weapons = {}
-    end
-
-    if trunk_table.code.active == true and trunk_table.code.code ~= nil then
+    if Properties.PropertiesList[k].trunk['code'].active == true and Properties.PropertiesList[k].trunk['code'].code ~= nil then
         Properties.PropertiesList[k].trunkUnLocked = false
     else
         Properties.PropertiesList[k].trunkUnLocked = true

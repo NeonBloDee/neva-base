@@ -220,25 +220,14 @@ Properties = {
     }
 }
 
-RegisterNetEvent('sunny:properties:updateProperties', function(propertyId, propertyData)
-    if not propertyId or not propertyData then
-        print("[PropertiesClient] ERROR: Missing propertyId or propertyData in updateProperties event")
-        return
-    end
-    
-    Properties.PropertiesList[propertyId] = propertyData
-
-    Properties:updateBlips()
-end)
-
 RegisterNetEvent('sunny:properties:load', function(data)
     if data == nil then
-        print("[PropertiesClient] WARNING: Received nil data in properties:load event. Initializing with empty list.")
         Properties.PropertiesList = {}
     else
+        for k,v in pairs(data) do v.owner = tostring(v.owner) end
         Properties.PropertiesList = data
     end
-    
+
     Properties:updateBlips()
     Properties.Load = true
     print("[PropertiesClient] Properties loaded/reloaded. Count: " .. #Properties.PropertiesList)
@@ -246,6 +235,7 @@ end)
 
 RegisterNetEvent('sunny:properties:add', function(i,data)
     if i and data then
+        data.owner = tostring(data.owner)
         Properties.PropertiesList[i] = data
         Properties:updateBlips()
     else
@@ -253,23 +243,12 @@ RegisterNetEvent('sunny:properties:add', function(i,data)
     end
 end)
 
-RegisterNetEvent('sunny:properties:updatePlayers', function(propertyId, playersData)
-    if not Properties.PropertiesList or not Properties.PropertiesList[propertyId] then
-        print(("[PropertiesClient] ERROR: Property %s not found for updatePlayers event."):format(tostring(propertyId)))
-        return
-    end
-
-    Properties.PropertiesList[propertyId].players = playersData
-
-    if ESX and ESX.GetPlayerData() and ESX.GetPlayerData().UniqueID then
-        local uniqueId = tostring(ESX.GetPlayerData().UniqueID)
-        if playersData and playersData[uniqueId] then
-        end
-    else
-        print("[PropertiesClient] WARNING: ESX.PlayerData.UniqueID not available in sunny:properties:updatePlayers.")
-    end
+RegisterNetEvent('sunny:properties:updateProperties', function(propertyId, propertyData)
+    if not propertyId or not propertyData then return end
+    propertyData.owner = tostring(propertyData.owner)
+    Properties.PropertiesList[propertyId] = propertyData
+    Properties:updateBlips()
 end)
-
 
 RegisterNetEvent('sunny:properties:delete', function(k)
     if Properties.PropertiesList and Properties.PropertiesList[k] then
@@ -393,7 +372,7 @@ CreateThread(function()
             local distToEnter = #(coords - vector3(v.enter.x, v.enter.y, v.enter.z))
             local distToExit = #(coords - vector3(v.exit.x, v.exit.y, v.exit.z))
             local distToTrunk = #(coords - vector3(v.trunkPos.x, v.trunkPos.y, v.trunkPos.z))
-            local distToGarage = 9999
+            local distToGarage = 9999 -- Default to a large distance
 
             if v.garage == true or v.garage == 1 then
                 if v.garagePos and v.garagePos.x then
@@ -445,7 +424,7 @@ CreateThread(function()
                     DrawMarker(25, v.garagePos.x, v.garagePos.y, v.garagePos.z-0.98, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.55, 0.55, 0.55, tonumber(UTILS.ServerColor.r), tonumber(UTILS.ServerColor.g), tonumber(UTILS.ServerColor.b), 255, false, false, 2, false, false, false, false)
                     if distToGarage <= 1.5 then
                         DrawInstructionBarNotification(v.garagePos.x, v.garagePos.y, v.garagePos.z, "Appuyez sur [ ~g~E~w~ ] pour intéragir (garage)")
-                        if IsControlJustReleased(0, 38) then -- Key E (38)
+                        if IsControlJustReleased(0, 38) then
                             Properties:openGarageMenu(k)
                         end
                     end
@@ -778,13 +757,13 @@ function Properties:openBuilderMenu()
                                 )
             
                                 ESX.ShowNotification('Propriété créée avec succès')
-                            else -- Non
+                            else
                                 ESX.ShowNotification('Action annulée')
                             end
                         end
                     )
                 end
-            })            
+            })
         end)
 
         RageUI.IsVisible(Garage, function()
@@ -913,30 +892,29 @@ function Properties:openMenu(k)
                     onSelected = function()
                         TriggerEvent('InteractSound_CL:PlayOnOne', 'doorbell', 0.5)
                         Properties.belled[k] = true
-
                         TriggerServerEvent('sunny:properties:interphone:call', Properties.PropertiesList[k])
                     end
                 })
             end
-            if Properties.PropertiesList[k].owner == tostring(ESX.PlayerData.UniqueID) then
-                RageUI.Checkbox('Propriété Ouverte', nil, Properties.PropertiesList[k].open, {}, {
-                    onChecked = function()
-                        Properties.PropertiesList[k].open = true
-                        TriggerServerEvent('sunny:properties:locked', k, Properties.PropertiesList[k].open)
-                    end,
-                    onUnChecked = function()
-                        Properties.PropertiesList[k].open = false
-                        TriggerServerEvent('sunny:properties:locked', k, Properties.PropertiesList[k].open)
+
+            local playerUnique = tostring(ESX.PlayerData.UniqueID)
+            if Properties.PropertiesList[k].owner == playerUnique then
+                RageUI.Button('Entrer dans votre propriété', nil, {}, true, {
+                    onSelected = function()
+                        RageUI.CloseAll()
+                        Properties.PropertiesList[k].players[playerUnique] = true
+                        TriggerServerEvent('sunny:properties:addPlayer', nil, 'me', k, Properties.PropertiesList[k].players)
+                        ESX.ShowNotification('🏠 Vous entrez dans votre propriété')
                     end
                 })
             end
-            if Properties:haveEnter(Properties.PropertiesList[k], tostring(ESX.PlayerData.UniqueID)) and Properties.PropertiesList[k].owner ~= 'none' or Properties.PropertiesList[k].open == true then
-                RageUI.Button('Entrer dans la propriété', nil, {}, true, {
+            if Properties.PropertiesList[k].open == true then
+                RageUI.Button('Entrer dans la propriété (ouverte)', nil, {}, true, {
                     onSelected = function()
                         RageUI.CloseAll()
-                        Properties.PropertiesList[k].players[tostring(ESX.PlayerData.UniqueID)] = true
+                        Properties.PropertiesList[k].players[playerUnique] = true
                         TriggerServerEvent('sunny:properties:addPlayer', nil, 'me', k, Properties.PropertiesList[k].players)
-                        ESX.ShowNotification('🏠 Vous venez d\'entrer dans la propriété')
+                        ESX.ShowNotification('🏠 Vous entrez dans la propriété ouverte')
                     end
                 })
             end
@@ -1220,16 +1198,11 @@ RegisterNetEvent('sunny:properties:changePlayerSate', function(propertyId, state
                  Properties.CurrentlyInsidePropertyId = nil
             end
         end
+        -- print(("[PropertiesClient] changePlayerSate: PropID: %s, State: %s, CurrentlyInside: %s"):format(tostring(propertyId), tostring(state), tostring(Properties.CurrentlyInsidePropertyId)))
     else
         print("[PropertiesClient] WARNING: ESX.PlayerData.UniqueID not available in sunny:properties:changePlayerSate.")
     end
 end)
-
-function DrawInstructionBarNotification(x, y, z, message)
-    SetTextComponentFormat('STRING')
-    AddTextComponentString(message)
-    DisplayHelpTextFromStringLabel(0, 0, 1, -1)
-end
 
 if not UTILS or not UTILS.ServerColor then
     print("[PropertiesClient] WARNING: UTILS.ServerColor not found, using default marker color.")

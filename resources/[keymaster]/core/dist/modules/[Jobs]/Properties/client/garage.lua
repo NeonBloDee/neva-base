@@ -1,11 +1,3 @@
-Properties = Properties or {}
-Properties.garage = Properties.garage or {}
-Properties.garage.interior = Properties.garage.interior or {}
-Properties.garage.self_vehicle = Properties.garage.self_vehicle or {}
-Properties.garage.isIn = Properties.garage.isIn or false
-Properties.PropertiesList = Properties.PropertiesList or {}
-Properties.VehicleProperties = Properties.VehicleProperties or {}
-
 RegisterNetEvent('sunny:properties:loadVehicle', function(propertiesData, vehicleData)
     local countSpawn = 1
 
