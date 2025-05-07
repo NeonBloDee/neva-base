@@ -1,0 +1,498 @@
+:root {
+  --color: #74c0fc;
+  --bg-color: rgba(10, 10, 10, 0.35);
+  --bg-dark: rgba(10, 10, 10, 0.75);
+  --card-radius: 6px;
+  --transition: all 0.2s ease;
+  --shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.18);
+}
+
+@import url("https://kit-pro.fontawesome.com/releases/v6.2.0/css/pro.min.css");
+
+* {
+  user-select: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  box-sizing: border-box;
+}
+
+html {
+  overflow: hidden;
+}
+
+body {
+  color: #ffffff;
+  margin: 0;
+  padding: 0;
+  font-family: "Inter", sans-serif;
+  font-weight: 400;
+  background-color: transparent;
+}
+
+.button-common {
+  background-color: var(--bg-dark);
+  color: white;
+  border: none;
+  border-radius: 4px;
+  padding: 10px 16px;
+  font-size: 15px;
+  font-weight: 500;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: var(--transition);
+  box-shadow: var(--shadow);
+}
+
+.button-common:hover {
+  background-color: var(--color);
+  transform: translateY(-2px);
+}
+
+.button-common i {
+  margin-right: 6px;
+  color: var(--color);
+}
+
+.button-common:hover i {
+  color: white;
+}
+
+/* Card Container Styling */
+.card-container {
+  background-color: var(--bg-color);
+  border-radius: var(--card-radius);
+  box-shadow: var(--shadow);
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.card-header {
+  background-color: var(--bg-dark);
+  padding: 15px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.card-header h1 {
+  margin: 0;
+  font-size: 20px;
+  font-weight: 600;
+  color: white;
+}
+
+.card-header i {
+  font-size: 24px;
+  cursor: pointer;
+  opacity: 0.7;
+  transition: var(--transition);
+}
+
+.card-header i:hover {
+  opacity: 1;
+  transform: scale(1.1);
+  color: var(--color);
+}
+
+/* TV Creator Container */
+.vehicletvcreator-container {
+  width: 280px;
+  height: auto;
+  padding-bottom: 20px;
+  position: absolute;
+  top: 50%;
+  right: 30px;
+  transform: translateY(-50%);
+  display: none;
+  z-index: 9999999;
+}
+
+.headervehicletvcreator {
+  width: 100%;
+  height: auto;
+  padding: 15px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--bg-dark);
+}
+
+.HeaderVehicleTVCreatorText {
+  font-size: 20px;
+  font-weight: 600;
+  margin: 0;
+  color: white;
+}
+
+/* Controls styling */
+.creator-control {
+  display: flex;
+  align-items: center;
+  margin: 12px 0;
+  padding: 0 16px;
+  color: white;
+  font-size: 15px;
+}
+
+.creator-control span {
+  color: var(--color);
+  font-weight: 600;
+  margin-right: 6px;
+}
+
+.vehicletvcreator1,
+.vehicletvcreator2,
+.vehicletvcreator3,
+.vehicletvcreator4,
+.vehicletvcreator5 {
+  padding: 8px 16px;
+  color: white;
+  font-size: 15px;
+  font-weight: 400;
+}
+
+.vehicletvcreator6,
+.vehicletvcreator7 {
+  padding: 8px 16px;
+  color: white;
+  font-size: 14px;
+  margin-top: 12px;
+  font-weight: 500;
+}
+
+.vehicletvcreator8 {
+  margin-top: 16px;
+  padding: 8px 16px;
+  font-weight: 500;
+  color: white;
+  font-size: 16px;
+}
+
+#keyboardcolor,
+#currentspeeddata,
+#currentmodedata {
+  color: var(--color);
+  font-weight: 600;
+}
+
+.tv-container {
+  width: 400px;
+  height: auto;
+  max-height: 80vh;
+  position: absolute;
+  top: 50%;
+  right: 30px;
+  transform: translateY(-50%);
+  overflow: hidden;
+  z-index: 9999999;
+  padding-bottom: 20px;
+  display: none;
+}
+
+.headertvmenu {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 15px;
+  background-color: var(--bg-dark);
+}
+
+.HeaderTVMenuText {
+  font-size: 20px;
+  font-weight: 600;
+  margin: 0;
+  color: white;
+}
+
+.closetvmenu {
+  width: 22px !important;
+  height: 22px !important;
+  cursor: pointer;
+  font-size: 24px;
+  opacity: 0.7;
+  transition: var(--transition);
+}
+
+.closetvmenu:hover {
+  opacity: 1;
+  color: var(--color);
+}
+
+.currentlytext,
+.currentlytexttype {
+  text-align: center;
+  margin: 16px 0 4px 0;
+  font-size: 18px;
+  font-weight: 500;
+}
+
+.currentlytexttype {
+  color: var(--color);
+  font-size: 16px;
+  margin-top: 4px;
+}
+
+.currentlytextdata1 {
+  width: 90%;
+  margin: 10px auto;
+  padding: 8px;
+  display: none;
+}
+
+.currentlytextdata2 {
+  font-size: 14px;
+  color: #ddd;
+  text-align: center;
+  word-break: break-all;
+}
+
+/* Video input */
+.videoinputtv {
+  width: 90%;
+  background-color: rgba(0, 0, 0, 0.5);
+  border: none;
+  border-bottom: 2px solid var(--color);
+  border-radius: 4px;
+  padding: 12px;
+  margin: 20px auto;
+  display: block;
+  font-size: 14px;
+  color: white;
+}
+
+/* Volume controls */
+.volumetext {
+  text-align: center;
+  margin: 14px 0;
+  font-size: 16px;
+  font-weight: 500;
+}
+
+.volumeslidecontainer {
+  width: 90%;
+  height: 50px;
+  margin: 0 auto;
+  background-color: rgba(0, 0, 0, 0.5);
+  border-radius: 4px;
+  padding: 0 15px;
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.volumeicon1,
+.volumeicon2 {
+  color: white;
+  font-size: 22px;
+  display: flex;
+  align-items: center;
+  z-index: 2;
+}
+
+.volumeicon1 {
+  margin-right: 15px;
+}
+
+.volumeicon2 {
+  margin-left: 15px;
+}
+
+.volumeslideline {
+  position: absolute;
+  width: 70%;
+  height: 3px;
+  background-color: rgba(255, 255, 255, 0.5);
+  border-radius: 3px;
+  left: 15%;
+  z-index: 1;
+}
+
+.volumeslider {
+  -webkit-appearance: none;
+  width: 100%;
+  height: 100%;
+  background: transparent;
+  z-index: 2;
+}
+
+.volumeslider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background-color: var(--color);
+  cursor: pointer;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+}
+
+.volumeslider::-moz-range-thumb {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background-color: var(--color);
+  cursor: pointer;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+}
+
+/* Buttons */
+.buttonplay,
+.buttonturnoff {
+  width: 200px;
+  margin: 16px auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(0, 0, 0, 0.5);
+  color: white;
+  font-size: 15px;
+  font-weight: 500;
+  padding: 10px 16px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.buttonplay:hover,
+.buttonturnoff:hover {
+  background-color: var(--color);
+}
+
+#playicon,
+#stopicon {
+  color: var(--color);
+  margin-right: 8px;
+  font-size: 18px;
+}
+
+.buttonplay:hover #playicon,
+.buttonturnoff:hover #stopicon {
+  color: white;
+}
+
+/* Creator finish container */
+.vehicletvcreatorfinish-container {
+  width: 400px;
+  height: auto;
+  max-height: 80vh;
+  position: absolute;
+  top: 50%;
+  right: 30px;
+  transform: translateY(-50%);
+  overflow: hidden;
+  z-index: 9999999;
+  padding-bottom: 20px;
+  display: none;
+}
+
+.headervehicletvcreatorfinish {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 15px;
+  background-color: var(--bg-dark);
+}
+
+.HeaderVehicleTVCreatorFinishText {
+  font-size: 20px;
+  font-weight: 600;
+  margin: 0;
+  color: white;
+}
+
+.closetvcreatorfinish {
+  font-size: 24px;
+  cursor: pointer;
+  opacity: 0.7;
+  transition: var(--transition);
+}
+
+.closetvcreatorfinish:hover {
+  opacity: 1;
+  color: var(--color);
+}
+
+.offsetspreviewtext {
+  text-align: center;
+  margin: 16px 0;
+  font-size: 18px;
+  font-weight: 500;
+}
+
+.tvcopytextdatamain {
+  width: 90%;
+  height: 200px;
+  margin: 10px auto;
+  background-color: rgba(0, 0, 0, 0.5);
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.tvcopytextdata {
+  width: 100%;
+  height: 100%;
+  padding: 12px;
+  color: white;
+  font-size: 14px;
+  font-family: "Courier New", monospace;
+  border: none;
+  background: transparent;
+  outline: none;
+  resize: none;
+}
+
+.buttoncopy {
+  width: 180px;
+  margin: 16px auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(0, 0, 0, 0.5);
+  color: white;
+  font-size: 15px;
+  font-weight: 500;
+  padding: 10px 16px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.buttoncopy:hover {
+  background-color: var(--color);
+}
+
+#copyicon {
+  color: var(--color);
+  margin-right: 8px;
+  font-size: 18px;
+}
+
+.buttoncopy:hover #copyicon {
+  color: white;
+}
+
+#pinkcolortv {
+  color: var(--color);
+}
+
+.full-screen {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.vehicletvcreator-container,
+.vehicletvcreatorfinish-container,
+.tv-container {
+  background-color: var(--bg-color);
+  border-radius: var(--card-radius);
+  box-shadow: var(--shadow);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}

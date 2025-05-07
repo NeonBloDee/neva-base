@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="stylesheet" href="fonts.css" type="text/css" />
+    <link rel="stylesheet" href="styles.css" type="text/css" />
+    <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script src="https://s.ytimg.com/yts/jsbin/www-widgetapi-vflJJaNgk/www-widgetapi.js"></script>
+    <script src="https://www.youtube.com/iframe_api"></script>
+    <link
+      href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css"
+      rel="stylesheet"
+    />
+  </head>
+
+  <body>
+    <div class="full-screen">
+      <div
+        class="vehicletvcreator-container card-container"
+        id="vehicletvcreatorshow"
+      >
+        <div class="headervehicletvcreator card-header">
+          <h1 class="HeaderVehicleTVCreatorText">Créateur de Télévision</h1>
+        </div>
+        <div class="vehicletvcreator1">
+          <span id="keyboardcolor">Flèches</span> pour déplacer
+        </div>
+        <div class="vehicletvcreator2">
+          <span id="keyboardcolor">Z</span> pour monter
+        </div>
+        <div class="vehicletvcreator3">
+          <span id="keyboardcolor">Y</span> pour descendre
+        </div>
+        <div class="vehicletvcreator4">
+          <span id="keyboardcolor">G</span> pour changer la vitesse
+        </div>
+        <div class="vehicletvcreator5">
+          <span id="keyboardcolor">H</span> pour changer de mode
+        </div>
+        <div class="vehicletvcreator6">
+          Vitesse actuelle: <span id="currentspeeddata">1</span>
+        </div>
+        <div class="vehicletvcreator7">
+          Mode actuel: <span id="currentmodedata">DÉPLACER</span>
+        </div>
+        <div class="vehicletvcreator8">
+          <span id="keyboardcolor">ENTRÉE</span> pour terminer
+        </div>
+      </div>
+
+      <div
+        class="vehicletvcreatorfinish-container card-container"
+        id="vehicletvcreatorfinishshow"
+      >
+        <div class="headervehicletvcreatorfinish card-header">
+          <h1 class="HeaderVehicleTVCreatorFinishText">
+            Créateur de Télévision
+          </h1>
+          <i class="bx bx-x closetvcreatorfinish"></i>
+        </div>
+        <div class="offsetspreviewtext">Aperçu des coordonnées</div>
+        <div class="tvcopytextdatamain">
+          <textarea
+            class="tvcopytextdata"
+            placeholder=""
+            type="text"
+          ></textarea>
+        </div>
+        <div class="buttoncopy">
+          <i class="bx bx-copy" id="copyicon"></i> Copier les coordonnées
+        </div>
+      </div>
+
+      <div class="tv-container card-container" id="tvshow">
+        <div class="headertvmenu card-header">
+          <h1 class="HeaderTVMenuText">Télévision</h1>
+          <i class="bx bx-x closetvmenu"></i>
+        </div>
+        <div class="currentlytext">En cours de lecture</div>
+        <div class="currentlytexttype">TYPE</div>
+        <div class="currentlytextdata1" id="currentlytextdatashow">
+          <div class="currentlytextdata2">URL</div>
+        </div>
+        <input
+          id="videoinputtvdata"
+          class="videoinputtv"
+          placeholder="URL de la vidéo"
+          type="text"
+        />
+        <div class="volumetext">Volume</div>
+        <div class="volumeslidecontainer">
+          <div class="volumeicon1">
+            <i class="bx bx-volume-low" id="pinkcolortv"></i>
+          </div>
+          <div class="volumeslideline"></div>
+          <input
+            type="range"
+            min="1"
+            max="100"
+            value="50"
+            class="volumeslider"
+            id="volumesliderdata"
+            onchange="volumechange(this)"
+          />
+          <div class="volumeicon2">
+            <i class="bx bx-volume-full" id="pinkcolortv"></i>
+          </div>
+        </div>
+        <div class="buttonplay">
+          <i class="bx bx-play-circle" id="playicon"></i> Lancer la vidéo
+        </div>
+        <div class="buttonturnoff">
+          <i class="bx bx-power-off" id="stopicon"></i> Éteindre la TV
+        </div>
+      </div>
+    </div>
+
+    <script src="scripts.js" type="text/javascript"></script>
+  </body>
+</html>
