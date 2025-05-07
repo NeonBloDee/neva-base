@@ -311,7 +311,7 @@ function Properties:openTrunkMenu(k)
                                         if data2 and data2 ~= "" then
                                             Properties.PropertiesList[k].trunk['code'].active = true
                                             Properties.PropertiesList[k].trunk['code'].code = data2
-                
+
                                             TriggerServerEvent('sunny:properties:trunk:updateCode', k, Properties.PropertiesList[k].trunk['code'])
                                         else
                                             ESX.ShowNotification('Le code ne peut pas être vide')
@@ -322,6 +322,7 @@ function Properties:openTrunkMenu(k)
                                 end
                             end
                         )
+                    end
                 })
                 
             end

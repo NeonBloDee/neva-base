@@ -17,7 +17,7 @@ function ShowJobBadge(jobName)
         local playerPed = PlayerPedId()
         local animDict = 'paper_1_rcm_alt1-9'
         local anim = 'player_one_dual-9'
-        
+
         RequestAnimDict(animDict)
         while not HasAnimDictLoaded(animDict) do
             Citizen.Wait(100)
@@ -31,33 +31,100 @@ function ShowJobBadge(jobName)
         local coords = GetEntityCoords(playerPed)
         local prop = CreateObject(hash, coords.x, coords.y, coords.z + 0.2, true, true, true)
         local boneIndex = GetPedBoneIndex(playerPed, 28422)
-        
+
         AttachEntityToEntity(prop, playerPed, boneIndex, 
             badgePosition[1], badgePosition[2], badgePosition[3],
             badgePosition[4], badgePosition[5], badgePosition[6], 
             true, true, false, true, 1, true)
-            
+
         TaskPlayAnim(playerPed, animDict, anim, 1.0, -1.0, -1, 51, 0, false, false, false)
 
         local playerData = ESX.GetPlayerData()
-        local jobLabel = GetJobLabel(jobName)
-        local badgeMessage = string.format("~b~[BADGE OFFICIEL]~s~ %s présente son badge de %s", playerData.name, jobLabel)
-        TriggerServerEvent('3dme:shareDisplay', badgeMessage)
+        print("[BADGE DEBUG] ESX.GetPlayerData():", json.encode(playerData))
 
-        local coords = GetEntityCoords(playerPed)
-        RequestNamedPtfxAsset("scr_rcbarry2")
-        while not HasNamedPtfxAssetLoaded("scr_rcbarry2") do
-            Citizen.Wait(100)
+        local characterName = nil
+
+        if playerData.firstName and playerData.lastName then
+            print("[BADGE DEBUG] Found playerData.firstName: " .. tostring(playerData.firstName))
+            print("[BADGE DEBUG] Found playerData.lastName: " .. tostring(playerData.lastName))
+            characterName = playerData.firstName .. ' ' .. playerData.lastName
+        elseif playerData.firstname and playerData.lastname then
+            print("[BADGE DEBUG] Found playerData.firstname: " .. tostring(playerData.firstname))
+            print("[BADGE DEBUG] Found playerData.lastname: " .. tostring(playerData.lastname))
+            characterName = playerData.firstname .. ' ' .. playerData.lastname
+        elseif ESX.PlayerData.firstName and ESX.PlayerData.lastName then
+            print("[BADGE DEBUG] Found ESX.PlayerData.firstName: " .. tostring(ESX.PlayerData.firstName))
+            print("[BADGE DEBUG] Found ESX.PlayerData.lastName: " .. tostring(ESX.PlayerData.lastName))
+            characterName = ESX.PlayerData.firstName .. ' ' .. ESX.PlayerData.lastName
+        elseif ESX.PlayerData.firstname and ESX.PlayerData.lastname then
+            print("[BADGE DEBUG] Found ESX.PlayerData.firstname: " .. tostring(ESX.PlayerData.firstname))
+            print("[BADGE DEBUG] Found ESX.PlayerData.lastname: " .. tostring(ESX.PlayerData.lastname))
+            characterName = ESX.PlayerData.firstname .. ' ' .. ESX.PlayerData.lastname
+        elseif playerData.name then
+            print("[BADGE DEBUG] Found playerData.name: " .. tostring(playerData.name))
+            characterName = playerData.name
+        else
+            local xPlayer = ESX.GetPlayerData()
+            print("[BADGE DEBUG] Fallback xPlayer:", json.encode(xPlayer))
+            if xPlayer.character then
+                print("[BADGE DEBUG] xPlayer.character:", json.encode(xPlayer.character))
+                if xPlayer.character.firstname and xPlayer.character.lastname then
+                    print("[BADGE DEBUG] Found xPlayer.character.firstname: " .. tostring(xPlayer.character.firstname))
+                    print("[BADGE DEBUG] Found xPlayer.character.lastname: " .. tostring(xPlayer.character.lastname))
+                    characterName = xPlayer.character.firstname .. ' ' .. xPlayer.character.lastname
+                end
+            end
         end
-        UseParticleFxAssetNextCall("scr_rcbarry2")
-        StartParticleFxLoopedAtCoord("scr_clown_appears", coords.x, coords.y, coords.z, 0.0, 0.0, 0.0, 1.0, false, false, false, false)
+
+        if not characterName then
+            print("[BADGE DEBUG] No RP name found, fallback to 'Inconnu'")
+            characterName = "Inconnu"
+        end
+
+        print("[BADGE DEBUG] Final characterName: " .. tostring(characterName))
+
+        local jobLabel = GetJobLabel(jobName)
+
+        local badgeMessage = ("~b~[BADGE OFFICIEL]~s~\n%s montre son badge de %s"):format(characterName, jobLabel)
+
+        local displayBadgeEnd = GetGameTimer() + 5000
+        Citizen.CreateThread(function()
+            while GetGameTimer() < displayBadgeEnd do
+                local pedCoords = GetEntityCoords(playerPed)
+                DrawBadgeText3D(pedCoords.x, pedCoords.y, pedCoords.z + 1.0, badgeMessage)
+                Citizen.Wait(0)
+            end
+        end)
 
         Citizen.Wait(3000)
-        
+
         DeleteObject(prop)
         ClearPedTasks(playerPed)
         ShowBadgeInProgress = false
     end)
+end
+
+function DrawBadgeText3D(x, y, z, text)
+    local onScreen, _x, _y = World3dToScreen2d(x, y, z)
+    local px, py, pz = table.unpack(GetGameplayCamCoords())
+    local dist = GetDistanceBetweenCoords(px, py, pz, x, y, z, 1)
+    
+    local scale = (1 / dist) * 1.8
+    local fov = (1 / GetGameplayCamFov()) * 100
+    scale = scale * fov
+
+    if onScreen then
+        SetTextScale(0.0 * scale, 0.45 * scale)
+        SetTextFont(4)
+        SetTextProportional(1)
+        SetTextColour(255, 255, 255, 255)
+        SetTextOutline()
+        SetTextEntry("STRING")
+        SetTextCentre(1)
+        AddTextComponentString(text)
+        DrawText(_x, _y)
+        -- Barre grise supprimée ici
+    end
 end
 
 exports('ShowJobBadge', function()
@@ -1808,7 +1875,7 @@ function Society:openCloakRoom(societyData)
                 else
                     RageUI.Button(v.label, nil, {RightLabel == '>>'}, true, {
                         onSelected = function()
-                            clothesparams.grades[v.name] = v.name
+                                                       clothesparams.grades[v.name] = v.name
                             gradescount += 1
                             RageUI.GoBack()
                         end
