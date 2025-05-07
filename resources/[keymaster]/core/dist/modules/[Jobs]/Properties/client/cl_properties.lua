@@ -5,7 +5,9 @@ Properties = {
     Lastplayerpos = nil,
     Lastplayerpos2 = nil,
     garageSelected = nil,
-    isIn = {},
+    isIn = {}, 
+    propertiesIDIN = {},
+    CurrentlyInsidePropertyId = nil,
 
     garage = {
         interior = {
@@ -220,109 +222,127 @@ Properties = {
 
 RegisterNetEvent('sunny:properties:updateProperties', function(propertyId, propertyData)
     if not propertyId or not propertyData then
-        print("ERROR: Missing propertyId or propertyData in updateProperties event")
+        print("[PropertiesClient] ERROR: Missing propertyId or propertyData in updateProperties event")
         return
     end
     
-    if Properties.PropertiesList[propertyId] then
-        Properties.PropertiesList[propertyId] = propertyData
-    else
-        Properties.PropertiesList[propertyId] = propertyData
-    end
+    Properties.PropertiesList[propertyId] = propertyData
 
     Properties:updateBlips()
 end)
 
 RegisterNetEvent('sunny:properties:load', function(data)
     if data == nil then
-        print("ERROR: Received nil data in properties:load event")
-        Properties.Load = true
+        print("[PropertiesClient] WARNING: Received nil data in properties:load event. Initializing with empty list.")
         Properties.PropertiesList = {}
-        return
+    else
+        Properties.PropertiesList = data
     end
     
-    Properties.PropertiesList = data
-
     Properties:updateBlips()
-
     Properties.Load = true
+    print("[PropertiesClient] Properties loaded/reloaded. Count: " .. #Properties.PropertiesList)
 end)
 
 RegisterNetEvent('sunny:properties:add', function(i,data)
-    Properties.PropertiesList[i] = data
-
-    Properties:updateBlips()
+    if i and data then
+        Properties.PropertiesList[i] = data
+        Properties:updateBlips()
+    else
+        print("[PropertiesClient] ERROR: Invalid data for sunny:properties:add event. Index: " .. tostring(i))
+    end
 end)
 
-RegisterNetEvent('sunny:properties:updatePlayers', function(i, data)
-    Properties.PropertiesList[i].players = data
+RegisterNetEvent('sunny:properties:updatePlayers', function(propertyId, playersData)
+    if not Properties.PropertiesList or not Properties.PropertiesList[propertyId] then
+        print(("[PropertiesClient] ERROR: Property %s not found for updatePlayers event."):format(tostring(propertyId)))
+        return
+    end
 
-    if Properties.PropertiesList[i].players[tostring[ESX.GetPlayerData.UniqueID]] then
-        Properties.isIn[i] = true
+    Properties.PropertiesList[propertyId].players = playersData
+
+    if ESX and ESX.GetPlayerData() and ESX.GetPlayerData().UniqueID then
+        local uniqueId = tostring(ESX.GetPlayerData().UniqueID)
+        if playersData and playersData[uniqueId] then
+        end
     else
-        Properties.isIn[i] = false
+        print("[PropertiesClient] WARNING: ESX.PlayerData.UniqueID not available in sunny:properties:updatePlayers.")
     end
 end)
 
 
 RegisterNetEvent('sunny:properties:delete', function(k)
-    Properties.PropertiesList[k] = nil
+    if Properties.PropertiesList and Properties.PropertiesList[k] then
+        Properties.PropertiesList[k] = nil
+        Properties:updateBlips()
+    else
+        print(("[PropertiesClient] WARNING: Tried to delete non-existent property ID: %s"):format(tostring(k)))
+    end
 end)
 
 function Properties:updateBlips()
     for k,v in pairs(Properties.blips) do
-        RemoveBlip(v)
+        if DoesBlipExist(v) then
+            RemoveBlip(v)
+        end
     end
+    Properties.blips = {}
     
     if not Properties.PropertiesList then
-        print("ERROR: PropertiesList is nil in updateBlips")
+        print("[PropertiesClient] ERROR: PropertiesList is nil in updateBlips")
         return
     end
-    
-    if not ESX.GetPlayerData() or not ESX.GetPlayerData().UniqueID then
-        print("ERROR: ESX.GetPlayerData().UniqueID is nil in updateBlips")
-        return
-    end
-    
-    for k,v in pairs(Properties.PropertiesList) do
-        if v.enter and v.owner then
-            if tostring(v.owner) == tostring(ESX.GetPlayerData().UniqueID) then
-                local blip = AddBlipForCoord(v.enter.x, v.enter.y, v.enter.z)
-                SetBlipSprite(blip, 40)
-                SetBlipDisplay(blip, 4)
-                SetBlipScale(blip, 0.3)
-                SetBlipColour(blip, 4)
-                SetBlipAsShortRange(blip, true)
-                BeginTextCommandSetBlipName("STRING")
-                if v.type == 'location' then
-                    AddTextComponentString('[LOCATAIRE] Propriété')
-                else
-                    AddTextComponentString('[PROPRIETAIRE] Propriété')
-                end
-                EndTextCommandSetBlipName(blip)
 
-                Properties.blips[blip] = blip
+    local playerData = ESX.GetPlayerData()
+    if not playerData or not playerData.UniqueID then
+        CreateThread(function()
+            Wait(1000)
+            if ESX.GetPlayerData() and ESX.GetPlayerData().UniqueID then
+                Properties:updateBlips()
             else
-                if v.owner == 'none' then
+                print("[PropertiesClient] ERROR: ESX.GetPlayerData().UniqueID is still nil after delay in updateBlips")
+            end
+        end)
+        return
+    end
+    
+    local playerUniqueId = tostring(playerData.UniqueID)
+
+    for k,v in pairs(Properties.PropertiesList) do
+        if v and v.enter and v.enter.x and v.enter.y and v.enter.z then
+            local blipSprite, blipColor, blipText
+            local showBlip = false
+
+            if v.owner then
+                if tostring(v.owner) == playerUniqueId then
+                    blipSprite = 40
+                    blipColor = 4
+                    blipText = v.type == 'location' and '[LOCATAIRE] ' .. (v.label or 'Propriété') or '[PROPRIETAIRE] ' .. (v.label or 'Propriété')
+                    showBlip = true
+                elseif v.owner == 'none' then
+                    blipSprite = 350
+                    blipColor = 2
+                    blipText = v.type == 'location' and '[LOCATION] ' .. (v.label or 'Propriété') or '[ACHAT] ' .. (v.label or 'Propriété')
+                    showBlip = true
+                end
+
+                if showBlip then
                     local blip = AddBlipForCoord(v.enter.x, v.enter.y, v.enter.z)
-                    SetBlipSprite(blip, 350)
+                    SetBlipSprite(blip, blipSprite)
                     SetBlipDisplay(blip, 4)
-                    SetBlipScale(blip, 0.5)
-                    SetBlipColour(blip, 2)
+                    SetBlipScale(blip, (v.owner == 'none') and 0.5 or 0.3)
+                    SetBlipColour(blip, blipColor)
                     SetBlipAsShortRange(blip, true)
                     BeginTextCommandSetBlipName("STRING")
-                    if v.type == 'location' then
-                        AddTextComponentString('[LOCATION] Propriété')
-                    else
-                        AddTextComponentString('[ACHAT] Propriété')
-                    end
+                    AddTextComponentString(blipText)
                     EndTextCommandSetBlipName(blip)
-
-                    Properties.blips[blip] = blip
+                    Properties.blips[k] = blip
                 end
+            else
+                print(("[PropertiesClient] WARNING: Property ID %s has no owner info or is malformed in updateBlips."):format(tostring(k)))
             end
         else
-            print("ERROR: Missing required property data in updateBlips for property: " .. tostring(k))
+            print(("[PropertiesClient] WARNING: Missing required data for property ID %s in updateBlips (enter coords missing or property is nil)."):format(tostring(k)))
         end
     end
 end
@@ -334,7 +354,11 @@ local function waitForESX()
             Wait(100)
         end
         
-        Wait(1000)
+        while not ESX.IsPlayerLoaded() do
+            Wait(100)
+        end
+
+        print("[PropertiesClient] ESX Player Loaded.")
         TriggerServerEvent('sunny:properties:load')
     end)
 end
@@ -342,125 +366,96 @@ end
 CreateThread(function()
     waitForESX()
     
-    while not Properties.Load do 
-        Wait(100)
-        if not Properties.Load then
-            print("Waiting for properties to load...")
-        end
-    end
-    
     while true do 
         Wait(Properties.WaitNearby)
-
         Properties.WaitNearby = 2000
 
-        local coords = GetEntityCoords(PlayerPedId())
+        local playerPed = PlayerPedId()
+        if not playerPed or playerPed == 0 then 
+            Wait(1000)
+            goto continue_main_loop 
+        end
+        local coords = GetEntityCoords(playerPed)
+
+        if not Properties.PropertiesList or not ESX.GetPlayerData() or not ESX.GetPlayerData().UniqueID then
+            Wait(500)
+            goto continue_main_loop
+        end
+
+        local currentPlayerData = ESX.GetPlayerData()
+        local playerUniqueIdStr = tostring(currentPlayerData.UniqueID)
 
         for k,v in pairs(Properties.PropertiesList) do
-            local enter = {};
-            local exit = {};
-            local trunkPos = {};
-            local garage = {};
-            
-            enter[v.id] = #(coords-vector3(v.enter.x, v.enter.y, v.enter.z))
-            exit[v.id] = #(coords-vector3(v.exit.x, v.exit.y, v.exit.z))
-            trunkPos[v.id] = #(coords-vector3(v.trunkPos.x, v.trunkPos.y, v.trunkPos.z))
-
-            if v.garage == true or v.garage == 1 then
-                garage[v.id] = #(coords-vector3(v.garagePos.x, v.garagePos.y, v.garagePos.z))
+            if not v or not v.id or not v.enter or not v.exit or not v.trunkPos or not v.players then
+                goto continue_property_loop
             end
 
+            local distToEnter = #(coords - vector3(v.enter.x, v.enter.y, v.enter.z))
+            local distToExit = #(coords - vector3(v.exit.x, v.exit.y, v.exit.z))
+            local distToTrunk = #(coords - vector3(v.trunkPos.x, v.trunkPos.y, v.trunkPos.z))
+            local distToGarage = 9999
+
             if v.garage == true or v.garage == 1 then
-                if enter[v.id] > 30 and exit[v.id] > 30 and trunkPos[v.id] > 30 and garage[v.id] > 30 then goto continue end
-            else
-                if enter[v.id] > 30 and exit[v.id] > 30 and trunkPos[v.id] > 30 then goto continue end
+                if v.garagePos and v.garagePos.x then
+                    distToGarage = #(coords - vector3(v.garagePos.x, v.garagePos.y, v.garagePos.z))
+                else
+                    -- print(("[PropertiesClient] WARNING: Property %s has garage enabled but no garagePos."):format(tostring(k)))
+                end
             end
 
-            if not v.players[tostring(ESX.PlayerData.UniqueID)] then
-                Properties.WaitNearby = 1
+            local max_interaction_distance = 30
+            if distToEnter > max_interaction_distance and distToExit > max_interaction_distance and distToTrunk > max_interaction_distance and (v.garage ~= true and v.garage ~= 1 or distToGarage > max_interaction_distance) then
+                goto continue_property_loop
+            end
 
+            Properties.WaitNearby = 1
+
+            if not Properties.propertiesIDIN[v.id] then
                 DrawMarker(25, v.enter.x, v.enter.y, v.enter.z-0.98, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.55, 0.55, 0.55, tonumber(UTILS.ServerColor.r), tonumber(UTILS.ServerColor.g), tonumber(UTILS.ServerColor.b), 255, false, false, 2, false, false, false, false)
-    
-                if enter[v.id] <= 1 then
-                    DrawInstructionBarNotification(v.enter.x, v.enter.y, v.enter.z, "Appuyez sur [ ~g~E~w~ ] pour intéragir (enter)")
-                    if IsControlJustPressed(0, 54) then
+                if distToEnter <= 1.5 then
+                    DrawInstructionBarNotification(v.enter.x, v.enter.y, v.enter.z, "Appuyez sur [ ~g~E~w~ ] pour intéragir (entrer)")
+                    if IsControlJustReleased(0, 38) then
                         Properties:openMenu(k)
                     end
                 end
             end
 
-            if v.garage == true or v.garage == 1 then
-                if tostring(v.owner) ~= tostring(ESX.PlayerData.UniqueID) then goto exit end
-                if Properties.garage.isIn then goto exit end
-                
-                Properties.WaitNearby = 1
-
-                DrawMarker(25, v.garagePos.x, v.garagePos.y, v.garagePos.z-0.98, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.55, 0.55, 0.55, tonumber(UTILS.ServerColor.r), tonumber(UTILS.ServerColor.g), tonumber(UTILS.ServerColor.b), 255, false, false, 2, false, false, false, false)
-    
-                if garage[v.id] <= 1 then
-                    DrawInstructionBarNotification(v.garagePos.x, v.garagePos.y, v.garagePos.z, "Appuyez sur [ ~g~E~w~ ] pour intéragir (garage)")
-                    if IsControlJustPressed(0, 54) then
-                        Properties:openGarageMenu(k)
-                    end
-                end
-            end
-
-            ::exit::
-
-            if not Properties.isIn[ESX.PlayerData.UniqueID] then goto continue end
-
-            Properties.WaitNearby = 1
-
-            if Properties.propertiesIDIN[v.id] then
+            if Properties.propertiesIDIN[v.id] and Properties.CurrentlyInsidePropertyId == v.id then
                 DrawMarker(25, v.exit.x, v.exit.y, v.exit.z-0.98, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.55, 0.55, 0.55, tonumber(UTILS.ServerColor.r), tonumber(UTILS.ServerColor.g), tonumber(UTILS.ServerColor.b), 255, false, false, 2, false, false, false, false)
-            end
-
-            if Properties.propertiesIDIN[v.id] then
-                if exit[v.id] <= 1 then
-                    DrawInstructionBarNotification(v.exit.x, v.exit.y, v.exit.z, "Appuyez sur [ ~g~E~w~ ] pour intéragir (exit)")
-                    if IsControlJustPressed(0, 54) then
+                if distToExit <= 1.5 then
+                    DrawInstructionBarNotification(v.exit.x, v.exit.y, v.exit.z, "Appuyez sur [ ~g~E~w~ ] pour intéragir (sortir)")
+                    if IsControlJustReleased(0, 38) then
                         Properties:openExitMenu(k)
                     end
                 end
-            end
 
-            if Properties.propertiesIDIN[v.id] then
-                DrawMarker(25, v.trunkPos.x, v.trunkPos.y, v.trunkPos.z-0.98, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.55, 0.55, 0.55, tonumber(UTILS.ServerColor.r), tonumber(UTILS.ServerColor.g), tonumber(UTILS.ServerColor.b), 255, false, false, 2, false, false, false, false)
+                if v.trunkPos and v.trunkPos.x then
+                    DrawMarker(25, v.trunkPos.x, v.trunkPos.y, v.trunkPos.z-0.98, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.55, 0.55, 0.55, tonumber(UTILS.ServerColor.r), tonumber(UTILS.ServerColor.g), tonumber(UTILS.ServerColor.b), 255, false, false, 2, false, false, false, false)
+                    if distToTrunk <= 1.5 then
+                        DrawInstructionBarNotification(v.trunkPos.x, v.trunkPos.y, v.trunkPos.z, "Appuyez sur [ ~g~E~w~ ] pour intéragir (coffre)")
+                        if IsControlJustReleased(0, 38) then
+                            Properties:openTrunkMenu(k)
+                        end
+                    end
+                end
             end
-
-            if Properties.propertiesIDIN[v.id] then
-                if trunkPos[v.id] <= 1 then
-                    DrawInstructionBarNotification(v.trunkPos.x, v.trunkPos.y, v.trunkPos.z, "Appuyez sur [ ~g~E~w~ ] pour intéragir (coffre)")
-                    if IsControlJustPressed(0, 54) then
-                        Properties:openTrunkMenu(k)
+            
+            if (v.garage == true or v.garage == 1) and v.garagePos and v.garagePos.x then
+                if tostring(v.owner) == playerUniqueIdStr and not Properties.garage.isIn then
+                    DrawMarker(25, v.garagePos.x, v.garagePos.y, v.garagePos.z-0.98, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.55, 0.55, 0.55, tonumber(UTILS.ServerColor.r), tonumber(UTILS.ServerColor.g), tonumber(UTILS.ServerColor.b), 255, false, false, 2, false, false, false, false)
+                    if distToGarage <= 1.5 then
+                        DrawInstructionBarNotification(v.garagePos.x, v.garagePos.y, v.garagePos.z, "Appuyez sur [ ~g~E~w~ ] pour intéragir (garage)")
+                        if IsControlJustReleased(0, 38) then -- Key E (38)
+                            Properties:openGarageMenu(k)
+                        end
                     end
                 end
             end
 
-            ::continue::
+            ::continue_property_loop::
         end
+        ::continue_main_loop::
     end
-end)
-
-CreateThread(function()
-    Wait(1000)
-    TriggerServerEvent('sunny:properties:load')
-    
-    CreateThread(function()
-        local attempts = 0
-        while not Properties.Load and attempts < 5 do
-            Wait(5000)
-            attempts = attempts + 1
-            print("Retry loading properties attempt " .. attempts)
-            TriggerServerEvent('sunny:properties:load')
-        end
-        
-        if not Properties.Load then
-            print("ERROR: Failed to load properties after 5 attempts")
-            Properties.Load = true
-            Properties.PropertiesList = {}
-        end
-    end)
 end)
 
 function Properties:openBuilderMenu()
@@ -865,9 +860,8 @@ RegisterCommand('Properties', function()
 end)
 
 function Properties:openMenu(k)
-    -- Vérification que la propriété existe avant de l'ouvrir
     if not Properties.PropertiesList or not Properties.PropertiesList[k] then
-        ESX.ShowNotification("~r~Erreur: Cette propriété n'existe pas")
+        ESX.ShowNotification("~r~Erreur: Cette propriété n'existe plus ou les données sont manquantes.")
         return
     end
 
@@ -903,7 +897,7 @@ function Properties:openMenu(k)
                         ESX.ShowNotification('🧭 GPS défini avec succès')
                     end
                 })
-                RageUI.Button('Acheter la propriété : ~g~'..Properties.PropertiesList[k].price..'$', nil, {}, true, {
+                RageUI.Button('Acquérir la propriété : ~g~'..Properties.PropertiesList[k].price..'$', nil, {}, true, {
                     onSelected = function()
                         local table = Properties.PropertiesList[k]
                         TriggerServerEvent('Achat:Maison', table)
@@ -975,6 +969,10 @@ function Properties:openMenu(k)
 end
 
 function Properties:openExitMenu(k)
+    if not Properties.PropertiesList or not Properties.PropertiesList[k] then
+        ESX.ShowNotification("~r~Erreur: Données de propriété pour la sortie non trouvées.")
+        return
+    end
     propertiesData = Properties.PropertiesList[k]
     local main = RageUI.CreateMenu('', 'Actions Disponibles')
     local interphoneMenu = RageUI.CreateSubMenu(main, '', 'Actions Disponibles')
@@ -1126,7 +1124,14 @@ end)
 RegisterNetEvent('sunny:properties:teleport', function(coords)
     DoScreenFadeOut(1300)
     Wait(2300)
-    SetEntityCoords(PlayerPedId(), coords)
+    if coords and type(coords.x) == 'number' and type(coords.y) == 'number' and type(coords.z) == 'number' then
+        SetEntityCoords(PlayerPedId(), coords.x, coords.y, coords.z)
+    else
+        if ESX and ESX.ShowNotification then
+            ESX.ShowNotification("~r~Erreur de téléportation : données de coordonnées invalides.")
+        end
+        print('[PropertiesClient] Teleport Error: Invalid coords received. Coords: ' .. (coords and json.encode(coords) or "nil"))
+    end
     DoScreenFadeIn(1300)
 end)
 
@@ -1195,7 +1200,69 @@ end)
 
 Properties.propertiesIDIN = {}
 
-RegisterNetEvent('sunny:properties:changePlayerSate', function(pid, state)
-    Properties.propertiesIDIN[pid] = pid
-    Properties.isIn[ESX.GetPlayerData().UniqueID] = state
+RegisterNetEvent('sunny:properties:changePlayerSate', function(propertyId, state)
+
+    if ESX and ESX.GetPlayerData() and ESX.GetPlayerData().UniqueID then
+        local playerUniqueId = ESX.GetPlayerData().UniqueID
+        Properties.isIn[playerUniqueId] = state
+
+        if propertyId then
+             Properties.propertiesIDIN[propertyId] = state
+            if state then
+                Properties.CurrentlyInsidePropertyId = propertyId
+            else
+                if Properties.CurrentlyInsidePropertyId == propertyId then
+                    Properties.CurrentlyInsidePropertyId = nil
+                end
+            end
+        else
+            if not state then
+                 Properties.CurrentlyInsidePropertyId = nil
+            end
+        end
+    else
+        print("[PropertiesClient] WARNING: ESX.PlayerData.UniqueID not available in sunny:properties:changePlayerSate.")
+    end
+end)
+
+function DrawInstructionBarNotification(x, y, z, message)
+    SetTextComponentFormat('STRING')
+    AddTextComponentString(message)
+    DisplayHelpTextFromStringLabel(0, 0, 1, -1)
+end
+
+if not UTILS or not UTILS.ServerColor then
+    print("[PropertiesClient] WARNING: UTILS.ServerColor not found, using default marker color.")
+    UTILS = UTILS or {}
+    UTILS.ServerColor = {r = 255, g = 255, b = 0}
+end
+
+if not KeyboardUtils or not KeyboardUtils.use then
+    print("[PropertiesClient] WARNING: KeyboardUtils.use not found, keyboard input will not work for property menus.")
+    KeyboardUtils = KeyboardUtils or {}
+    KeyboardUtils.use = function(title, cb)
+        ESX.ShowNotification("Fonctionnalité de saisie non disponible (KeyboardUtils manquant).")
+        if cb then cb(nil) end
+    end
+end
+
+if not RageUI or not RageUI.CreateMenu then
+    print("[PropertiesClient] CRITICAL: RageUI not found. Property menus will not work.")
+    RageUI = {
+        CreateMenu = function() return {} end,
+        CreateSubMenu = function() return {} end,
+        Visible = function() return false end,
+        IsVisible = function(menu, func) if func then func() end end,
+        Button = function() end, WLine = function() end, List = function() end,
+        Checkbox = function() end, Separator = function() end, CloseAll = function() end,
+        GoBack = function() end
+    }
+    RMenu = RMenu or { DeleteType = function() end }
+end
+
+CreateThread(function()
+    while ESX == nil do
+        TriggerEvent('esx:getSharedObject', function(obj) ESX = obj end)
+        Wait(100)
+    end
 end)

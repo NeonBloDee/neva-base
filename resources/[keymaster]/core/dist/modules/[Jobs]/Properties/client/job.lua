@@ -1,3 +1,10 @@
+Properties = Properties or {}
+Properties.admin = Properties.admin or {}
+Properties.admin.Menu = Properties.admin.Menu or {}
+Properties.admin.Menu.action = Properties.admin.Menu.action or {}
+Properties.job = Properties.job or {}
+Properties.PropertiesList = Properties.PropertiesList or {}
+
 function Properties:openArcadiusMenu(type)
     local main = RageUI.CreateMenu('', 'Actions Disponibles')
     local createProperties = RageUI.CreateSubMenu(main, '', 'Création de propriété')

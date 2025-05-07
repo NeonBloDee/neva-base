@@ -1,7 +1,15 @@
+Properties = Properties or {}
+Properties.isIn = Properties.isIn or {}
+Properties.PropertiesList = Properties.PropertiesList or {}
+
 RegisterNetEvent('sunny:properties:trunk:refresh', function(propertiesID, k)
     if k == nil then
     else
-        Properties.PropertiesList[propertiesID].trunk = k
+        if Properties.PropertiesList and Properties.PropertiesList[propertiesID] then
+            Properties.PropertiesList[propertiesID].trunk = k
+        else
+            print(("[PropertiesClient][TrunkRefresh] WARNING: Properties.PropertiesList or Properties.PropertiesList[%s] is nil when attempting to refresh trunk. Cannot set trunk data."):format(tostring(propertiesID)))
+        end
     end
 end)
 
@@ -9,12 +17,62 @@ end)
 local used = false
 
 function Properties:openTrunkMenu(k)
-    if Properties.PropertiesList[k].trunk['code'].active == true then
+    if not Properties.PropertiesList or not Properties.PropertiesList[k] then
+        ESX.ShowNotification("ERREUR: Données de propriété non chargées ou introuvables pour l'ID: " .. tostring(k))
+        print(("[PropertiesClient][Trunk] ERROR: Properties.PropertiesList or Properties.PropertiesList[%s] is nil. Cannot open trunk menu."):format(tostring(k)))
+        return
+    end
+
+    local trunk_data_path = Properties.PropertiesList[k]
+    local current_trunk_value = trunk_data_path.trunk
+    local trunk_type = type(current_trunk_value)
+
+    if trunk_type == 'string' then
+        local success, decoded_trunk = pcall(json.decode, current_trunk_value)
+        if success and type(decoded_trunk) == 'table' then
+            trunk_data_path.trunk = decoded_trunk
+            print(('[PropertiesClient][Trunk] INFO: Trunk for prop %s was a JSON string and successfully parsed.'):format(tostring(k)))
+        else
+            print(('[PropertiesClient][Trunk] WARNING: Trunk for prop %s was a string but failed to decode as JSON or result was not a table. Initializing as empty. Original: %s'):format(tostring(k), current_trunk_value))
+            trunk_data_path.trunk = {}
+        end
+    elseif trunk_type ~= 'table' then
+        print(('[PropertiesClient][Trunk] WARNING: Trunk for prop %s was not a table or string (type: %s). Initializing as empty.'):format(tostring(k), trunk_type))
+        trunk_data_path.trunk = {}
+    end
+
+    if type(trunk_data_path.trunk) ~= 'table' then
+        print(('[PropertiesClient][Trunk] CRITICAL: Trunk for prop %s is STILL NOT a table after init attempts. Forcing to empty table.'):format(tostring(k)))
+        trunk_data_path.trunk = {}
+    end
+
+    local trunk_table = trunk_data_path.trunk
+
+    if not trunk_table.code or type(trunk_table.code) ~= 'table' then
+        print(('[PropertiesClient][Trunk] WARNING: Properties.PropertiesList[%s].trunk.code was missing or not a table. Initialized with default structure.'):format(tostring(k)))
+        trunk_table.code = { active = false, code = nil, blocked = false }
+    end
+
+    if not trunk_table.items or type(trunk_table.items) ~= 'table' then
+        print(('[PropertiesClient][Trunk] WARNING: Properties.PropertiesList[%s].trunk.items was missing or not a table. Initialized as empty list.'):format(tostring(k)))
+        trunk_table.items = {}
+    end
+
+    if not trunk_table.accounts or type(trunk_table.accounts) ~= 'table' then
+        print(('[PropertiesClient][Trunk] WARNING: Properties.PropertiesList[%s].trunk.accounts was missing or not a table. Initialized with default (0 cash, 0 black_money).'):format(tostring(k)))
+        trunk_table.accounts = { cash = 0, black_money = 0 }
+    end
+
+    if not trunk_table.weapons or type(trunk_table.weapons) ~= 'table' then
+        print(('[PropertiesClient][Trunk] WARNING: Properties.PropertiesList[%s].trunk.weapons was missing or not a table. Initialized as empty list.'):format(tostring(k)))
+        trunk_table.weapons = {}
+    end
+
+    if trunk_table.code.active == true and trunk_table.code.code ~= nil then
         Properties.PropertiesList[k].trunkUnLocked = false
     else
         Properties.PropertiesList[k].trunkUnLocked = true
     end
-    Properties.PropertiesList[k].trunkUnLocked = false
     local main = RageUI.CreateMenu('', 'Actions Disponibles')
     local money = RageUI.CreateSubMenu(main, '', 'Actions Disponibles')
     local items = RageUI.CreateSubMenu(main, '', 'Actions Disponibles') 
@@ -176,19 +234,25 @@ function Properties:openTrunkMenu(k)
         RageUI.IsVisible(items, function()
             RageUI.Button('Déposer un objet', nil, {}, true, {
                 onSelected = function()
-                    
                 end
             }, playerInventory)
             RageUI.WLine()
             for _,v in pairs(Properties.PropertiesList[k].trunk['items']) do
-                RageUI.Button(v.label, nil, {RightLabel = '~r~'..v.count}, true, {
+                RageUI.Button(v.label, nil, {RightLabel = '~r~'..tostring(v.count)}, true, {
                     onSelected = function()
                         KeyboardUtils.use('Quantité', function(data)
-                            local data = tonumber(data)
+                            local amount = tonumber(data)
 
-                            if data == nil or data <= 0 then return end
+                            if amount == nil then
+                                ESX.ShowNotification("Quantité invalide: la valeur entrée n\\'est pas un nombre.")
+                                return
+                            end
+                            if amount <= 0 then
+                                ESX.ShowNotification("La quantité doit être un nombre positif.")
+                                return
+                            end
 
-                            TriggerServerEvent('sunny:properties:trunk:actionsCoffre', k, v, data, 'remove', 'item', _)
+                            TriggerServerEvent('sunny:properties:trunk:actionsCoffre', k, v, amount, 'remove', 'item', _)
                         end)
                     end
                 })
@@ -197,15 +261,22 @@ function Properties:openTrunkMenu(k)
 
         RageUI.IsVisible(playerInventory, function()
             ESX.PlayerData = ESX.GetPlayerData()
-            for _,v in pairs(ESX.PlayerData.inventory) do
-                RageUI.Button(v.label, nil, {RightLabel = '~r~'..v.count}, true, {
+            for _,v_player in pairs(ESX.PlayerData.inventory) do
+                RageUI.Button(v_player.label, nil, {RightLabel = '~r~'..tostring(v_player.count)}, true, {
                     onSelected = function()
                         KeyboardUtils.use('Quantité', function(data)
-                            local data = tonumber(data)
+                            local amount = tonumber(data)
 
-                            if data == nil or data <= 0 then return end
+                            if amount == nil then
+                                ESX.ShowNotification("Quantité invalide: la valeur entrée n\\'est pas un nombre.")
+                                return
+                            end
+                            if amount <= 0 then
+                                ESX.ShowNotification("La quantité doit être un nombre positif.")
+                                return
+                            end
 
-                            TriggerServerEvent('sunny:properties:trunk:actionsCoffre', k, v, data, 'add', 'item')
+                            TriggerServerEvent('sunny:properties:trunk:actionsCoffre', k, v_player, amount, 'add', 'item')
                         end)
                     end
                 })
