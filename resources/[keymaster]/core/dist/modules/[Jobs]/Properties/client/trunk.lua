@@ -15,9 +15,17 @@ local used = false
 function Properties:openTrunkMenu(k)
     if not Properties.PropertiesList or not Properties.PropertiesList[k] then
         ESX.ShowNotification("ERREUR: Données de propriété non chargées ou introuvables pour l'ID: " .. tostring(k))
-        print(("[PropertiesClient][Trunk] ERROR: Properties.PropertiesList or Properties.PropertiesList[%s] is nil. Cannot open trunk menu."):format(tostring(k)))
+        print(('[PropertiesClient][Trunk] ERROR: Properties.PropertiesList or Properties.PropertiesList[%s] is nil. Cannot open trunk menu.'):format(tostring(k)))
         return
     end
+
+    Properties.PropertiesList[k].trunkUnLockedCount = Properties.PropertiesList[k].trunkUnLockedCount or 3
+    used = false
+    print(('[PropertiesClient][Trunk] Property %s: trunkUnLockedCount=%s, used=%s'):format(
+        tostring(k),
+        tostring(Properties.PropertiesList[k].trunkUnLockedCount),
+        tostring(used)
+    ))
 
     if type(Properties.PropertiesList[k].trunk) ~= 'table' then
         Properties.PropertiesList[k].trunk = {}
@@ -48,10 +56,8 @@ function Properties:openTrunkMenu(k)
     FreezeEntityPosition(PlayerPedId(), true)
     while main do Wait(1)
         RageUI.IsVisible(main, function()
-            if Properties:ReturnPropertiesData(k).type == 'location' and Properties:ReturnPropertiesData(k).time <= 0 then 
-                RageUI.Separator('Erreur\nCette location n\'éxiste plus !')
-                goto continue
-            end
+               local pd = Properties:ReturnPropertiesData(k)
+               local timeLeft = tonumber(pd.time) or 0
             if Properties:ReturnPropertiesData(k).coffreOpen == false and Properties:ReturnPropertiesData(k).owner ~= tostring(ESX.PlayerData.UniqueID) then
                 RageUI.Separator('Le coffre est vérouillé')
                 goto continue
@@ -134,10 +140,10 @@ function Properties:openTrunkMenu(k)
                 onSelected = function()
                 end
             }, items)
-            RageUI.Button('Arme(s)', nil, {}, true, {
-                onSelected = function()
-                end
-            }, weapons)
+            -- RageUI.Button('Arme(s)', nil, {}, true, {
+            --     onSelected = function()
+            --     end
+            -- }, weapons)
 
             RageUI.WLine()
             RageUI.Button('Gestion du coffre', nil, {}, true, {
