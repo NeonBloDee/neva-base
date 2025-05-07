@@ -236,21 +236,26 @@ end)
 
 
 RegisterCommand('revive', function(source, args)
-	local source = source
 	local xPlayer = ESX.GetPlayerFromId(source)
 	if source ~= 0 then
 		if not Config.Staff.HavePermission('ManagePlayers', 'revive', xPlayer) then return end
 		if not adminManagement.Service[xPlayer.UniqueID] then return end
 	end
 
-	local player = ReturnPlayerId(args[1])
+	local uniqueID = tonumber(args[1])
+	if not uniqueID then
+		print("ID Unique invalide pour la commande revive.")
+		return
+	end
 
-	if player ~= false then
-		if GetPlayerName(player.id) ~= nil then
-			TriggerClientEvent('sunny:admin:revive', player.id)
-		end
-	else
-		TriggerClientEvent('sunny:admin:revive', source)
+	local player = ReturnPlayerId(uniqueID)
+	if not player then
+		print("Aucun joueur trouvé avec l'ID Unique :", args[1])
+		return
+	end
+
+	if GetPlayerName(player.id) then
+		TriggerClientEvent('sunny:admin:revive', player.id)
 	end
 end)
 

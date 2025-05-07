@@ -23,7 +23,8 @@ RegisterNetEvent('sunny:properties:job:addPropertiesForPlayer', function(target,
         Properties.PropertiesList[propertiesID].owner = tostring(targetPlayer.UniqueID)
         Properties.PropertiesList[propertiesID].ownerName = targetPlayer.name
 
-        TriggerClientEvent('sunny:properties:updateOwner', -1, propertiesID, Properties.PropertiesList[propertiesID].owner, Properties.PropertiesList[propertiesID].ownerNmame)
+        -- Sync updated ownership with all clients
+        TriggerClientEvent('sunny:properties:updateProperties', -1, propertiesID, Properties.PropertiesList[propertiesID])
 
         TriggerClientEvent('esx:showNotification', target, ('💲 Vous avez été prélevé de ~y~%s$~s~'):format(price))
 

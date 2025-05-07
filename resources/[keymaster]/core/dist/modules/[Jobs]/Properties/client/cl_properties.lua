@@ -224,7 +224,10 @@ RegisterNetEvent('sunny:properties:load', function(data)
     if data == nil then
         Properties.PropertiesList = {}
     else
-        for k,v in pairs(data) do v.owner = tostring(v.owner) end
+        -- Ensure owner ID is string for consistency
+        for k,v in pairs(data) do 
+            if v.owner and v.owner ~= 'none' then v.owner = tonumber(v.owner) or v.owner end
+        end
         Properties.PropertiesList = data
     end
 
@@ -235,7 +238,8 @@ end)
 
 RegisterNetEvent('sunny:properties:add', function(i,data)
     if i and data then
-        data.owner = tostring(data.owner)
+        -- Ensure owner ID is number
+        if data.owner and data.owner ~= 'none' then data.owner = tonumber(data.owner) or data.owner end
         Properties.PropertiesList[i] = data
         Properties:updateBlips()
     else
@@ -245,7 +249,8 @@ end)
 
 RegisterNetEvent('sunny:properties:updateProperties', function(propertyId, propertyData)
     if not propertyId or not propertyData then return end
-    propertyData.owner = tostring(propertyData.owner)
+    -- Ensure owner ID is number
+    if propertyData.owner and propertyData.owner ~= 'none' then propertyData.owner = tonumber(propertyData.owner) or propertyData.owner end
     Properties.PropertiesList[propertyId] = propertyData
     Properties:updateBlips()
 end)

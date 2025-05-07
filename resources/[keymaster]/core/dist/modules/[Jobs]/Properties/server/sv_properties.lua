@@ -1,9 +1,8 @@
-Properties = Properties or {} -- Ensure Properties table exists
+Properties = Properties or {}
 Properties.PropertiesList = Properties.PropertiesList or {}
 Properties.Loaded = Properties.Loaded or false
-Properties.garage = Properties.garage or { count2 = {} } -- Ensure nested tables for garage are initialized
+Properties.garage = Properties.garage or { count2 = {} }
 
--- Helper function to safely decode JSON
 local function safeJsonDecode(jsonString, default)
     if jsonString == nil or jsonString == '' or jsonString == 'none' then
         return default
@@ -12,7 +11,7 @@ local function safeJsonDecode(jsonString, default)
     if success then
         return result
     else
-        print(("[PropertiesServer] WARNING: Failed to decode JSON string: %s. Error: %s"):format(jsonString, tostring(result))) -- result is error message on pcall fail
+        print(("[PropertiesServer] WARNING: Failed to decode JSON string: %s. Error: %s"):format(jsonString, tostring(result)))
         return default
     end
 end
@@ -31,7 +30,7 @@ function Properties:Load()
                 label = v.label,
                 price = v.price,
                 enter = safeJsonDecode(v.enter, {x=0.0,y=0.0,z=0.0}),
-                exit = safeJsonDecode(v.exit, {x=0.0,y=0.0,z=0.0}),
+                exit = safeJsonDecode(v.exitPos, {x=0.0,y=0.0,z=0.0}),
                 street_name = v.street,
                 trunkPos = safeJsonDecode(v.trunkPos, {x=0.0,y=0.0,z=0.0}),
                 garage = v.garage,
@@ -39,16 +38,16 @@ function Properties:Load()
                 garageSpawn = safeJsonDecode(v.garageSpawn, {x=0.0,y=0.0,z=0.0}),
                 garageRotation = v.garageRotation,
                 garageType = v.garageType,
-                players = safeJsonDecode(v.players, {}), -- Stores who is allowed/in
+                players = safeJsonDecode(v.players, {}),
                 type = v.type,
                 logementType = v.logementType,
-                open = false, -- Runtime state, not from DB typically
-                playersIG = {}, -- Runtime state: list of players physically inside
-                coffreOpen = false, -- Runtime state
-                interphone = {}, -- Runtime state
+                open = false,
+                playersIG = {},
+                coffreOpen = false,
+                interphone = {},
                 entrepot = v.entrepot,
                 pound = v.pound,
-                time = v.time -- Assuming 'time' column exists for rentals
+                time = v.time
             }
 
             local trunkData = safeJsonDecode(v.trunk, nil)
@@ -60,14 +59,13 @@ function Properties:Load()
                     ['code'] = { active = false, blocked = false, code = nil }
                 }
             else
-                -- Ensure all sub-tables exist in decoded trunk data
                 trunkData.items = trunkData.items or {}
                 trunkData.weapons = trunkData.weapons or {}
                 trunkData.accounts = trunkData.accounts or { cash = 0, black_money = 0 }
                 if type(trunkData.accounts.cash) ~= 'number' then trunkData.accounts.cash = 0 end
                 if type(trunkData.accounts.black_money) ~= 'number' then trunkData.accounts.black_money = 0 end
                 trunkData.code = trunkData.code or { active = false, blocked = false, code = nil }
-                if type(trunkData.code.active) == 'nil' then trunkData.code.active = false end -- handle nil specifically if it can occur
+                if type(trunkData.code.active) == 'nil' then trunkData.code.active = false end
                 if type(trunkData.code.blocked) == 'nil' then trunkData.code.blocked = false end
                 propertyData.trunk = trunkData
             end
@@ -76,11 +74,10 @@ function Properties:Load()
             pcount = pcount + 1
         end
         
-        Properties.PropertiesList = tempPropertiesList -- Replace the old list
+        Properties.PropertiesList = tempPropertiesList
         Properties.Loaded = true
         print(("[PropertiesServer] Properties loaded successfully. Count: %s"):format(pcount))
         
-        -- Inform all clients that properties have been (re)loaded
         TriggerClientEvent('sunny:properties:load', -1, Properties.PropertiesList)
     end)
 end
@@ -107,7 +104,7 @@ function Properties:DbPlayerSync(p)
 end
 
 CreateThread(function()
-    Wait(2000) -- Give a bit more time for ESX and MySQL to be ready
+    Wait(2000)
     Properties:Load()
 end)
 
@@ -116,10 +113,8 @@ RegisterNetEvent('sunny:properties:load', function()
     if Properties.Loaded then
         TriggerClientEvent('sunny:properties:load', source, Properties.PropertiesList)
     else
-        -- Queue or delay if not loaded yet, or force a load for this player
         print(("[PropertiesServer] WARNING: Player %s requested properties before initial load was complete. Sending current (possibly empty) list."):format(source))
         TriggerClientEvent('sunny:properties:load', source, Properties.PropertiesList) 
-        -- Consider deferring the TriggerClientEvent until Properties.Loaded is true, or re-triggering Properties:Load()
     end
 end)
 
@@ -148,34 +143,31 @@ AddEventHandler('Achat:Maison', function(Infos)
     end
 
     if xPlayer.getMoney() >= PrixMaison then
-        xPlayer.removeAccountMoney('cash', PrixMaison) -- ESX standard is removeAccountMoney for cash
+        xPlayer.removeAccountMoney('cash', PrixMaison)
 
         MySQL.Async.execute('UPDATE properties SET propertiesOWNER = @propertiesOwner, ownerName = @ownerName WHERE propertiesID = @propertiesID', {
             ['@propertiesOwner'] = xPlayer.UniqueID,
-            ['@ownerName'] = xPlayer.getName(), -- Store player's character name
+            ['@ownerName'] = xPlayer.getName(),
             ['@propertiesID'] = IdMaison
         }, function(affectedRows)
             if affectedRows > 0 then
                 TriggerClientEvent('esx:showNotification', _src, 'Vous avez acheté la maison avec succès !')
         
-                -- Update server-side list first
                 if Properties.PropertiesList[IdMaison] then
                     Properties.PropertiesList[IdMaison].owner = xPlayer.UniqueID
                     Properties.PropertiesList[IdMaison].ownerName = xPlayer.getName()
-                    Properties.PropertiesList[IdMaison].players = {} -- Reset players inside on purchase
-                    Properties.PropertiesList[IdMaison].open = false -- Default to closed
+                    Properties.PropertiesList[IdMaison].players = {}
+                    Properties.PropertiesList[IdMaison].open = false
                     Properties.PropertiesList[IdMaison].coffreOpen = false
 
-                     -- Update all clients with the changed property
                     TriggerClientEvent('sunny:properties:updateProperties', -1, IdMaison, Properties.PropertiesList[IdMaison])
-                    Properties:DbPlayerSync(IdMaison) -- Save updated players list (empty) to DB
+                    Properties:DbPlayerSync(IdMaison)
                 else
-                    -- If not in list, reload it (should not happen if loaded correctly)
                     Properties:Load() 
                 end
             else
                 TriggerClientEvent('esx:showNotification', _src, '~r~Une erreur est survenue lors de l\'achat de la maison (DB).')
-                xPlayer.addAccountMoney('cash', PrixMaison) -- Refund if DB update failed
+                xPlayer.addAccountMoney('cash', PrixMaison)
             end
         end)
     else
@@ -213,7 +205,6 @@ RegisterNetEvent('sunny:properties:createProperties', function(name, label, pric
         return
     end
     
-    -- Ensure all coordinate objects are valid or default
     enter = enter and json.encode(enter) or '{"x":0.0,"y":0.0,"z":0.0}'
     exit = exit and json.encode(exit) or '{"x":0.0,"y":0.0,"z":0.0}'
     trunkPos = trunkPos and json.encode(trunkPos) or '{"x":0.0,"y":0.0,"z":0.0}'
@@ -232,23 +223,22 @@ RegisterNetEvent('sunny:properties:createProperties', function(name, label, pric
         ['@garageSpawn'] = posGarageSpawnVal, 
         ['@garageRotation'] = rotGarageSpawnVal, 
         ['@garageType'] = garageTypeVal,
-        ['@players'] = '{}', -- Empty JSON object for players
+        ['@players'] = '{}',
         ['@type'] = typeData,
         ['@trunkPos'] = trunkPos,
         ['@logementType'] = logementType,
         ['@street'] = current_zone or 'N/A',
         ['@entrepot'] = entrepotVal,
         ['@pound'] = poundVal,
-        ['@trunk'] = json.encode({ -- Default empty trunk structure
+        ['@trunk'] = json.encode({
             items = {}, weapons = {}, accounts = {cash = 0, black_money = 0},
             code = {active = false, blocked = false, code = nil}
         })
     }, function(affectedRows)
         if affectedRows > 0 then
             local costToSociety = propertyPrice / 100 * 75
-            society.removeSocietyMoney(costToSociety) -- Assuming this function exists and handles society money
+            society.removeSocietyMoney(costToSociety)
 
-            -- Fetch the newly created property to get its ID
             MySQL.Async.fetchAll('SELECT * FROM properties WHERE name = @name AND label = @label ORDER BY propertiesID DESC LIMIT 1', {
                 ['@name'] = name,
                 ['@label'] = label
@@ -303,23 +293,18 @@ RegisterNetEvent('sunny:properties:addPlayer', function(target, value, pId, play
     end
 
     if value == 'me' then
-        Properties:addPlayer(source, pId) -- Set routing bucket
-        TriggerClientEvent('sunny:properties:teleport', source, Properties.PropertiesList[pId].exit) -- Use the vector3 directly
+        Properties:addPlayer(source, pId)
+        TriggerClientEvent('sunny:properties:teleport', source, Properties.PropertiesList[pId].exit)
 
-        -- Update server-side state for this player
         Properties.PropertiesList[pId].players[tostring(xPlayer.UniqueID)] = true
         
-        -- Add to playersIG (runtime list of who is physically inside)
         Properties.PropertiesList[pId].playersIG = Properties.PropertiesList[pId].playersIG or {}
         Properties.PropertiesList[pId].playersIG[source] = { source = source, UniqueID = xPlayer.UniqueID }
 
-        -- Notify the acting client about their state change
         TriggerClientEvent('sunny:properties:changePlayerSate', source, pId, true)
     end
     
-    -- Persist the 'players' state (who is allowed/marked as in)
     Properties:DbPlayerSync(pId)
-    -- Notify ALL clients about the updated 'players' list for this property
     TriggerClientEvent('sunny:properties:updatePlayers', -1, pId, Properties.PropertiesList[pId].players)
 end)
 
@@ -334,10 +319,10 @@ RegisterNetEvent('sunny:properties:removePlayer', function(target, value, pId, p
     end
 
     if value == 'me' then
-        Properties:addPlayer(source, 0) -- Clear routing bucket
-        TriggerClientEvent('sunny:properties:teleport', source, Properties.PropertiesList[pId].enter) -- Use the vector3 directly
+        Properties:addPlayer(source, 0)
+        TriggerClientEvent('sunny:properties:teleport', source, Properties.PropertiesList[pId].enter)
 
-        Properties.PropertiesList[pId].players[tostring(xPlayer.UniqueID)] = false -- Or remove key: nil
+        Properties.PropertiesList[pId].players[tostring(xPlayer.UniqueID)] = false
         if Properties.PropertiesList[pId].playersIG and Properties.PropertiesList[pId].playersIG[source] then
             Properties.PropertiesList[pId].playersIG[source] = nil
         end
@@ -350,14 +335,11 @@ RegisterNetEvent('sunny:properties:removePlayer', function(target, value, pId, p
                 if targetPlayer then
                     Properties:addPlayer(playerSrc, 0)
                     TriggerClientEvent('sunny:properties:teleport', playerSrc, Properties.PropertiesList[pId].enter)
-                    Properties.PropertiesList[pId].players[tostring(targetPlayer.UniqueID)] = false -- Or nil
+                    Properties.PropertiesList[pId].players[tostring(targetPlayer.UniqueID)] = false
                     TriggerClientEvent('sunny:properties:changePlayerSate', playerSrc, pId, false)
                 end
             end
-            Properties.PropertiesList[pId].playersIG = {} -- Clear the runtime list
-            -- For 'all', we might want to clear the entire 'players' table or just those who were in playersIG
-            -- For now, assuming 'players' reflects permissions/saved states, and 'all' just kicks out current occupants.
-            -- If 'all' means reset all permissions, then Properties.PropertiesList[pId].players = {}
+            Properties.PropertiesList[pId].playersIG = {}
         end
     end
 
@@ -366,20 +348,15 @@ RegisterNetEvent('sunny:properties:removePlayer', function(target, value, pId, p
 end)
 
 AddEventHandler('esx:playerLoaded', function(playerId, xPlayer)
-    -- local xPlayer = ESX.GetPlayerFromId(playerId) -- xPlayer is already passed as second arg in newer ESX
     if xPlayer and xPlayer.UniqueID then
-        Properties.garage = Properties.garage or {} -- Ensure garage table exists
-        Properties.garage.count2 = Properties.garage.count2 or {} -- Ensure count2 table exists
+        Properties.garage = Properties.garage or {}
+        Properties.garage.count2 = Properties.garage.count2 or {}
         Properties.garage.count2[xPlayer.UniqueID] = 0
     else
         print(("[PropertiesServer] WARNING: xPlayer or UniqueID not found for esx:playerLoaded. Source/PlayerID: %s"):format(tostring(playerId)))
     end
-    -- No need for Wait(5000) here, this event is for when player is loaded.
-    -- Requesting properties for this specific client can be done here too, if 'sunny:properties:load' on client isn't sufficient
-    -- TriggerClientEvent('sunny:properties:load', playerId, Properties.PropertiesList)
 end)
 
--- Ensure player data is cleaned up on disconnect
 AddEventHandler('esx:playerDropped', function(playerId, reason)
     local xPlayer = ESX.GetPlayerFromId(playerId)
     if not xPlayer then return end
@@ -388,12 +365,12 @@ AddEventHandler('esx:playerDropped', function(playerId, reason)
 
     for propId, propData in pairs(Properties.PropertiesList) do
         if propData.players and propData.players[playerUniqueId] then
-            propData.players[playerUniqueId] = nil -- Remove from permission/state list
+            propData.players[playerUniqueId] = nil
             Properties:DbPlayerSync(propId)
             TriggerClientEvent('sunny:properties:updatePlayers', -1, propId, propData.players)
         end
         if propData.playersIG and propData.playersIG[playerId] then
-            propData.playersIG[playerId] = nil -- Remove from runtime 'inside' list
+            propData.playersIG[playerId] = nil
         end
     end
     if Properties.garage and Properties.garage.count2 and Properties.garage.count2[playerUniqueId] then
@@ -437,13 +414,12 @@ RegisterNetEvent('sunny:properties:sell', function(propertiesID)
         ['@propertiesID'] = propertiesID,
         ['@owner'] = 'none',
         ['@ownerName'] = 'none',
-        ['@players'] = '{}' -- Reset players list to empty JSON object
+        ['@players'] = '{}'
     }, function(affectedRows)
         if affectedRows > 0 then
-            -- Kick out anyone inside
             if propertyToSell.playersIG then
                 for playerSrc, pData in pairs(propertyToSell.playersIG) do
-                    Properties:addPlayer(playerSrc, 0) -- Clear routing bucket
+                    Properties:addPlayer(playerSrc, 0)
                     TriggerClientEvent('sunny:properties:teleport', playerSrc, propertyToSell.enter)
                     TriggerClientEvent('sunny:properties:changePlayerSate', playerSrc, propertiesID, false)
                 end
@@ -458,7 +434,7 @@ RegisterNetEvent('sunny:properties:sell', function(propertiesID)
 
             TriggerClientEvent('esx:showNotification', source, '🏠 Propriété vendue avec succès')
             local refundAmount = tonumber(propertyToSell.price) / 100 * 50
-            xPlayer.addAccountMoney('bank', refundAmount) -- Use addAccountMoney for bank
+            xPlayer.addAccountMoney('bank', refundAmount)
 
             TriggerClientEvent('sunny:properties:updateProperties', -1, propertiesID, propertyToSell)
         else
@@ -467,7 +443,7 @@ RegisterNetEvent('sunny:properties:sell', function(propertiesID)
     end)
 end)
 
-RegisterNetEvent('sunny:properties:interphone:call', function(propertiesDataClient, time) -- propertiesDataClient is just .id from client
+RegisterNetEvent('sunny:properties:interphone:call', function(propertiesDataClient, time)
     if not propertiesDataClient or not propertiesDataClient.id then return end
     local source = source
     local xPlayer = ESX.GetPlayerFromId(source)
@@ -482,14 +458,13 @@ RegisterNetEvent('sunny:properties:interphone:call', function(propertiesDataClie
     actualPropertyData.interphone = actualPropertyData.interphone or {}
     actualPropertyData.interphone[xPlayer.UniqueID] = {
         UniqueID = xPlayer.UniqueID,
-        name = xPlayer.name, -- ESX player name (character name)
-        firstname = xPlayer.get('firstName'), -- Assuming ESX identity
-        lastname = xPlayer.get('lastName'),   -- Assuming ESX identity
+        name = xPlayer.name,
+        firstname = xPlayer.get('firstName'),
+        lastname = xPlayer.get('lastName'),
         playerCoords = GetEntityCoords(GetPlayerPed(source)),
-        at = os.date(('%sh%sm%ss'):format('%H', '%M', '%S')), -- More precise time
+        at = os.date(('%sh%sm%ss'):format('%H', '%M', '%S')),
     }
 
-    -- Notify players inside the property or the owner
     local ownerPlayer = nil
     if actualPropertyData.owner ~= 'none' then
         ownerPlayer = ESX.GetPlayerFromUniqueId(actualPropertyData.owner)
@@ -506,20 +481,18 @@ RegisterNetEvent('sunny:properties:interphone:call', function(propertiesDataClie
         end
     end
     
-    -- If owner is online but not inside, notify them too
     if ownerPlayer and (not actualPropertyData.playersIG or not actualPropertyData.playersIG[ownerPlayer.source]) then
          TriggerClientEvent('sunny:properties:interphone:call:requestCall', ownerPlayer.source, actualPropertyData)
          notifiedSomeone = true
     end
 
     if not notifiedSomeone then
-        -- Potentially notify caller that no one is available, or handle silently
-        -- TriggerClientEvent('esx:showNotification', source, "Personne n'est disponible pour répondre.")
+        TriggerClientEvent('esx:showNotification', source, "Personne n'est disponible pour répondre.")
     end
 end)
 
 RegisterNetEvent('sunny:properties:interphone:call:validateEnter', function(propertiesDataClient, playerData)
-    local source = source -- Person inside answering
+    local source = source
     local xPlayerAnswering = ESX.GetPlayerFromId(source)
 
     if not xPlayerAnswering then return end
@@ -528,7 +501,6 @@ RegisterNetEvent('sunny:properties:interphone:call:validateEnter', function(prop
     local property = Properties.PropertiesList[propertyId]
     if not property then return end
 
-    -- Ensure the person answering is authorized (owner or inside)
     local isOwner = property.owner == xPlayerAnswering.UniqueID
     local isInside = property.playersIG and property.playersIG[source]
     if not isOwner and not isInside then
@@ -543,11 +515,10 @@ RegisterNetEvent('sunny:properties:interphone:call:validateEnter', function(prop
     end
 
     if property.interphone and property.interphone[playerData.UniqueID] then
-        property.interphone[playerData.UniqueID] = nil -- Remove from interphone list
-        TriggerClientEvent('sunny:properties:updateCallWithPlayerCall', playerToEnter.source, property) -- Notify caller their bell status might change
+        property.interphone[playerData.UniqueID] = nil
+        TriggerClientEvent('sunny:properties:updateCallWithPlayerCall', playerToEnter.source, property)
     end
 
-    -- Notify all clients about interphone list update (mainly for those inside)
     TriggerClientEvent('sunny:properties:interphone:update', -1, property)
 
     if #(GetEntityCoords(GetPlayerPed(playerToEnter.source)) - vector3(property.enter.x, property.enter.y, property.enter.z)) > 10.0 then -- Increased range slightly
@@ -556,8 +527,7 @@ RegisterNetEvent('sunny:properties:interphone:call:validateEnter', function(prop
         return 
     end
 
-    -- Let the player in
-    Properties:addPlayer(playerToEnter.source, propertyId) -- Set routing bucket
+    Properties:addPlayer(playerToEnter.source, propertyId)
     TriggerClientEvent('sunny:properties:teleport', playerToEnter.source, property.exit)
 
     property.playersIG = property.playersIG or {}
@@ -567,11 +537,11 @@ RegisterNetEvent('sunny:properties:interphone:call:validateEnter', function(prop
     Properties:DbPlayerSync(propertyId)
     
     TriggerClientEvent('sunny:properties:changePlayerSate', playerToEnter.source, propertyId, true)
-    TriggerClientEvent('sunny:properties:updatePlayers', -1, propertyId, property.players) -- Notify all about the new player list
+    TriggerClientEvent('sunny:properties:updatePlayers', -1, propertyId, property.players)
 end)
 
 RegisterNetEvent('sunny:properties:interphone:call:refuseEnter', function(propertiesDataClient, playerData)
-    local source = source -- Person inside answering
+    local source = source
     local xPlayerAnswering = ESX.GetPlayerFromId(source)
 
     if not xPlayerAnswering then return end
@@ -588,42 +558,35 @@ RegisterNetEvent('sunny:properties:interphone:call:refuseEnter', function(proper
     end
 
     local playerRefused = ESX.GetPlayerFromUniqueId(playerData.UniqueID)
-    if not playerRefused then return end -- Player already left
+    if not playerRefused then return end
 
     if property.interphone and property.interphone[playerData.UniqueID] then
         property.interphone[playerData.UniqueID] = nil
-        TriggerClientEvent('sunny:properties:updateCallWithPlayerCall', playerRefused.source, property) -- Notify caller
+        TriggerClientEvent('sunny:properties:updateCallWithPlayerCall', playerRefused.source, property)
     end
     
     TriggerClientEvent('esx:showNotification', playerRefused.source, "~y~On vous a refusé l'entrée.")
-    TriggerClientEvent('sunny:properties:interphone:update', -1, property) -- Update interphone list for clients inside
-    -- No need to call sunny:propeties:updatePlayers as the list of people inside hasn't changed.
-    -- The original sunny:propeties:updatePlayers was likely a typo for sunny:properties:updatePlayers
+    TriggerClientEvent('sunny:properties:interphone:update', -1, property)
 end)
 
--- Function to get player by UniqueID (if ESX doesn't have a direct one or for broader use)
-function ReturnPlayerId(uniqueId)
-    local players = ESX.GetPlayers()
-    for i=1, #players do
-        local xPlayer = ESX.GetPlayerFromId(players[i])
-        if xPlayer and tostring(xPlayer.UniqueID) == tostring(uniqueId) then
-            return xPlayer -- Returns the xPlayer object
+local function ReturnPlayerByUniqueId(uniqueId)
+    for _, playerId in ipairs(ESX.GetPlayers()) do
+        local xP = ESX.GetPlayerFromId(playerId)
+        if xP and tostring(xP.UniqueID) == tostring(uniqueId) then
+            return xP
         end
     end
     return nil
 end
 
--- Make sure ESX is loaded before anything else
 CreateThread(function()
     while ESX == nil do
         TriggerEvent('esx:getSharedObject', function(obj) ESX = obj end)
-        Wait(0) -- Check every tick initially
+        Wait(0)
     end
     print("[PropertiesServer] ESX Loaded.")
 end)
 
--- Commented out the hourly rental logic for now, can be re-enabled and debugged separately.
--- Ensure 'time' column exists in 'properties' table and 'users' table for this to work.
 --[[]
 CreateThread(function()
     while true do 
