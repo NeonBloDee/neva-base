@@ -1,4 +1,7 @@
 ESX = nil 
+-- Add an item usage flag
+local isUsingItem = false
+
 CreateThread(function()
     while ESX == nil do
         TriggerEvent('esx:getSharedObject', function(obj)ESX = obj end)
@@ -6,8 +9,34 @@ CreateThread(function()
     end
 end)
 
+-- Function to check if player can use an item
+local function canUseItem()
+    return not isUsingItem
+end
+
+-- Register a server callback for checking if an item can be used
+RegisterNetEvent('wItem:checkItemUsage')
+AddEventHandler('wItem:checkItemUsage', function(itemName, cb)
+    local canUse = canUseItem()
+    TriggerServerEvent('wItem:itemUsageStatus', canUse, itemName)
+end)
+
+-- Set item usage state
+local function setItemUsage(state)
+    isUsingItem = state
+    TriggerServerEvent('wItem:updateItemUsageState', state)
+end
+
 RegisterNetEvent('wItem:repairNearestVehicle')
 AddEventHandler('wItem:repairNearestVehicle', function()
+    -- Check if already using an item
+    if isUsingItem then
+        ESX.ShowNotification('~r~Vous êtes déjà en train d\'utiliser un objet!')
+        return
+    end
+    
+    setItemUsage(true)
+    
     local playerPed = PlayerPedId()
     local coords = GetEntityCoords(playerPed)
     local vehicle = GetClosestVehicle(coords.x, coords.y, coords.z, 5.0, 0, 71)
@@ -44,11 +73,22 @@ AddEventHandler('wItem:repairNearestVehicle', function()
     else
         ESX.ShowNotification('~r~Pas de véhicule à proximité!')
     end
+    
+    -- Reset item usage flag
+    setItemUsage(false)
 end)
 
 
 RegisterNetEvent('wItem:cleanNearestVehicle')
 AddEventHandler('wItem:cleanNearestVehicle', function()
+    -- Check if already using an item
+    if isUsingItem then
+        ESX.ShowNotification('~r~Vous êtes déjà en train d\'utiliser un objet!')
+        return
+    end
+    
+    setItemUsage(true)
+    
     local playerPed = PlayerPedId()
     local coords = GetEntityCoords(playerPed)
     local vehicle = GetClosestVehicle(coords.x, coords.y, coords.z, 5.0, 0, 71)
@@ -83,10 +123,21 @@ AddEventHandler('wItem:cleanNearestVehicle', function()
     else
         ESX.ShowNotification('~r~Pas de véhicule à proximité!')
     end
+    
+    -- Reset item usage flag
+    setItemUsage(false)
 end)
 
 RegisterNetEvent('wItem:startHealAnimation')
 AddEventHandler('wItem:startHealAnimation', function(isMedikit)
+    -- Check if already using an item
+    if isUsingItem then
+        ESX.ShowNotification('~r~Vous êtes déjà en train d\'utiliser un objet!')
+        return
+    end
+    
+    setItemUsage(true)
+    
     local playerPed = PlayerPedId()
     local dict = "anim@amb@clubhouse@tutorial@bkr_tut_ig3@"
     local anim = "machinic_loop_mechandplayer"
@@ -128,6 +179,9 @@ AddEventHandler('wItem:startHealAnimation', function(isMedikit)
     
     ClearPedTasks(playerPed)
     FreezeEntityPosition(playerPed, false)
+    
+    -- Reset item usage flag
+    setItemUsage(false)
 end)
 
 RegisterCommand('kill', function()

@@ -1,8 +1,36 @@
 ESX = nil
 TriggerEvent('esx:getSharedObject', function(obj) ESX = obj end)
 
+local playerUsingItem = {}
+
+local function canPlayerUseItem(source)
+    return not playerUsingItem[source]
+end
+
+RegisterServerEvent('wItem:updateItemUsageState')
+AddEventHandler('wItem:updateItemUsageState', function(state)
+    local source = source
+    playerUsingItem[source] = state
+end)
+
+AddEventHandler('playerDropped', function()
+    playerUsingItem[source] = nil
+end)
+
+RegisterServerEvent('wItem:itemUsageStatus')
+AddEventHandler('wItem:itemUsageStatus', function(canUse, itemName)
+    local source = source
+    playerUsingItem[source] = not canUse
+end)
+
 ESX.RegisterUsableItem('repairkit', function(source)
     local xPlayer = ESX.GetPlayerFromId(source)
+    
+    if playerUsingItem[source] then
+        TriggerClientEvent('esx:showNotification', source, '~r~Vous êtes déjà en train d\'utiliser un objet!')
+        return
+    end
+    
     TriggerClientEvent('wItem:repairNearestVehicle', source)
 end)
 
@@ -14,6 +42,12 @@ end)
 
 ESX.RegisterUsableItem('kitcarro', function(source)
     local xPlayer = ESX.GetPlayerFromId(source)
+    
+    if playerUsingItem[source] then
+        TriggerClientEvent('esx:showNotification', source, '~r~Vous êtes déjà en train d\'utiliser un objet!')
+        return
+    end
+    
     TriggerClientEvent('wItem:cleanNearestVehicle', source)
 end)
 
@@ -25,6 +59,11 @@ end)
 
 ESX.RegisterUsableItem('bandage', function(source)
     local xPlayer = ESX.GetPlayerFromId(source)
+    
+    if playerUsingItem[source] then
+        TriggerClientEvent('esx:showNotification', source, '~r~Vous êtes déjà en train d\'utiliser un objet!')
+        return
+    end
     
     if xPlayer.getInventoryItem('bandage').count > 0 then
         TriggerClientEvent('wItem:startHealAnimation', source, false)
@@ -38,6 +77,11 @@ end)
 ESX.RegisterUsableItem('medikit', function(source)
     local xPlayer = ESX.GetPlayerFromId(source)
     
+    if playerUsingItem[source] then
+        TriggerClientEvent('esx:showNotification', source, '~r~Vous êtes déjà en train d\'utiliser un objet!')
+        return
+    end
+    
     if xPlayer.getInventoryItem('medikit').count > 0 then
         TriggerClientEvent('wItem:startHealAnimation', source, true)
         xPlayer.removeInventoryItem('medikit', 1)
@@ -46,4 +90,3 @@ ESX.RegisterUsableItem('medikit', function(source)
         TriggerClientEvent('esx:showNotification', source, 'Vous n\'avez pas de medikit.')
     end
 end)
-
