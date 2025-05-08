@@ -50,14 +50,13 @@ CreateThread(function()
         print('^7                  Corporation                   ')
         print('^7ㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤ')
         print("^5===============================================")
-        print("^2            Version 5.0.76 Loaded             ")
+        print("^2            Version 5.0.77 Loaded             ")
         print("^5===============================================")
         print('^7ㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤ')
 
     end)
 end)
 
--- Get les véhicules du joueur 
 ESX.RegisterServerCallback("SunnyLpb:getplayerveh", function(source, cb)
     local _source = source
 	local xPlayer = ESX.GetPlayerFromId(_source)
