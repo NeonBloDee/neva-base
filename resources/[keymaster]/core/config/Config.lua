@@ -38,10 +38,9 @@ SunnyConfigServ = {
     -- ~h~ = Texte en gras
 
     ------ RAGEUI CONFIG ------
-    BannerMenu = "https://i.ibb.co/DCbnCgx/bannerf5-regularsize.png",
+    BannerMenu = "https://i.ibb.co/TxNrhvPf/bannerf5-regularsize.png",
     BannerButton = "https://i.ibb.co/L1zYX1m/gradient-nav.png",
     RageUI = {
-
         IgEdit = false, ----- MODIF DU MENU IG
     },
 
