@@ -240,7 +240,7 @@ function inventorySetup(items, fastItems, crMenu, itemTrunk) {
       count = setCount(item);
 
       if (item.image == undefined) {
-        item.image = "https://i.postimg.cc/1zxxjCL4/default-4d471008.png";
+        item.image = "https://i.ibb.co/QF9CvRwn/meth-packaged.png";
       }
 
       $("#left-inventory").append(

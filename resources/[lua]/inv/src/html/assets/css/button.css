@@ -4,73 +4,11 @@
   justify-content: center;
   width: 1.552vw;
   height: 2.5vw;
-  /* bottom: 0%; */
 }
 
-/* @media (min-width: 1920px) {
-  .top-buttons-center-part {
-    width: 2.5vw;
-    height: 3vw;
-  }
-}
-
-@media (min-width: 2560px) {
-  .top-buttons-center-part {
-    width: 1.2vw;
-    height: 2vw;
-  }
-}
-
-@media (min-width: 3840px) {
-  .top-buttons-center-part {
-    width: 1vw;
-    height: 1.8vw;
-  }
-} */
-
-.top-button-utilize {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-  width: 5vw;
-  height: 2.5vw;
-  margin-top: 72vw;
-}
-
-.top-button-utilize span:nth-child(1) {
-  font-size: 0.8vw;
-}
-
-.top-button-give {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-  width: 5vw;
-  height: 2.5vw;
-  margin-left: 0.573vw;
-  margin-top: 72vw;
-}
-.top-button-give span:nth-child(1) {
-  font-size: 0.8vw;
-}
-
-.top-button-rename {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-  width: 5vw;
-  height: 2.5vw;
-  margin-left: 0.573vw;
-  margin-top: 72vw;
-}
-
-.top-button-rename span:nth-child(1) {
-  font-size: 0.8vw;
-}
-
+.top-button-utilize,
+.top-button-give,
+.top-button-rename,
 .top-button-delete {
   display: flex;
   align-items: center;
@@ -78,19 +16,58 @@
   flex-direction: column;
   width: 5vw;
   height: 2.5vw;
-  margin-left: 0.573vw;
   margin-top: 72vw;
+  /* Dégradé radial beaucoup plus transparent */
+  background: radial-gradient(
+    circle, 
+    rgba(68, 68, 68, 0.4) 0%, 
+    rgba(35, 35, 35, 0.4) 60%, 
+    rgba(24, 24, 24, 0.4) 100%
+  );
+  border: 1px solid rgba(62, 62, 62, 0.6); /* Contour gris plus transparent */
+  border-radius: 6px; /* Coins légèrement arrondis */
+  transition: all 0.2s ease;
+  cursor: pointer;
 }
 
+.top-button-give,
+.top-button-rename,
+.top-button-delete {
+  margin-left: 0.573vw;
+}
+
+.top-button-utilize span:nth-child(1),
+.top-button-give span:nth-child(1),
+.top-button-rename span:nth-child(1),
 .top-button-delete span:nth-child(1) {
   font-size: 0.8vw;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5); /* Ombre légère pour améliorer la lisibilité */
 }
 
+/* Effet au survol */
 .top-button-utilize:hover,
 .top-button-give:hover,
 .top-button-delete:hover,
 .top-button-rename:hover {
-  background: var(--active-color);
+  background: radial-gradient(
+    circle, 
+    rgba(80, 80, 80, 0.5) 0%, 
+    rgba(42, 42, 42, 0.5) 60%, 
+    rgba(32, 32, 32, 0.5) 100%
+  );
+}
+
+/* Effet au clic */
+.top-button-utilize:active,
+.top-button-give:active,
+.top-button-delete:active,
+.top-button-rename:active {
+  background: radial-gradient(
+    circle, 
+    rgba(58, 58, 58, 0.6) 0%, 
+    rgba(30, 30, 30, 0.6) 60%, 
+    rgba(21, 21, 21, 0.6) 100%
+  );
 }
 
 .raccours4,
@@ -102,27 +79,45 @@
   justify-content: center;
   width: 5vw;
   height: 2.8vw;
-  border: 0.052vw solid var(--border-color);
-  background-color: var(--background-color);
+  border: 1px solid rgba(62, 62, 62, 0.6); /* Contour gris plus transparent */
+  /* Dégradé radial beaucoup plus transparent */
+  background: radial-gradient(
+    circle, 
+    rgba(68, 68, 68, 0.4) 0%, 
+    rgba(35, 35, 35, 0.4) 60%, 
+    rgba(24, 24, 24, 0.4) 100%
+  );
   margin-left: 0px;
-  transition: all 0.1s ease;
+  transition: all 0.2s ease;
   cursor: pointer;
+  border-radius: 6px; /* Coins légèrement arrondis */
 }
+
 .raccours4:hover,
 .raccours3:hover,
 .raccours2:hover,
 .raccours1:hover {
-  /* border: 0.052vw solid var(--border-color);
-	background: var(--active-color);
-	/* box-shadow: 0 0 50px 0px #296ae44f; */
+  background: radial-gradient(
+    circle, 
+    rgba(80, 80, 80, 0.5) 0%, 
+    rgba(42, 42, 42, 0.5) 60%, 
+    rgba(32, 32, 32, 0.5) 100%
+  );
 }
+
 .raccours4:active,
 .raccours3:active,
 .raccours2:active,
 .raccours1:active {
-  border: 0.052vw solid var(--border-color);
-  background: var(--active-color);
+  border: 1px solid rgba(62, 62, 62, 0.6);
+  background: radial-gradient(
+    circle, 
+    rgba(58, 58, 58, 0.6) 0%, 
+    rgba(30, 30, 30, 0.6) 60%, 
+    rgba(21, 21, 21, 0.6) 100%
+  );
 }
+
 .raccours4 img:nth-child(1),
 .raccours3 img:nth-child(1),
 .raccours2 img:nth-child(1),

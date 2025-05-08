@@ -22,10 +22,10 @@ Citizen.CreateThread(function()
     end
 end)
 
-AddEventHandler('entityCreated', function(entity)
-    Citizen.Wait(0)
-    if IsEntityAVehicle(entity) then
-        SetVehicleDoorsLocked(entity, 2)
-        SetVehicleDoorsLockedForAllPlayers(entity, true)
-    end
-end)
+-- AddEventHandler('entityCreated', function(entity)
+--     Citizen.Wait(0)
+--     if IsEntityAVehicle(entity) then
+--         SetVehicleDoorsLocked(entity, 2)
+--         SetVehicleDoorsLockedForAllPlayers(entity, true)
+--     end
+-- end)

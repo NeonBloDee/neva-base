@@ -17,13 +17,20 @@
 	justify-content: center;
 	width: 1.75vw; 
 	height: 1.75vw;
-	border: 0.052vw solid var(--border-color);
-	background: var(--background-color);
+	border: 1px solid rgba(62, 62, 62, 0.6); /* Contour gris transparent */
+	/* Dégradé radial semi-transparent */
+	background: radial-gradient(
+		circle, 
+		rgba(68, 68, 68, 0.4) 0%, 
+		rgba(35, 35, 35, 0.4) 60%, 
+		rgba(24, 24, 24, 0.4) 100%
+	);
 	margin-left: 0.5vw; 
 	transform: translateX(-19.7vw); 
 	margin-top: 90px; 
-	transition: all 0.1s ease;
+	transition: all 0.2s ease;
 	cursor: pointer;
+	border-radius: 6px; /* Coins légèrement arrondis pour cohérence */
 }
 
 .first-category-all img:nth-child(1),
@@ -31,7 +38,9 @@
 .three-category-weapon img:nth-child(1),
 .four-category-clothes img:nth-child(1) {
 	width: 0.7vw; 
-	height: 0.7vw; 
+	height: 0.7vw;
+	/* Légère luminosité pour les icônes */
+	filter: brightness(1.2);
 }
 
 .three-category-weapon img:nth-child(1) {
@@ -48,13 +57,38 @@
 .sec-category-food:hover,
 .three-category-weapon:hover,
 .four-category-clothes:hover {
-	border: 0.052vw solid var(--border-color);
-	background: var(--hover-color);
+	border: 1px solid rgba(62, 62, 62, 0.7);
+	background: radial-gradient(
+		circle, 
+		rgba(80, 80, 80, 0.5) 0%, 
+		rgba(42, 42, 42, 0.5) 60%, 
+		rgba(32, 32, 32, 0.5) 100%
+	);
 }
 
 .first-category-all:active,
 .sec-category-food:active,
 .three-category-weapon:active,
 .four-category-clothes:active {
-	background: var(--active-color);
+	background: radial-gradient(
+		circle, 
+		rgba(58, 58, 58, 0.6) 0%, 
+		rgba(30, 30, 30, 0.6) 60%, 
+		rgba(21, 21, 21, 0.6) 100%
+	);
+}
+
+/* Style pour l'élément de catégorie sélectionné */
+.first-category-all.selected,
+.sec-category-food.selected,
+.three-category-weapon.selected,
+.four-category-clothes.selected {
+	border: 1px solid rgba(255, 70, 70, 0.8); /* Bordure rouge pour l'élément sélectionné */
+	background: radial-gradient(
+		circle, 
+		rgba(74, 74, 74, 0.6) 0%, 
+		rgba(42, 42, 42, 0.6) 60%, 
+		rgba(32, 32, 32, 0.6) 100%
+	);
+	box-shadow: 0 0 5px rgba(255, 70, 70, 0.3); /* Légère lueur pour l'élément sélectionné */
 }

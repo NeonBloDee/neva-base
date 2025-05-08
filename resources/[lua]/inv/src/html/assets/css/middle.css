@@ -29,6 +29,7 @@
   width: 6.073vw;
   height: 6.073vw;
 }
+
 .middle-logo img:nth-child(1) {
   width: 8.073vw;
   height: 8.073vw;
@@ -39,6 +40,7 @@
   font-size: 0.833vw;
   margin-top: 43.833vw;
 }
+
 .middle-clothes-part-left {
   display: flex;
   align-items: center;
@@ -47,6 +49,7 @@
   width: 60vw;
   height: 33.333vw;
 }
+
 .middle-clothes-part-right {
   display: flex;
   align-items: center;
@@ -56,75 +59,94 @@
   height: 33.333vw;
 }
 
-.item-box {
+
+.item-box, .item-box2 {
   display: flex;
   align-items: center;
   justify-content: center;
   width: 4.5vw;
   height: 4.5vw;
-  border: 0.052vw solid var(--border-color);
-  background-color: var(--background-color);
-  /* border-radius: 10px; */
+  border: 1px solid #3E3E3E; /* Contour gris 3E3E3E */
+  /* Dégradé radial semi-transparent */
+  background: radial-gradient(
+    circle, 
+    rgba(68, 68, 68, 0.65) 0%, 
+    rgba(35, 35, 35, 0.65) 60%, 
+    rgba(24, 24, 24, 0.65) 100%
+  );
+  border-radius: 6px; /* Coins légèrement arrondis */
   margin-top: 0.417vw;
   transform: translateY(0.5vw);
-  margin-left: -0.5vw;
   cursor: pointer;
+  box-shadow: none;
+  transition: all 0.2s;
 }
 
-.item-box:hover {
-  width: 4.5vw;
-  height: 4.5vw;
-  border: 0.052vw solid var(--border-color);
-  background: var(--hover-color);
-  transition: 0.5s;
-}
-
-.item-box:active {
-  border: 0.052vw solid var(--border-color);
-  background: var(--active-color);
-}
-
-.item-box:nth-child(1) {
-  margin-top: 0;
-}
-
-.item-box img:nth-child(1) {
-  width: 2.5vw;
-  height: 2.5vw;
-
-  margin-left: -0.1vw;
+.item-box {
+  margin-left: -0.5vw;
 }
 
 .item-box2 {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 4.5vw;
-  height: 4.5vw;
-  border: 0.052vw solid var(--border-color);
-  background-color: var(--background-color);
-  /* border-radius: 10px; */
-  margin-top: 0.417vw;
-  transform: translateY(0.5vw);
   margin-right: -0.5vw;
-  cursor: pointer;
 }
-.item-box2:hover {
-  width: 4.5vw;
-  height: 4.5vw;
-  border: 0.052vw solid var(--border-color);
-  background: var(--hover-color);
-  transition: 0.5s;
+
+/* Effet au survol - dégradé radial légèrement plus clair mais toujours semi-transparent */
+.item-box:hover, .item-box2:hover {
+  background: radial-gradient(
+    circle, 
+    rgba(80, 80, 80, 0.7) 0%, 
+    rgba(42, 42, 42, 0.7) 60%, 
+    rgba(32, 32, 32, 0.7) 100%
+  );
 }
-.item-box2:active {
-  border: 0.052vw solid var(--border-color);
-  background: var(--active-color);
+
+/* Effet au clic - dégradé radial plus foncé mais toujours semi-transparent */
+.item-box:active, .item-box2:active {
+  background: radial-gradient(
+    circle, 
+    rgba(58, 58, 58, 0.75) 0%, 
+    rgba(30, 30, 30, 0.75) 60%, 
+    rgba(21, 21, 21, 0.75) 100%
+  );
 }
-.item-box2:nth-child(1) {
+
+/* Effet de surbrillance pour l'élément sélectionné */
+.item-box.selected, .item-box2.selected {
+  border: 1px solid rgba(255, 70, 70, 0.9); /* Bordure rouge */
+  background: radial-gradient(
+    circle, 
+    rgba(74, 74, 74, 0.8) 0%, 
+    rgba(42, 42, 42, 0.8) 60%, 
+    rgba(32, 32, 32, 0.8) 100%
+  );
+}
+
+.item-box:first-child, .item-box2:first-child {
   margin-top: 0;
 }
-.item-box2 img:nth-child(1) {
+
+.item-box img, .item-box2 img {
   width: 2.5vw;
   height: 2.5vw;
   margin-left: -0.1vw;
+  filter: brightness(1.2); /* Les icônes sont bien lumineuses */
+  position: relative;
+  z-index: 2;
+}
+
+/* Style pour les boutons en bas de l'écran */
+button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 2vw;
+  background: rgba(51, 51, 51, 0.7);
+  border: 1px solid #3E3E3E;
+  color: white;
+  border-radius: 0; /* Coins non arrondis pour les boutons */
+  transition: all 0.2s;
+}
+
+button:hover {
+  background: rgba(68, 68, 68, 0.8);
 }

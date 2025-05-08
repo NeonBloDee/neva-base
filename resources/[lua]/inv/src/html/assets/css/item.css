@@ -1,5 +1,6 @@
 @import url("https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap");
 
+/* Conservation des styles originaux pour les éléments d'item */
 .item,
 .item-other {
   width: 4.531vw;
@@ -11,6 +12,7 @@
   background-position: center center;
 }
 
+/* Modification du fond avec effet radial */
 .item-info {
   display: flex;
   float: left;
@@ -18,31 +20,51 @@
   height: 5.4vw;
   bottom: -5%;
   color: #fff;
-  border: 0.052vw solid var(--light-border-color);
-  background-color: var(--background-color);
+  border: 1px solid rgba(80, 80, 80, 0.5);
+  /* Effet radial avancé avec point lumineux au centre */
+  background: radial-gradient(
+    circle at center,
+    rgba(90, 90, 90, 0.6) 0%,
+    rgba(60, 60, 60, 0.7) 40%,
+    rgba(40, 40, 40, 0.8) 70%,
+    rgba(30, 30, 30, 0.8) 100%
+  );
   margin: 0.15vw;
   left: 0px;
-  /* border-radius: 3%; */
+  border-radius: 8px; /* Coins arrondis comme dans l'image */
   position: relative;
+  transition: all 0.2s ease;
 }
 
+/* Effet de hover simple */
 .item-info:hover {
-  /* border: 0.052vw solid rgba(255, 0, 107, 0.35); */
-  background: var(--hover-color);
-}
-.item-info:active {
-  /* border: 0.052vw solid rgba(255, 0, 107, 0.2); */
-  background: var(--active-color);
+  background: radial-gradient(
+    circle at center,
+    rgba(100, 100, 100, 0.6) 0%,
+    rgba(70, 70, 70, 0.7) 40%,
+    rgba(50, 50, 50, 0.8) 70%,
+    rgba(40, 40, 40, 0.8) 100%
+  );
 }
 
+/* Effet au clic */
+.item-info:active {
+  background: radial-gradient(
+    circle at center,
+    rgba(80, 80, 80, 0.6) 0%,
+    rgba(50, 50, 50, 0.7) 40%,
+    rgba(30, 30, 30, 0.8) 70%,
+    rgba(20, 20, 20, 0.8) 100%
+  );
+}
+
+/* Conservation des styles originaux pour le texte et les noms */
 .item-name {
   position: absolute;
   bottom: 0;
-  /* background-color: rgba(33, 37, 35, 0.515); */
   border-bottom: 20px;
   font-family: "Outfit", serif;
   font-size: 0.55vw;
-  /* font-weight: bold; */
   text-align: center;
   padding-top: 0vw;
   padding-bottom: 0.417vw;
@@ -52,12 +74,15 @@
   z-index: 500;
 }
 
+/* Suppression du fond noir pour le nom */
 .item-name-bg {
   width: 100%;
   width: 6.094vw;
   height: 1.042vw;
   position: absolute;
   bottom: 0;
+  /* Suppression du background gradient */
+  background: none;
 }
 
 .item-count {
@@ -78,11 +103,30 @@
   display: none;
 }
 
-.hoverControl {
-  /* background-color: rgba(36, 36, 36, 0.479); */
-}
-
+/* Conservation du style original pour l'icône de munitions */
 .ammoIcon {
   width: 0.517vw;
   height: 0.517vw;
+}
+
+/* Style pour les cases d'équipement avec effet radial */
+.item-box, .item-box2 {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 4.5vw;
+  height: 4.5vw;
+  border: 1px solid rgba(80, 80, 80, 0.5);
+  /* Effet radial avancé avec point lumineux au centre */
+  background: radial-gradient(
+    circle at center,
+    rgba(90, 90, 90, 0.6) 0%,
+    rgba(60, 60, 60, 0.7) 40%,
+    rgba(40, 40, 40, 0.8) 70%,
+    rgba(30, 30, 30, 0.8) 100%
+  );
+  border-radius: 8px;
+  margin-top: 0.417vw;
+  cursor: pointer;
+  transition: all 0.2s ease;
 }
