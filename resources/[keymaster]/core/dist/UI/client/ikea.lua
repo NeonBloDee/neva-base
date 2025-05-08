@@ -10,11 +10,23 @@ previewPropMenu = nil
 
 local lastNotificationTime = 0
 
+Citizen.CreateThread(function()
+    local blip = AddBlipForCoord(63.677490, -1728.923340, 29.644085)
+    SetBlipSprite(blip, 478)
+    SetBlipDisplay(blip, 4)
+    SetBlipScale(blip, 0.6)
+    SetBlipColour(blip, 2)
+    SetBlipAsShortRange(blip, true)
+    BeginTextCommandSetBlipName("STRING")
+    AddTextComponentString("Magasin de mobilier")
+    EndTextCommandSetBlipName(blip)
+end)
+
 CreateThread(function()
     while not ESXLoaded do Wait(1) end
 
     AddZones('ikea', {
-        Position = vector3(2746.733, 3469.461, 55.67402),
+        Position = vector3(63.677490, -1728.923340, 29.644085),
         Dist = 10,
         Public = true,
         Job = nil,
@@ -33,7 +45,6 @@ end)
 function CheckPropsLimit(cb)
     ESX.TriggerServerCallback('sunny:props:checkLimit', function(canPlace)
         if not canPlace then
-            -- Vérification du cooldown (5 secondes)
             local currentTime = GetGameTimer()
             if currentTime - lastNotificationTime >= 5000 then
                 ESX.ShowNotification('Vous avez atteint la limite de props posés (5 maximum)')
