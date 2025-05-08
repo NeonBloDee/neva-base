@@ -30,7 +30,7 @@ function Properties:Load()
                 label = v.label,
                 price = v.price,
                 enter = safeJsonDecode(v.enter, {x=0.0,y=0.0,z=0.0}),
-                exit = safeJsonDecode(v.exitPos, {x=0.0,y=0.0,z=0.0}),
+                exit = safeJsonDecode(v.exit, {x=0.0,y=0.0,z=0.0}),
                 street_name = v.street,
                 trunkPos = safeJsonDecode(v.trunkPos, {x=0.0,y=0.0,z=0.0}),
                 garage = v.garage,
@@ -295,9 +295,6 @@ RegisterNetEvent('sunny:properties:addPlayer', function(target, value, pId, play
     if value == 'me' then
         Properties:addPlayer(source, pId)
         
-        -- print("[DEBUG] Tentative de téléportation - Property ID: " .. pId)
-        -- print("[DEBUG] Exit coords: " .. json.encode(Properties.PropertiesList[pId].exit))
-        
         local exitCoords = Properties.PropertiesList[pId].exit
         local useDefaultCoords = false
         
@@ -305,7 +302,7 @@ RegisterNetEvent('sunny:properties:addPlayer', function(target, value, pId, play
            (exitCoords.x == 0 and exitCoords.y == 0 and exitCoords.z == 0) or
            exitCoords.z < -150 then
             useDefaultCoords = true
-            -- print("[DEBUG] Coordonnées invalides ou à 0,0,0 - Utilisation des coordonnées par défaut")
+            print("[PropertiesServer] WARNING: Invalid exit coordinates for property " .. pId .. ", using default coords.")
         end
         
         if useDefaultCoords then
@@ -326,18 +323,23 @@ RegisterNetEvent('sunny:properties:addPlayer', function(target, value, pId, play
             
             if logementType and interiorCoords[logementType] then
                 defaultCoords = interiorCoords[logementType]
-                -- print("[DEBUG] Utilisation des coordonnées pour le type: " .. logementType)
             else
                 defaultCoords = interiorCoords["Motel"]
-                -- print("[DEBUG] Type de logement inconnu, utilisation des coordonnées Motel par défaut")
             end
             
             Properties.PropertiesList[pId].exit = defaultCoords
-
+            
+            -- Mise à jour dans la base de données avec les coordonnées corrigées
+            MySQL.Async.execute('UPDATE properties SET `exit` = @exit WHERE propertiesID = @propertiesID', {
+                ['@propertiesID'] = pId,
+                ['@exit'] = json.encode(defaultCoords)
+            }, function()
+                print("[PropertiesServer] Exit coordinates corrected and saved to database for property " .. pId)
+            end)
+            
             exitCoords = defaultCoords
         end
         
-        -- print("[DEBUG] Téléportation effectuée à: " .. json.encode(exitCoords))
         TriggerClientEvent('sunny:properties:teleport', source, exitCoords)
 
         Properties.PropertiesList[pId].players[tostring(xPlayer.UniqueID)] = true
