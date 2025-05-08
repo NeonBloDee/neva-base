@@ -26,9 +26,6 @@ local function drawTextBottom(text)
     EndTextCommandDisplayText(0.5, 0.85) 
 end
 
---                 AttachEntityToEntity(playerPed, closestVehicle, -1, 0.0, -2.0, 0.5, 0.0, 0.0, 0.0, false, false, false, false, 20, true)
-
-
 Citizen.CreateThread(function ()
     while GetResourceState("ox_target") ~= "started" do Citizen.Wait(0) end
     exports.ox_target:addGlobalVehicle({
@@ -70,7 +67,7 @@ Citizen.CreateThread(function ()
         
                 local trunkCoords = GetOffsetFromEntityInWorldCoords(closestVehicle, 0.0, -2.5, 0.3)
         
-                SetCarBootOpen(closestVehicle)
+                SetVehicleDoorOpen(closestVehicle, 5, false, false)
                 Citizen.Wait(350)
                 AttachEntityToEntity(playerPed, closestVehicle, -1, 0.0, -2.0, 0.5, 0.0, 0.0, 0.0, false, false, false, false, 20, true)
                 loadDict("timetable@floyd@cryingonbed@base")
@@ -94,7 +91,7 @@ Citizen.CreateThread(function ()
                         EndTextCommandDisplayHelp(0, false, true, -1)
         
                         if IsControlJustPressed(0, 73) then
-                            SetCarBootOpen(closestVehicle)
+                            SetVehicleDoorOpen(closestVehicle, 5, false, false)
                             Citizen.Wait(750)
                             DetachEntity(playerPed, true, true)
                             ClearPedTasksImmediately(playerPed)

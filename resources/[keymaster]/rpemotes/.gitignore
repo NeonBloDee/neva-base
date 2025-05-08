@@ -1,0 +1,17 @@
+
+
+# Default :
+/node_modules
+/.vscode
+/.idea
+*.json
+*.zip
+*.tgz
+*.tar
+*.gz
+*.xz
+*.rar
+*.7z
+*.bat
+*.sh
+*.exe
