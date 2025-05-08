@@ -860,6 +860,8 @@ function Properties:openMenu(k)
     FreezeEntityPosition(PlayerPedId(), true)
     while main do Wait(1)
         RageUI.IsVisible(main, function()
+            local playerUnique = tostring(ESX.PlayerData.UniqueID)
+            
             if Properties.PropertiesList[k].owner == 'none' then
                 RageUI.Separator(('Propriétée disponible à %s'):format(Properties.PropertiesList[k].type == 'location' and 'la location' or 'l\'achat'))
                 if Properties.PropertiesList[k].owner == 'none' and ESX.PlayerData.job.name == 'realestateagent' then
@@ -888,31 +890,34 @@ function Properties:openMenu(k)
                     end
                 })
             end
+            
             if Properties.PropertiesList[k].owner ~= 'none' then
                 RageUI.Separator(('%s %s'):format(k, Properties:ReturnPropertiesData(k).street_name))
                 RageUI.WLine()
+                
+                -- Vérification si je suis propriétaire (conversion explicite en string pour assurer la compatibilité)
+                local isOwner = tostring(Properties.PropertiesList[k].owner) == playerUnique
+                
+                if isOwner then
+                    RageUI.Button('Entrer dans votre propriété', nil, {}, true, {
+                        onSelected = function()
+                            RageUI.CloseAll()
+                            Properties.PropertiesList[k].players[playerUnique] = true
+                            TriggerServerEvent('sunny:properties:addPlayer', nil, 'me', k, Properties.PropertiesList[k].players)
+                            ESX.ShowNotification('🏠 Vous entrez dans votre propriété')
+                        end
+                    })
+                else
+                    RageUI.Button('Sonner à la propriété', nil, {}, not Properties.belled[k], {
+                        onSelected = function()
+                            TriggerEvent('InteractSound_CL:PlayOnOne', 'doorbell', 0.5)
+                            Properties.belled[k] = true
+                            TriggerServerEvent('sunny:properties:interphone:call', Properties.PropertiesList[k])
+                        end
+                    })
+                end
             end
-            if Properties.PropertiesList[k].owner ~= 'none' and Properties.PropertiesList[k].owner ~= tostring(ESX.PlayerData.UniqueID) then
-                RageUI.Button('Sonner à la propriété', nil, {}, not Properties.belled[k], {
-                    onSelected = function()
-                        TriggerEvent('InteractSound_CL:PlayOnOne', 'doorbell', 0.5)
-                        Properties.belled[k] = true
-                        TriggerServerEvent('sunny:properties:interphone:call', Properties.PropertiesList[k])
-                    end
-                })
-            end
-
-            local playerUnique = tostring(ESX.PlayerData.UniqueID)
-            if Properties.PropertiesList[k].owner == playerUnique then
-                RageUI.Button('Entrer dans votre propriété', nil, {}, true, {
-                    onSelected = function()
-                        RageUI.CloseAll()
-                        Properties.PropertiesList[k].players[playerUnique] = true
-                        TriggerServerEvent('sunny:properties:addPlayer', nil, 'me', k, Properties.PropertiesList[k].players)
-                        ESX.ShowNotification('🏠 Vous entrez dans votre propriété')
-                    end
-                })
-            end
+            
             if Properties.PropertiesList[k].open == true then
                 RageUI.Button('Entrer dans la propriété (ouverte)', nil, {}, true, {
                     onSelected = function()
@@ -923,13 +928,6 @@ function Properties:openMenu(k)
                     end
                 })
             end
-            -- if Properties.PropertiesList[k].owner == tostring(ESX.PlayerData.UniqueID) then
-            --     RageUI.Button('Interphone', nil, {}, true, {
-            --         onSelected = function()
-                        
-            --         end
-            --     }, interphoneMenu)
-            -- end
         end)
 
         RageUI.IsVisible(interphoneMenu, function()

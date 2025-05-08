@@ -294,7 +294,51 @@ RegisterNetEvent('sunny:properties:addPlayer', function(target, value, pId, play
 
     if value == 'me' then
         Properties:addPlayer(source, pId)
-        TriggerClientEvent('sunny:properties:teleport', source, Properties.PropertiesList[pId].exit)
+        
+        -- print("[DEBUG] Tentative de téléportation - Property ID: " .. pId)
+        -- print("[DEBUG] Exit coords: " .. json.encode(Properties.PropertiesList[pId].exit))
+        
+        local exitCoords = Properties.PropertiesList[pId].exit
+        local useDefaultCoords = false
+        
+        if not exitCoords or not exitCoords.x or not exitCoords.y or not exitCoords.z or
+           (exitCoords.x == 0 and exitCoords.y == 0 and exitCoords.z == 0) or
+           exitCoords.z < -150 then
+            useDefaultCoords = true
+            -- print("[DEBUG] Coordonnées invalides ou à 0,0,0 - Utilisation des coordonnées par défaut")
+        end
+        
+        if useDefaultCoords then
+            local logementType = Properties.PropertiesList[pId].logementType
+            local defaultCoords = {x = 0, y = 0, z = 0}
+            
+            local interiorCoords = {
+                ["Motel"] = {x = 151.45, y = -1007.57, z = -98.9999},
+                ["Petit appartement"] = {x = 265.307, y = -1002.802, z = -101.008},
+                ["Moyen appartement"] = {x = -612.16, y = 59.06, z = 97.2},
+                ["Appartement Moderne"] = {x = -785.13, y = 315.79, z = 187.91},
+                ["Appartement Moyen"] = {x = -1459.17, y = -520.58, z = 54.929},
+                ["Appartement de luxe"] = {x = -680.6088, y = 590.5321, z = 145.39},
+                ["Entrepot (grand)"] = {x = 1026.5056, y = -3099.8320, z = -38.9998},
+                ["Entrepot (moyen)"] = {x = 1048.5067, y = -3097.0817, z = -38.9999},
+                ["Entrepot (petit)"] = {x = 1088.1834, y = -3099.3547, z = -38.9999}
+            }
+            
+            if logementType and interiorCoords[logementType] then
+                defaultCoords = interiorCoords[logementType]
+                -- print("[DEBUG] Utilisation des coordonnées pour le type: " .. logementType)
+            else
+                defaultCoords = interiorCoords["Motel"]
+                -- print("[DEBUG] Type de logement inconnu, utilisation des coordonnées Motel par défaut")
+            end
+            
+            Properties.PropertiesList[pId].exit = defaultCoords
+
+            exitCoords = defaultCoords
+        end
+        
+        -- print("[DEBUG] Téléportation effectuée à: " .. json.encode(exitCoords))
+        TriggerClientEvent('sunny:properties:teleport', source, exitCoords)
 
         Properties.PropertiesList[pId].players[tostring(xPlayer.UniqueID)] = true
         

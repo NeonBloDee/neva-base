@@ -13,11 +13,19 @@ Citizen.CreateThread(function()
         SetVehicleDensityMultiplierThisFrame(densitySettings.Vehicles)
         SetParkedVehicleDensityMultiplierThisFrame(densitySettings.ParkedVehicles)
         SetRandomVehicleDensityMultiplierThisFrame(densitySettings.RandomVehicles)
-        
+
         SetCreateRandomCops(densitySettings.EnableCops)
         SetCreateRandomCopsNotOnScenarios(densitySettings.EnableCops)
         SetCreateRandomCopsOnScenarios(densitySettings.EnableCops)
-        
+
         Citizen.Wait(0)
+    end
+end)
+
+AddEventHandler('entityCreated', function(entity)
+    Citizen.Wait(0)
+    if IsEntityAVehicle(entity) then
+        SetVehicleDoorsLocked(entity, 2)
+        SetVehicleDoorsLockedForAllPlayers(entity, true)
     end
 end)
