@@ -1476,7 +1476,7 @@ function Garages:rentVehicle(id, type)
         if not cb then return ESX.ShowNotification('Ce véhicule ne vous appartient pas') end
         if Garages.garage_data.garages[id].type ~= cb then return ESX.ShowNotification('Ce type de véhicule n\'est pas accepté dans ce type de garage ! ') end
 
-        TriggerServerEvent('sunny:garages:setVehicleFuel', vehicleProps.plate, GetFuel(vehicle))
+        GetVehicleFuelLevel(vehicle)
 
         Garages:setSateVehicle(vehicleProps.plate, true, type, id, vehicleProps)
         ESX.Game.DeleteVehicle(vehicle)
