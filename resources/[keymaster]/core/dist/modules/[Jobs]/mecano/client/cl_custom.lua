@@ -307,16 +307,43 @@ local LsCustoms = {
         {pos = vector3(-222.184830, -1336.030151, 31.300486), job = "mecano", notif = "Appuyez sur ~INPUT_CONTEXT~ pour accéder au "..SunnyConfigServ.GTACOLOR.."Benny's~s~.", size = 20.0},
         {pos = vector3(-194.641388, -1326.973267, 31.300486), job = "mecano", notif = "Appuyez sur ~INPUT_CONTEXT~ pour accéder au "..SunnyConfigServ.GTACOLOR.."Benny's~s~.", size = 20.0},
 
-        {pos = vec3(-347.943420, -157.998291, 39.009396), job = "lscustom", notif = "Appuyez sur ~INPUT_CONTEXT~ pour accéder au "..SunnyConfigServ.GTACOLOR.."lscustom's~s~.", size = 25.0},
-        {pos = vec3(-340.198822, -161.217728, 39.009396), job = "lscustom", notif = "Appuyez sur ~INPUT_CONTEXT~ pour accéder au "..SunnyConfigServ.GTACOLOR.."lscustom's~s~.", size = 25.0},
-        {pos = vec3(-321.009399, -156.316406, 39.009716), job = "lscustom", notif = "Appuyez sur ~INPUT_CONTEXT~ pour accéder au "..SunnyConfigServ.GTACOLOR.."lscustom's~s~.", size = 25.0},
-        {pos = vec3(-317.025696, -145.369797, 39.009686), job = "lscustom", notif = "Appuyez sur ~INPUT_CONTEXT~ pour accéder au "..SunnyConfigServ.GTACOLOR.."lscustom's~s~.", size = 25.0},
-        {pos = vec3(-313.424591, -134.718506, 39.008312), job = "lscustom", notif = "Appuyez sur ~INPUT_CONTEXT~ pour accéder au "..SunnyConfigServ.GTACOLOR.."lscustom's~s~.", size = 25.0},
-        {pos = vec3(-333.184570, -133.085999, 39.005348), job = "lscustom", notif = "Appuyez sur ~INPUT_CONTEXT~ pour accéder au "..SunnyConfigServ.GTACOLOR.."lscustom's~s~.", size = 25.0},
-        {pos = vec3(-336.817047, -105.823196, 39.024155), job = "lscustom", notif = "Appuyez sur ~INPUT_CONTEXT~ pour accéder au "..SunnyConfigServ.GTACOLOR.."lscustom's~s~.", size = 25.0},
-        {pos = vec3(-345.250000, -102.489815, 39.023724), job = "lscustom", notif = "Appuyez sur ~INPUT_CONTEXT~ pour accéder au "..SunnyConfigServ.GTACOLOR.."lscustom's~s~.", size = 25.0},
-        {pos = vec3(-353.483795, -99.687424, 39.028568), job = "lscustom", notif = "Appuyez sur ~INPUT_CONTEXT~ pour accéder au "..SunnyConfigServ.GTACOLOR.."lscustom's~s~.", size = 25.0},
+        {pos = vec3(-325.27117919922, -158.01174926758, 39.01025390625), job = "garage_lscustom", notif = "Appuyez sur ~INPUT_CONTEXT~ pour accéder au "..SunnyConfigServ.GTACOLOR.."LsCustoms's~s~.", size = 25.0},
+        {pos = vec3(-322.30310058594, -150.49090576172, 39.010250091553), job = "garage_lscustom", notif = "Appuyez sur ~INPUT_CONTEXT~ pour accéder au "..SunnyConfigServ.GTACOLOR.."LsCustoms's~s~.", size = 25.0},
+        {pos = vec3(-319.68572998047, -143.00714111328, 39.01025390625), job = "garage_lscustom", notif = "Appuyez sur ~INPUT_CONTEXT~ pour accéder au "..SunnyConfigServ.GTACOLOR.."LsCustoms's~s~.", size = 25.0},
+        {pos = vec3(-317.02014160156, -134.93591308594, 39.010334014893), job = "garage_lscustom", notif = "Appuyez sur ~INPUT_CONTEXT~ pour accéder au "..SunnyConfigServ.GTACOLOR.."LsCustoms's~s~.", size = 25.0},
+        {pos = vec3(-314.15426635742, -127.28285217285, 39.010330200195), job = "garage_lscustom", notif = "Appuyez sur ~INPUT_CONTEXT~ pour accéder au "..SunnyConfigServ.GTACOLOR.."LsCustoms's~s~.", size = 25.0},
+        {pos = vec3(-345.2490234375, -158.56196594238, 39.01025390625), job = "garage_lscustom", notif = "Appuyez sur ~INPUT_CONTEXT~ pour accéder au "..SunnyConfigServ.GTACOLOR.."LsCustoms's~s~.", size = 25.0},
+        {pos = vec3(-338.80657958984, -161.39724731445, 39.01025390625), job = "garage_lscustom", notif = "Appuyez sur ~INPUT_CONTEXT~ pour accéder au "..SunnyConfigServ.GTACOLOR.."LsCustoms's~s~.", size = 25.0},
 
+        {pos = vec3(2695.0224609375, 3480.7543945312, 55.523509979248), job = "garage_speedhunters", notif = "Appuyez sur ~INPUT_CONTEXT~ pour accéder au "..SunnyConfigServ.GTACOLOR.."Speed Hunters's~s~.", size = 25.0},
+        {pos = vec3(2698.2541503906, 3488.0305175781, 55.523567199707), job = "garage_speedhunters", notif = "Appuyez sur ~INPUT_CONTEXT~ pour accéder au "..SunnyConfigServ.GTACOLOR.."Speed Hunters's~s~.", size = 25.0},
+        {pos = vec3(2700.6748046875, 3495.6921386719, 55.523551940918), job = "garage_speedhunters", notif = "Appuyez sur ~INPUT_CONTEXT~ pour accéder au "..SunnyConfigServ.GTACOLOR.."Speed Hunters's~s~.", size = 25.0},
+        {pos = vec3(2704.0202636719, 3502.8371582031, 55.523555755615), job = "garage_speedhunters", notif = "Appuyez sur ~INPUT_CONTEXT~ pour accéder au "..SunnyConfigServ.GTACOLOR.."Speed Hunters's~s~.", size = 25.0},
+        {pos = vec3(2729.0236816406, 3511.3781738281, 55.527484893799), job = "garage_speedhunters", notif = "Appuyez sur ~INPUT_CONTEXT~ pour accéder au "..SunnyConfigServ.GTACOLOR.."Speed Hunters's~s~.", size = 25.0},
+        {pos = vec3(2722.4714355469, 3514.4411621094, 55.535961151123), job = "garage_speedhunters", notif = "Appuyez sur ~INPUT_CONTEXT~ pour accéder au "..SunnyConfigServ.GTACOLOR.."Speed Hunters's~s~.", size = 25.0},
+        
+        {pos = vec3(-213.84262084961, -1372.2950439453, 31.325481414795), job = "garage_octacyp", notif = "Appuyez sur ~INPUT_CONTEXT~ pour accéder au "..SunnyConfigServ.GTACOLOR.."Octa Cyp Garage~s~.", size = 25.0},
+        {pos = vec3(-210.13037109375, -1378.5399169922, 31.325483322144), job = "garage_octacyp", notif = "Appuyez sur ~INPUT_CONTEXT~ pour accéder au "..SunnyConfigServ.GTACOLOR.."Octa Cyp Garage~s~.", size = 25.0},
+        {pos = vec3(-193.1314239502, -1369.6923828125, 31.272497177124), job = "garage_octacyp", notif = "Appuyez sur ~INPUT_CONTEXT~ pour accéder au "..SunnyConfigServ.GTACOLOR.."Octa Cyp Garage~s~.", size = 25.0},
+        
+        {pos = vec3(-812.73895263672, -427.07696533203, 36.705165863037), job = "garage_driveline", notif = "Appuyez sur ~INPUT_CONTEXT~ pour accéder au "..SunnyConfigServ.GTACOLOR.."Driveline Garage~s~.", size = 25.0},
+        {pos = vec3(-802.88037109375, -440.11996459961, 36.657379150391), job = "garage_driveline", notif = "Appuyez sur ~INPUT_CONTEXT~ pour accéder au "..SunnyConfigServ.GTACOLOR.."Driveline Garage~s~.", size = 25.0},
+        {pos = vec3(-808.21008300781, -435.78225708008, 36.70516204834), job = "garage_driveline", notif = "Appuyez sur ~INPUT_CONTEXT~ pour accéder au "..SunnyConfigServ.GTACOLOR.."Driveline Garage~s~.", size = 25.0},
+        
+        {pos = vec3(888.28814697266, -2101.5422363281, 30.465696334839), job = "garage_eastcustoms", notif = "Appuyez sur ~INPUT_CONTEXT~ pour accéder au "..SunnyConfigServ.GTACOLOR.."East Custom's~s~.", size = 25.0},
+        {pos = vec3(895.87408447266, -2102.2465820312, 30.459140777588), job = "garage_eastcustoms", notif = "Appuyez sur ~INPUT_CONTEXT~ pour accéder au "..SunnyConfigServ.GTACOLOR.."East Custom's~s~.", size = 25.0},
+        {pos = vec3(903.25177001953, -2102.9934082031, 30.508003234863), job = "garage_eastcustoms", notif = "Appuyez sur ~INPUT_CONTEXT~ pour accéder au "..SunnyConfigServ.GTACOLOR.."East Custom's~s~.", size = 25.0},
+        {pos = vec3(913.61401367188, -2103.87890625, 30.459421157837), job = "garage_eastcustoms", notif = "Appuyez sur ~INPUT_CONTEXT~ pour accéder au "..SunnyConfigServ.GTACOLOR.."East Custom's~s~.", size = 25.0},
+        {pos = vec3(909.21337890625, -2128.1584472656, 30.558614730835), job = "garage_eastcustoms", notif = "Appuyez sur ~INPUT_CONTEXT~ pour accéder au "..SunnyConfigServ.GTACOLOR.."East Custom's~s~.", size = 25.0},
+        {pos = vec3(897.71832275391, -2127.1689453125, 30.55860710144), job = "garage_eastcustoms", notif = "Appuyez sur ~INPUT_CONTEXT~ pour accéder au "..SunnyConfigServ.GTACOLOR.."East Custom's~s~.", size = 25.0},
+        {pos = vec3(887.13055419922, -2126.2744140625, 30.558429718018), job = "garage_eastcustoms", notif = "Appuyez sur ~INPUT_CONTEXT~ pour accéder au "..SunnyConfigServ.GTACOLOR.."East Custom's~s~.", size = 25.0},
+        {pos = vec3(875.81268310547, -2125.1145019531, 30.55157661438), job = "garage_eastcustoms", notif = "Appuyez sur ~INPUT_CONTEXT~ pour accéder au "..SunnyConfigServ.GTACOLOR.."East Custom's~s~.", size = 25.0},
+        
+        {pos = vec3(-254.11236572266, 6092.1591796875, 31.418849945068), job = "garage_paletocustoms", notif = "Appuyez sur ~INPUT_CONTEXT~ pour accéder au "..SunnyConfigServ.GTACOLOR.."Paleto Custom's~s~.", size = 25.0},
+        {pos = vec3(-248.40444946289, 6097.5581054688, 31.41236114502), job = "garage_paletocustoms", notif = "Appuyez sur ~INPUT_CONTEXT~ pour accéder au "..SunnyConfigServ.GTACOLOR.."Paleto Custom's~s~.", size = 25.0},
+        {pos = vec3(-236.7679901123, 6109.2348632812, 31.489398956299), job = "garage_paletocustoms", notif = "Appuyez sur ~INPUT_CONTEXT~ pour accéder au "..SunnyConfigServ.GTACOLOR.."Paleto Custom's~s~.", size = 25.0},
+        {pos = vec3(-232.41329956055, 6104.1640625, 31.469728469849), job = "garage_paletocustoms", notif = "Appuyez sur ~INPUT_CONTEXT~ pour accéder au "..SunnyConfigServ.GTACOLOR.."Paleto Custom's~s~.", size = 25.0},
+        {pos = vec3(-227.64511108398, 6099.3022460938, 31.482843399048), job = "garage_paletocustoms", notif = "Appuyez sur ~INPUT_CONTEXT~ pour accéder au "..SunnyConfigServ.GTACOLOR.."Paleto Custom's~s~.", size = 25.0},
     },
 
     DefaultPrimaireColour = 1,
@@ -551,10 +578,18 @@ RegisterNetEvent("sunny:mechanic:receivePlayerBillsState", function(bool)
         local player, distance = ESX.Game.GetClosestPlayer();
         local jobName = ESX.PlayerData.job.name
 
-        if (FactureJob == "lscustom") then
-            banana = "Ls Custom";
-        else
-            banana = "Benny's";
+        if FactureJob == "garage_lscustom" then
+            banana = "Ls Custom"
+        elseif FactureJob == "garage_paletocustoms" then
+            banana = "Paleto Customs"
+        elseif FactureJob == "garage_speedhunters" then
+            banana = "Speed Hunters"
+        elseif FactureJob == "garage_eastcustoms" then
+            banana = "East Customs"
+        elseif FactureJob == "garage_driveline" then
+            banana = "Driveline"
+        elseif FactureJob == "garage_octacyp" then
+            banana = "Octacyp"
         end
 
         if (player ~= -1 and distance <= 3.0) then
@@ -1949,7 +1984,7 @@ Citizen.CreateThread(function()
         Position = vector3(-312.985168, -125.010536, 38.636330),
         Dist = 10,
         Public = false,
-        Job = {['lscustom'] = true},
+        Job = {['garage_lscustom'] = true},
         Job2 = {},
         GradesJob = {},
         InVehicleDisable = false,

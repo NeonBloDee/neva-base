@@ -27,17 +27,17 @@ Config.enableMarker = true -- purple marker at the DJ stations
 
 Config.DJPositions = {
     {
-        name = 'wiwang',
+        name = 'bar_wiwang',
         pos = vector3(-819.069580, -687.296326, 123.418320),
-        requiredJob = "wiwang", 
+        requiredJob = "bar_wiwang", 
         range = 45.0, 
         volume = 1.0 --[[ do not touch the volume! --]]
     },
 
     {
-        name = 'unicorn',
+        name = 'bar_unicorn',
         pos = vector3(140.055099, -1343.687744, 20.119312),
-        requiredJob = "unicorn", 
+        requiredJob = "bar_unicorn", 
         range = 45.0, 
         volume = 1.0 --[[ do not touch the volume! --]]
     }

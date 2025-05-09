@@ -198,9 +198,6 @@ local function isAuthorised(playerId, door, lockpick)
 		return true
 	end
 
-	-- e.g. add_ace group.police "doorlock.mrpd locker rooms" allow
-	-- add_principal fivem:123456 group.police
-	-- or add_ace identifier.fivem:123456 "doorlock.mrpd locker rooms" allow
 	if IsPlayerAceAllowed(playerId, ('doorlock.%s'):format(door.name)) then
 		return true
 	end

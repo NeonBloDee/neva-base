@@ -1,4 +1,3 @@
-
 Bennys = {
     inService = {}
 }
@@ -7,7 +6,12 @@ RegisterNetEvent('sunny:bennys:service', function()
     local xPlayer = ESX.GetPlayerFromId(source)
 
     if not xPlayer then return end
-    if xPlayer.job.name ~= "mecano" and xPlayer.job.name ~= "lscustom" then return end
+    if ESX.PlayerData.job.name == 'garage_octacyp'
+        or ESX.PlayerData.job.name == 'garage_lscustom'
+        or ESX.PlayerData.job.name == 'garage_speedhunters'
+        or ESX.PlayerData.job.name == 'garage_paletocustoms'
+        or ESX.PlayerData.job.name == 'garage_eastcustoms'
+        or ESX.PlayerData.job.name == 'garage_driveline' then return end
 
     if not Bennys.inService[xPlayer.identifier] then
         Bennys.inService[xPlayer.identifier] = true
@@ -56,14 +60,19 @@ RegisterNetEvent('sunny:sendappel:job', function(data)
 
     for id, _ in pairs(Bennys.inService) do
         local targetPlayer = ESX.GetPlayerFromIdentifier(id)
-        if targetPlayer and Bennys.inService[id] and (targetPlayer.job.name == "mecano" or targetPlayer.job.name == "lscustom") then
+        if targetPlayer and Bennys.inService[id] and (
+            targetPlayer.job.name == "garage_octacyp"
+            or targetPlayer.job.name == "garage_lscustom"
+            or targetPlayer.job.name == "garage_speedhunters"
+            or targetPlayer.job.name == "garage_paletocustoms"
+            or targetPlayer.job.name == "garage_eastcustoms"
+            or targetPlayer.job.name == "garage_driveline"
+        ) then
             TriggerClientEvent('esx:showNotification', targetPlayer.source, message)
             TriggerClientEvent('soundmecano:playSound', source)
         end
     end
 end)
-
-
 
 -- ESX.RegisterServerCallback('sunny:custom:getVehiclesPrices', function(source, cb)
 --     local vehicle = {}
@@ -80,8 +89,13 @@ end)
 RegisterNetEvent('sunny:bennys:repairVehicle', function(plate)
     local xPlayer = ESX.GetPlayerFromId(source)
 
-    if xPlayer.job.name ~= "mecano" and xPlayer.job.name ~= "lscustom" then 
-        DropPlayer(source, 'Tu cheat pour repair ??')
+    if ESX.PlayerData.job.name == 'garage_octacyp'
+        or ESX.PlayerData.job.name == 'garage_lscustom'
+        or ESX.PlayerData.job.name == 'garage_speedhunters'
+        or ESX.PlayerData.job.name == 'garage_paletocustoms'
+        or ESX.PlayerData.job.name == 'garage_eastcustoms'
+        or ESX.PlayerData.job.name == 'garage_driveline' then
+            DropPlayer(source, 'Tu cheat pour repair ??')
         return 
     end
 
@@ -143,17 +157,20 @@ AddEventHandler('sunny:bande:clearlatable', function()
     local job = xPlayer.job.name
     local query = ''
 
-    -- Déterminer la requête SQL en fonction du job
     if job == 'police' then
         query = 'DELETE FROM appel_jobs WHERE job = @job'
-    elseif job == 'mecano' or job == 'lscustom' then
+    elseif job == 'garage_octacyp'
+        or job == 'garage_lscustom'
+        or job == 'garage_speedhunters'
+        or job == 'garage_paletocustoms'
+        or job == 'garage_eastcustoms'
+        or job == 'garage_driveline' then
         query = 'DELETE FROM appel_jobs WHERE job = @job'
     else
         DropPlayer(source, "Accès refusé : Vous n'avez pas les autorisations nécessaires.")
         return
     end
 
-    -- Exécuter la requête SQL avec le job du joueur comme paramètre
     MySQL.Async.execute(query, {['@job'] = job}, function(rowsChanged)
         if rowsChanged then
             TriggerClientEvent('esx:showNotification', source, 'Les lignes de la table appel_jobs correspondant à votre job ont été supprimées avec succès.')
@@ -177,8 +194,13 @@ AddEventHandler('sunny:appelDelete:job', function(id)
 
     if job == 'police' then
         query = 'DELETE FROM appel_jobs WHERE id = @id AND job = @job'
-    elseif job == 'mecano' or job == 'lscustom' then
-        query = 'DELETE FROM appel_jobs WHERE id = @id AND job = @job'
+    elseif job == 'garage_octacyp'
+        or job == 'garage_lscustom'
+        or job == 'garage_speedhunters'
+        or job == 'garage_paletocustoms'
+        or job == 'garage_eastcustoms'
+        or job == 'garage_driveline' then
+            query = 'DELETE FROM appel_jobs WHERE id = @id AND job = @job'
     else
         -- print("Erreur: xPlayer n'a pas le bon job")
         return

@@ -1,6 +1,6 @@
 -- local cullingZones = {
 --     ["lscustoms"] = 5431321,
---     ["unicorn"] = 5343131,
+--     ["bar_unicorn"] = 5343131,
 --     ["concess"] = 54235,
 --     ["gouv"] = 563431,
 --     ["bcso"] = 2131254,

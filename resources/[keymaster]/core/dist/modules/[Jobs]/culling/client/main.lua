@@ -35,8 +35,8 @@ Citizen.CreateThread(function()
       --maxZ = 40.055126190186
   })
 
-  --Name: unicorn | 2024-03-03T22:17:25Z
-  cullingZones.unicorn = PolyZone:Create({
+  --Name: bar_unicorn | 2024-03-03T22:17:25Z
+  cullingZones.bar_unicorn = PolyZone:Create({
     vector2(126.56799316406, -1298.6041259766),
     vector2(125.70964050293, -1296.8498535156),
     vector2(128.7017364502, -1294.9520263672),
@@ -72,7 +72,7 @@ Citizen.CreateThread(function()
     vector2(126.95235443115, -1277.6351318359),
     vector2(137.23223876953, -1288.9516601562)
   }, {
-    name="unicorn",
+    name="bar_unicorn",
     --minZ = 28.152019500732,
     --maxZ = 30.199012756348
   })

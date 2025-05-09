@@ -1,6 +1,11 @@
 local JobCustoms = {
     ['mecano'] = true,
-    ['lscustom'] = true,
+    ['garage_lscustom'] = true,
+    ['garage_octacyp'] = true,
+    ['garage_paletocustoms'] = true,
+    ['garage_eastcustoms'] = true,
+    ['garage_driveline'] = true,
+    ['garage_speedhunters'] = true,
 }
 
 RegisterServerEvent('BuyLsCustoms')
@@ -22,8 +27,6 @@ AddEventHandler('BuyLsCustoms', function(newVehProps, amount)
         if not society then return end
 
         societyAccount = society.getSocietyMoney()
-
-
 
         if societyAccount ~= nil and tonumber(societyAccount) >= price then
             MySQL.Async.execute('UPDATE owned_vehicles SET vehicle = @vehicle WHERE plate = @plate', {
@@ -81,9 +84,14 @@ RegisterNetEvent('Mecano:refreshOwnedVehicle', function(myCar)
 end)
 
 RegisterServerEvent("sunny:mechanic:requestPlayerBillsState", function(target_player_source, price)
-        local xPlayer = ESX.GetPlayerFromId(source)
+    local xPlayer = ESX.GetPlayerFromId(source)
 
-        if xPlayer.job.name == "mecano" or xPlayer.job.name == "lscustom" then 
+    if ESX.PlayerData.job.name == 'garage_octacyp'
+        or ESX.PlayerData.job.name == 'garage_lscustom'
+        or ESX.PlayerData.job.name == 'garage_speedhunters'
+        or ESX.PlayerData.job.name == 'garage_paletocustoms'
+        or ESX.PlayerData.job.name == 'garage_eastcustoms'
+        or ESX.PlayerData.job.name == 'garage_driveline' then
             --     TriggerClientEvent('esx:showNotification', source, 'On ta vue (aie....)')
     --    -- logsACJob.SendLogsACJob('bill', ('%s a tenté de facturer ID: **%s**  (trigger: mechanic:requestPlayerbill)'):format(xPlayer.name, xPlayer.UniqueID))
     --     return 
@@ -129,9 +137,14 @@ end
 end);
 
 RegisterNetEvent('sunny:mechanic:patron', function(price)
-        local xPlayer = ESX.GetPlayerFromId(source)
+    local xPlayer = ESX.GetPlayerFromId(source)
 
-    if xPlayer.job.name == "mecano" or xPlayer.job.name == "lscustom" then 
+    if ESX.PlayerData.job.name == 'garage_octacyp'
+        or ESX.PlayerData.job.name == 'garage_lscustom'
+        or ESX.PlayerData.job.name == 'garage_speedhunters'
+        or ESX.PlayerData.job.name == 'garage_paletocustoms'
+        or ESX.PlayerData.job.name == 'garage_eastcustoms'
+        or ESX.PlayerData.job.name == 'garage_driveline' then
     --     TriggerClientEvent('esx:showNotification', source, 'On ta vue (aie....)')
     --    -- logsACJob.SendLogsACJob('money', ('%s a tenté de prendre de l\'argent dans la société bennys  ID Unique: **%s**(trigger: patron)'):format(xPlayer.name, xPlayer.UniqueID))
     --     return 
@@ -164,12 +177,16 @@ RegisterNetEvent('sunny:mechanic:patron', function(price)
 end
 end)
 
-
-
 RegisterNetEvent('sunny:caca:neon:paid', function(itemName, count, price)
         local xPlayer = ESX.GetPlayerFromId(source)
 
-    if xPlayer.job.name ~= "mecano" or xPlayer.job.name ~= "lscustom" then return end
+    if ESX.PlayerData.job.name == 'garage_octacyp'
+        or ESX.PlayerData.job.name == 'garage_lscustom'
+        or ESX.PlayerData.job.name == 'garage_speedhunters'
+        or ESX.PlayerData.job.name == 'garage_paletocustoms'
+        or ESX.PlayerData.job.name == 'garage_eastcustoms'
+        or ESX.PlayerData.job.name == 'garage_driveline' then return end
+    
     local player = ESX.GetPlayerFromId(source)
 
     if player == nil then return end

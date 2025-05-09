@@ -248,14 +248,14 @@ if not IsDuplicityVersion() then
  --       name = "bennys",
  --   })
 
-    SunnyConfigSafe.SafeZone.list["unicorn"] = PolyZone:Create({
+    SunnyConfigSafe.SafeZone.list["bar_unicorn"] = PolyZone:Create({
         vector2(129.55494689942, -1354.4171142578),
         vector2(172.16995239258, -1271.8287353516),
         vector2(129.1371307373, -1268.5946044922),
         vector2(72.21134185791, -1278.2708740234),
         vector2(95.653633117676, -1320.9764404296)
     }, {
-        name = "unicorn",
+        name = "bar_unicorn",
     })
 
     SunnyConfigSafe.SafeZone.list["spawn"] = PolyZone:Create({
@@ -276,14 +276,14 @@ if not IsDuplicityVersion() then
   --      name = "afk",
    -- })
 
- --   SunnyConfigSafe.SafeZone.list["lscustom"] = PolyZone:Create({
+ --   SunnyConfigSafe.SafeZone.list["garage_lscustom"] = PolyZone:Create({
   --      vector2(-361.23852539062, -183.17805480958),
  --       vector2(-300.58267211914, -164.18208312988),
  ---       vector2(-290.75857543946, -97.74772644043),
  --       vector2(-400.7643737793, -57.823066711426),
  --       vector2(-420.0294494629, -78.479179382324)
  --   }, {
- --       name = "lscustom",
+ --       name = "garage_lscustom",
    -- })
 
  --   SunnyConfigSafe.SafeZone.list["dreamworks"] = PolyZone:Create({
@@ -361,17 +361,17 @@ if not IsDuplicityVersion() then
         vector2(-3000.9743652344, 114.37630462646),
         vector2(-3019.919921875, 137.8900604248)
     }, {
-        name = "pacific",
+        name = "bar_pacific",
     })
 
-    SunnyConfigSafe.SafeZone.list["burgershot"] = PolyZone:Create({
+    SunnyConfigSafe.SafeZone.list["restau_burgershot"] = PolyZone:Create({
         vector2(-1216.5672607422, -888.57421875),
         vector2(-1197.8731689453, -918.33166503906),
         vector2(-1154.1174316406, -893.01556396484),
         vector2(-1171.0653076172, -866.30145263672),
         vector2(-1175.0283203125, -861.05010986328)
     }, {
-        name = "burgershot",
+        name = "restau_burgershot",
     })
 
     SunnyConfigSafe.SafeZone.list["ltd_littleseoul"] = PolyZone:Create({

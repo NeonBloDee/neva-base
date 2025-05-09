@@ -3031,7 +3031,6 @@ Config_Chair.Chair.PolyZones = {
         }
     },
 
-    -- This is NOT mutually exclusive with the regular lscustoms, just an add-on if you have gabz-lscustoms
     ['gabz_lscustoms'] = {
 		enabled = true,
 		center = vector3(726.42, -1074.92, 24.75),

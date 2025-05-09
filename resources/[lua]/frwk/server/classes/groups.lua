@@ -23,9 +23,9 @@ CreateThread(function()
 
     local number = #GroupsRanks
 
-    local function AddGroup(group, i)
-        ExecuteCommand('add_principal group.' .. group .. ' group.' .. i)
-    end
+    -- local function AddGroup(group, i)
+    --     ExecuteCommand('add_principal group.' .. group .. ' group.' .. i)
+    -- end
 
     for k,v in ipairs(GroupsRanks) do
         ESX.Groups[v.name] = true
@@ -40,10 +40,10 @@ CreateThread(function()
 
         number -= 1
 
-        if GroupsRanks[number] then
-            AddGroup(v.name, GroupsRanks[number].name)
-        else
-            AddGroup(v.name, v.name)
-        end
+        -- if GroupsRanks[number] then
+        --     AddGroup(v.name, GroupsRanks[number].name)
+        -- else
+        --     AddGroup(v.name, v.name)
+        -- end
     end
 end)

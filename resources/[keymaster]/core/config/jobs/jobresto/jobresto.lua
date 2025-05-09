@@ -1,7 +1,7 @@
 Config_Fournisseur = {}
 
 Config_Fournisseur.Jobs = {
-    ['burgershot'] = {
+    ['restau_burgershot'] = {
         { item = 'burgershot_painburger', label = 'Pain Burger', price = 5 },
         { item = 'burgershot_viandeburger', label = 'Viande Burger', price = 5 },
         { item = 'burgershot_salade', label = 'Salade', price = 5 },
@@ -20,7 +20,7 @@ Config_Fournisseur.Jobs = {
 
     },
 
-    ['pops'] = {
+    ['restau_pops'] = {
         { item = 'burgershot_milkshake', label = 'Milkshake', price = 5 },
         { item = 'pops_granité', label = 'Granité', price = 5 },
         { item = 'burgershot_pain', label = 'Pain', price = 5 },
@@ -42,7 +42,7 @@ Config_Fournisseur.Jobs = {
 
     },
 
-    ['pearls'] = {
+    ['restau_pearls'] = {
         { item = 'burgershot_biere', label = 'Bière', price = 5 },
         { item = 'burgershot_sprite', label = 'Sprite', price = 5 },
         { item = 'pearls_fish', label = 'Poisson', price = 5 },
@@ -54,7 +54,7 @@ Config_Fournisseur.Jobs = {
 
     },
 
-    ['wiwang'] = {
+    ['bar_wiwang'] = {
         { item = 'wiwang_vin', label = 'Vin', price = 5 },
         { item = 'wiwang_donperignon', label = 'Don Perignon', price = 5 },
         { item = 'wiwang_ruinart', label = 'Ruinart', price = 5 },
@@ -64,7 +64,7 @@ Config_Fournisseur.Jobs = {
         { item = 'wiwang_macarons', label = 'Macaron', price = 5 },
     },
 
-    ['pacific'] = {
+    ['bar_pacific'] = {
         { item = 'pacific_pina', label = 'Piña Colada', price = 5 },
         { item = 'pacific_mojito', label = 'Mojito', price = 5 },
         { item = 'pacific_margarita', label = 'Margarita', price = 5 },
@@ -74,7 +74,7 @@ Config_Fournisseur.Jobs = {
         { item = 'pacific_brochettes', label = 'Brochettes de fruits frais', price = 5 },
     },
 
-    ['unicorn'] = {
+    ['bar_unicorn'] = {
         { item = 'unicorn_wisky', label = 'Wisky Sour', price = 5 },
         { item = 'unicorn_tequila', label = 'Tequila Sunrise', price = 5 },
         { item = 'unicorn_vodka', label = 'Vodka Martini', price = 5 },
@@ -95,14 +95,14 @@ Config_Fournisseur.Jobs = {
 Config_craftjob = {}
 
 Config_craftjob.CraftPoints = {
-    ['burgershot'] = {x = -1196.009521, y = -898.430664, z = 13.886161},
-    ['pops'] = {x = 1587.468140, y = 6458.186035, z = 26.014011},
+    ['restau_burgershot'] = {x = -1196.009521, y = -898.430664, z = 13.886161},
+    ['restau_pops'] = {x = 1587.468140, y = 6458.186035, z = 26.014011},
     ['hornys'] = {x = 1252.426758, y = -355.046417, z = 69.082123},
-    ['pearls'] = {x = -1846.936401, y = -1195.856567, z = 14.305080},
+    ['restau_pearls'] = {x = -1846.936401, y = -1195.856567, z = 14.305080},
 }
 
 Config_craftjob.Recipes = {
-    ['burgershot'] = {
+    ['restau_burgershot'] = {
         ['burgershot_burger'] = {
             label = 'Burger',
             ingredients = {
@@ -136,7 +136,7 @@ Config_craftjob.Recipes = {
         },
     },
 
-    ['pops'] = {
+    ['restau_pops'] = {
         ['pops_hotdog'] = {
             label = 'HotDog',
             ingredients = {
@@ -159,7 +159,7 @@ Config_craftjob.Recipes = {
         },
     },
 
-    ['pearls'] = {
+    ['restau_pearls'] = {
         ['pearls_fishandchips'] = {
             label = 'Fish and Chips',
             ingredients = {

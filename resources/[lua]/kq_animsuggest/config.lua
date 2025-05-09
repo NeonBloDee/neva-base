@@ -248,7 +248,7 @@ Config.propSpecific = {
 --- radius: radius of the animation area
 --- animations: an inline table of animations or an `Config.animList` table of animations
 Config.areaSpecific = {
-    { -- vanilla unicorn
+    { -- vanilla bar_unicorn
         label = 'dance',
         coords = vector3(115.6, -1289.0, 28.2),
         radius = 13.0,

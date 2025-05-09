@@ -436,8 +436,13 @@ function ClosetVehWithDisplayBennys()
 end
 
 RegisterCommand('F6_mecano', function()
-    if ESX.PlayerData.job.name == 'mecano' or ESX.PlayerData.job.name == 'lscustom' then
-        Bennys.openInteractMenu()
+    if ESX.PlayerData.job.name == 'garage_octacyp'
+        or ESX.PlayerData.job.name == 'garage_lscustom'
+        or ESX.PlayerData.job.name == 'garage_speedhunters'
+        or ESX.PlayerData.job.name == 'garage_paletocustoms'
+        or ESX.PlayerData.job.name == 'garage_eastcustoms'
+        or ESX.PlayerData.job.name == 'garage_driveline' then
+         Bennys.openInteractMenu()
     end
 end)
 RegisterKeyMapping('F6_mecano', 'Menu Mécano', 'keyboard', 'F6')
@@ -1173,8 +1178,13 @@ Citizen.CreateThread(function()
                     return false
                 end
     
-                            if ESX.PlayerData.job.name == 'mecano' or ESX.PlayerData.job.name == 'lscustom' then
-                    return true
+                if ESX.PlayerData.job.name == 'garage_octacyp'
+                    or ESX.PlayerData.job.name == 'garage_lscustom'
+                    or ESX.PlayerData.job.name == 'garage_speedhunters'
+                    or ESX.PlayerData.job.name == 'garage_paletocustoms'
+                    or ESX.PlayerData.job.name == 'garage_eastcustoms'
+                    or ESX.PlayerData.job.name == 'garage_driveline' then
+                        return true
                 end
             end,
             onSelect = function(data)
@@ -1293,8 +1303,13 @@ Citizen.CreateThread(function()
                     return false
                 end
     
-                          if ESX.PlayerData.job.name == 'mecano' or ESX.PlayerData.job.name == 'lscustom' then
-                    return true
+                if ESX.PlayerData.job.name == 'garage_octacyp'
+                    or ESX.PlayerData.job.name == 'garage_lscustom'
+                    or ESX.PlayerData.job.name == 'garage_speedhunters'
+                    or ESX.PlayerData.job.name == 'garage_paletocustoms'
+                    or ESX.PlayerData.job.name == 'garage_eastcustoms'
+                    or ESX.PlayerData.job.name == 'garage_driveline' then
+                        return true
                 end
             end,
             onSelect = function(data)
@@ -1418,7 +1433,12 @@ Citizen.CreateThread(function()
                     return false
                 end
     
-                      if ESX.PlayerData.job.name == 'mecano' or ESX.PlayerData.job.name == 'lscustom' then
+            if ESX.PlayerData.job.name == 'garage_octacyp'
+                or ESX.PlayerData.job.name == 'garage_lscustom'
+                or ESX.PlayerData.job.name == 'garage_speedhunters'
+                or ESX.PlayerData.job.name == 'garage_paletocustoms'
+                or ESX.PlayerData.job.name == 'garage_eastcustoms'
+                or ESX.PlayerData.job.name == 'garage_driveline' then
                     return true
                 end
             end,
@@ -1500,8 +1520,13 @@ Citizen.CreateThread(function()
                     return false
                 end
     
-                     if ESX.PlayerData.job.name == 'mecano' or ESX.PlayerData.job.name == 'lscustom' then
-                    return true
+            if ESX.PlayerData.job.name == 'garage_octacyp'
+                    or ESX.PlayerData.job.name == 'garage_lscustom'
+                    or ESX.PlayerData.job.name == 'garage_speedhunters'
+                    or ESX.PlayerData.job.name == 'garage_paletocustoms'
+                    or ESX.PlayerData.job.name == 'garage_eastcustoms'
+                    or ESX.PlayerData.job.name == 'garage_driveline' then
+                        return true
                 end
             end,
             onSelect = function(data)
@@ -1542,7 +1567,12 @@ Citizen.CreateThread(function()
              --   if not isVehicleDestroyed(entity) then
              --       return false
              --   end
-                if ESX.PlayerData.job.name == 'mecano' or ESX.PlayerData.job.name == 'lscustom' then
+            if ESX.PlayerData.job.name == 'garage_octacyp'
+                or ESX.PlayerData.job.name == 'garage_lscustom'
+                or ESX.PlayerData.job.name == 'garage_speedhunters'
+                or ESX.PlayerData.job.name == 'garage_paletocustoms'
+                or ESX.PlayerData.job.name == 'garage_eastcustoms'
+                or ESX.PlayerData.job.name == 'garage_driveline' then
                     return true
                 end
             end,
@@ -1568,7 +1598,13 @@ Citizen.CreateThread(function()
                 if not isInPoundZone then
                     return false
                 end
-                if ESX.PlayerData.job.name == 'mecano' or ESX.PlayerData.job.name == 'lscustom' then
+
+            if ESX.PlayerData.job.name == 'garage_octacyp'
+                or ESX.PlayerData.job.name == 'garage_lscustom'
+                or ESX.PlayerData.job.name == 'garage_speedhunters'
+                or ESX.PlayerData.job.name == 'garage_paletocustoms'
+                or ESX.PlayerData.job.name == 'garage_eastcustoms'
+                or ESX.PlayerData.job.name == 'garage_driveline' then
                     return true
                 end
             end,

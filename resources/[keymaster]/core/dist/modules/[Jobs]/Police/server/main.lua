@@ -104,7 +104,16 @@ end)
 
 RegisterNetEvent('sunny:Service:delVeh', function(veh)
     local xPlayer = ESX.GetPlayerFromId(source)
-	if xPlayer.job.name ~= "police" and xPlayer.job.name ~= "bcso" and xPlayer.job.name ~= "mecano" and xPlayer.job.name ~= "lscustom" then return end
+    if xPlayer.job.name ~= "police"
+        and xPlayer.job.name ~= "bcso"
+        and xPlayer.job.name ~= "garage_octacyp"
+        and xPlayer.job.name ~= "garage_lscustom"
+        and xPlayer.job.name ~= "garage_speedhunters"
+        and xPlayer.job.name ~= "garage_paletocustoms"
+        and xPlayer.job.name ~= "garage_eastcustoms"
+        and xPlayer.job.name ~= "garage_driveline" then
+            return
+    end
     DeleteEntity(NetworkGetEntityFromNetworkId(veh))
 end)
 
