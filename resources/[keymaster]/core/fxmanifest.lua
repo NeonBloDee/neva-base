@@ -4,6 +4,7 @@ author "Sunny"
 
 lua54 'yes'
 
+version '5.0.86'
 
 escrow_ignore {
     "fr.lua",
