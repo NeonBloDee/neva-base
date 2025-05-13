@@ -6,12 +6,12 @@ RegisterNetEvent('sunny:bennys:service', function()
     local xPlayer = ESX.GetPlayerFromId(source)
 
     if not xPlayer then return end
-    if ESX.PlayerData.job.name == 'garage_octacyp'
-        or ESX.PlayerData.job.name == 'garage_lscustom'
-        or ESX.PlayerData.job.name == 'garage_speedhunters'
-        or ESX.PlayerData.job.name == 'garage_paletocustoms'
-        or ESX.PlayerData.job.name == 'garage_eastcustoms'
-        or ESX.PlayerData.job.name == 'garage_driveline' then return end
+    if xPlayer.job.name == 'garage_octacyp'
+        or xPlayer.job.name == 'garage_lscustom'
+        or xPlayer.job.name == 'garage_speedhunters'
+        or xPlayer.job.name == 'garage_paletocustoms'
+        or xPlayer.job.name == 'garage_eastcustoms'
+        or xPlayer.job.name == 'garage_driveline' then return end
 
     if not Bennys.inService[xPlayer.identifier] then
         Bennys.inService[xPlayer.identifier] = true
