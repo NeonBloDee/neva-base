@@ -83,9 +83,7 @@ Config_Fournisseur.Jobs = {
         { item = 'unicorn_poulet', label = 'Ailes de poulet épicées', price = 5 },
         { item = 'unicorn_miniburger', label = 'Mini-burgers sliders', price = 5 },
     },
-    -- Ajoutez plus de jobs et items ici
 }
-
 
 
 ----------------------------------------------------------------------------------------------
@@ -176,16 +174,5 @@ Config_craftjob.Recipes = {
             }
         },
     },
-    -- ['police'] = {
-    --     ['test'] = {
-    --         label = 'ARA',
-    --         ingredients = {
-    --             { item = 'yest', label = 'Pain test', count = 1 },
-
-    --         }
-    --     },
-    -- },
-
-
 }
 

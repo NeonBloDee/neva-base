@@ -117,7 +117,8 @@ Citizen.CreateThread(function()
 
         if Config.enableMarker then
             if isNearDJ then
-                DrawMarker(27, currentDJ.pos.x, currentDJ.pos.y, currentDJ.pos.z - 0.98, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0*1.5, 1.0*1.5, 1.0, 136, 0, 136, 75, false, false, 2, false, false, false, false)
+                DrawMarker(25, currentDJ.pos.x, currentDJ.pos.y, currentDJ.pos.z - 0.98, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.55, 0.55, 1.0, 165, 216, 255, 255, false, false, 2, false, false, false, false)
+                -- DrawMarker(25, x, y, z, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.55, 0.55, 0.55, tonumber(UTILS.ServerColor.r), tonumber(UTILS.ServerColor.g), tonumber(UTILS.ServerColor.b), 255, false, false, 2, false, false, false, false)
             end
         end
 

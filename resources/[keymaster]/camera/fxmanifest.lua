@@ -9,8 +9,6 @@ escrow_ignore {
 shared_scripts {
 	"@ox_lib/init.lua",
 	'shared/locale.lua',
-	'locales/en.lua',
-	'locales/*.lua',
 	'shared/cores.lua',
     'shared/config.lua',
 }
