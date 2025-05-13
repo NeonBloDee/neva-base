@@ -1,3 +1,5 @@
+ESX = exports['frwk']:getSharedObject()
+
 CreateThread(function()
     -- ====================================================================
     -- =--------------------- [GTA V: Single player] ---------------------=

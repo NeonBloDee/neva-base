@@ -1,6 +1,7 @@
 PlayerLoadedAnticheat = false
 local isPlayerFullyLoaded = false
 local shouldBeDeadAfterLoad = false
+local isDyingChecked = false
 
 local function openConnectMenu()
 
@@ -122,10 +123,12 @@ local function openConnectMenu()
             PlayerLoadedAnticheat = true
             playerLoaded = true
             
-            Wait(1000)
+            Wait(2000)
             isPlayerFullyLoaded = true
             
-            if shouldBeDeadAfterLoad then
+            if shouldBeDeadAfterLoad and not isDyingChecked then
+                isDyingChecked = true
+                Wait(1000)
                 TriggerEvent('sunny:ambulance:deathEvent')
                 ESX.ShowNotification('Vous vous êtes déconnecté en étant mort !')
                 shouldBeDeadAfterLoad = false
@@ -139,10 +142,12 @@ AddEventHandler('esx:playerLoaded', function()
     CreateThread(function()
         isPlayerFullyLoaded = false
         shouldBeDeadAfterLoad = false
+        isDyingChecked = false
         
         ESX.TriggerServerCallback('sunny:ambulance:getPlayerDead', function(isDead)
             if isDead then
                 shouldBeDeadAfterLoad = true
+                print("[DEBUG] Le joueur était mort lors de sa dernière déconnexion")
             end
         end)
         
@@ -155,6 +160,20 @@ AddEventHandler('esx:playerLoaded', function()
             end
         end)
     end)
+end)
+
+CreateThread(function()
+    while true do
+        Wait(1000)
+        
+        if isPlayerFullyLoaded and shouldBeDeadAfterLoad and not isDyingChecked then
+            isDyingChecked = true
+            Wait(1000)
+            TriggerEvent('sunny:ambulance:deathEvent')
+            ESX.ShowNotification('Vous vous êtes déconnecté en étant mort !')
+            shouldBeDeadAfterLoad = false
+        end
+    end
 end)
 
 RegisterCommand('debug', function()
