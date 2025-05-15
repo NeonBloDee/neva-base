@@ -239,23 +239,26 @@ local GUI = {}
 GUI.Time = 0
 
 RegisterCommand('+accroupir', function() 
-    RequestAnimSet("move_ped_crouched")
+    local ped = PlayerPedId()
+    if IsPedInAnyVehicle(ped, false) then 
+        return 
+    end
 
+    RequestAnimSet("move_ped_crouched")
     while not HasAnimSetLoaded("move_ped_crouched") do 
         Citizen.Wait(100)
     end 
 
     if crouched then 
-        ResetPedMovementClipset(PlayerPedId(), 0)
+        ResetPedMovementClipset(ped, 0)
         crouched = false 
 
         -- Attente de 1 seconde avant de reset complètement le joueur
         Citizen.SetTimeout(1000, function()
-            ClearPedTasksImmediately(PlayerPedId())
+            ClearPedTasksImmediately(ped)
         end)
-
     else
-        SetPedMovementClipset(PlayerPedId(), "move_ped_crouched", 0.25)
+        SetPedMovementClipset(ped, "move_ped_crouched", 0.25)
         crouched = true 
     end 
 

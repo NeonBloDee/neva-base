@@ -371,11 +371,16 @@ function openPersonnalMenu()
 end)
 
 RageUI.IsVisible(selectedWeaponTint, function()
-    local tints = Config.VIP.GetValue('Values', 'WeaponTints')
-    for _, tint in pairs(tints) do
-        RageUI.Button(tint.label, nil, {}, true, {
-            onSelected = function()
-                setWeaponTint(tint.id)
+    for i = 1, #weaponTint do 
+        RageUI.Button(weaponTint[i].name, nil, {}, true, {
+            onSelected = function() 
+                local weaponHash = GetSelectedPedWeapon(PlayerPedId())
+                if weaponHash ~= GetHashKey("WEAPON_UNARMED") then
+                    SetPedWeaponTintIndex(PlayerPedId(), weaponHash, weaponTint[i].id)
+                    ESX.ShowNotification("Teinte d'arme appliquée : " .. weaponTint[i].name)
+                else
+                    ESX.ShowNotification("Vous devez tenir une arme en main pour appliquer une teinte.")
+                end
             end
         })
     end
@@ -493,7 +498,13 @@ end)
             for i = 1, #weaponTint do 
                 RageUI.Button(weaponTint[i].name, nil, {}, true, {
                     onSelected = function() 
-                        setWeaponTint(weaponTint[i].id)
+                        local weaponHash = GetSelectedPedWeapon(PlayerPedId())
+                        if weaponHash ~= GetHashKey("WEAPON_UNARMED") then
+                            SetPedWeaponTintIndex(PlayerPedId(), weaponHash, weaponTint[i].id)
+                            ESX.ShowNotification("Teinte d'arme appliquée : " .. weaponTint[i].name)
+                        else
+                            ESX.ShowNotification("Vous devez tenir une arme en main pour appliquer une teinte.")
+                        end
                     end
                 })
             end
@@ -1976,3 +1987,23 @@ RegisterKeyMapping('personnalmenu', 'Menu Personnel', 'keyboard', 'F5')
 RegisterNetEvent('sunny:recieveProps', function(table)
     propsPropsList = table
 end)
+
+-- Fonction pour récupérer la teinte actuelle de l'arme
+function getWeaponTint()
+    local weaponHash = GetSelectedPedWeapon(PlayerPedId())
+    if weaponHash ~= GetHashKey("WEAPON_UNARMED") then
+        return GetPedWeaponTintIndex(PlayerPedId(), weaponHash)
+    end
+    return 0
+end
+
+-- Fonction pour définir la teinte de l'arme
+function setWeaponTint(tintId)
+    local weaponHash = GetSelectedPedWeapon(PlayerPedId())
+    if weaponHash ~= GetHashKey("WEAPON_UNARMED") then
+        SetPedWeaponTintIndex(PlayerPedId(), weaponHash, tintId)
+        ESX.ShowNotification("Vous avez changé la teinte de votre arme.")
+    else
+        ESX.ShowNotification("Vous devez tenir une arme en main pour appliquer une teinte.")
+    end
+end

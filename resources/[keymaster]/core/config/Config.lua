@@ -1102,10 +1102,10 @@ SunnyConfigServ = {
     -------------- BOOST PERKS ---------------
     BoosterPerks = {
         -- 1304120680446431302 App id
-        botToken = "MTMwNDEyMDY4MDQ0NjQzMTMwMg.Gn9Nho.bq2vv-ioMyPnKf0Pg975YR1RggDDMyLyZn-MuI",
-        discordId = "1300910087044333699",
+        botToken = "",
+        discordId = "",
         roleBoostId = {
-            ['Server Booster'] = '1303467466726440972',
+            ['Server Booster'] = '',
         },
         timeDelay = 7, -- in days 
         recompense = function(src)
