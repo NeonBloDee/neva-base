@@ -149,9 +149,9 @@ Config.BypassWeapon = {
 }
 
 Config.Density = {
-    Peds = 0.6,           -- Densité des PNJ (0.0 à 1.0)
-    Vehicles = 0.1,       -- Densité des véhicules en mouvement (0.0 à 1.0)
-    ParkedVehicles = 0.1, -- Densité des véhicules garés (0.0 à 1.0)
-    RandomVehicles = 0.0, -- Densité des véhicules aléatoires (0.0 à 1.0)
-    EnableCops = false    -- Active/désactive les policiers PNJ
+    Peds = 1.0,           -- Densité des PNJ (0.0 à 1.0)
+    Vehicles = 1.0,       -- Densité des véhicules en mouvement (0.0 à 1.0)
+    ParkedVehicles = 1.0, -- Densité des véhicules garés (0.0 à 1.0)
+    RandomVehicles = 1.0, -- Densité des véhicules aléatoires (0.0 à 1.0)
+    EnableCops = true    -- Active/désactive les policiers PNJ
 }

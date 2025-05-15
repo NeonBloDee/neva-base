@@ -233,17 +233,16 @@ RegisterNetEvent('sunny:properties:load', function(data)
 
     Properties:updateBlips()
     Properties.Load = true
-    print("[PropertiesClient] Properties loaded/reloaded. Count: " .. #Properties.PropertiesList)
+    -- print("[PropertiesClient] Properties loaded/reloaded. Count: " .. #Properties.PropertiesList)
 end)
 
 RegisterNetEvent('sunny:properties:add', function(i,data)
     if i and data then
-        -- Ensure owner ID is number
         if data.owner and data.owner ~= 'none' then data.owner = tonumber(data.owner) or data.owner end
         Properties.PropertiesList[i] = data
         Properties:updateBlips()
     else
-        print("[PropertiesClient] ERROR: Invalid data for sunny:properties:add event. Index: " .. tostring(i))
+        -- print("[PropertiesClient] ERROR: Invalid data for sunny:properties:add event. Index: " .. tostring(i))
     end
 end)
 

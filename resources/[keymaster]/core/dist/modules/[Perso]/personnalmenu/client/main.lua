@@ -1441,12 +1441,12 @@ end
                         ExecuteCommand('XpStats')
                     end
                 })
-                RageUI.Button("Modifier HUD", nil, {RightLabel = ''}, true, {
-                    onSelected = function()
-                        ExecuteCommand('hudsettings')
-                        RageUI.CloseAll()
-                    end
-                })
+                -- RageUI.Button("Modifier HUD", nil, {RightLabel = ''}, true, {
+                --     onSelected = function()
+                --         ExecuteCommand('hudsettings')
+                --         RageUI.CloseAll()
+                --     end
+                -- })
                 RageUI.Checkbox("Afficher / Désactiver la map", nil, menumap, {RighLabel = ""}, { 
                         onChecked = function()
                             menumap = true

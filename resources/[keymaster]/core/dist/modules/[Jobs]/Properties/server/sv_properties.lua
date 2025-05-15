@@ -76,7 +76,7 @@ function Properties:Load()
         
         Properties.PropertiesList = tempPropertiesList
         Properties.Loaded = true
-        print(("[PropertiesServer] Properties loaded successfully. Count: %s"):format(pcount))
+        -- print(("[PropertiesServer] Properties loaded successfully. Count: %s"):format(pcount))
         
         TriggerClientEvent('sunny:properties:load', -1, Properties.PropertiesList)
     end)
@@ -113,7 +113,7 @@ RegisterNetEvent('sunny:properties:load', function()
     if Properties.Loaded then
         TriggerClientEvent('sunny:properties:load', source, Properties.PropertiesList)
     else
-        print(("[PropertiesServer] WARNING: Player %s requested properties before initial load was complete. Sending current (possibly empty) list."):format(source))
+        -- print(("[PropertiesServer] WARNING: Player %s requested properties before initial load was complete. Sending current (possibly empty) list."):format(source))
         TriggerClientEvent('sunny:properties:load', source, Properties.PropertiesList) 
     end
 end)

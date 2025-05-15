@@ -114,6 +114,47 @@
                     maxBillsAmount = 0
                 },
             },
+
+            ["ltd_arena"] = {
+                label = "LTD Arena",
+                catalogId = 2,
+                catalogMenu = {
+                    vec3(-346.08636474609, -1477.3419189453, 30.747936248779),
+                    vec3(-344.05117797852, -1477.3132324219, 30.747976303101),
+                },
+                
+                historyMenu = vec3(27.180799, -1340.273926, 29.496960),
+                bossMenu = vec3(28.690731, -1338.762329, 29.497032),
+                jobMenu = {
+                    name = 'ltd_arena',
+                    badge = true, 
+                    badgeprops = `p_ld_id_card_002`, 
+                    badgeposition = {0.13, 0.03, -0.04, 80.0, 350.0, 180.0}, 
+                    billing = false,
+                    announce = true,
+                    maxBillsAmount = 0
+                },
+            },
+
+            ["ltd_paletobay"] = {
+                label = "LTD Paleto Bay",
+                catalogId = 2,
+                catalogMenu = {
+                    vec3(172.10018920898, 6641.9018554688, 31.698598861694)
+                },
+                
+                historyMenu = vec3(27.180799, -1340.273926, 29.496960),
+                bossMenu = vec3(28.690731, -1338.762329, 29.497032),
+                jobMenu = {
+                    name = 'ltd_paletobay',
+                    badge = true, 
+                    badgeprops = `p_ld_id_card_002`, 
+                    badgeposition = {0.13, 0.03, -0.04, 80.0, 350.0, 180.0}, 
+                    billing = false,
+                    announce = true,
+                    maxBillsAmount = 0
+                },
+            },
     
             ["ltd_ballas"] = {
                 label = "LTD Grove Street",
