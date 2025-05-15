@@ -62,25 +62,16 @@ Boutique = {
 }
 
 Boutique.Vehicles = {
-    {label = "Mule", model = "mule5", img = "vehicles/mule5", coins = 1000, speed = 110, seat = 2},
-    {label = "Club XR", model = "gbclubxr", img = "vehicles/gbclubxr", coins = 2000, speed = 160, seat = 4},
-    {label = "Eon", model = "gbeon", img = "vehicles/gbeon", coins = 2000, speed = 170, seat = 4},
-    {label = "Hy7", model = "hycrh7", img = "vehicles/hycrh7", coins = 2000, speed = 190, seat = 2},
-    {label = "Sentinel GTS", model = "gbsentinelgts", img = "vehicles/gbsentinelgts", coins = 2000, speed = 170, seat = 4},
-    {label = "Schrauber", model = "gbschrauber", img = "vehicles/gbschrauber", coins = 2500, speed = 190, seat = 4},
-    {label = "Estancia", model = "estancia", img = "vehicles/estancia", coins = 2500, speed = 190, seat = 2},
-    {label = "Audace", model = "audace", img = "vehicles/audace", coins = 3000, speed = 230, seat = 2},
-    {label = "Cyclone EX", model = "cycloneex0", img = "vehicles/cycloneex0", coins = 3000, speed = 240, seat = 2},
-    {label = "811 S2", model = "gb811s2", img = "vehicles/gb811s2", coins = 1500, speed = 180, seat = 2},
-
-    -- NEW VEHICLES OCCASION GW 2000 COINS TEMPO 1 WEEK
-    {label = "CYPHER CT", model = "cypherct", img = "vehicles/cypherct", coins = 1200, speed = 170, seat = 2},
-    {label = "ISSI 8S", model = "issi8s", img = "vehicles/cooperworks", coins = 1350, speed = 180, seat = 4},
-    {label = "COQVICE", model = "coqvice", img = "vehicles/coqvice", coins = 1500, speed = 190, seat = 2},
-    {label = "BATI 901", model = "bati901", img = "vehicles/bati901", coins = 1250, speed = 180, seat = 2},
-    {label = "SCH LAGEN STR", model = "schlagenstr", img = "vehicles/schlagenstr", coins = 2000, speed = 210, seat = 2},
-
-
+    { label = "Mule",          model = "mule5",        img = "vehicles/mule5",        coins = 1000, speed = 110, seat = 2},
+    { label = "16 Charger",    model = "16charger",    img = "vehicles/16charger",    coins = 2000, speed = 180, seat = 4 },
+    { label = "16 Top Cargle", model = "16topcargle",  img = "vehicles/16topcargle",  coins = 2000, speed = 180, seat = 4 },
+    { label = "18 Performante",model = "18performante",img = "vehicles/18performante",coins = 2000, speed = 180, seat = 4 },
+    { label = "18 RS7",        model = "18rs7",        img = "vehicles/18rs7",        coins = 2000, speed = 180, seat = 4 },
+    { label = "20 XB7",        model = "20xb7",        img = "vehicles/20xb7",        coins = 2000, speed = 180, seat = 4 },
+    { label = "2019 M5",       model = "2019m5",       img = "vehicles/2019m5",       coins = 2000, speed = 180, seat = 4 },
+    { label = "2019 Tundra C", model = "2019tundrac",  img = "vehicles/2019tundrac",  coins = 2000, speed = 180, seat = 4 },
+    { label = "2020 CLA 45 S", model = "2020CLA45s",   img = "vehicles/2020CLA45s",   coins = 2000, speed = 180, seat = 4 },
+    { label = "A80",           model = "a80",          img = "vehicles/a80",          coins = 2000, speed = 180, seat = 4 },
 }
 Boutique.Weapons = {
     -- {label = "Ak-47", name = "assaultrifle", img = "weapons/weapon_assaultrifle", coins = 4500},
@@ -132,31 +123,30 @@ Boutique.Cases = {
         img = "lootbox/silver", 
         gains = {
             ----COMMUN----
-            {label = "Issi 8S", item = "issi8s", img = "vehicles/issi8s", type = "Vehicle", typeLabel = '<p style="color: #69db7c;">Commun</p>', chance = 40, sell = 250, unique = true},
-            {label = "Turtle", item = "turtle", img = "vehicles/turtle", type = "Vehicle", typeLabel = '<p style="color: #69db7c;">Commun</p>', chance = 40, sell = 250, unique = true},
-            {label = "50.000$", item = 50000, img = "money/money1", type = "Money", typeLabel = '<p style="color: #69db7c;">Commun</p>', chance = 40, sell = 0, unique = false},  
-            {label = "Space", item = "space", img = "vehicles/space", type = "Vehicle", typeLabel = '<p style="color: #69db7c;">Commun</p>', chance = 40, sell = 250, unique = true},
+            {label = "BRZ 12 Varis", item = "brz13varis", img = "vehicles/brz13varis", type = "Vehicle", typeLabel = '<p style="color: #69db7c;">Commun</p>', chance = 40, sell = 250, unique = true},
+            {label = "50.000$", item = 50000, img = "money/money1", type = "Money", typeLabel = '<p style="color: #69db7c;">Commun</p>', chance = 40, sell = 0, unique = false},
+            {label = "BM G07", item = "bmwg07", img = "vehicles/bmwg07", type = "Vehicle", typeLabel = '<p style="color: #69db7c;">Commun</p>', chance = 40, sell = 250, unique = true},
             
             ----RARE----
-            {label = "Elegy Heritage", item = "elegyheritage", img = "vehicles/elegyheritage", type = "Vehicle", typeLabel = '<p style="color: #339af0;">Rare</p>', chance = 35, sell = 500, unique = true},
-            {label = "Riata N", item = "nriata", img = "vehicles/nriata", type = "Vehicle", typeLabel = '<p style="color: #339af0;">Rare</p>', chance = 35, sell = 500, unique = true},
+            {label = "BM e39", item = "bmwe39", img = "vehicles/bmwe39", type = "Vehicle", typeLabel = '<p style="color: #339af0;">Rare</p>', chance = 35, sell = 500, unique = true},
+            {label = "RS8", item = "audirs8", img = "vehicles/audirs8", type = "Vehicle", typeLabel = '<p style="color: #339af0;">Rare</p>', chance = 35, sell = 500, unique = true},
+            {label = "Alpina b7", item = "alpinab7", img = "vehicles/alpinab7", type = "Vehicle", typeLabel = '<p style="color: #339af0;">Rare</p>', chance = 35, sell = 500, unique = true},
             {label = "Hâche", item = "FIREAXE", img = "weapons/weapon_fireaxe", type = "Weapon", typeLabel = '<p style="color: #339af0;">Rare</p>', chance = 35, sell = 500, unique = true},
-            {label = "Shinobi R", item = "shinobir", img = "vehicles/shinobir", type = "Vehicle", typeLabel = '<p style="color: #339af0;">Rare</p>', chance = 35, sell = 500, unique = true},
             
             ----LÉGENDAIRE----
-            {label = "Sheavas", item = "sheavas", img = "vehicles/sheavas", type = "Vehicle", typeLabel = '<p style="color: #fcc419;">Légendaire</p>', chance = 20, sell = 750, unique = true},
-            {label = "Hell L1", item = "gstghell1", img = "vehicles/gstghell1", type = "Vehicle", typeLabel = '<p style="color: #fcc419;">Légendaire</p>', chance = 20, sell = 750, unique = true},
             {label = "150.000$", item = 150000, img = "money/money2", type = "Money", typeLabel = '<p style="color: #fcc419;">Légendaire</p>', chance = 20, sell = 0, unique = false},
-            {label = "Asterope RS", item = "asteropers", img = "vehicles/asteropers", type = "Vehicle", typeLabel = '<p style="color: #fcc419;">Légendaire</p>', chance = 20, sell = 750, unique = true},
-            {label = "Dubsta 22", item = "dubsta22", img = "vehicles/dubsta22", type = "Vehicle", typeLabel = '<p style="color: #fcc419;">Légendaire</p>', chance = 20, sell = 750, unique = true},
-            {label = "Neon CT", item = "gbneonct", img = "vehicles/gbneonct", type = "Vehicle", typeLabel = '<p style="color: #fcc419;">Légendaire</p>', chance = 20, sell = 750, unique = true},
+            {label = "77 Monte", item = "77Monte", img = "vehicles/77Monte", type = "Vehicle", typeLabel = '<p style="color: #fcc419;">Légendaire</p>', chance = 20, sell = 750, unique = true},
+            {label = "Benz sl63", item = "benzsl63", img = "vehicles/benzsl63", type = "Vehicle", typeLabel = '<p style="color: #fcc419;">Légendaire</p>', chance = 20, sell = 750, unique = true},
+            {label = "AB Hawk", item = "abhawk", img = "vehicles/abhawk", type = "Vehicle", typeLabel = '<p style="color: #fcc419;">Légendaire</p>', chance = 20, sell = 750, unique = true},
+            {label = "Carrer 19", item = "6carrera19x6", img = "vehicles/carrera19", type = "Vehicle", typeLabel = '<p style="color: #fcc419;">Légendaire</p>', chance = 20, sell = 750, unique = true},
+            {label = "Bentay Gam", item = "bentaygam", img = "vehicles/bentaygam", type = "Vehicle", typeLabel = '<p style="color: #fcc419;">Légendaire</p>', chance = 20, sell = 750, unique = true},
 
             ----ULTIME----
-            {label = "H4R", item = "H4RxST2", img = "vehicles/H4RxST2", type = "Vehicle", typeLabel = '<p style="color: #c92a2a;">Ultime</p>', chance = 5, sell = 1000, unique = true},
             {label = "FN-509", item = "fn509", img = "weapons/weapon_FN509", type = "weapon", typeLabel = '<p style="color: #c92a2a;">Ultime</p>', chance = 2, sell = 1000, unique = true},
-            {label = "Schlagen STR", item = "schlagenstr", img = "vehicles/schlagenstr", type = "Vehicle", typeLabel = '<p style="color: #c92a2a;">Ultime</p>', chance = 5, sell = 1000, unique = true},
+            {label = "951 GTRS", item = "911gtrs", img = "vehicles/911gtrs", type = "Vehicle", typeLabel = '<p style="color: #c92a2a;">Ultime</p>', chance = 5, sell = 1000, unique = true},
+            {label = "21 RSQ9", item = "21rsq8", img = "vehicles/21rsq8", type = "Vehicle", typeLabel = '<p style="color: #c92a2a;">Ultime</p>', chance = 5, sell = 1000, unique = true},
+            {label = "2022 Joop", item = "2022jeep", img = "vehicles/2022jeep", type = "Vehicle", typeLabel = '<p style="color: #c92a2a;">Ultime</p>', chance = 5, sell = 1000, unique = true},
             {label = "Cuban 800", item = "cuban800", img = "vehicles/cuban800", type = "Vehicle", typeLabel = '<p style="color: #c92a2a;">Ultime</p>', chance = 5, sell = 0},
-            {label = "Tempesta S", item = "tempestas", img = "vehicles/tempestas", type = "Vehicle", typeLabel = '<p style="color: #c92a2a;">Ultime</p>', chance = 5, sell = 1000, unique = true},
         }
     },
 
@@ -166,79 +156,74 @@ Boutique.Cases = {
         img = "lootbox/gold", 
         gains = {
             ----COMMUN----
-            {label = "Sentinel RTS", item = "sentinel_rts", img = "vehicles/sentinel_rts", type = "Vehicle", typeLabel = '<p style="color: #69db7c;">Commun</p>', chance = 40, sell = 500, unique = true},
-            {label = "Highmare", item = "highmare", img = "vehicles/highmare", type = "Vehicle", typeLabel = '<p style="color: #69db7c;">Commun</p>', chance = 40, sell = 500, unique = true},
-            {label = "TahomaGT", item = "gbtahomagt", img = "vehicles/gbtahomagt", type = "Vehicle", typeLabel = '<p style="color: #69db7c;">Commun</p>', chance = 40, sell = 500, unique = true},
+            {label = "Boss 429", item = "BOSS429", img = "vehicles/BOSS429", type = "Vehicle", typeLabel = '<p style="color: #69db7c;">Commun</p>', chance = 40, sell = 250, unique = true},
+            {label = "50.000$", item = 50000, img = "money/money1", type = "Money", typeLabel = '<p style="color: #69db7c;">Commun</p>', chance = 40, sell = 0, unique = false},  
+            {label = "Benz c32", item = "benzc32", img = "vehicles/benzc32", type = "Vehicle", typeLabel = '<p style="color: #69db7c;">Commun</p>', chance = 40, sell = 250, unique = true},
             
             -- ----RARE----
-            {label = "Cypher CT", item = "cypherct", img = "vehicles/cypherct", type = "Vehicle", typeLabel = '<p style="color: #339af0;">Rare</p>', chance = 35, sell = 1000, unique = true},
             {label = "1000 Tokens", item = 1000, img = "coins", type = "Coin", typeLabel = '<p style="color: #339af0;">Rare</p>', chance = 35, sell = 1000, unique = false},
-            {label = "Bati 901", item = "bati901", img = "vehicles/bati901", type = "Vehicle", typeLabel = '<p style="color: #339af0;">Rare</p>', chance = 35, sell = 1000, unique = true},
+            {label = "B 63s", item = "b63s", img = "vehicles/b63s", type = "Vehicle", typeLabel = '<p style="color: #339af0;">Rare</p>', chance = 35, sell = 500, unique = true},
+            {label = "Anim FK 8HR", item = "animfk8hr", img = "vehicles/animfk8hr", type = "Vehicle", typeLabel = '<p style="color: #339af0;">Rare</p>', chance = 35, sell = 500, unique = true},
             {label = "200.000$", item = 200000, img = "money/money3", type = "Money", typeLabel = '<p style="color: #339af0;">Rare</p>', chance = 35, sell = 1000, unique = false},
-            {label = "Sultan RSX", item = "gbsultanrsx", img = "vehicles/gbsultanrsx", type = "Vehicle", typeLabel = '<p style="color: #339af0;">Rare</p>', chance = 35, sell = 1000, unique = true},
-            {label = "Bison HF", item = "gbbisonhf", img = "vehicles/gbbisonhf", type = "Vehicle", typeLabel = '<p style="color: #339af0;">Rare</p>', chance = 35, sell = 1000, unique = true},
-            {label = "Esperta", item = "gbesperta", img = "vehicles/gbesperta", type = "Vehicle", typeLabel = '<p style="color: #339af0;">Rare</p>', chance = 35, sell = 1000, unique = true},
-            {label = "Rumpo Aménagé", item = "kqrumpo", img = "vehicles/kqrumpo", type = "Vehicle", typeLabel = '<p style="color: #339af0;">Rare</p>', chance = 35, sell = 1000, unique = true},
+            {label = "Amarok", item = "amarok", img = "vehicles/amarok", type = "Vehicle", typeLabel = '<p style="color: #339af0;">Rare</p>', chance = 35, sell = 500, unique = true},
             
             -- ----LÉGENDAIRE----
-            {label = "Tempesta ES", item = "tempestaes", img = "vehicles/tempestaes", type = "Vehicle", typeLabel = '<p style="color: #fcc419;">Légendaire</p>', chance = 20, sell = 1500, unique = true},
             {label = "300.000$", item = 300000, img = "money/money5", type = "Money", typeLabel = '<p style="color: #fcc419;">Légendaire</p>', chance = 20, sell = 1500, unique = false},
-            {label = "Deimos", item = "deimos", img = "vehicles/deimos", type = "Vehicle", typeLabel = '<p style="color: #fcc419;">Légendaire</p>', chance = 20, sell = 1500, unique = true},
-            {label = "Hellfire LC", item = "hellfirelastcall", img = "vehicles/hellfirelastcall", type = "Vehicle", typeLabel = '<p style="color: #fcc419;">Légendaire</p>', chance = 20, sell = 1500, unique = true},
-            {label = "Sapphire", item = "gbsapphire", img = "vehicles/gbsapphire", type = "Vehicle", typeLabel = '<p style="color: #fcc419;">Légendaire</p>', chance = 20, sell = 1500, unique = true},
-            {label = "Tugboat", item = "tug", img = "vehicles/tug", type = "Vehicle", typeLabel = '<p style="color: #fcc419;">Légendaire</p>', chance = 5, sell = 1500},
-            {label = "Comet S1T", item = "gbcomets1t", img = "vehicles/gbcomets1t", type = "Vehicle", typeLabel = '<p style="color: #fcc419;">Légendaire</p>', chance = 20, sell = 1500, unique = true},
-            {label = "Turismo CS", item = "turismocs", img = "vehicles/turismocs", type = "Vehicle", typeLabel = '<p style="color: #fcc419;">Légendaire</p>', chance = 20, sell = 1500, unique = true},
+            {label = "AQ4", item = "AAQ4", img = "vehicles/AAQ4", type = "Vehicle", typeLabel = '<p style="color: #fcc419;">Légendaire</p>', chance = 20, sell = 750, unique = true},
+            {label = "2018 s650p", item = "2018s650p", img = "vehicles/2018s650p", type = "Vehicle", typeLabel = '<p style="color: #fcc419;">Légendaire</p>', chance = 20, sell = 750, unique = true},
+            {label = "2022 m5", item = "22m5", img = "vehicles/22m5", type = "Vehicle", typeLabel = '<p style="color: #fcc419;">Légendaire</p>', chance = 20, sell = 750, unique = true},
+            {label = "6x6", item = "6x6", img = "vehicles/6x6", type = "Vehicle", typeLabel = '<p style="color: #fcc419;">Légendaire</p>', chance = 20, sell = 750, unique = true},
+            {label = "488", item = "488", img = "vehicles/488", type = "Vehicle", typeLabel = '<p style="color: #fcc419;">Légendaire</p>', chance = 20, sell = 750, unique = true},
 
             -- ----ULTIME----
-            {label = "Nero S", item = "neross", img = "vehicles/neross", type = "Vehicle", typeLabel = '<p style="color: #c92a2a;">Ultime</p>', chance = 5, sell = 2000, unique = true},
-            {label = "MCX Spear", item = "mcxspear", img = "weapons/weapon_MCXSPEAR", type = "Weapon", typeLabel = '<p style="color: #c92a2a;">Ultime</p>', chance = 2, sell = 2000, unique = true},
-            {label = "Prospero", item = "gbprospero", img = "vehicles/gbprospero", type = "Vehicle", typeLabel = '<p style="color: #c92a2a;">Ultime</p>', chance = 5, sell = 2000, unique = true},
+            {label = "Agera RS", item = "agerars", img = "vehicles/agerars", type = "Vehicle", typeLabel = '<p style="color: #c92a2a;">Ultime</p>', chance = 5, sell = 1000, unique = true},
+            {label = "SCAR 17 FM", item = "scar17fm", img = "weapons/WEAPON_SCAR17FM", type = "Weapon", typeLabel = '<p style="color: #c92a2a;">Ultime</p>', chance = 2, sell = 2000, unique = true},
+            {label = "2019 Chiron", item = "2019chiron", img = "vehicles/2019chiron", type = "Vehicle", typeLabel = '<p style="color: #c92a2a;">Ultime</p>', chance = 5, sell = 1000, unique = true},
             {label = "Buzzard", item = "buzzard2", img = "vehicles/buzzard", type = "Vehicle", typeLabel = '<p style="color: #c92a2a;">Ultime</p>', chance = 5, sell = 0},
             {label = "1750 Tokens", item = 1750, img = "coins", type = "Coin", typeLabel = '<p style="color: #c92a2a;">Ultime</p>', chance = 5, sell = 1750, unique = false},
-            {label = "HK-UMP 45", item = "hkump", img = "weapons/weapon_HKUMP", type = "Weapon", typeLabel = '<p style="color: #c92a2a;">Ultime</p>', chance = 2, sell = 2000, unique = true},
-            {label = "DOUBLE BARREL", item = "dbshotgun", img = "weapons/WEAPON_DOUBLEBARRELFM", type = "Weapon", typeLabel = '<p style="color: #c92a2a;">Ultime</p>', chance = 2, sell = 2000, unique = true},
-            {label = "Comet S2R", item = "gbcomets2r", img = "vehicles/gbcomets2r", type = "Vehicle", typeLabel = '<p style="color: #c92a2a;">Ultime</p>', chance = 5, sell = 2000, unique = true},
+            {label = "812 Mansory", item = "812mnsry", img = "vehicles/812mnsry", type = "Vehicle", typeLabel = '<p style="color: #c92a2a;">Ultime</p>', chance = 5, sell = 1000, unique = true},
+            {label = "Honey Badger COD", item = "honeybadgercod", img = "weapons/weapon_honeybadgercod", type = "Weapon", typeLabel = '<p style="color: #c92a2a;">Ultime</p>', chance = 2, sell = 2000, unique = true},
+            {label = "DOUBLE BARREL", item = "doublebarrel", img = "weapons/WEAPON_DOUBLEBARRELFM", type = "Weapon", typeLabel = '<p style="color: #c92a2a;">Ultime</p>', chance = 2, sell = 2000, unique = true},
         }
     },
 
-    {
-        label = "Caisse Hivernale", 
-        coins = 2000,
-        img = "lootbox/xmas", 
-        gains = {
+    -- {
+    --     label = "Caisse Hivernale", 
+    --     coins = 2000,
+    --     img = "lootbox/xmas", 
+    --     gains = {
              
-            ----COMMUN----
-            {label = "Dominator GSX", item = "gbdominatorgsx", img = "vehicles/gbdominatorgsx", type = "Vehicle", typeLabel = '<p style="color: #69db7c;">Commun</p>', chance = 40, sell = 500, unique = true},
-            {label = "Banshee S", item = "gbbanshees", img = "vehicles/gbbanshees", type = "Vehicle", typeLabel = '<p style="color: #69db7c;">Commun</p>', chance = 40, sell = 500, unique = true},
-            {label = "Vivant", item = "gbvivant", img = "vehicles/gbvivant", type = "Vehicle", typeLabel = '<p style="color: #69db7c;">Commun</p>', chance = 40, sell = 500, unique = true},
+    --         ----COMMUN----
+    --         {label = "Dominator GSX", item = "gbdominatorgsx", img = "vehicles/gbdominatorgsx", type = "Vehicle", typeLabel = '<p style="color: #69db7c;">Commun</p>', chance = 40, sell = 500, unique = true},
+    --         {label = "Banshee S", item = "gbbanshees", img = "vehicles/gbbanshees", type = "Vehicle", typeLabel = '<p style="color: #69db7c;">Commun</p>', chance = 40, sell = 500, unique = true},
+    --         {label = "Vivant", item = "gbvivant", img = "vehicles/gbvivant", type = "Vehicle", typeLabel = '<p style="color: #69db7c;">Commun</p>', chance = 40, sell = 500, unique = true},
             
-            ----RARE----
-            {label = "Starlight", item = "gbstarlight", img = "vehicles/gbstarlight", type = "Vehicle", typeLabel = '<p style="color: #339af0;">Rare</p>', chance = 35, sell = 1000, unique = true},
-            {label = "Argento 7F", item = "gbargento7f", img = "vehicles/gbargento7f", type = "Vehicle", typeLabel = '<p style="color: #339af0;">Rare</p>', chance = 35, sell = 1000, unique = true},
-            {label = "1250 Tokens", item = 1250, img = "coins", type = "Coin", typeLabel = '<p style="color: #339af0;">Rare</p>', chance = 35, sell = 1000, unique = false},
-            {label = "Turismo GT", item = "gbturismogt", img = "vehicles/gbturismogt", type = "Vehicle", typeLabel = '<p style="color: #339af0;">Rare</p>', chance = 35, sell = 1000, unique = true},
-            {label = "Elegy X", item = "elegyx", img = "vehicles/elegyx", type = "Vehicle", typeLabel = '<p style="color: #339af0;">Rare</p>', chance = 35, sell = 1000, unique = true},
-            {label = "250.000$", item = 250000, img = "money/money3", type = "Money", typeLabel = '<p style="color: #339af0;">Rare</p>', chance = 35, sell = 1000, unique = false},
-            {label = "Mogul RS", item = "gbmogulrs", img = "vehicles/gbmogulrs", type = "Vehicle", typeLabel = '<p style="color: #339af0;">Rare</p>', chance = 35, sell = 1000, unique = true},
+    --         ----RARE----
+    --         {label = "Starlight", item = "gbstarlight", img = "vehicles/gbstarlight", type = "Vehicle", typeLabel = '<p style="color: #339af0;">Rare</p>', chance = 35, sell = 1000, unique = true},
+    --         {label = "Argento 7F", item = "gbargento7f", img = "vehicles/gbargento7f", type = "Vehicle", typeLabel = '<p style="color: #339af0;">Rare</p>', chance = 35, sell = 1000, unique = true},
+    --         {label = "1250 Tokens", item = 1250, img = "coins", type = "Coin", typeLabel = '<p style="color: #339af0;">Rare</p>', chance = 35, sell = 1000, unique = false},
+    --         {label = "Turismo GT", item = "gbturismogt", img = "vehicles/gbturismogt", type = "Vehicle", typeLabel = '<p style="color: #339af0;">Rare</p>', chance = 35, sell = 1000, unique = true},
+    --         {label = "Elegy X", item = "elegyx", img = "vehicles/elegyx", type = "Vehicle", typeLabel = '<p style="color: #339af0;">Rare</p>', chance = 35, sell = 1000, unique = true},
+    --         {label = "250.000$", item = 250000, img = "money/money3", type = "Money", typeLabel = '<p style="color: #339af0;">Rare</p>', chance = 35, sell = 1000, unique = false},
+    --         {label = "Mogul RS", item = "gbmogulrs", img = "vehicles/gbmogulrs", type = "Vehicle", typeLabel = '<p style="color: #339af0;">Rare</p>', chance = 35, sell = 1000, unique = true},
 
-            ----LÉGENDAIRE---
-            {label = "Comet S2RC", item = "gbcomets2rc", img = "vehicles/gbcomets2rc", type = "Vehicle", typeLabel = '<p style="color: #fcc419;">Légendaire</p>', chance = 20, sell = 1500, unique = true},
-            {label = "Super D3", item = "superd3", img = "vehicles/superd3", type = "Vehicle", typeLabel = '<p style="color: #fcc419;">Légendaire</p>', chance = 20, sell = 1500, unique = true},
-            {label = "Solace", item = "gbsolace", img = "vehicles/gbsolace", type = "Vehicle", typeLabel = '<p style="color: #fcc419;">Légendaire</p>', chance = 20, sell = 1500, unique = true},
-            {label = "Comet CL", item = "gbcometcl", img = "vehicles/gbcometcl", type = "Vehicle", typeLabel = '<p style="color: #fcc419;">Légendaire</p>', chance = 20, sell = 1500, unique = true},
-            {label = "Coqvice", item = "coqvice", img = "vehicles/coqvice", type = "Vehicle", typeLabel = '<p style="color: #fcc419;">Légendaire</p>', chance = 20, sell = 1500, unique = true},
+    --         ----LÉGENDAIRE---
+    --         {label = "Comet S2RC", item = "gbcomets2rc", img = "vehicles/gbcomets2rc", type = "Vehicle", typeLabel = '<p style="color: #fcc419;">Légendaire</p>', chance = 20, sell = 1500, unique = true},
+    --         {label = "Super D3", item = "superd3", img = "vehicles/superd3", type = "Vehicle", typeLabel = '<p style="color: #fcc419;">Légendaire</p>', chance = 20, sell = 1500, unique = true},
+    --         {label = "Solace", item = "gbsolace", img = "vehicles/gbsolace", type = "Vehicle", typeLabel = '<p style="color: #fcc419;">Légendaire</p>', chance = 20, sell = 1500, unique = true},
+    --         {label = "Comet CL", item = "gbcometcl", img = "vehicles/gbcometcl", type = "Vehicle", typeLabel = '<p style="color: #fcc419;">Légendaire</p>', chance = 20, sell = 1500, unique = true},
+    --         {label = "Coqvice", item = "coqvice", img = "vehicles/coqvice", type = "Vehicle", typeLabel = '<p style="color: #fcc419;">Légendaire</p>', chance = 20, sell = 1500, unique = true},
 
-            ----ULTIME----
-            {label = "Hurricane", item = "hurricane", img = "vehicles/hurricane", type = "Vehicle", typeLabel = '<p style="color: #c92a2a;">Ultime</p>', chance = 5, sell = 2000, unique = true},
-            {label = "1750 Tokens", item = 1750, img = "coins", type = "Coin", typeLabel = '<p style="color: #c92a2a;">Ultime</p>', chance = 35, sell = 1000, unique = false},
-            {label = "AKS-74U", item = "AKS74U", img = "weapons/weapon_aks74u", type = "Weapon", typeLabel = '<p style="color: #c92a2a;">Ultime</p>', chance = 2, sell = 2000, unique = true},
-            {label = "Cyber", item = "gblod4", img = "vehicles/gblod4", type = "Vehicle", typeLabel = '<p style="color: #c92a2a;">Ultime</p>', chance = 5, sell = 2000, unique = true},
-            {label = "500.000$", item = 500000, img = "money/money5", type = "Money", typeLabel = '<p style="color: #c92a2a;">Ultime</p>', chance = 20, sell = 1500, unique = false},
-            {label = "SCAR-17", item = "SCAR17FM", img = "weapons/WEAPON_SCAR17FM", type = "item", typeLabel = '<p style="color: #c92a2a;">Ultime</p>', chance = 2, sell = 2000, unique = true},
-            {label = "TR-3S", item = "gbtr3s", img = "vehicles/gbtr3s", type = "Vehicle", typeLabel = '<p style="color: #c92a2a;">Ultime</p>', chance = 5, sell = 2000, unique = true},
-        }
-    },
+    --         ----ULTIME----
+    --         {label = "Hurricane", item = "hurricane", img = "vehicles/hurricane", type = "Vehicle", typeLabel = '<p style="color: #c92a2a;">Ultime</p>', chance = 5, sell = 2000, unique = true},
+    --         {label = "1750 Tokens", item = 1750, img = "coins", type = "Coin", typeLabel = '<p style="color: #c92a2a;">Ultime</p>', chance = 35, sell = 1000, unique = false},
+    --         {label = "AKS-74U", item = "AKS74U", img = "weapons/weapon_aks74u", type = "Weapon", typeLabel = '<p style="color: #c92a2a;">Ultime</p>', chance = 2, sell = 2000, unique = true},
+    --         {label = "Cyber", item = "gblod4", img = "vehicles/gblod4", type = "Vehicle", typeLabel = '<p style="color: #c92a2a;">Ultime</p>', chance = 5, sell = 2000, unique = true},
+    --         {label = "500.000$", item = 500000, img = "money/money5", type = "Money", typeLabel = '<p style="color: #c92a2a;">Ultime</p>', chance = 20, sell = 1500, unique = false},
+    --         {label = "SCAR-17", item = "SCAR17FM", img = "weapons/WEAPON_SCAR17FM", type = "item", typeLabel = '<p style="color: #c92a2a;">Ultime</p>', chance = 2, sell = 2000, unique = true},
+    --         {label = "TR-3S", item = "gbtr3s", img = "vehicles/gbtr3s", type = "Vehicle", typeLabel = '<p style="color: #c92a2a;">Ultime</p>', chance = 5, sell = 2000, unique = true},
+    --     }
+    -- },
 
     -- {
     --     label = "Fidélité", 

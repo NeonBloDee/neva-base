@@ -174,6 +174,15 @@ Config.Pictures = {
     ['accessory_scope'] = '/src/html/assets/icons/accessory_scope.png',
     ['accessory_grip'] = '/src/html/assets/icons/accessory_grip.png',
 
+    ---------Arme modée-----------
+    ['doublebarrel'] = '/src/html/assets/icons/doublebarrel.png',
+    ['honeybadgercod'] = '/src/html/assets/icons/honeybadgercod.png',
+    ['scar17fm'] = '/src/html/assets/icons/scar17fm.png',
+    ['fireaxe'] = '/src/html/assets/icons/fireaxe.png',
+    ['fn509'] = '/src/html/assets/icons/fn509.png',
+    ['vp9'] = '/src/html/assets/icons/vp9.png',
+    ['ar15'] = '/src/html/assets/icons/ar15.png',
+
     ---------DROGUE-----------
     ['empty_bag'] = '/src/html/assets/icons/empty_bag.png',
     ["cokepure"] = '/src/html/assets/icons/cokepure.png',
