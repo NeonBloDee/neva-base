@@ -14,3 +14,4 @@ resources/\[phone\]/lb-upload/server/previousUrl.txt
 *.ini
 /resources/\[phone\]
 /FXServer
+server.cfg
