@@ -271,7 +271,7 @@ Citizen.CreateThread(function ()
             end,
             onSelect = function (data)
                 local veh = ESX.Game.GetClosestVehicle(Player.coords)
-                AddFuel(GetVehiclePedIsIn(PlayerPedId(), false), 100)
+                exports['fuel']:SetFuel(veh, 100.0)
             end
         },
         {

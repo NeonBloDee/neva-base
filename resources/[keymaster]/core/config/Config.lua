@@ -139,7 +139,7 @@ SunnyConfigServ = {
                     label = 'Gouvernement'
                 },
                 ['cardealer'] = {
-                    pos = vec3(-601.75250244141, -1124.5499267578, 22.319437026978),
+                    pos = vec3(-1416.7259521484, -1003.5352783203, 6.0726914405823),
                     message = 'Un personnel du Concessionnaire Automobile est attendu à l\'accueil',
                     job = 'cardealer',
                     label = 'Concessionnaire Automobile'

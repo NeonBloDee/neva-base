@@ -1533,8 +1533,16 @@ function adminManagement:staffMenu()
             RageUI.Button("Essence maximum", nil, {}, true, {
                 onSelected = function()
                     local veh = ESX.Game.GetClosestVehicle(Player.coords)
-                    AddFuel(GetVehiclePedIsIn(PlayerPedId(), false), 100)
-                    ESX.ShowNotification('✅ Plein du véhicule augmenter avec succès')
+                    if veh and DoesEntityExist(veh) then
+                        if exports and exports['fuel'] and exports['fuel'].SetFuel then
+                            exports['fuel']:SetFuel(veh, 100.0)
+                            ESX.ShowNotification('✅ Le véhicule a maintenant le plein d\'essence.')
+                        else
+                            ESX.ShowNotification('🚨 Le système de gestion du carburant est introuvable ou non initialisé.')
+                        end
+                    else
+                        ESX.ShowNotification('🚨 Aucun véhicule à proximité.')
+                    end
                 end
             })
             end
