@@ -1,7 +1,7 @@
 Citizen.CreateThread(function()
 	while ESX == nil do Wait(1) end
 	    AddZones('chantier_zone', {
-        Position = vector3(-510.4909, -1001.595, 23.5505),
+        Position = vector3(-197.91111755371, -1101.7471923828, 21.778604507446),
         Dist = 10,
         Public = true,
         Job = nil,

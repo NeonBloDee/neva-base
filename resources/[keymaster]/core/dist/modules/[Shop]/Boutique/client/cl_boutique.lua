@@ -659,9 +659,9 @@ function camVeh()
     RenderScriptCams(true, true --[[ activer l'animation ]], 2000 --[[ temps de l'animation ]], true, true)
 end
 
-RegisterCommand('boutique', function()
-    openMenuBoutique()
-end)
+-- RegisterCommand('boutique', function()
+--     openMenuBoutique()
+-- end)
 
 local NumberCharset = {}
 local Charset = {}

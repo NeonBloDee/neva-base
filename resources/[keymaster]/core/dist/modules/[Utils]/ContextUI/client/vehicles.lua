@@ -259,20 +259,22 @@ Citizen.CreateThread(function ()
             icon = "fa-solid fa-car-side",
             distance = 50.0,
             canInteract = function ()
-                if ESX.GetPlayerData()["group"] == "user" then
-                    return false
-                end
+            if ESX.GetPlayerData()["group"] == "user" then
+                return false
+            end
 
-                if not adminManagement.Service then
-                    return false
-                end
+            if not adminManagement.Service then
+                return false
+            end
 
-                return true
+            return true
             end,
             onSelect = function (data)
-                local veh = ESX.Game.GetClosestVehicle(Player.coords)
-                exports['fuel']:SetFuel(veh, 100.0)
+            local veh = ESX.Game.GetClosestVehicle(Player.coords)
+            exports['fuel']:SetFuel(veh, 100.0)
+            ESX.ShowNotification("Le véhicule a maintenant le plein d'essence.")
             end
+        },
         },
         {
             menuName = "admin-option-veh",

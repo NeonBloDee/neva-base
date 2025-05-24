@@ -21,106 +21,71 @@ local WorkerChillPos = {
 
 local workzone = {
 	{
-		pos = vector3(-487.0, -986.95, 28.13),
-		Heading = 273.2,
+		pos = vector3(-167.73760986328, -1086.3040771484, 30.139402389526),
+		Heading = 159.6531829834,
 		scenario = "WORLD_HUMAN_WELDING"
 	},
 	{
-		pos = vector3(-483.987, -986.7827, 28.13171),
-		Heading = 90.383460998535,
+		pos = vector3(-151.5513458252, -1093.3973388672, 30.139408111572),
+		Heading = 160.44879150391,
 		scenario = "WORLD_HUMAN_WELDING"
 	},
 	{
-		pos = vector3(-482.7948, -995.856, 28.13281),
-		Heading = 95.914886474609,
+		pos = vector3(-141.64074707031, -1091.9742431641, 30.139408111572),
+		Heading = 248.91160583496,
 		scenario = "WORLD_HUMAN_WELDING"
 	},
 	{
-		pos = vector3(-492.5294, -1005.513, 28.13171),
-		Heading = 99.648864746094,
+		pos = vector3(-148.31298828125, -1110.0008544922, 30.1394119262),
+		Heading = 355.54779052734,
 		scenario = "WORLD_HUMAN_WELDING"
 	},
 	{
-		pos = vector3(-449.08, -998.68, 22.96),
-		Heading = 268.47,
+		pos = vector3(-168.67919921875, -1057.5544433594, 30.13939666748),
+		Heading = 250.13125610352,
 		scenario = "WORLD_HUMAN_HAMMERING"
 	},
 	{
-		pos = vector3(-464.5076, -1000.148, 22.71595),
-		Heading = 3.7162296772003,
+		pos = vector3(-186.76402282715, -1099.1599121094, 30.229829788208),
+		Heading = 346.61557006836,
 		scenario = "WORLD_HUMAN_HAMMERING"
 	},
 	{
-		pos = vector3(-465.889, -998.6741, 22.69423),
-		Heading = 270.44155883789,
+		pos = vector3(-165.35771179199, -1065.0500488281, 30.139423370361, ),
+		Heading = 343.34246826172,
 		scenario = "WORLD_HUMAN_HAMMERING"
-	},
-	{
-		pos = vector3(-464.4124, -997.1024, 22.71765),
-		Heading = 184.32759094238,
-		scenario = "WORLD_HUMAN_HAMMERING"
-	},
-	{
-		pos = vector3(-447.649, -997.1122, 22.98477),
-		Heading = 181.08190917969,
-		scenario = "WORLD_HUMAN_HAMMERING"
-	},
-	{
-		pos = vector3(-446.2953, -998.5501, 22.00837),
-		Heading = 100.51464080811,
-		scenario = "WORLD_HUMAN_HAMMERING"
-	},
-	{
-		pos = vector3(-447.7392, -1000.15, 22.98311),
-		Heading = 359.67852783203,
-		scenario = "WORLD_HUMAN_HAMMERING"
-	},
-	{
-		pos = vector3(-452.71, -1005.6, 22.94),
-		Heading = 293.07,
-		scenario = "WORLD_HUMAN_CONST_DRILL"
-	},
-	{
-		pos = vector3(-447.183, -1002.664, 22.992),
-		Heading = 125.80912780762,
-		scenario = "WORLD_HUMAN_CONST_DRILL"
-	},
-	{
-		pos = vector3(-449.1005, -1006.923, 22.96139),
-		Heading = 24.118503570557,
-		scenario = "WORLD_HUMAN_CONST_DRILL"
 	}
 }
 
 local WorkerWorkingPos = {
 	{
-		pos = vector3(-482.87, -985.45, 28.13),
-		Heading = 90.93,
+		pos = vector3(-173.0322265625, -1084.6214599609, 30.139402389526),
+		Heading = 163.71911621094,
 		scenario = "WORLD_HUMAN_WELDING"
 	},
 	{
-		pos = vector3(-494.18, -984.56, 28.13),
-		Heading = 181.04,
+		pos = vector3(-160.84692382812, -1084.7532958984, 30.139400482178),
+		Heading = 195.59411621094,
 		scenario = "WORLD_HUMAN_WELDING"
 	},
 	{
-		pos = vector3(-462.95, -998.48, 22.74),
-		Heading = 90.48,
+		pos = vector3(-145.56604003906, -1087.4483642578, 30.139408111572),
+		Heading = 336.43014526367,
 		scenario = "WORLD_HUMAN_HAMMERING"
 	},
 	{
-		pos = vector3(-447.86, -1015.17, 22.99),
-		Heading = 176.85,
+		pos = vector3(-142.95314025879, -1099.3913574219, 30.139408111572),
+		Heading = 158.58015441895,
 		scenario = "WORLD_HUMAN_HAMMERING"
 	},
 	{
-		pos = vector3(-450.17, -1002.06, 23.11),
-		Heading = 191.62,
+		pos = vector3(-158.4129486084, -1063.5252685547, 30.139427185059),
+		Heading = 70.617202758789,
 		scenario = "WORLD_HUMAN_CONST_DRILL"
 	},
 	{
-		pos = vector3(-447.62, -1005.67, 23.03),
-		Heading = 52.82,
+		pos = vector3(-189.32077026367, -1109.6628417969, 30.139400482178),
+		Heading = 69.560684204102,
 		scenario = "WORLD_HUMAN_CONST_DRILL"
 	}
 }

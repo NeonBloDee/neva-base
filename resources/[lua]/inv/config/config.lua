@@ -257,8 +257,7 @@ Config.PosClotheShop = {
             menu = 'shopui_title_lowendfashion2',
             type = 'mask', -- or mask
             coords = {
-                vec3(-1264.233154, -1425.383301, 4.373890-1.0)
-
+                vec3(-1337.1519775391, -1277.3803710938, 4.8798298835754 - 1.0)
             },
             blip = {
                 color = 18,
