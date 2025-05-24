@@ -9,6 +9,9 @@ _CHASSE = {
     fistChasse = false,
 
     levels = 0,
+    
+    -- Ajout du niveau maximum
+    MAX_LEVEL = 2000,
 
     myAnimals = {},
     myAnimalsSpawn = {},
@@ -215,10 +218,10 @@ RegisterNetEvent('sunny:chasse:startChasse', function(value, levels, animals)
             end
 
             exports['core-ui']:drawInfo('Informations Chasse', {
-                    {title = 'Experience', subtitle = ('%s/1000'):format(_CHASSE.levels)},
+                    {title = 'Experience', subtitle = ('%s/%s'):format(_CHASSE.levels, _CHASSE.MAX_LEVEL)},
                     {title = 'Animaux', subtitle = ('%s'):format('\n'..table.concat(_CHASSE.myAnimals, ", ") or 'Lapin')},
             })
-            -- _CHASSE.Info('Informations Chasse', {'Level', 'Animaux autorisées', ''}, {_CHASSE.levels..'/1000','', table.concat(_CHASSE.myAnimals, ", ") or 'Lapin'})
+            -- _CHASSE.Info('Informations Chasse', {'Level', 'Animaux autorisées', ''}, {_CHASSE.levels..'/'..._CHASSE.MAX_LEVEL,'', table.concat(_CHASSE.myAnimals, ", ") or 'Lapin'})
 
             if not _CHASSE.inChasse then
                 break
@@ -295,7 +298,7 @@ RegisterNetEvent('sunny:chasse:updateLevel', function(level, animals, value)
     _CHASSE.levels = level
     _CHASSE.myAnimals = animals
 
-    if value ~= 'newAnimal' then
+    if value ~= 'newAnimal' and value ~= 'reward' then
         for i = 1, 1 do
             ESX.Game.SpawnLocalPed(2, _CHASSE.animals[math.random( 1, #_CHASSE.animals )], vector3(SunnyConfigServ.Activity.Chasse.Animals[i].x + math.random( 1, 50 ), SunnyConfigServ.Activity.Chasse.Animals[i].y + math.random( 1, 50 ), SunnyConfigServ.Activity.Chasse.Animals[i].z), 90.0, function(ped)
 
@@ -311,6 +314,20 @@ RegisterNetEvent('sunny:chasse:updateLevel', function(level, animals, value)
         end
 
         ESX.ShowNotification('🐵 Un nouvel animal t\'as été autorisé de chasser')
+    elseif value == 'reward' then
+        -- Animation spéciale ou message pour la récompense de niveau max
+        exports['notif']:SendAdvanced(
+            "Vous êtes un chasseur d'élite maintenant! Vos compétences sont au maximum!", 
+            "Maître Chasseur", 
+            "Récompense obtenue", 
+            nil, 
+            "success", 
+            8, 
+            nil, 
+            nil, 
+            "#4CAF50", 
+            "NIVEAU MAX!"
+        )
     end
 end)
 

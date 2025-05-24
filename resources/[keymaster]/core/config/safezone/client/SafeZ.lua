@@ -18,7 +18,6 @@ SunnyConfigSafe.SafeZone = {
         {group = 0, key = 106, message = '~r~Vous ne pouvez pas faire ceci en SafeZone'},
         {group = 0, key = 168, message = '~r~Vous ne pouvez pas faire ceci en SafeZone'},
         {group = 0, key = 160, message = '~r~Vous ne pouvez pas faire ceci en SafeZone'},
-        {group = 0, key = 160, message = '~r~Vous ne pouvez pas faire ceci en SafeZone'},
         {group = 0, key = 45, message = '~r~Vous ne pouvez pas faire ceci en SafeZone'},
     }
 }
