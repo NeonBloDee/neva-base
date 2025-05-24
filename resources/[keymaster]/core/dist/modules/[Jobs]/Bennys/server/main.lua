@@ -89,17 +89,17 @@ end)
 RegisterNetEvent('sunny:bennys:repairVehicle', function(plate)
     local xPlayer = ESX.GetPlayerFromId(source)
 
-    if ESX.PlayerData.job.name == 'garage_octacyp'
-        or ESX.PlayerData.job.name == 'garage_lscustom'
-        or ESX.PlayerData.job.name == 'garage_speedhunters'
-        or ESX.PlayerData.job.name == 'garage_paletocustoms'
-        or ESX.PlayerData.job.name == 'garage_eastcustoms'
-        or ESX.PlayerData.job.name == 'garage_driveline' then
+    if not xPlayer then return end
+
+    if not (xPlayer.job.name == 'garage_octacyp'
+        or xPlayer.job.name == 'garage_lscustom'
+        or xPlayer.job.name == 'garage_speedhunters'
+        or xPlayer.job.name == 'garage_paletocustoms'
+        or xPlayer.job.name == 'garage_eastcustoms'
+        or xPlayer.job.name == 'garage_driveline') then
             DropPlayer(source, 'Tu cheat pour repair ??')
         return 
     end
-
-    if not xPlayer then return end
 
     sendLog(('Réparation de véhicule bennys (%s - %s)'):format(xPlayer.name, xPlayer.UniqueID), {
         author = xPlayer.name,
