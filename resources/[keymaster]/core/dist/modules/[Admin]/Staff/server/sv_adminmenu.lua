@@ -250,7 +250,6 @@ end)
 
 RegisterNetEvent('sunny:admin:restart', function()
     local source = source
-
     local xPlayer = ESX.GetPlayerFromId(source)
 
     if not xPlayer then return end
@@ -543,15 +542,42 @@ function adminManagement:AddPlayer(id)
     end
 end
 
+--- 
+
+-- function adminManagement:UpdateSingleStaff(playerId)
+--     if not playerId then return end
+--     if not GetPlayerName(playerId) then return end
+
+--     if self.staffList[playerId] then
+--         TriggerClientEvent("sunny:admin:addStaff", playerId, self.staffList)
+--     else
+--         TriggerClientEvent("sunny:admin:removeStaff", playerId)
+--     end
+-- end
+
 local lastStaffListHash = nil
 local lastStaffUpdate = 0
+local debounce = false
 
-function tableHash(tbl)
-    return json.encode(tbl)
+local function stableEncode(tbl)
+    local keys = {}
+    for k in pairs(tbl) do table.insert(keys, k) end
+    table.sort(keys)
+    local result = {}
+    for _, k in ipairs(keys) do
+        local v = tbl[k]
+        table.insert(result, tostring(k) .. ":" .. tostring(v))
+    end
+    return table.concat(result, "|")
 end
 
+function tableHash(tbl)
+    return stableEncode(tbl)
+end
+
+
 function adminManagement:UpdateStaffs()
-    for k,v in pairs(self.staffList) do
+    for k, _ in pairs(self.staffList) do
         if not GetPlayerName(k) then
             self.staffList[k] = nil
         end
@@ -560,19 +586,32 @@ function adminManagement:UpdateStaffs()
     local currentHash = tableHash(self.staffList)
     local now = os.time()
 
-    if lastStaffListHash == currentHash and (now - lastStaffUpdate) < 2 then
+    if debounce or (lastStaffListHash == currentHash and (now - lastStaffUpdate) < 2) then
         return
     end
+    debounce = true
 
     lastStaffListHash = currentHash
     lastStaffUpdate = now
 
-    for k,v in pairs(self.Players) do
-        if v.group ~= 'user' then
-            TriggerClientEvent("sunny:admin:addStaff", k, self.staffList)
+    local count = 0
+    for _ in pairs(self.staffList) do count = count + 1 end
+
+    for playerId, data in pairs(self.Players) do
+        if data.group ~= 'user' and GetPlayerName(playerId) then
+            TriggerClientEvent("sunny:admin:addStaff", playerId, {
+                list = self.staffList,
+                count = count
+            })
         end
     end
+
+    SetTimeout(1500, function()
+        debounce = false
+    end)
 end
+
+---
 
 RegisterNetEvent('sunny:admin:goto', function(target)
     local source = source
@@ -838,20 +877,16 @@ RegisterNetEvent('sunny:admin:setGroupWithUniqueID', function(target, group)
     local source = source
     local xPlayer = ESX.GetPlayerFromId(source)
     
-    -- Vérification des permissions de l'admin
     if xPlayer.getGroup() == 'user' then 
         return 
     end
 
-    -- Récupération du joueur cible
     local targetPlayer = ReturnPlayerIdUseESXfunctions(target)
     if targetPlayer then
         local targetPlayerESX = ESX.GetPlayerFromId(targetPlayer.source)
 
-        -- Changement du groupe du joueur cible
         targetPlayerESX.setGroup(group)
 
-        -- Mise à jour de la liste du personnel administratif
         if group == 'user' then
             adminManagement.staffList[targetPlayerESX.source] = nil
         else
@@ -866,19 +901,14 @@ RegisterNetEvent('sunny:admin:setGroupWithUniqueID', function(target, group)
             }
         end
 
-        -- Attente d'une seconde pour s'assurer que toutes les mises à jour sont effectuées
         Wait(1000)
         
-        -- Redémarrage du client pour mettre à jour les données
         TriggerClientEvent('sunny:admin:restart', -1)
 
-        -- Notification et mise à jour du groupe côté client
         TriggerClientEvent('sunny:admin:checkGroupOnChangePlayerGroup', targetPlayerESX.source, group)
 
-        -- Mise à jour de la liste du personnel administratif
         adminManagement:UpdateStaffs()
 
-        -- Journalisation de l'action
         sendLog(('Le Staff (%s - %s) a changé le groupe de (%s - %s) en %s (staff)'):format(xPlayer.name, xPlayer.UniqueID ,targetPlayer.name, targetPlayer.UniqueID, group), {
             author = xPlayer.name,
             fields = {
@@ -890,7 +920,6 @@ RegisterNetEvent('sunny:admin:setGroupWithUniqueID', function(target, group)
             channel = 'staff_change_player_group'
         })
     else
-        -- Si le joueur cible n'est pas en ligne, mettre à jour le groupe dans la base de données
         MySQL.Async.execute('UPDATE users SET permission_group = @p WHERE UniqueID = @U', {
             ['@p'] = group,
             ['@U'] = target

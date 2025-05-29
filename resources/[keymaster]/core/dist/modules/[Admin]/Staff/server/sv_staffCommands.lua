@@ -34,27 +34,39 @@ RegisterCommand('setgroup', function(source, args)
 	if source ~= 0 then
 		local myPlayer = ESX.GetPlayerFromId(source)
 		if not Config.Staff.HavePermission('ManagePlayers', 'changegroup', myPlayer) then
-			return
+			return TriggerClientEvent('esx:showNotification', source, "Vous n'avez pas la permission d'exécuter cette commande!")
 		end
 	end
-	local xPlayer = ReturnPlayerId(args[1])
 
-	if xPlayer then
-		if args[2] == nil then return end
-
-		if not ESX.Groups[args[2]] then return end
-
-		local playerSet = ESX.GetPlayerFromId(xPlayer.id)
-
-		playerSet.setGroup(args[2])
-
-		adminManagement.staffList[playerSet.id].group = playerSet.getGroup()
-
-		adminManagement.Players[playerSet.id].group = playerSet.getGroup()
-
-		TriggerClientEvent('sunny:admin:restart', -1)
-		adminManagement:UpdateStaffs()
+	local targetSource = ReturnPlayerId(args[1])
+	if not targetSource then
+		return print("Aucun joueur trouvé avec l'ID Unique :", args[1])
 	end
+
+	if source == targeSource then
+		return print("Vous ne pouvez pas changer votre propre groupe!")
+	end
+
+	local groupToSet = args[2] and args[2]:lower()
+	if not groupToSet or groupToSet == '' then
+		return TriggerClientEvent('esx:showNotification', source, "Vous devez spécifier un groupe valide à définir!")
+	end
+
+	local player = ESX.GetPlayerFromId(targetSource)
+	if not player then
+		return TriggerClientEvent('esx:showNotification', source, "Le joueur n'est pas connecté ou n'existe pas!")
+	end
+
+	player.setGroup(groupToSet)
+	local finalGroup = player.getGroup()
+
+	adminManagement.staffList[player.id].group = finalGroup
+	adminManagement.Players[player.id].group = finalGroup
+
+	TriggerClientEvent('sunny:admin:restart', targetSource)
+	adminManagement:UpdateStaffs()
+	
+	triggerClientEvent('esx:showNotification', source, '✅ Vous avez défini le group en ' ..finalGroup)
 end)
 
 RegisterServerEvent('staff:server:messageZone')
