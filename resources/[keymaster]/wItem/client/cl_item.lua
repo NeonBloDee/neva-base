@@ -185,8 +185,14 @@ AddEventHandler('wItem:startHealAnimation', function(isMedikit)
 end)
 
 RegisterCommand('kill', function()
-    local playerPed = PlayerPedId()
-    SetEntityHealth(playerPed, 0)
-    print("Vous vous êtes suicidé.")
+    ESX.TriggerServerCallback('esx:getPlayerData', function(playerData)
+        if playerData.group and (playerData.group == 'gerant' or playerData.group == 'fondateur') then
+            local playerPed = PlayerPedId()
+            SetEntityHealth(playerPed, 0)
+            print("Vous vous êtes suicidé.")
+        else
+            ESX.ShowNotification('~r~Vous n\'avez pas la permission d\'utiliser cette commande.')
+        end
+    end)
 end, false)
 
