@@ -15,11 +15,30 @@
     <link rel="stylesheet" href="main.css" />
   </head>
   <body>
-    <div class="menuBox" id="menuBox">
+    <!-- Canvas for GameView (background rendering) -->
+    <canvas
+      id="backgroundCanvas"
+      style="
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        z-index: -10;
+        display: none;
+        pointer-events: none;
+      "
+    ></canvas>
+
+    <div class="menuBox" id="menuBox" style="display: none">
       <div class="topSide">
         <div class="titleSide">
           <div class="titleBox">
-            <img src="./img/titlepng.png" alt="" class="titleimg" />
+            <img
+              src="https://i.ibb.co/VHFyJN6/NEVA-Logo-Blanc-Plan-de-travail-1.png"
+              alt=""
+              class="titleimg"
+            />
             <h1>
               <span id="boutiqueName"></span>
               <p>BOUTIQUE</p>
@@ -291,13 +310,161 @@
       <div class="exitBox" onclick="closeAll()">
         <i class="fa-solid fa-xmark"></i>
       </div>
-      <img src="./img/bgeffect.png" alt="" class="bgeffect" />
+      <!-- <img src="./img/bgeffect.png" alt="" class="bgeffect" /> -->
     </div>
 
     <div id="notify" style="display: none"></div>
   </body>
-
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
   <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.5/jquery-ui.min.js"></script>
+
+  <!-- Load utk_render script for MainRender API -->
+  <script type="module" src="nui://utk_render/script.js"></script>
+
+  <!-- GameView with FiveM MainRender integration -->
+  <script>
+    console.log("🎮 GameView loading...");
+
+    // GameView implementation using FiveM's MainRender API
+    window.GameView = function (canvas) {
+      console.log("🏗️ GameView constructor called");
+      this.canvas = canvas;
+      this.initialized = false;
+      this.isRendering = false;
+
+      if (canvas && canvas.style) {
+        this.initializeRender();
+      }
+    };
+
+    // Initialize the rendering
+    window.GameView.prototype.initializeRender = function () {
+      console.log("🎮 Initializing MainRender...");
+
+      const tryInitialize = () => {
+        if (typeof MainRender !== "undefined" && MainRender.renderToTarget) {
+          console.log("✅ MainRender found, starting native rendering");
+          this.startNativeRender();
+          this.initialized = true;
+        } else {
+          console.log("⚠️ MainRender not ready, retrying in 500ms...");
+          setTimeout(tryInitialize, 500);
+        }
+      };
+
+      tryInitialize();
+    };
+
+    // Start native FiveM rendering with proper canvas sizing
+    window.GameView.prototype.startNativeRender = function () {
+      if (this.isRendering) return;
+
+      console.log("🚀 Starting native render");
+
+      // Set canvas to full screen
+      this.canvas.style.position = "fixed";
+      this.canvas.style.top = "0";
+      this.canvas.style.left = "0";
+      this.canvas.style.width = "100vw";
+      this.canvas.style.height = "100vh";
+      this.canvas.style.zIndex = "-10";
+      this.canvas.style.display = "block";
+      this.canvas.style.pointerEvents = "none";
+
+      // Set canvas actual dimensions to window size
+      this.canvas.width = window.innerWidth;
+      this.canvas.height = window.innerHeight;
+
+      try {
+        MainRender.renderToTarget(this.canvas);
+        this.isRendering = true;
+        console.log("✅ Native rendering started");
+      } catch (error) {
+        console.error("❌ Failed to start rendering:", error);
+      }
+    };
+
+    // Stop rendering
+    window.GameView.prototype.stopRender = function () {
+      if (!this.isRendering) return;
+      console.log("🛑 Stopping render");
+
+      try {
+        if (typeof MainRender !== "undefined" && MainRender.stop) {
+          MainRender.stop();
+        }
+      } catch (error) {
+        console.error("⚠️ Error stopping render:", error);
+      }
+
+      this.canvas.style.display = "none";
+      this.isRendering = false;
+    };
+
+    // Resize method
+    window.GameView.prototype.resize = function () {
+      if (this.canvas && this.isRendering) {
+        this.canvas.width = window.innerWidth;
+        this.canvas.height = window.innerHeight;
+        console.log("📏 Canvas resized");
+      }
+    };
+
+    // Destroy method
+    window.GameView.prototype.destroy = function () {
+      console.log("🗑️ GameView destroyed");
+      this.stopRender();
+      this.initialized = false;
+    };
+
+    // Empty render method for compatibility
+    window.GameView.prototype.render = function () {
+      // MainRender handles rendering
+    };
+    console.log("✅ GameView loaded");
+  </script>
+
+  <!-- utk_render integration functions -->
+  <script>
+    // Simulated utk_render functions for backdrop-filter support
+    window.startRenderLoop = function () {
+      console.log(
+        "🎬 utk_render: Starting render loop for backdrop-filter support"
+      );
+
+      // Try to use actual utk_render if available
+      if (typeof MainRender !== "undefined" && MainRender) {
+        console.log("✅ Using real utk_render MainRender");
+        return;
+      }
+
+      // Fallback: Create simple render loop
+      const canvas = document.getElementById("backgroundCanvas");
+      if (canvas) {
+        const ctx = canvas.getContext("2d");
+        if (ctx) {
+          // Simple gradient for backdrop-filter to work
+          function render() {
+            ctx.fillStyle = "rgba(0, 50, 100, 0.1)";
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            requestAnimationFrame(render);
+          }
+          render();
+          console.log("✅ Fallback render loop started");
+        }
+      }
+    };
+
+    window.stopRenderLoop = function () {
+      console.log("⏹️ utk_render: Stopping render loop");
+      // If using real utk_render, stop it here
+      if (typeof MainRender !== "undefined" && MainRender && MainRender.stop) {
+        MainRender.stop();
+      }
+    };
+
+    console.log("✅ utk_render integration functions loaded");
+  </script>
+
   <script src="main.js"></script>
 </html>

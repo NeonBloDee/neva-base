@@ -17,3 +17,5 @@ resources/\[phone\]/lb-upload/server/previousUrl.txt
 server.cfg
 /txData
 /resources/\[stream\]
+/resources/\[keymaster\]/boutique
+/resources/\[keymaster\]/utk_render

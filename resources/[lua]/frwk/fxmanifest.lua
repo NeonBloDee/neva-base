@@ -8,8 +8,12 @@ lua54 'yes'
 escrow_ignore {
 	"config.lua",
 	"config.weapons.lua",
-	"server/main.lua",
-
+	"server/*.lua",
+	"server/classes/*.lua",
+	"client/*.lua",
+	"client/modules/*.lua",
+	"translation.lua",
+	"locale.lua",
 }
 
 shared_script '@ox_lib/init.lua'

@@ -268,13 +268,11 @@ Citizen.CreateThread(function ()
             end
 
             return true
-            end,
-            onSelect = function (data)
+            end,            onSelect = function (data)
             local veh = ESX.Game.GetClosestVehicle(Player.coords)
             exports['fuel']:SetFuel(veh, 100.0)
             ESX.ShowNotification("Le véhicule a maintenant le plein d'essence.")
             end
-        },
         },
         {
             menuName = "admin-option-veh",

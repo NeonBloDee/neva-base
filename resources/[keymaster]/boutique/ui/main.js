@@ -7,6 +7,133 @@ let cases = [];
 let coins = 0;
 let storeCode = 0;
 let currentElement = null;
+let gameView = null;
+
+// Function to initialize GameView with utk_render
+function initializeGameView() {
+  console.log("🎮 Initializing GameView with utk_render...");
+
+  try {
+    const canvas = document.getElementById("backgroundCanvas");
+    if (!canvas) {
+      console.error("❌ Background canvas not found!");
+      return false;
+    }
+
+    console.log("🎮 Showing canvas and starting GameView...");
+    canvas.style.display = "block";
+
+    // Get menuBox dimensions for optimal sizing
+    const menuBox = document.getElementById("menuBox");
+    let canvasWidth = window.innerWidth;
+    let canvasHeight = window.innerHeight;
+
+    if (menuBox) {
+      const menuBoxRect = menuBox.getBoundingClientRect();
+      console.log("📏 MenuBox dimensions:", {
+        width: menuBoxRect.width,
+        height: menuBoxRect.height,
+        x: menuBoxRect.x,
+        y: menuBoxRect.y,
+      });
+
+      // Use menuBox area for more efficient rendering
+      // Add some padding for blur effects
+      const padding = 50;
+      canvasWidth = Math.max(
+        menuBoxRect.width + padding * 2,
+        window.innerWidth
+      );
+      canvasHeight = Math.max(
+        menuBoxRect.height + padding * 2,
+        window.innerHeight
+      );
+
+      // Position canvas to cover the menuBox area optimally
+      canvas.style.left = Math.max(0, menuBoxRect.x - padding) + "px";
+      canvas.style.top = Math.max(0, menuBoxRect.y - padding) + "px";
+      canvas.style.width = canvasWidth + "px";
+      canvas.style.height = canvasHeight + "px";
+
+      console.log("📍 Canvas positioned at:", {
+        left: canvas.style.left,
+        top: canvas.style.top,
+        width: canvas.style.width,
+        height: canvas.style.height,
+      });
+    }
+
+    // Set canvas dimensions
+    canvas.width = canvasWidth;
+    canvas.height = canvasHeight;
+    console.log("📏 Canvas dimensions set to:", canvasWidth, "x", canvasHeight);
+
+    // Create GameView instance if available
+    if (window.GameView) {
+      try {
+        console.log("🚀 Creating GameView instance...");
+        gameView = new window.GameView(canvas);
+        console.log("✅ GameView instance created successfully");
+      } catch (error) {
+        console.error("❌ Failed to create GameView instance:", error);
+      }
+    } else {
+      console.warn(
+        "⚠️ GameView class not available, using utk_render directly"
+      );
+    }
+
+    // Initialize utk_render for backdrop-filter support
+    if (typeof startRenderLoop === "function") {
+      console.log("🎬 Starting utk_render loop...");
+      startRenderLoop();
+    } else {
+      console.warn("⚠️ utk_render startRenderLoop not available");
+    }
+
+    console.log("✅ GameView initialization completed");
+    return true;
+  } catch (error) {
+    console.error("❌ Failed to initialize GameView:", error);
+    return false;
+  }
+}
+
+// Function to destroy GameView and utk_render
+function destroyGameView() {
+  console.log("🗑️ Destroying GameView and utk_render...");
+
+  // Stop utk_render first
+  if (typeof stopRenderLoop === "function") {
+    console.log("⏹️ Stopping utk_render loop...");
+    stopRenderLoop();
+  }
+
+  // Destroy GameView instance
+  if (gameView) {
+    try {
+      if (gameView.stop) gameView.stop();
+      if (gameView.destroy) gameView.destroy();
+    } catch (error) {
+      console.error("❌ Error during GameView cleanup:", error);
+    }
+    gameView = null;
+  }
+
+  // Hide and reset canvas
+  const canvas = document.querySelector("#backgroundCanvas");
+  if (canvas) {
+    canvas.style.display = "none";
+    // Reset canvas position and size
+    canvas.style.left = "0";
+    canvas.style.top = "0";
+    canvas.style.width = "100vw";
+    canvas.style.height = "100vh";
+    console.log("🖼️ Canvas hidden and reset");
+  }
+
+  console.log("✅ GameView and utk_render destroyed");
+}
 
 function parseMessage(message) {
   const regexColor = /~([^h])~([^~]+)/g;
@@ -34,7 +161,15 @@ function post(name, data) {
 }
 
 function closeAll() {
-  $("#menuBox").fadeOut(500);
+  console.log("📁 Closing menu - UI first, then GameView...");
+
+  // First hide the UI with animation
+  $("#menuBox").fadeOut(500, function () {
+    // UI is now hidden, safe to destroy GameView
+    console.log("✅ UI hidden, now destroying GameView...");
+    destroyGameView();
+  });
+
   post("boutique:hide");
 }
 
@@ -146,9 +281,6 @@ function buyWeapon(index) {
   };
 }
 
-
-
-
 function buyMoney(index) {
   $("#productConfirmationPage").show(500);
 
@@ -156,10 +288,6 @@ function buyMoney(index) {
     const element = money[index];
     post("boutique:buyMoney", element);
   };
-}
-
-function random(min, max) {
-  return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
 function closeCasePrizeList2() {
@@ -551,10 +679,23 @@ window.addEventListener("message", function (e) {
     storeCode = event.storeCode;
     refreshStats();
   } else if (event.type === "toggleState") {
+    console.log("🔄 Toggle state received:", event.state);
+
     if (event.state) {
+      console.log("📂 Opening menu...");
       $("#menuBox").fadeIn(500);
+
+      // Initialize GameView when opening the menu
+      initializeGameView();
     } else {
-      $("#menuBox").fadeOut(500);
+      console.log("📁 Closing menu - UI first, then GameView...");
+
+      // First hide the UI with animation
+      $("#menuBox").fadeOut(500, function () {
+        // UI is now hidden, safe to destroy GameView
+        console.log("✅ UI hidden, now destroying GameView...");
+        destroyGameView();
+      });
     }
   } else if (event.type === "notify") {
     notify(event.notif);
@@ -564,3 +705,71 @@ window.addEventListener("message", function (e) {
 });
 
 $("#menuBox").hide(0);
+console.log("🚀 UI initialized - menu hidden by default");
+
+// Initialize application
+(function initializeApp() {
+  console.log("🚀 Initializing application...");
+  console.log("📄 Application ready");
+})();
+
+// Ensure DOM is fully loaded
+document.addEventListener("DOMContentLoaded", function () {
+  console.log("📄 DOM fully loaded");
+  // Test GameView availability
+  console.log("🔍 Testing GameView availability...");
+  console.log(
+    "🔍 window object keys:",
+    Object.keys(window).filter((key) => key.includes("Game"))
+  );
+  console.log("🔍 window.GameView type:", typeof window.GameView);
+  console.log("🔍 window.GameView value:", window.GameView);
+
+  if (window.GameView && typeof window.GameView === "function") {
+    console.log("✅ GameView class is available from window");
+    console.log(
+      "📋 GameView prototype methods:",
+      Object.getOwnPropertyNames(window.GameView.prototype)
+    );
+  } else {
+    console.error(
+      "❌ GameView class is not available! Make sure gameViewLegacy.js loaded properly."
+    );
+    // Try to detect if script loaded but class wasn't assigned
+    if (window.GameView === undefined) {
+      console.error(
+        "🔍 window.GameView is undefined - script may not have loaded"
+      );
+    } else {
+      console.error(
+        "🔍 window.GameView exists but is not a function:",
+        typeof window.GameView
+      );
+    }
+  }
+
+  // Test canvas availability
+  const canvas = document.querySelector("#backgroundCanvas");
+  console.log("🖼️ Canvas element available:", !!canvas);
+  if (canvas) {
+    console.log("📏 Canvas dimensions:", canvas.width, "x", canvas.height);
+  }
+});
+
+// Handle window resize for GameView
+window.addEventListener("resize", () => {
+  if (gameView) {
+    const canvas = document.querySelector("#backgroundCanvas");
+    if (canvas) {
+      console.log(
+        "📏 Resizing GameView:",
+        window.innerWidth,
+        "x",
+        window.innerHeight
+      );
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+      gameView.resize(window.innerWidth, window.innerHeight);
+    }
+  }
+});
