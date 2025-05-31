@@ -8,9 +8,6 @@ _CHASSE = {
     animals = {},
 
     value = 'noanimal',
-    
-    -- Nouvelle constante pour le niveau maximum
-    MAX_LEVEL = 2000, -- Augmentation du niveau maximum de 1000 à 2000
 }
 
 function _CHASSE.SaveLevel(UniqueID)
@@ -23,22 +20,7 @@ function _CHASSE.SaveLevel(UniqueID)
 end
 
 function _CHASSE.GetNewLevel(level, UniqueID)
-    -- Modification de la progression des niveaux pour la rendre plus graduelle
-    if level < 100 then 
-        _CHASSE.myAnimals[UniqueID] = {'Lapin'} 
-    elseif level < 250 then 
-        _CHASSE.myAnimals[UniqueID] = SunnyConfigServ.Activity.Chasse.Levels[100] 
-    elseif level < 500 then 
-        _CHASSE.myAnimals[UniqueID] = SunnyConfigServ.Activity.Chasse.Levels[250] 
-    elseif level < 750 then 
-        _CHASSE.myAnimals[UniqueID] = SunnyConfigServ.Activity.Chasse.Levels[500] 
-    elseif level < 1250 then 
-        _CHASSE.myAnimals[UniqueID] = SunnyConfigServ.Activity.Chasse.Levels[750] 
-    elseif level < 2000 then 
-        _CHASSE.myAnimals[UniqueID] = SunnyConfigServ.Activity.Chasse.Levels[1250]
-    else
-        _CHASSE.myAnimals[UniqueID] = SunnyConfigServ.Activity.Chasse.Levels[2000] or SunnyConfigServ.Activity.Chasse.Levels[1250]
-    end
+    if level < 100 then _CHASSE.myAnimals[UniqueID] = {'Lapin'} elseif level < 200 then _CHASSE.myAnimals[UniqueID] = SunnyConfigServ.Activity.Chasse.Levels[100] elseif level < 300 then _CHASSE.myAnimals[UniqueID] = SunnyConfigServ.Activity.Chasse.Levels[200] elseif level < 400 then _CHASSE.myAnimals[UniqueID] = SunnyConfigServ.Activity.Chasse.Levels[300] elseif level < 700 then _CHASSE.myAnimals[UniqueID] = SunnyConfigServ.Activity.Chasse.Levels[400] end
 
     if SunnyConfigServ.Activity.Chasse.Levels[_CHASSE.levels[UniqueID]] ~= nil then
         _CHASSE.value = 'newAnimal'
@@ -159,7 +141,7 @@ RegisterNetEvent('sunny:chasse:take', function(model)
             if v.hash == model and v.requirededlevel < tonumber(_CHASSE.levels[xPlayer.UniqueID]) then
                 _CHASSE.levels[xPlayer.UniqueID] -= 10
     
-                _CHASSE.myAnimals[xPlayer.UniqueID] = _CHASSE.GetNewLevel(_CHASSE.levels[xPlayer UniqueID], tonumber((xPlayer.UniqueID))).myAnimals[xPlayer.UniqueID]
+                _CHASSE.myAnimals[xPlayer.UniqueID] = _CHASSE.GetNewLevel(_CHASSE.levels[xPlayer.UniqueID], tonumber((xPlayer.UniqueID))).myAnimals[xPlayer.UniqueID]
     
                 _CHASSE.myAnimals[xPlayer.UniqueID] = SunnyConfigServ.Activity.Chasse.Levels[_CHASSE.levels[xPlayer.UniqueID]] or _CHASSE.myAnimals[xPlayer.UniqueID]
                 _CHASSE.SaveLevel(xPlayer.UniqueID, _CHASSE.myAnimals[xPlayer.UniqueID])
@@ -176,7 +158,7 @@ RegisterNetEvent('sunny:chasse:take', function(model)
     
                 _CHASSE.myAnimals[xPlayer.UniqueID] = SunnyConfigServ.Activity.Chasse.Levels[_CHASSE.levels[xPlayer.UniqueID]] or _CHASSE.myAnimals[xPlayer.UniqueID]
                 _CHASSE.SaveLevel(xPlayer.UniqueID, _CHASSE.myAnimals[xPlayer.UniqueID])
-                TriggerClientEvent('sunny:chasse:updateLevel', source, _CHASSE.levels[xPlayer.UniqueID], _CHASSE.myAnimals[xPlayer.UniqueID], _CHASSE.GetNewLevel(_CHASSE.levels[xPlayer UniqueID], tonumber((xPlayer.UniqueID))).value)
+                TriggerClientEvent('sunny:chasse:updateLevel', source, _CHASSE.levels[xPlayer.UniqueID], _CHASSE.myAnimals[xPlayer.UniqueID], _CHASSE.GetNewLevel(_CHASSE.levels[xPlayer.UniqueID], tonumber((xPlayer.UniqueID))).value)
                 _CHASSE.value = 'noanimal'
                 TriggerClientEvent('esx:showNotification', source, 'Tu ne peux pas chasser de type d\'animal pour le moment, 10 point on été retirer de ton expérience')
                 return
@@ -188,23 +170,13 @@ RegisterNetEvent('sunny:chasse:take', function(model)
         TriggerClientEvent('esx:showNotification', source, "~r~Vous n'avez pas assez de place dans votre inventaire")
         return
     end
-    
-    -- Ajustement du gain d'XP en fonction du niveau du joueur pour ralentir la progression
-    local xpGain = 5 -- XP de base par animal
-    if _CHASSE.levels[xPlayer.UniqueID] > 1000 then
-        xpGain = 3 -- Diminution de l'XP pour les niveaux élevés
-    elseif _CHASSE.levels[xPlayer.UniqueID] > 500 then
-        xpGain = 4 -- XP intermédiaire
-    end
-    
     xPlayer.addInventoryItem(SunnyConfigServ.Activity.Chasse.Levels2[model] or 'cerf', 1)
-    _CHASSE.levels[xPlayer.UniqueID] += xpGain
-    _CHASSE.myAnimals[xPlayer.UniqueID] = _CHASSE.GetNewLevel(_CHASSE.levels[xPlayer UniqueID], tonumber(xPlayer.UniqueID)).myAnimals[xPlayer.UniqueID]
+    _CHASSE.levels[xPlayer.UniqueID] += 10
+    _CHASSE.myAnimals[xPlayer.UniqueID] = SunnyConfigServ.Activity.Chasse.Levels[_CHASSE.levels[xPlayer.UniqueID]] or _CHASSE.myAnimals[xPlayer.UniqueID]
     _CHASSE.SaveLevel(xPlayer.UniqueID, _CHASSE.myAnimals[xPlayer.UniqueID])
-    TriggerClientEvent('sunny:chasse:updateLevel', source, _CHASSE.levels[xPlayer.UniqueID], _CHASSE.myAnimals[xPlayer.UniqueID], _CHASSE.GetNewLevel(_CHASSE.levels[xPlayer UniqueID], tonumber((xPlayer.UniqueID))).value)
+    TriggerClientEvent('sunny:chasse:updateLevel', source, _CHASSE.levels[xPlayer.UniqueID], _CHASSE.myAnimals[xPlayer.UniqueID], _CHASSE.GetNewLevel(_CHASSE.levels[xPlayer.UniqueID], tonumber((xPlayer.UniqueID))).value)
     _CHASSE.value = 'noanimal'
-    TriggerClientEvent('esx:showNotification', source, ('🥩 Vous avez dépecer ~y~x1~s~ gibier (+%s XP)'):format(xpGain))
-    
+    TriggerClientEvent('esx:showNotification', source, '🥩 Vous avez dépecer ~y~x1~s~ gibier')
     sendLog(("Le joueurs (%s - %s) viens de dépecer (x1 - Gibier)"):format(xPlayer.name, xPlayer.UniqueID), {
         author = xPlayer.name,
         fields = {
@@ -215,18 +187,14 @@ RegisterNetEvent('sunny:chasse:take', function(model)
         },
         channel = 'reco_chasse'
     })
-    
     SetTimeout(2000, function()
-        -- Modifier cette partie pour ne pas réinitialiser au niveau maximum
-        if _CHASSE.levels[xPlayer.UniqueID] >= _CHASSE.MAX_LEVEL then
-            -- Donner une récompense sans réinitialiser le niveau
-            xPlayer.addAccountMoney('cash', 15000)
-            TriggerClientEvent('esx:showNotification', source, '🥇 Félicitations, vous avez atteint le level maximum de ' .. _CHASSE.MAX_LEVEL ..'/'. _CHASSE.MAX_LEVEL .. ' ! Une prime de ~y~15 000$~s~ vous a été attribuée!')
-            
-            -- Conserver les animaux de haut niveau au lieu de réinitialiser
-            -- _CHASSE.levels[xPlayer.UniqueID] reste à MAX_LEVEL
-            
-            TriggerClientEvent('sunny:chasse:updateLevel', source, _CHASSE.levels[xPlayer.UniqueID], _CHASSE.myAnimals[xPlayer.UniqueID], 'reward')
+        if _CHASSE.levels[xPlayer.UniqueID] >= 1000 then
+            _CHASSE.myAnimals[xPlayer.UniqueID] = {'Lapin'}
+            xPlayer.addAccountMoney('cash', 10000)
+            TriggerClientEvent('esx:showNotification', source, '🥇 Félicitations, vous avez atteint le level 1000/1000 une prime de ~y~10 000$~s~ vous a été déversé et votre level a été réinitialisé !')
+            _CHASSE.levels[xPlayer.UniqueID] = 0
+            TriggerClientEvent('sunny:chasse:updateLevel', source, _CHASSE.levels[xPlayer.UniqueID], _CHASSE.myAnimals[xPlayer.UniqueID], 'newAnimal')
+
             _CHASSE.SaveLevel(xPlayer.UniqueID, _CHASSE.myAnimals[xPlayer.UniqueID])
         end
     end)

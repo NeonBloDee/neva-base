@@ -894,6 +894,11 @@ Sunnybcso = {
                 label = 'Pistolet de combat',
                 name = 'combatpistolpol'
             },
+            [4] = {
+                required_grade = 0,
+                label = 'Tazer',
+                name = 'stungun'
+            },
             [5] = {
                 required_grade = 4,
                 label = 'Carabine d\'assault',

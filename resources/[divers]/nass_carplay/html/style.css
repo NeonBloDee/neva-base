@@ -195,6 +195,9 @@ body {
   width: 6px; /* set the width of the scrollbar */
 }
 
+.carimage .nextcontainer::-webkit-scrollbar-track {
+}
+
 .carimage .nextcontainer::-webkit-scrollbar-thumb {
   background: white; /* set the color of the thumb */
   border-radius: 10px; /* make the thumb pill-shaped */
