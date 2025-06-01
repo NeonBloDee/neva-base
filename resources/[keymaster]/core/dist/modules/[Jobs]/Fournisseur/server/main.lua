@@ -41,7 +41,6 @@ RegisterNetEvent('sunny:JobResto:service', function()
 
     if not xPlayer then return end
 
-    -- Récupérer les données du joueur à partir de xPlayer
     local jobName = xPlayer.job.name
     local jobLabel = xPlayer.job.label
 
@@ -49,7 +48,7 @@ RegisterNetEvent('sunny:JobResto:service', function()
 
     if not JobResto.inService[xPlayer.identifier] then
         JobResto.inService[xPlayer.identifier] = {
-            identifier = xPlayer.identifier, -- Utilisez identifier au lieu de UniqueID
+            identifier = xPlayer.identifier,
             service = true,
             name = xPlayer.getName()
         }
@@ -95,12 +94,11 @@ AddEventHandler('monjob:annoncer', function(msg)
 
     lastAnnouncementTime[jobName] = currentTime
 
-    -- Définir le timeout pour vider lastAnnouncementTime[jobName] après 10 minutes
     SetTimeout(600000, function()
         lastAnnouncementTime[jobName] = nil
     end)
 
-    -- Envoi de l'annonce à tous les joueurs
+    print("JOB NAME ???", xPlayer.job.name)
     TriggerClientEvent('esx:showAdvancedNotification', -1, "Entreprise", ''..xPlayer.job.label, '\n'..msg, xPlayer.job.name, 7)
     sendLog(('( %s - %s ) Viens de faire une annonce pour l\'entreprise'):format(xPlayer.name, xPlayer.UniqueID), {
         author = "Annonce entreprise",

@@ -694,10 +694,10 @@ RegisterNetEvent('sunny:ambulance:deathEvent', function()
     TriggerServerEvent('sunny:ambulance:death')
 
     TriggerEvent('sunny:anticheat:bypassGodMod', true)
-    local PedKiller = GetPedSourceOfDeath(Player.playerPed)
+    local PedKiller = GetPedSourceOfDeath(PlayerPedId())
     
     local KillerUniqueId
-    local DeathCauseHash = GetPedCauseOfDeath(Player.playerPed)
+    local DeathCauseHash = GetPedCauseOfDeath(PlayerPedId())
     local Weapon = ESX.GetWeaponHash(DeathCauseHash) == nil and "Aucune" or ESX.GetWeaponHash(DeathCauseHash).label or "Aucune"  --- TODO
     if IsEntityAPed(PedKiller) and IsPedAPlayer(PedKiller) then
         Killer = NetworkGetPlayerIndexFromPed(PedKiller)
@@ -736,7 +736,6 @@ RegisterNetEvent('sunny:ambulance:deathEvent', function()
     local playerPed = PlayerPedId()
     local coords = GetEntityCoords(playerPed)
     
-    -- Force ragdoll immediately
     SetPedToRagdoll(playerPed, 1000, 1000, 0, 0, 0, 0)
     SetEntityRagdoll = true
     
@@ -747,11 +746,9 @@ RegisterNetEvent('sunny:ambulance:deathEvent', function()
         JeSuiSMort = false
 	end)
     
-    -- Open the death screen
     TriggerEvent("deathscreen:open")
     menumortisopen = true
     
-    -- Register a death-related event handlers for our NUI functionality
     RegisterNUICallback("deathscreen:call", function() 
         if Ambulance.LockedButton == true then
             ESX.ShowNotification('Vous avez déjà contacté les secours')
@@ -825,7 +822,6 @@ RegisterNetEvent('sunny:ambulance:deathEvent', function()
         rea = true
     end)
     
-    -- Send death info to NUI
     SendNUIMessage({
         type = "death:info",
         reason = deathReason,
@@ -833,7 +829,6 @@ RegisterNetEvent('sunny:ambulance:deathEvent', function()
     })
 end)
 
--- Add a more aggressive ragdoll thread to keep player in ragdoll state
 Citizen.CreateThread(function()
     while true do
         local waitTime = 500
@@ -842,12 +837,10 @@ Citizen.CreateThread(function()
             waitTime = 0
             local playerPed = PlayerPedId()
             
-            -- Force player into ragdoll state
             if not IsPedRagdoll(playerPed) then
                 SetPedToRagdoll(playerPed, 1000, 1000, 0, 0, 0, 0)
             end
             
-            -- Reset ragdoll timer to prevent player from getting up
             ResetPedRagdollTimer(playerPed)
         end
         
@@ -1072,7 +1065,7 @@ Citizen.CreateThread(function()
         end
     })
     AddZones('pharmacie_ems', {
-        Position = vec3(297.985870, -592.665527, 43.269871),
+        Position = vec3(-488.453003, -1002.638306, 24.289337),
         Dist = 10,
         Public = false,
         Job = {['ambulance'] = true},
@@ -1116,7 +1109,7 @@ Citizen.CreateThread(function()
         end
     })
     AddZones('defibrilateur_ems', {
-        Position = vec3(-447.74310302734, -1042.259765625, 24.288831710815),
+        Position = vec3(-480.774384, -1027.738037, 24.289186),
         Dist = 10,
         Public = true,
         Job = nil,
@@ -1410,4 +1403,35 @@ function inCane()
         return true
     end
     return false
+end
+
+function Ambulance:AddBlip(position)
+    if self.MyBlip and self.MyBlip.blip then
+        RemoveBlip(self.MyBlip.blip)
+        self.MyBlip = {}
+    end
+    
+    if position then
+        local blip = AddBlipForCoord(position.x, position.y, position.z)
+        SetBlipSprite(blip, 61)
+        SetBlipColour(blip, 1)
+        SetBlipScale(blip, 0.8)
+        SetBlipAsShortRange(blip, false)
+        
+        BeginTextCommandSetBlipName("STRING")
+        AddTextComponentSubstringPlayerName("Appel Ambulance")
+        EndTextCommandSetBlipName(blip)
+        
+        self.MyBlip = {
+            blip = blip,
+            position = position
+        }
+    end
+end
+
+function Ambulance:RemoveBlip()
+    if self.MyBlip and self.MyBlip.blip then
+        RemoveBlip(self.MyBlip.blip)
+        self.MyBlip = {}
+    end
 end

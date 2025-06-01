@@ -449,24 +449,24 @@ Config.Staff.Permissions = {
 }
 
 Config.Staff.Group = {
-    ['fondateur'] = '~r~Fondateur~s~',
-    ['gerant'] = '~y~Gérant~s~',
-    ['responsable'] = '~y~Responsable~s~',
-    ['superadmin'] = '~p~Super-Admin~s~',
-    ['administrateur'] = SunnyConfigServ.GTACOLOR..'Administrateur~s~',
-    ['moderateur'] = '~g~Moderateur~s~',
-    ['helpeur'] = SunnyConfigServ.GTACOLOR..'Helpeur~s~',
-    ['user'] = '~c~Joueur~s~'
+    ['fondateur'] = '~r~Fondateur~s~',         -- Rouge : grade très haut placé
+    ['gerant'] = '~o~Gérant~s~',              -- Orange : direction
+    ['responsable'] = '~o~Responsable~s~',    -- Orange : direction
+    ['superadmin'] = '~p~Super-Admin~s~',     -- Violet : haut grade technique
+    ['administrateur'] = '~b~Administrateur~s~', -- Bleu : admin classique
+    ['moderateur'] = '~g~Modérateur~s~',      -- Vert : modération
+    ['helpeur'] = '~g~Helpeur~s~',            -- Vert : aide
+    ['user'] = '~c~Joueur~s~'                 -- Gris : joueur classique
 }
 
 Config.Staff.GamertagsGroup = {
     ['fondateur'] = 208,
-    ['gerant'] = 208,
-    ['responsable'] = 208,
-    ['superadmin'] = 208,
-    ['administrateur'] = 208,
-    ['moderateur'] = 208,
-    ['helpeur'] = 208,
+    ['gerant'] = 180,
+    ['responsable'] = 147,
+    ['superadmin'] = 142,
+    ['administrateur'] = 143,
+    ['moderateur'] = 141,
+    ['helpeur'] = 137,
     ['user'] = 0
 }
 
