@@ -86,12 +86,12 @@ end)
 RegisterServerEvent("sunny:mechanic:requestPlayerBillsState", function(target_player_source, price)
     local xPlayer = ESX.GetPlayerFromId(source)
 
-    if ESX.PlayerData.job.name == 'garage_octacyp'
-        or ESX.PlayerData.job.name == 'garage_lscustom'
-        or ESX.PlayerData.job.name == 'garage_speedhunters'
-        or ESX.PlayerData.job.name == 'garage_paletocustoms'
-        or ESX.PlayerData.job.name == 'garage_eastcustoms'
-        or ESX.PlayerData.job.name == 'garage_driveline' then
+    if xPlayer.job.name == 'garage_octacyp'
+        or xPlayer.job.name == 'garage_lscustom'
+        or xPlayer.job.name == 'garage_speedhunters'
+        or xPlayer.job.name == 'garage_paletocustoms'
+        or xPlayer.job.name == 'garage_eastcustoms'
+        or xPlayer.job.name == 'garage_driveline' then
             --     TriggerClientEvent('esx:showNotification', source, 'On ta vue (aie....)')
     --    -- logsACJob.SendLogsACJob('bill', ('%s a tenté de facturer ID: **%s**  (trigger: mechanic:requestPlayerbill)'):format(xPlayer.name, xPlayer.UniqueID))
     --     return 
