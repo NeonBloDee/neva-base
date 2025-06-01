@@ -34,39 +34,24 @@ RegisterCommand('setgroup', function(source, args)
 	if source ~= 0 then
 		local myPlayer = ESX.GetPlayerFromId(source)
 		if not Config.Staff.HavePermission('ManagePlayers', 'changegroup', myPlayer) then
-			return TriggerClientEvent('esx:showNotification', source, "Vous n'avez pas la permission d'exécuter cette commande!")
+			return
 		end
 	end
+	local xPlayer = ReturnPlayerId(args[1])
 
-	local targetSource = ReturnPlayerId(args[1])
-	if not targetSource then
-		return print("Aucun joueur trouvé avec l'ID Unique :", args[1])
+	if xPlayer then
+		if args[2] == nil then return end
+		if not ESX.Groups[args[2]] then return end
+
+		local playerSet = ESX.GetPlayerFromId(xPlayer.id)
+		playerSet.setGroup(args[2])
+
+		adminManagement.staffList[playerSet.source].group = playerSet.getGroup()
+		adminManagement.Players[playerSet.source].group = playerSet.getGroup()
+
+		TriggerClientEvent('sunny:admin:restart', playerSet.source)
+		adminManagement:UpdateStaffs()
 	end
-
-	if source == targeSource then
-		return print("Vous ne pouvez pas changer votre propre groupe!")
-	end
-
-	local groupToSet = args[2] and args[2]:lower()
-	if not groupToSet or groupToSet == '' then
-		return TriggerClientEvent('esx:showNotification', source, "Vous devez spécifier un groupe valide à définir!")
-	end
-
-	local player = ESX.GetPlayerFromId(targetSource)
-	if not player then
-		return TriggerClientEvent('esx:showNotification', source, "Le joueur n'est pas connecté ou n'existe pas!")
-	end
-
-	player.setGroup(groupToSet)
-	local finalGroup = player.getGroup()
-
-	adminManagement.staffList[player.id].group = finalGroup
-	adminManagement.Players[player.id].group = finalGroup
-
-	TriggerClientEvent('sunny:admin:restart', targetSource)
-	adminManagement:UpdateStaffs()
-	
-	triggerClientEvent('esx:showNotification', source, '✅ Vous avez défini le group en ' ..finalGroup)
 end)
 
 RegisterServerEvent('staff:server:messageZone')
@@ -160,59 +145,69 @@ RegisterCommand('reviver', function(source, args)
 end)
 
 RegisterCommand('heal', function(source, args)
-    local targetPlayer = tonumber(args[1])
-    
-    if source == 0 then
-        if targetPlayer == nil then return print("Vous devez mettre un ID valide appartenant à un joueur connecté!") end
-    else
-        local xPlayer = ESX.GetPlayerFromId(source)
-        if xPlayer == nil then return end
+	local targetPlayer = tonumber(args[1])
 
-        -- Vérification si l'admin a son mode actif
-        if not adminManagement.Service then return TriggerClientEvent('esx:showNotification', source, "Vous devez avoir votre mode admin actif pour exécuter cette commande!") end
-        
-        if not Config.Staff.HavePermission('ManagePlayers', 'heal', xPlayer) then 
-            return TriggerClientEvent('esx:showNotification', source, "Vous n'avez pas la permission d'exécuter cette commande!") 
-        end
-    end
+	if source == 0 then
+		if not targetPlayer then
+			return print("Vous devez mettre un ID valide appartenant à un joueur connecté!")
+		end
+	else
+		local xPlayer = ESX.GetPlayerFromId(source)
+		if not xPlayer then return end
 
-    if targetPlayer == nil then
-        TriggerClientEvent('sunny:admin:command:heal', source)
-        TriggerClientEvent('esx:showNotification', source, "Vous vous êtes bien soigné!")
-    else
-        if GetPlayerPing(targetPlayer) > 0 then
-            local xTargetPlayer = ESX.GetPlayerFromId(targetPlayer)
-            if xTargetPlayer == nil then return end
-        else
-            targetPlayer = ReturnPlayerId(tonumber(args[1])).id
-        end
+		local allowed = { 'fondateur', 'gerant', 'responsable', 'superadmin', 'admin', 'modo', 'helper' }
+		local grp = xPlayer.getGroup()
+		local isAllowed = false
+		for _, g in ipairs(allowed) do
+			if grp == g then
+				isAllowed = true
+				break
+			end
+		end
+		if not isAllowed then
+			return TriggerClientEvent('esx:showNotification', source, "Vous n'êtes pas autorisé à faire cette commande")
+		end
+	end
 
-        TriggerClientEvent('sunny:admin:command:heal', targetPlayer)
-        TriggerClientEvent('esx:showNotification', targetPlayer, "Vous venez d'être soigné par un membre du staff!")
+	if not targetPlayer then
+		TriggerClientEvent('sunny:admin:command:heal', source)
+		return TriggerClientEvent('esx:showNotification', source, "Vous vous êtes bien soigné!")
+	end
 
-        if source == 0 then return end
-        local xTargetPlayer = ESX.GetPlayerFromId(targetPlayer)
-        TriggerClientEvent('esx:showNotification', source, "Vous avez correctement soigné le joueur visé !")
-        local xPlayer = ESX.GetPlayerFromId(source)
-        local xTargetPlayer = ESX.GetPlayerFromId(targetPlayer)
+	if GetPlayerPing(targetPlayer) > 0 then
+		if not ESX.GetPlayerFromId(targetPlayer) then return end
+	else
+		local p = ReturnPlayerId(targetPlayer)
+		if not p then return end
+		targetPlayer = p.id
+	end
 
-        sendLog(('Le staff (%s - %s) a Heal le joueur %s'):format(xPlayer.name, xPlayer.UniqueID, xTargetPlayer.name), {
-            author = 'Heal de joueur',
-            fields = {
-                {title = 'Staff', subtitle = xPlayer.name},
-                {title = 'ID Unique', subtitle = xPlayer.UniqueID},
-                {title = 'Identifier', subtitle = xPlayer.identifier},
-                {title = '------------', subtitle = ""},
-                {title = 'Joueur', subtitle = xTargetPlayer.name},
-                {title = 'ID Unique', subtitle = xTargetPlayer.UniqueID},
-                {title = 'Identifier', subtitle = xTargetPlayer.identifier},
-            },
-            channel = 'zonerevive'
-        })
-    end
+	TriggerClientEvent('sunny:admin:command:heal', targetPlayer)
+	TriggerClientEvent('esx:showNotification', targetPlayer, "Vous venez d'être soigné par un membre du staff!")
+
+	if source ~= 0 then
+		local xPlayer    = ESX.GetPlayerFromId(source)
+		local xTarget    = ESX.GetPlayerFromId(targetPlayer)
+		TriggerClientEvent('esx:showNotification', source, "Vous avez correctement soigné le joueur visé !")
+
+		sendLog(
+			('Le staff (%s - %s) a heal le joueur %s'):format(xPlayer.name, xPlayer.UniqueID, xTarget.name),
+			{
+				author  = 'Heal de joueur',
+				fields  = {
+					{ title = 'Staff',     subtitle = xPlayer.name },
+					{ title = 'ID Unique', subtitle = xPlayer.UniqueID },
+					{ title = 'Identifier',subtitle = xPlayer.identifier },
+					{ title = '------------', subtitle = "" },
+					{ title = 'Joueur',    subtitle = xTarget.name },
+					{ title = 'ID Unique', subtitle = xTarget.UniqueID },
+					{ title = 'Identifier',subtitle = xTarget.identifier },
+				},
+				channel = 'zonerevive'
+			}
+		)
+	end
 end)
-
-
 
 RegisterCommand('healzone', function(source, args)
 	if source == 0 then return print("Vous ne pouvez pas exécuter cette commande depuis la console!") end
