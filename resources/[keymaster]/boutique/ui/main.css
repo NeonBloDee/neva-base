@@ -24,6 +24,33 @@
   user-select: none;
 }
 
+/* GameView Canvas */
+#backgroundCanvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: -1;
+  pointer-events: none;
+}
+
+.gameview-loading .menuBox,
+.gameview-loading .categorystyle,
+.gameview-loading .productBox,
+.gameview-loading .statusBox,
+.gameview-loading .vehicleViewBox,
+.gameview-loading .caseViewBox,
+.gameview-loading .productConfirmationBox,
+.gameview-loading .promoCodeBox,
+.gameview-loading .creditBuyBox,
+.gameview-loading .caseOpeningBox,
+.gameview-loading .backBox,
+.gameview-loading .exitBox {
+  backdrop-filter: none !important;
+  background: rgba(0, 0, 0, 0.8) !important;
+}
+
 body {
   display: flex;
   align-items: center;
@@ -31,6 +58,8 @@ body {
   width: 100vw;
   height: 100vh;
   background-size: cover;
+  animation: fadeIn 0.6s ease-out;
+  background-image: url(background.png);
 }
 
 .menuBox {
@@ -43,25 +72,26 @@ body {
   overflow: hidden;
   padding: 2.5vw;
   width: 77.0833vw;
+  /* background: rgba(201, 201, 201, 0.2); */
+  border: 0.1042vw solid rgba(201, 201, 201, 0.24);
   background: radial-gradient(
-        13.14% 23.72% at 100% 0%,
-        rgba(228, 53, 53, 0.2) 0%,
-        rgba(0, 0, 0, 0) 100%
-      )
-      /* warning: gradient uses a rotation that is not supported by CSS and may not behave as expected */,
+      13.14% 23.72% at 100% 0%,
+      rgba(228, 53, 53, 0.3) 0%,
+      rgba(0, 0, 0, 0) 100%
+    ),
     radial-gradient(
-        39.21% 39.21% at 2.09% 0%,
-        rgba(255, 199, 0, 0.2) 0%,
-        rgba(0, 0, 0, 0) 100%
-      )
-      /* warning: gradient uses a rotation that is not supported by CSS and may not behave as expected */,
+      39.21% 39.21% at 2.09% 0%,
+      #74c0fc4d 0%,
+      rgba(0, 0, 0, 0) 100%
+    ),
     radial-gradient(
       67.13% 67.13% at 50% 50%,
-      rgba(21, 21, 21, 0.95) 0%,
-      #090909 100%
+      rgba(201, 201, 201, 0.2) 0%,
+      rgba(201, 201, 201, 0.2) 100%
     );
-  border-radius: 0.9375vw;
+  border-radius: 0.46875vw;
   height: 75.6%;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
 }
 
 .bgeffect {
@@ -83,7 +113,6 @@ body {
 }
 
 .titleimg {
-  width: 4.7396vw;
   height: 3.75vw;
   background-size: cover;
 }
@@ -103,7 +132,7 @@ body {
   font-weight: 900;
   font-size: 2.0833vw;
   line-height: 90%;
-  color: #ffc700;
+  color: #74c0fc;
 }
 
 .titleBox h1 p {
@@ -171,7 +200,8 @@ body {
   justify-content: space-between;
   width: 100%;
   height: 1.3542vw;
-  border-radius: 0.4688vw;
+  border-radius: 0.23vw;
+  background: rgba(255, 255, 255, 0.05);
 }
 
 .storecode {
@@ -204,15 +234,15 @@ body {
 }
 
 .creditsay {
-  background: rgba(255, 184, 0, 0.08);
-  border: 0.0521vw solid rgba(255, 184, 0, 0.4);
+  background: #74c0fc14;
+  border: 0.0521vw solid #74c0fc66;
   font-family: "AkrobatBold";
   font-style: normal;
   font-weight: 800;
   font-size: 0.8333vw;
   line-height: 109.5%;
   text-align: right;
-  color: #ffb800;
+  color: #74c0fc;
 }
 
 .creditsay .statusName {
@@ -220,7 +250,7 @@ body {
   font-family: "AkrobatBold";
   font-style: normal;
   font-weight: 700;
-  font-size: 14px;
+  font-size: 0.7292vw;
   line-height: 109.5%;
   color: rgba(255, 255, 255, 0.6);
   gap: 0.2604vw;
@@ -229,7 +259,7 @@ body {
 
 .creditsay .statusName i {
   font-size: 0.6vw;
-  color: #ffb800;
+  color: #74c0fc;
 }
 
 .promoBox {
@@ -251,21 +281,21 @@ body {
   justify-content: center;
   width: 10.9896vw;
   height: 1.5104vw;
-  border: 0.0521vw solid #ffc700;
-  border-radius: 1.1458vw;
+  border: 0.0521vw solid #74c0fc;
+  border-radius: 0.3125vw;
   font-family: "Barlow";
   font-style: normal;
   font-weight: 500;
   font-size: 0.7813vw;
   line-height: 109.5%;
-  color: #ffc700;
+  color: #74c0fc;
   transition: 300ms;
 }
 
 .promoButton:hover {
   cursor: pointer;
   color: black;
-  background: #ffc700;
+  background: #74c0fc;
   font-weight: 600;
 }
 
@@ -287,9 +317,9 @@ body {
   overflow: hidden;
   padding: 1.6667vw;
   position: relative;
-  background: rgba(255, 255, 255, 0.03);
-  border: 0.1042vw solid rgba(255, 255, 255, 0.06);
-  border-radius: 0.7813vw;
+  background: rgba(255, 255, 255, 0.06);
+  border: 0.1042vw solid rgba(255, 255, 255, 0.08);
+  border-radius: 0.39065vw;
   transition: 300ms ease;
   z-index: 1;
 }
@@ -464,7 +494,7 @@ body {
     rgba(58, 131, 198, 0.58) 0%,
     rgba(58, 156, 198, 0.81) 100%
   );
-  border-radius: 0.5208vw;
+  border-radius: 0.2604vw;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -495,11 +525,11 @@ body {
   align-items: center;
   padding: 1.1979vw;
   width: 13.5938vw;
-  height: 13.6458vw;
+  height: 14.6458vw;
   min-height: 13.6458vw;
   background: rgba(255, 255, 255, 0.04);
   border: 0.1042vw solid rgba(255, 255, 255, 0.06);
-  border-radius: 0.8854vw;
+  border-radius: 0.4427vw;
 }
 
 .productName {
@@ -538,7 +568,7 @@ body {
   width: 100%;
   height: 1.7708vw;
   background: rgba(255, 255, 255, 0.04);
-  border-radius: 0.625vw;
+  border-radius: 0.3125vw;
   font-family: "Barlow";
   font-style: normal;
   font-weight: 500;
@@ -550,7 +580,7 @@ body {
 
 .productButton:hover {
   cursor: pointer;
-  background: #ffb800;
+  background: #74c0fc;
   color: black;
 }
 
@@ -563,12 +593,13 @@ body {
   font-weight: 600;
   font-size: 0.7407vw;
   line-height: 90%;
-  color: #ffb800;
+  color: #74c0fc;
+  padding-bottom: 0.8vh;
 }
 
 .productPrice i {
   font-size: 0.7vw;
-  color: #ffb800;
+  color: #74c0fc;
 }
 
 /* width */
@@ -579,13 +610,13 @@ body {
 /* Track */
 ::-webkit-scrollbar-track {
   background: rgba(255, 255, 255, 0.08);
-  border-radius: 0.2291666666666666vw;
+  border-radius: 0.1145833333333333vw;
 }
 
 /* Handle */
 ::-webkit-scrollbar-thumb {
   background: rgba(255, 255, 255, 0.29);
-  border-radius: 0.7291666666666666vw;
+  border-radius: 0.3645833333333333vw;
 }
 
 .vehicleViewPage {
@@ -611,7 +642,7 @@ body {
     #090909 100%
   );
   border: 0.1042vw solid rgba(255, 255, 255, 0.12);
-  border-radius: 1.25vw;
+  border-radius: 0.625vw;
 }
 
 .vehicleViewName {
@@ -661,7 +692,7 @@ body {
 
 .vehicleViewPriceBox div i {
   font-size: 1.5vw;
-  color: #ffb800;
+  color: #74c0fc;
 }
 
 .vehicleViewPriceBox div {
@@ -673,7 +704,7 @@ body {
   font-weight: 600;
   font-size: 1.6391vw;
   line-height: 90%;
-  color: #ffb800;
+  color: #74c0fc;
 }
 
 .vehicleViewRightSide {
@@ -700,14 +731,14 @@ body {
   width: 16.4583vw;
   height: 0.5208vw;
   background: rgba(255, 255, 255, 0.08);
-  border-radius: 1.7708vw;
+  border-radius: 0.8854vw;
 }
 
 .vehicleInfoLines {
   width: 60%;
   height: 100%;
-  background: linear-gradient(270deg, #ffc700 0%, rgba(255, 199, 0, 0) 100%);
-  border-radius: 1.7708vw;
+  background: linear-gradient(270deg, #74c0fc 0%, rgba(151, 117, 250, 0) 100%);
+  border-radius: 0.8854vw;
 }
 
 .vehicleInfoTitle {
@@ -752,7 +783,7 @@ body {
   width: 1.1458vw;
   height: 1.1458vw;
   background: rgba(255, 255, 255, 0.12);
-  border-radius: 0.2604vw;
+  border-radius: 0.1302vw;
   transition: 200ms;
 }
 
@@ -767,7 +798,7 @@ body {
 }
 
 .checkbox-input:checked ~ .checkbox-label {
-  background: rgba(255, 184, 0, 0.38);
+  background: #74c0fc61;
 }
 
 .checkbox-input:checked ~ .checkbox-label::after {
@@ -779,7 +810,7 @@ body {
   width: 0.5208vw;
   height: 0.5208vw;
   background: rgba(255, 255, 255, 0.12);
-  border-radius: 50%;
+  border-radius: 0.26vw;
 }
 
 .checkbox-label::after {
@@ -804,7 +835,7 @@ body {
   width: 4.6354vw;
   height: 1.9792vw;
   background: rgba(255, 255, 255, 0.11);
-  border-radius: 0.7813vw;
+  border-radius: 0.39065vw;
   font-family: "Barlow";
   font-style: normal;
   font-weight: 500;
@@ -827,8 +858,8 @@ body {
   width: 10.5729vw;
   height: 1.9792vw;
 
-  background: #ffc700;
-  border-radius: 0.7813vw;
+  background: #74c0fc;
+  border-radius: 0.39065vw;
   font-family: "Barlow";
   font-style: normal;
   font-weight: 500;
@@ -840,14 +871,14 @@ body {
 
 .vehicleBuyButton:hover {
   cursor: pointer;
-  box-shadow: 0px 0px 2.5vw rgba(255, 199, 0, 0.39);
+  box-shadow: 0px 0px 2.5vw #74c0fc63;
 }
 
 .exitBox {
   z-index: 1;
   position: absolute;
-  right: 1.5625vw;
-  top: 1.5625vw;
+  right: 1vw;
+  top: 1vw;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -858,13 +889,13 @@ body {
     rgba(198, 58, 58, 0.58) 0%,
     rgba(198, 58, 58, 0.81) 100%
   );
-  border-radius: 0.5208vw;
+  border-radius: 0.2604vw;
   transition: 300ms;
 }
 
 .exitBox i {
   font-size: 0.8vw;
-  color: rgba(255, 255, 255, 0.53);
+  color: rgba(255, 255, 255, 0.7);
   transition: 300ms;
 }
 
@@ -901,7 +932,7 @@ body {
     #090909 100%
   );
   border: 0.1042vw solid rgba(255, 255, 255, 0.12);
-  border-radius: 1.25vw;
+  border-radius: 0.625vw;
 }
 
 .caseViewTitle {
@@ -970,7 +1001,7 @@ body {
   font-weight: 600;
   font-size: 1.6391vw;
   line-height: 90%;
-  color: #ffb800;
+  color: #74c0fc;
 }
 
 .caseViewPrice div i {
@@ -988,8 +1019,8 @@ body {
   justify-content: center;
   width: 25.9688vw;
   height: 1.9792vw;
-  background: #ffc700;
-  border-radius: 0.7813vw;
+  background: #74c0fc;
+  border-radius: 0.39065vw;
   font-family: "Barlow";
   font-style: normal;
   font-weight: 500;
@@ -1006,7 +1037,7 @@ body {
   width: 12.3958vw;
   height: 1.9792vw;
   background: #00b3ff;
-  border-radius: 0.7813vw;
+  border-radius: 0.39065vw;
   font-family: "Barlow";
   font-style: normal;
   font-weight: 500;
@@ -1044,13 +1075,9 @@ body {
   align-items: center;
   flex-direction: column;
   gap: 1.4583vw;
-  background: radial-gradient(
-    67.13% 67.13% at 50% 50%,
-    rgba(21, 21, 21, 0.97) 0%,
-    #090909 100%
-  );
+  background: #101010;
   border: 0.1042vw solid rgba(255, 255, 255, 0.12);
-  border-radius: 1.25vw;
+  border-radius: 0.625vw;
   padding-left: 2.1875vw;
   padding-right: 2.1875vw;
   padding-bottom: 2.1875vw;
@@ -1064,7 +1091,7 @@ body {
   font-weight: 700;
   font-size: 1.3266vw;
   line-height: 90%;
-  color: #ffc700;
+  color: #74c0fc;
 }
 
 .casePrizeList {
@@ -1091,7 +1118,7 @@ body {
   height: 10.0521vw;
   background: rgba(255, 255, 255, 0.06);
   border: 0.134vw solid rgba(255, 255, 255, 0.03);
-  border-radius: 0.9382vw;
+  border-radius: 0.4691vw;
   gap: 1.8229vw;
 }
 
@@ -1166,7 +1193,7 @@ body {
     #090909 100%
   );
   border: 0.1042vw solid rgba(255, 255, 255, 0.12);
-  border-radius: 1.25vw;
+  border-radius: 0.625vw;
   padding: 2.2396vw;
 }
 
@@ -1206,7 +1233,7 @@ body {
   width: 14.0104vw;
   height: 2.7083vw;
   background: rgba(255, 255, 255, 0.1);
-  border-radius: 1.0485vw;
+  border-radius: 0.52425vw;
   font-family: "Barlow";
   font-style: normal;
   font-weight: 500;
@@ -1227,7 +1254,7 @@ body {
   width: 14.0104vw;
   height: 2.7083vw;
   background: #38de52;
-  border-radius: 1.0485vw;
+  border-radius: 0.52425vw;
   font-family: "Barlow";
   font-style: normal;
   font-weight: 500;
@@ -1272,7 +1299,7 @@ body {
     #090909 100%
   );
   border: 0.1042vw solid rgba(255, 255, 255, 0.12);
-  border-radius: 1.25vw;
+  border-radius: 0.625vw;
   padding: 2.4479vw 3.125vw;
 }
 
@@ -1287,7 +1314,7 @@ body {
   font-size: 1.8949vw;
   line-height: 114%;
   text-align: center;
-  color: #ffc700;
+  color: #74c0fc;
 }
 
 .promoCodeTitle p {
@@ -1323,7 +1350,7 @@ body {
   text-align: center;
   background: rgba(255, 255, 255, 0.06);
   border: 0.0521vw solid rgba(255, 255, 255, 0.1);
-  border-radius: 0.7813vw;
+  border-radius: 0.39065vw;
 }
 
 .promoCodeButton {
@@ -1332,8 +1359,8 @@ body {
   justify-content: center;
   width: 37.1875vw;
   height: 3.3333vw;
-  background: #ffc700;
-  border-radius: 1.2905vw;
+  background: #74c0fc;
+  border-radius: 0.64525vw;
   font-family: "Barlow";
   font-style: normal;
   font-weight: 500;
@@ -1345,7 +1372,7 @@ body {
 
 .promoCodeButton:hover {
   cursor: pointer;
-  box-shadow: 0px 0px 3.125vw rgba(255, 199, 0, 0.45);
+  box-shadow: 0px 0px 3.125vw #74c0fc73;
 }
 
 .creditBuyPage {
@@ -1371,7 +1398,7 @@ body {
     #090909 100%
   );
   border: 0.1042vw solid rgba(255, 255, 255, 0.12);
-  border-radius: 1.25vw;
+  border-radius: 0.625vw;
   padding: 2.1875vw;
 }
 
@@ -1384,7 +1411,7 @@ body {
   font-weight: 700;
   font-size: 1.5625vw;
   line-height: 90%;
-  color: #ffc700;
+  color: #74c0fc;
 }
 
 .creditBuyTitle p {
@@ -1421,7 +1448,7 @@ body {
   padding: 0.8854vw;
   background: rgba(255, 255, 255, 0.06);
   border: 0.1042vw solid rgba(255, 255, 255, 0.03);
-  border-radius: 0.9896vw;
+  border-radius: 0.4948vw;
 }
 
 .creditsName {
@@ -1434,7 +1461,7 @@ body {
   font-weight: 700;
   font-size: 1.131vw;
   line-height: 90%;
-  color: #ffc700;
+  color: #74c0fc;
 }
 
 .creditsName p {
@@ -1459,7 +1486,7 @@ body {
   width: 100%;
   height: 1.7708vw;
   background: rgba(255, 255, 255, 0.06);
-  border-radius: 0.4688vw;
+  border-radius: 0.2344vw;
   font-family: "Barlow";
   font-style: normal;
   font-weight: 500;
@@ -1484,7 +1511,7 @@ body {
   width: 49.1667vw;
   height: 5.4688vw;
   background: rgba(255, 255, 255, 0.05);
-  border-radius: 0.5729vw;
+  border-radius: 0.28645vw;
   justify-content: space-between;
 }
 
@@ -1498,7 +1525,7 @@ body {
   font-weight: 700;
   font-size: 1.0417vw;
   line-height: 90%;
-  color: #ffc700;
+  color: #74c0fc;
 }
 
 .giveCreditTitle p {
@@ -1545,7 +1572,7 @@ body {
   text-align: left;
   background: rgba(255, 255, 255, 0.06);
   border: 0.0521vw solid rgba(255, 255, 255, 0.1);
-  border-radius: 0.4688vw;
+  border-radius: 0.2344vw;
 }
 
 .giveCreditButton {
@@ -1554,7 +1581,7 @@ body {
   justify-content: center;
   width: 7.0313vw;
   height: 3.5938vw;
-  background: #ffc700;
+  background: #74c0fc;
   border-radius: 0.5729vw;
   font-family: "Barlow";
   font-style: normal;
@@ -1566,7 +1593,7 @@ body {
 
 .giveCreditButton:hover {
   cursor: pointer;
-  box-shadow: 0px 0px 1.9271vw rgba(255, 199, 0, 0.16);
+  box-shadow: 0px 0px 1.9271vw #74c0fc29;
 }
 
 #notify {
@@ -1587,7 +1614,7 @@ body {
       /* warning: gradient uses a rotation that is not supported by CSS and may not behave as expected */,
     radial-gradient(
         39.21% 39.21% at 2.09% 0%,
-        rgba(255, 199, 0, 0.2) 0%,
+        rgba(151, 117, 250, 0.2) 0%,
         rgba(0, 0, 0, 0) 100%
       )
       /* warning: gradient uses a rotation that is not supported by CSS and may not behave as expected */,
@@ -1596,7 +1623,7 @@ body {
       rgba(21, 21, 21, 0.95) 0%,
       #090909 100%
     );
-  border-radius: 0.9375vw;
+  border-radius: 0.46875vw;
   width: auto;
   padding: 20px;
 }

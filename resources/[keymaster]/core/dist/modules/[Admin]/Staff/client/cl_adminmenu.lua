@@ -325,12 +325,23 @@ RegisterNetEvent('sunny:admin:addPlayer', function(data)
 end)
 
 RegisterNetEvent('sunny:admin:addStaff', function(data)
-    adminManagement.staffList = data
-    adminManagement.staffsCounts = 0
-
-    for k,v in pairs(adminManagement.staffList) do
-        adminManagement.staffsCounts = adminManagement.staffsCounts + 1
+    if type(data) ~= 'table' or type(data.list) ~= 'table' then
+        print("addStaff en invalid format")
+        return
     end
+
+    local oldData = json.encode(adminManagement.staffList or {})
+    local newData = json.encode(data.list)
+
+    if oldData == newData then
+        print("data addStaff inchangé")
+        return
+    end
+
+    print("data addStaff bien changé")
+
+    adminManagement.staffList = data.list
+    adminManagement.staffsCounts = tonumber(data.count) or 0
 end)
 
 RegisterNetEvent('sunny:admin:addStaff:service', function(id, newVal)

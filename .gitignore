@@ -15,3 +15,7 @@ resources/\[phone\]/lb-upload/server/previousUrl.txt
 /resources/\[phone\]
 /FXServer
 server.cfg
+/txData
+/resources/\[stream\]
+/resources/\[keymaster\]/boutique
+/resources/\[keymaster\]/utk_render

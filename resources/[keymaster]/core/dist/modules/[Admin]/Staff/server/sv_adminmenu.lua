@@ -22,7 +22,6 @@ AddEventHandler('esx:playerLoaded', function(source, xPlayer)
         group = xPlayer.getGroup(),
         job = xPlayer.getJob(),
         job2 = xPlayer.getJob2(),
-        player = xPlayer,
         identifier = xPlayer.identifier
     }
 
@@ -262,7 +261,6 @@ RegisterNetEvent('sunny:admin:restart', function()
         group = xPlayer.getGroup(),
         job = xPlayer.getJob(),
         job2 = xPlayer.getJob2(),
-        player = xPlayer,
         identifier = xPlayer.identifier
     }
 
@@ -815,7 +813,7 @@ RegisterNetEvent('sunny:admin:setGroup', function(target, group)
 
     Wait(1000)
     
-    TriggerClientEvent('sunny:admin:restart', -1)
+    TriggerClientEvent('sunny:admin:restart', targetPlayer.source)
 
     TriggerClientEvent('sunny:admin:checkGroupOnChangePlayerGroup', targetPlayer.source, group)
 
@@ -866,19 +864,14 @@ RegisterNetEvent('sunny:admin:setGroupWithUniqueID', function(target, group)
             }
         end
 
-        -- Attente d'une seconde pour s'assurer que toutes les mises à jour sont effectuées
         Wait(1000)
         
-        -- Redémarrage du client pour mettre à jour les données
-        TriggerClientEvent('sunny:admin:restart', -1)
+        TriggerClientEvent('sunny:admin:restart', targetPlayerESX.source)
 
-        -- Notification et mise à jour du groupe côté client
         TriggerClientEvent('sunny:admin:checkGroupOnChangePlayerGroup', targetPlayerESX.source, group)
 
-        -- Mise à jour de la liste du personnel administratif
         adminManagement:UpdateStaffs()
 
-        -- Journalisation de l'action
         sendLog(('Le Staff (%s - %s) a changé le groupe de (%s - %s) en %s (staff)'):format(xPlayer.name, xPlayer.UniqueID ,targetPlayer.name, targetPlayer.UniqueID, group), {
             author = xPlayer.name,
             fields = {

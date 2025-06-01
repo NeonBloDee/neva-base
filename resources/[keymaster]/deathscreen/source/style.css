@@ -53,10 +53,9 @@ button,
   animation: deathscreen_fade 0.5s ease;
   user-select: none;
   opacity: 0.5;
-  z-index: 2; /* Au-dessus des deux fonds */
+  z-index: 2;
 }
 
-/* S'assurer que tout le contenu est au-dessus des fonds */
 .content,
 .deathscreen-actions,
 .deathscreen-ambulance-notification {

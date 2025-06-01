@@ -1041,25 +1041,6 @@ CreateThread(function()
             Police_OpenWeaponMenu()
         end
     })
-    _PEDS.addPed('craft_weapons', {
-        model = 'csb_talcc',
-        position = vector3(2329.95, 2569.936, 46.67976),
-        heading = 340.12387084961,
-        scenario = {
-            active = false,
-            name = 'WORLD_HUMAN_CLIPBOARD',
-            count = 0,
-        },
-        weapon = {
-            active = true,
-            weaponName = 'weapon_assaultrifle',
-        },
-        floatingText = {
-            active = true,
-            text = 'Nay',
-            color = 34,
-        },
-    })
 end)
 
 RegisterNetEvent('sunny:police:sendCode', function()

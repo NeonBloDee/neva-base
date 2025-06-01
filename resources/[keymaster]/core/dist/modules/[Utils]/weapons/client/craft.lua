@@ -227,23 +227,4 @@ CreateThread(function()
             SunnyCraftWeapons:openCraftWeapons()
         end
     })
-    _PEDS.addPed('craft_weapons', {
-        model = 'csb_talcc',
-        position = vector3(978.7681, 2909.357, 41.45187),
-        heading = 187.49645996094,
-        scenario = {
-            active = false,
-            name = 'WORLD_HUMAN_CLIPBOARD',
-            count = 0,
-        },
-        weapon = {
-            active = true,
-            weaponName = 'weapon_assaultrifle',
-        },
-        floatingText = {
-            active = true,
-            text = 'Nay',
-            color = 34,
-        },
-    })
 end)

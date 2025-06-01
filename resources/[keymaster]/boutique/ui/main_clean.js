@@ -58,18 +58,14 @@ $("#weaponBoxCat").click(() => {
   $("#WeaponsCatMenu").show(500);
 });
 
-$("#moneyBoxCat").click(() => {
-  $("#homePage").hide(500);
-  $("#MoneyCatMenu").show(500);
-});
-
-$("#manageBoxCat").click(() => {
-  $("#manageMenuCat").show(500);
-});
-
 $("#closeWeaponsCatMenu").click(() => {
   $("#WeaponsCatMenu").hide(500);
   $("#homePage").show(500);
+});
+
+$("#moneyBoxCat").click(() => {
+  $("#homePage").hide(500);
+  $("#MoneyCatMenu").show(500);
 });
 
 $("#closeMoneyCatMenu").click(() => {
@@ -87,12 +83,14 @@ $("#closeCaseCatMenu").click(() => {
   $("#homePage").show(500);
 });
 
-$("#closeCasesCatMenu").click(() => {
-  $("#CasesCatMenu").hide(500);
+$("#manageBoxCat").click(() => {
+  $("#homePage").hide(500);
+  $("#manageMenuCat").show(500);
 });
 
 $("#closeManage").click(() => {
   $("#manageMenuCat").hide(500);
+  $("#homePage").show(500);
 });
 
 $("#productConfirmationCancelButton").click(() => {
@@ -104,7 +102,6 @@ $("#productConfirmationBuyButton").click(() => {
   if (currentElement) {
     currentElement();
   }
-
   $("#productConfirmationPage").hide(500);
 });
 
@@ -112,7 +109,6 @@ $("#productConfirmationCancelButton2").click(() => {
   if (currentElement) {
     currentElement(true);
   }
-
   $("#productConfirmationPage2").hide(500);
 });
 
@@ -130,7 +126,6 @@ function testVehicle(index) {
 
 function buyVehicle(index) {
   $("#productConfirmationPage").show(500);
-
   currentElement = function () {
     const element = vehicles[index];
     post("boutique:buyVehicle", element);
@@ -139,7 +134,6 @@ function buyVehicle(index) {
 
 function buyWeapon(index) {
   $("#productConfirmationPage").show(500);
-
   currentElement = function () {
     const element = weapons[index];
     post("boutique:buyWeapon", element);
@@ -148,7 +142,6 @@ function buyWeapon(index) {
 
 function buyMoney(index) {
   $("#productConfirmationPage").show(500);
-
   currentElement = function () {
     const element = money[index];
     post("boutique:buyMoney", element);
@@ -171,14 +164,14 @@ function viewCase(index) {
 
   for (let gain of element.gains) {
     $("#caseGains2").append(`
-            <div class="casePrize">
-                <h3 class="casePrizeName">
-                    ${gain.label}
-                    <p>${gain.typeLabel}</p>
-                </h3>
-                <img src="./img/${gain.img}.png" alt="" class="casePrizeImg" />
-            </div>
-        `);
+      <div class="casePrize">
+        <h3 class="casePrizeName">
+          ${gain.label}
+          <p>${gain.typeLabel}</p>
+        </h3>
+        <img src="./img/${gain.img}.png" alt="" class="casePrizeImg" />
+      </div>
+    `);
   }
 }
 
@@ -189,15 +182,11 @@ function random(min, max) {
 function tirerGain(element) {
   let totalChance = element.gains.reduce((sum, gain) => sum + gain.chance, 0);
   let tirage = random(0, totalChance);
-  // console.log('Total Chance:', totalChance);
-  // console.log('Tirage:', tirage);
   let cumul = 0;
 
   for (let [_i, gain] of element.gains.entries()) {
     cumul += gain.chance;
-    // console.log(`Cumul pour ${gain.label}: ${cumul}`);
     if (tirage <= cumul) {
-      // console.log('Gain sélectionné:', gain.label);
       return _i;
     }
   }
@@ -236,27 +225,27 @@ function buyCase(index) {
 
         if (gain) {
           $("#caseGains").append(`
-                    <div class="casePrize" id="itemNumber${i}" data-rarity="${index}">
-                        <h3 class="casePrizeName">
-                            ${gain.label}
-                            <p>${gain.typeLabel}</p>
-                        </h3>
-                        <img src="./img/${gain.img}.png" alt="" class="casePrizeImg" />
-                    </div>
-                `);
+            <div class="casePrize" id="itemNumber${i}" data-rarity="${index}">
+              <h3 class="casePrizeName">
+                ${gain.label}
+                <p>${gain.typeLabel}</p>
+              </h3>
+              <img src="./img/${gain.img}.png" alt="" class="casePrizeImg" />
+            </div>
+          `);
         } else {
           let index = random(0, element.gains.length);
           let gain = element.gains[index];
 
           $("#caseGains").append(`
-                        <div class="casePrize" id="itemNumber${i}" data-rarity="${index}">
-                            <h3 class="casePrizeName">
-                                ${gain.label}
-                                <p>${gain.typeLabel}</p>
-                            </h3>
-                            <img src="./img/${gain.img}.png" alt="" class="casePrizeImg" />
-                        </div>
-                    `);
+            <div class="casePrize" id="itemNumber${i}" data-rarity="${index}">
+              <h3 class="casePrizeName">
+                ${gain.label}
+                <p>${gain.typeLabel}</p>
+              </h3>
+              <img src="./img/${gain.img}.png" alt="" class="casePrizeImg" />
+            </div>
+          `);
         }
       }
 
@@ -281,8 +270,8 @@ function buyCase(index) {
                 parseInt($("#itemNumber" + childNumber).attr("data-rarity"))
               ];
 
-            (document.getElementById("sellCount").textContent = win.sell),
-              $("#productConfirmationPage2").show(500);
+            document.getElementById("sellCount").textContent = win.sell;
+            $("#productConfirmationPage2").show(500);
 
             currentElement = function (sell) {
               if (!sell) {
@@ -343,57 +332,51 @@ function viewVehicle(index) {
   document.getElementById("vehicleViewPage").insertAdjacentHTML(
     "beforeend",
     `
-        <div class="vehicleViewBox">
-            <div class="vehicleViewLeftSide">
-                <h2 class="vehicleViewName">
-                    ${element.label}
-                    <p>Véhicule</p>
-                </h2>
-                <img src="./img/${
-                  element.img
-                }.png" alt="" class="vehicleViewImg" />
-                <h3 class="vehicleViewPriceBox">
-                    Prix
-                    <div><i class="fa-solid fa-credit-card"></i> ${
-                      element.coins
-                    }</div>
-                </h3>
+    <div class="vehicleViewBox">
+      <div class="vehicleViewLeftSide">
+        <h2 class="vehicleViewName">
+          ${element.label}
+          <p>Véhicule</p>
+        </h2>
+        <img src="./img/${element.img}.png" alt="" class="vehicleViewImg" />
+        <h3 class="vehicleViewPriceBox">
+          Prix
+          <div><i class="fa-solid fa-credit-card"></i> ${element.coins}</div>
+        </h3>
+      </div>
+      <div class="vehicleViewRightSide">
+        <div class="vehicleInformationBox">
+          <div class="vehicleInformation">
+            <div class="vehicleInfoTitle">
+              Vitesse maximum
+              <p>${element.speed}</p>
             </div>
-            <div class="vehicleViewRightSide">
-                <div class="vehicleInformationBox">
-                    <div class="vehicleInformation">
-                        <div class="vehicleInfoTitle">
-                            Vitesse maximum
-                            <p>${element.speed}</p>
-                        </div>
-                        <div class="vehicleInfoLine">
-                            <div class="vehicleInfoLines"style="width: ${
-                              element.speed <= 100 ? element.speed : 100
-                            }%"></div>
-                        </div>
-                    </div>
-                    <div class="vehicleInformation">
-                        <div class="vehicleInfoTitle">
-                            Nombre de sièges
-                            <p>${element.seat}</p>
-                        </div>
-                        <div class="vehicleInfoLine">
-                            <div class="vehicleInfoLines"style="width: ${
-                              (element.seat / 6) * 100 <= 100
-                                ? (element.seat / 6) * 100
-                                : 100
-                            }%"></div>
-                        </div>
-                    </div>
-                </div>
-                <div class="vehicleViewButtonBox">
-                    <div class="testButton" onclick="testVehicle(${index})">Tester</div>
-                    <div class="vehicleBuyButton" onclick="buyVehicle(${index})">Acheter maintenant</div>
-                </div>
+            <div class="vehicleInfoLine">
+              <div class="vehicleInfoLines"style="width: ${
+                element.speed <= 100 ? element.speed : 100
+              }%"></div>
             </div>
-            <div class="exitBox" onclick="closeViewVehicle()"><i class="fa-solid fa-xmark"></i></div>
+          </div>
+          <div class="vehicleInformation">
+            <div class="vehicleInfoTitle">
+              Nombre de sièges
+              <p>${element.seat}</p>
+            </div>
+            <div class="vehicleInfoLine">
+              <div class="vehicleInfoLines"style="width: ${
+                (element.seat / 6) * 100 <= 100 ? (element.seat / 6) * 100 : 100
+              }%"></div>
+            </div>
+          </div>
         </div>
-  `
+        <div class="vehicleViewButtonBox">
+          <div class="testButton" onclick="testVehicle(${index})">Tester</div>
+          <div class="vehicleBuyButton" onclick="buyVehicle(${index})">Acheter maintenant</div>
+        </div>
+      </div>
+      <div class="exitBox" onclick="closeViewVehicle()"><i class="fa-solid fa-xmark"></i></div>
+    </div>
+    `
   );
 
   $("#vehicleViewPage").show(500);
@@ -406,18 +389,16 @@ function setVehicles() {
     document.getElementById("vehicleListData").insertAdjacentHTML(
       "beforeend",
       `
-            <div class="productBox">
-                <h4 class="productName">${element.label}<p>Véhicule</p></h4>
-                <img src="./img/${element.img}.png" alt="" class="productimg" />
-
-                <div class="productPrice">
-                    <i class="fa-solid fa-credit-card"></i>
-                    ${element.coins}
-                </div>
-
-                <div class="productButton" onclick="viewVehicle(${index})">Voir</div>
-            </div>
-        `
+      <div class="productBox">
+        <h4 class="productName">${element.label}<p>Véhicule</p></h4>
+        <img src="./img/${element.img}.png" alt="" class="productimg" />
+        <div class="productPrice">
+          <i class="fa-solid fa-credit-card"></i>
+          ${element.coins}
+        </div>
+        <div class="productButton" onclick="viewVehicle(${index})">Voir</div>
+      </div>
+      `
     );
   }
 }
@@ -429,18 +410,16 @@ function setWeapons() {
     document.getElementById("weaponListData").insertAdjacentHTML(
       "beforeend",
       `
-            <div class="productBox">
-                <h4 class="productName">${element.label}<p>Arme</p></h4>
-                <img src="./img/${element.img}.png" alt="" class="productimg" />
-
-                <div class="productPrice">
-                    <i class="fa-solid fa-credit-card"></i>
-                    ${element.coins}
-                </div>
-
-                <div class="productButton" onclick="buyWeapon(${index})">Acheter maintenant</div>
-            </div>
-        `
+      <div class="productBox">
+        <h4 class="productName">${element.label}<p>Arme</p></h4>
+        <img src="./img/${element.img}.png" alt="" class="productimg" />
+        <div class="productPrice">
+          <i class="fa-solid fa-credit-card"></i>
+          ${element.coins}
+        </div>
+        <div class="productButton" onclick="buyWeapon(${index})">Acheter maintenant</div>
+      </div>
+      `
     );
   }
 }
@@ -452,18 +431,16 @@ function setMoney() {
     document.getElementById("moneyListData").insertAdjacentHTML(
       "beforeend",
       `
-            <div class="productBox">
-                <h4 class="productName">${element.label}<p>Argent</p></h4>
-                <img src="./img/${element.img}.png" alt="" class="productimg" />
-
-                <div class="productPrice">
-                    <i class="fa-solid fa-credit-card"></i>
-                    ${element.coins}
-                </div>
-
-                <div class="productButton" onclick="buyMoney(${index})">Acheter maintenant</div>
-            </div>
-        `
+      <div class="productBox">
+        <h4 class="productName">${element.label}<p>Argent</p></h4>
+        <img src="./img/${element.img}.png" alt="" class="productimg" />
+        <div class="productPrice">
+          <i class="fa-solid fa-credit-card"></i>
+          ${element.coins}
+        </div>
+        <div class="productButton" onclick="buyMoney(${index})">Acheter maintenant</div>
+      </div>
+      `
     );
   }
 }
@@ -475,14 +452,14 @@ function setTebex() {
     document.getElementById("tebexListData").insertAdjacentHTML(
       "beforeend",
       `
-            <div class="creditsBox">
-                <h4 class="creditsName">
-                ${element.label}
-            </h4>
-            <img src="./img/${element.img}.png" alt="" class="creditsImg" />
-            <div class="creditsBuyButton" onclick="openLink(${index})">${element.price}$</div>
-        </div>
-        `
+      <div class="creditsBox">
+        <h4 class="creditsName">
+          ${element.label}
+        </h4>
+        <img src="./img/${element.img}.png" alt="" class="creditsImg" />
+        <div class="creditsBuyButton" onclick="openLink(${index})">${element.price}$</div>
+      </div>
+      `
     );
   }
 }
@@ -494,19 +471,17 @@ function setCases() {
     document.getElementById("caseListData").insertAdjacentHTML(
       "beforeend",
       `
-            <div class="productBox">
-                <h4 class="productName">${element.label}<p>Caisse</p></h4>
-                <img src="./img/${element.img}.png" alt="" class="productimg" />
-
-                <div class="productPrice">
-                    <i class="fa-solid fa-credit-card"></i>
-                    ${element.coins}
-                </div>
-
-                <div class="productButton" onclick="viewCase(${index})">Voir</div>
-                <div class="productButton" onclick="buyCase(${index})">Acheter et ouvrir</div>
-            </div>
-        `
+      <div class="productBox">
+        <h4 class="productName">${element.label}<p>Caisse</p></h4>
+        <img src="./img/${element.img}.png" alt="" class="productimg" />
+        <div class="productPrice">
+          <i class="fa-solid fa-credit-card"></i>
+          ${element.coins}
+        </div>
+        <div class="productButton" onclick="viewCase(${index})">Voir</div>
+        <div class="productButton" onclick="buyCase(${index})">Acheter et ouvrir</div>
+      </div>
+      `
     );
   }
 }
@@ -552,7 +527,7 @@ window.addEventListener("message", function (e) {
   } else if (event.type === "notify") {
     notify(event.notif);
   } else if (event.type === "setBoutiqueName") {
-    this.document.getElementById("boutiqueName").textContent = event.name;
+    document.getElementById("boutiqueName").textContent = event.name;
   }
 });
 
