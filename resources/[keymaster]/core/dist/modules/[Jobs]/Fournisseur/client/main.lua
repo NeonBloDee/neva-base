@@ -44,8 +44,8 @@ function OpenMenu()
                                 onSelected = function()
                                     KeyboardUtils.use("Combien ?", function(data)
                                         local cmb = tonumber(data)
-                                        if cmb == nil or cmb <= 0 then return end -- Utilisez cmb au lieu de data ici
-                                        TriggerServerEvent('menu:buyItem', job, item.item, item.label, item.price, cmb) -- Utilisez cmb au lieu de data ici
+                                        if cmb == nil or cmb <= 0 then return end
+                                        TriggerServerEvent('menu:buyItem', job, item.item, item.label, item.price, cmb)
                                     end)
                                 end
                             })
@@ -122,7 +122,7 @@ function JobResto:openMenu()
                     RageUI.Button('Faire une annonce personnaliser', nil, {}, true, {
                         onSelected = function()
                             local jobName = ESX.PlayerData.job.name
-                      KeyboardUtils.use('Contenu', function(msg)
+                                    KeyboardUtils.use('Contenu', function(msg)
                                     if msg == nil then return end
                                     TriggerServerEvent('monjob:annoncer', msg, jobName)
                                 end)
@@ -156,13 +156,44 @@ RegisterCommand('JobResto_menu', function()
         if Config_Fournisseur.Jobs[jobName] then
             JobResto:openMenu()
         else
-            --ESX.ShowNotification("Vous n'avez pas accès à ce menu.")
         end
     else
-        -- print("Erreur: Impossible de récupérer les données du joueur.")
     end
 end, false)
 
+
+local fournisseurBlip = nil
+
+function CreateFournisseurBlip()
+    if fournisseurBlip then
+        RemoveBlip(fournisseurBlip)
+    end
+    
+    local playerJob = ESX.GetPlayerData().job.name
+    
+    if Config_Fournisseur.Jobs[playerJob] then
+        fournisseurBlip = AddBlipForCoord(858.768311, -3204.768799, 5.994996)
+        SetBlipSprite(fournisseurBlip, 176)
+        SetBlipColour(fournisseurBlip, 3)
+        SetBlipScale(fournisseurBlip, 0.7)
+        SetBlipAsShortRange(fournisseurBlip, true)
+        BeginTextCommandSetBlipName("STRING")
+        AddTextComponentString("[RESTAU] Achat de matière première")
+        EndTextCommandSetBlipName(fournisseurBlip)
+    end
+end
+
+Citizen.CreateThread(function()
+    while ESX.GetPlayerData().job == nil do
+        Citizen.Wait(100)
+    end
+    CreateFournisseurBlip()
+end)
+
+RegisterNetEvent('esx:setJob')
+AddEventHandler('esx:setJob', function(job)
+    CreateFournisseurBlip()
+end)
 
 Citizen.CreateThread(function()
     for jobName, jobData in pairs(Config_Fournisseur.Jobs) do
@@ -175,14 +206,14 @@ Citizen.CreateThread(function()
             GradesJob = {},
             InVehicleDisable = false,
             Blip = {
-                Active = true,
+                Active = false,
                 Position = vector3(858.768311, -3204.768799, 5.994996),
                 BlipId = 176,
                 Color = 3,
                 Scale = 0.5,
                 Text = 'Fournisseur Entreprise'
             },
-            ActionText = 'Appuyez sur [ ~g~E~w~ ] pour interagir',
+            ActionText = 'Appuyez sur [ ~g~E~w~ ] pour interagir avec le ~y~Fournisseur~w~',
             Action = function()
                 if ESX and ESX.PlayerData and ESX.PlayerData.job then
                     jobName = ESX.PlayerData.job.name

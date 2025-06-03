@@ -18,19 +18,17 @@ ESX.RegisterServerCallback('sunny:police:search', function(source, cb, player)
     end
 end)
 
-local codeCooldowns = {} -- Stocker les cooldowns des joueurs
+local codeCooldowns = {}
 
--- Fonction pour ajouter un blip
 local function AddPoliceBlip(coords, code)
-    TriggerClientEvent('sunny:client:addPoliceBlip', -1, coords, code) -- Diffuse un événement pour ajouter un blip
+    TriggerClientEvent('sunny:client:addPoliceBlip', -1, coords, code)
 end
 
--- Fonction pour envoyer une notification uniquement aux policiers
 local function NotifyPolice(msg)
     for _, playerId in ipairs(GetPlayers()) do
-        local xPlayer = ESX.GetPlayerFromId(playerId) -- Modifier pour QBCore/QBOX si nécessaire
+        local xPlayer = ESX.GetPlayerFromId(playerId)
         if xPlayer and xPlayer.job and xPlayer.job.name == 'police' then
-            TriggerClientEvent('esx:showNotification', playerId, msg) -- Notifie uniquement les policiers
+            TriggerClientEvent('esx:showNotification', playerId, msg)
         end
     end
 end
@@ -48,34 +46,29 @@ AddEventHandler('Police:ForcerDrive', function(id)
     TriggerClientEvent('montrer:drive', id)
 end)
 
--- Événement pour gérer les codes de police
 RegisterNetEvent('sunny:codes')
 AddEventHandler('sunny:codes', function(code)
     local src = source
-    local xPlayer = ESX.GetPlayerFromId(src) -- Modifier pour QBCore/QBOX si nécessaire
+    local xPlayer = ESX.GetPlayerFromId(src)
 
     if not xPlayer or xPlayer.job.name ~= 'police' then
-        TriggerClientEvent('esx:showNotification', src, "Vous n'êtes pas un policier.") -- Notifie l'émetteur s'il n'est pas policier
+        TriggerClientEvent('esx:showNotification', src, "Vous n'êtes pas un policier.")
         return
     end
 
-    -- Vérifie le cooldown
     local cooldown = codeCooldowns[src] or {}
     local currentTime = os.time()
-    if cooldown[code] and (currentTime - cooldown[code]) < 15 then -- Délai de 60 secondes
+    if cooldown[code] and (currentTime - cooldown[code]) < 15 then
         TriggerClientEvent('esx:showNotification', src, "Vous devez attendre avant de réutiliser ce code.")
         return
     end
 
-    -- Met à jour le cooldown pour ce code
     codeCooldowns[src] = codeCooldowns[src] or {}
     codeCooldowns[src][code] = currentTime
 
-    -- Ajoute un blip sur la carte
     local playerCoords = GetEntityCoords(GetPlayerPed(src))
     AddPoliceBlip(playerCoords, code)
 
-    -- Envoie une notification aux policiers
     NotifyPolice("~b~Code " .. code .. " ~s~signalé par " .. GetPlayerName(src) .. ".")
 end)
 
@@ -106,7 +99,8 @@ RegisterNetEvent('sunny:Service:delVeh', function(veh)
     local xPlayer = ESX.GetPlayerFromId(source)
     if xPlayer.job.name ~= "police"
         and xPlayer.job.name ~= "bcso"
-        and xPlayer.job.name ~= "garage_octacyp"
+        and xPlayer.job.name ~= "usmarshall"
+        and xPlayer.job.name ~= "cruisin_mechanic"
         and xPlayer.job.name ~= "garage_lscustom"
         and xPlayer.job.name ~= "garage_speedhunters"
         and xPlayer.job.name ~= "garage_paletocustoms"
@@ -184,14 +178,14 @@ RegisterNetEvent('sunny:police:plainte:editReason', function(id, newReason)
 end)
 
 RegisterNetEvent('sunny:police:escoter', function(target)
-        local xPlayer = ESX.GetPlayerFromId(source)
+    local xPlayer = ESX.GetPlayerFromId(source)
 
     if xPlayer.job.name ~= "police" then return end
     TriggerClientEvent('sunny:police:escoter', target, source)
 end)
 
 RegisterNetEvent('sunny:police:playerVehicle', function(target, vehicle, value)
-            local xPlayer = ESX.GetPlayerFromId(source)
+    local xPlayer = ESX.GetPlayerFromId(source)
 
     if xPlayer.job.name ~= "police" then return end
     TriggerClientEvent('sunny:police:playerVehicle', target, vehicle, value)
@@ -289,22 +283,35 @@ RegisterNetEvent('sunny:police:giveweapon', function(name, label)
     local xPlayer = ESX.GetPlayerFromId(source)
 
     if not xPlayer then return end
-    if xPlayer.job.name ~= "police" and xPlayer.job.name ~= "gouvernement" then
+    if xPlayer.job.name ~= "police" and xPlayer.job.name ~= "gouvernement" and xPlayer.job.name ~= "usmarshall" then
         TriggerClientEvent('esx:showNotification', source, 'Vous n\'êtes pas policier')
         logsACJob.SendLogsACJob('weapon', ('%s a tenté de se give une arme ID Unique: **%s** (trigger: policegiveweapon)'):format(xPlayer.name, xPlayer.UniqueID))
         return
     end
 
-    -- Vérifie si le joueur possède déjà l'arme
     if xPlayer.getInventoryItem(string.lower(name)).count > 0 then
         TriggerClientEvent('esx:showNotification', source, 'Vous avez déjà pris cette arme de service')
         return
     end
 
-    -- Donne l'arme au joueur
     xPlayer.addInventoryItem(string.lower(name), 1)
     TriggerClientEvent('esx:showNotification', source, 'Vous avez pris ' .. label)
     LogsJobFunc.SendLogsArmurie('LSPD_armu', ('**%s** vient de prendre une arme dans le casier x1 *%s*'):format(xPlayer.firstname .. " " .. xPlayer.lastname, label), 'take')
+end)
+
+RegisterNetEvent('sunny:police:giveammo', function(name, label, quantity)
+    local xPlayer = ESX.GetPlayerFromId(source)
+
+    if not xPlayer then return end
+    if xPlayer.job.name ~= "police" and xPlayer.job.name ~= "gouvernement" and xPlayer.job.name ~= "usmarshall" then
+        TriggerClientEvent('esx:showNotification', source, 'Vous n\'êtes pas policier')
+        logsACJob.SendLogsACJob('ammo', ('%s a tenté de se give des munitions ID Unique: **%s** (trigger: policegiveammo)'):format(xPlayer.name, xPlayer.UniqueID))
+        return
+    end
+
+    xPlayer.addInventoryItem(string.lower(name), quantity)
+    TriggerClientEvent('esx:showNotification', source, 'Vous avez pris ' .. quantity .. 'x ' .. label)
+    LogsJobFunc.SendLogsArmurie('LSPD_armu', ('**%s** vient de prendre des munitions dans l\'armurerie x%d *%s*'):format(xPlayer.firstname .. " " .. xPlayer.lastname, quantity, label), 'take')
 end)
 
 AddEventHandler('playerDropped', function(reason)
@@ -313,13 +320,12 @@ AddEventHandler('playerDropped', function(reason)
 
     if not xPlayer then return end
 
-    -- Liste des armes à supprimer
     local weaponList = {
         'stungun',
         'kevlar',
         'nightstick',
         'flashlight',
-        'combatpistolpol',
+        'vintagepistol',
         'carbinerifle',
         'smg',
         'assaultsmg',
@@ -432,7 +438,7 @@ ESX.RegisterServerCallback('sunny:police:amendes', function(source, cb, player)
     local xPlayer = ESX.GetPlayerFromId(source)
     local target = ESX.GetPlayerFromId(player)
     
-    if not xPlayer or (xPlayer.job.name ~= "police" and xPlayer.job.name ~= "bcso") then 
+    if not xPlayer or (xPlayer.job.name ~= "police" and xPlayer.job.name ~= "bcso" and xPlayer.job.name ~= "usmarshall") then 
         cb({})
         return 
     end
@@ -480,7 +486,7 @@ RegisterNetEvent('sunny:police.removeWeapon', function()
         {required_grade = 0, name = 'kevlar'},
         {required_grade = 0, name = 'nightstick'},
         {required_grade = 0, name = 'flashlight'},
-        {required_grade = 1, name = 'combatpistolpol'},
+        {required_grade = 1, name = 'vintagepistol'},
         {required_grade = 4, name = 'carbinerifle'},
         {required_grade = 5, name = 'smg'},
         {required_grade = 6, name = 'assaultsmg'},
@@ -611,7 +617,7 @@ RegisterNetEvent('wais:playerLoaded:bodycam', function()
     local src = source
     local Player = ESX.GetPlayerFromId(src)
 
-    if Player.job.name == "police" or Player.job.name == "bcso" then
+    if Player.job.name == "police" or Player.job.name == "bcso" or Player.job.name == "usmarshall" then
         if JobsCam[tostring(src)] == nil then
             JobsCam[tostring(src)] = false
         end
@@ -623,7 +629,7 @@ RegisterNetEvent('wais:jobCheck', function()
     local src = source
     local Player = ESX.GetPlayerFromId(src)
 
-    if Player.job.name == "police" or Player.job.name == "bcso" then
+    if Player.job.name == "police" or Player.job.name == "bcso" or Player.job.name == "usmarshall" then
         if JobsCam[tostring(src)] == nil then
             JobsCam[tostring(src)] = false
         end

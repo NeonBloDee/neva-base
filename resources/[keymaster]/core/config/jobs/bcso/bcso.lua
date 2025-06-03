@@ -891,8 +891,13 @@ Sunnybcso = {
             },
             [3] = {
                 required_grade = 1,
-                label = 'Pistolet de combat',
-                name = 'combatpistolpol'
+                label = 'Pistolet vintage',
+                name = 'vintagepistol'
+            },
+            [4] = {
+                required_grade = 0,
+                label = 'Tazer',
+                name = 'stungun'
             },
             [5] = {
                 required_grade = 4,
@@ -918,6 +923,45 @@ Sunnybcso = {
                 required_grade = 8,
                 label = 'Fusil à Pompe automatique',
                 name = 'bullpupshotgun'
+            },
+        },
+
+        ammunition = {
+            [10] = {
+                required_grade = 0,
+                label = '10 Munitions pour fusil à pompe',
+                name = 'shotgun_ammo',
+                quantity = 10
+            },
+            [11] = {
+                required_grade = 0,
+                label = '10 Munitions pour fusil',
+                name = 'rifle_ammo',
+                quantity = 10
+            },
+            [12] = {
+                required_grade = 0,
+                label = '10 Munitions pour mitrailleuse',
+                name = 'mg_ammo',
+                quantity = 10
+            },
+            [13] = {
+                required_grade = 0,
+                label = '10 Munitions pour mitraillette',
+                name = 'smg_ammo',
+                quantity = 10
+            },
+            [14] = {
+                required_grade = 0,
+                label = '10 Munitions pour sniper',
+                name = 'sniper_ammo',
+                quantity = 10
+            },
+            [15] = {
+                required_grade = 0,
+                label = '10 Munitions pour pistolet',
+                name = 'pistol_ammo',
+                quantity = 10
             },
         },
     },

@@ -243,9 +243,9 @@ function bcso_openF6()
                         'Êtes-vous sûr de vouloir donner le PPA ?',
                         '',
                         function(response)
-                            if response then -- Oui
+                            if response then
                                 TriggerServerEvent('sunny:bcso:ppa', GetPlayerServerId(closestPlayer))
-                            else -- Non
+                            else
                                 ESX.ShowNotification('Don du PPA annulé')
                             end
                         end
@@ -312,14 +312,14 @@ function bcso_openF6()
                                     ('Voulez-vous facturer %s$ à %s ?'):format(v.price, GetPlayerName(closestPlayer)),
                                     '',
                                     function(response)
-                                        if response then -- Oui
+                                        if response then
                                             TaskStartScenarioInPlace(PlayerPedId(), 'CODE_HUMAN_MEDIC_TIME_OF_DEATH', 0, true)
                     
                                             SetTimeout(10000, function()
                                                 ClearPedTasks(PlayerPedId())
                                                 TriggerServerEvent('esx_billing:sendBill', GetPlayerServerId(closestPlayer), 'society_bcso', 'Sheriff (bcso)', v.price)
                                             end)
-                                        else -- Non
+                                        else
                                             ESX.ShowNotification('Facturation annulée')
                                         end
                                     end
@@ -342,9 +342,9 @@ function bcso_openF6()
                                 ('Voulez-vous facturer %s$ à %s ?'):format(v.price, GetPlayerName(closestPlayer)),
                                 '',
                                 function(response)
-                                    if response then -- Oui
+                                    if response then
                                         TriggerServerEvent('esx_billing:sendBill', GetPlayerServerId(closestPlayer), 'society_bcso', 'Sheriff (bcso)', v.price)
-                                    else -- Non
+                                    else
                                         ESX.ShowNotification('Facturation annulée')
                                     end
                                 end
@@ -379,7 +379,6 @@ function bcso_openF6()
                         return ESX.ShowNotification('Aucun véhicule aux alentours')
                     end
             
-                    -- Calcul de la distance entre le joueur et le véhicule
                     local vehCoords = #(playerCoords - GetEntityCoords(vehicle))
                     if vehCoords > 5.0 then
                         return ESX.ShowNotification('Aucun véhicule à proximité')
@@ -393,7 +392,6 @@ function bcso_openF6()
             
                         TriggerServerEvent('sunny:Service:delVeh', NetworkGetNetworkIdFromEntity(vehicle))
             
-                        -- Suppression côté client pour éviter les bugs visuels
                         if DoesEntityExist(vehicle) then
                             ESX.Game.DeleteVehicle(vehicle)
                             ESX.ShowNotification('Véhicule placé en fourrière avec succès !')
@@ -487,10 +485,10 @@ function bcso_openF6()
                             ('Voulez-vous retirer l\'arme %s à %s ?'):format(v.label, Sunnybcso.bcso.fouille.id),
                             '',
                             function(response)
-                                if response then -- Oui
+                                if response then
                                     TriggerServerEvent('sunny:bcso.removeWeapon', v.name, Sunnybcso.bcso.fouille.id, v.label)
                                     Sunnybcso.bcso.fouille.loadout[k] = nil
-                                else -- Non
+                                else
                                     ESX.ShowNotification('Action annulée') 
                                 end
                             end
@@ -758,13 +756,13 @@ function bcso_OpenAccueilMenu()
                         'Êtes-vous sûr de vouloir supprimer cette archive ?',
                         '',
                         function(response)
-                            if response then -- Oui
+                            if response then
                                 TriggerServerEvent('sunny:bcso:plainte:delete', Sunnybcso.bcso.complaint.archivesSelected.id)
 
                                 RageUI.Visible(archivesSelected, false)
                                 RageUI.Visible(archives, false) 
                                 RageUI.Visible(main, true)
-                            else -- Non
+                            else
                                 ESX.ShowNotification('Action annulée')
                             end
                         end
@@ -822,6 +820,7 @@ end)
 
 function bcso_OpenWeaponMenu()
     local main = RageUI.CreateMenu('', 'Actions Disponibles', nil, nil, "shopui_title_gunclub", "shopui_title_gunclub")
+    local ammoMenu = RageUI.CreateSubMenu(main, '', 'Munitions Disponibles', nil, nil, "shopui_title_gunclub", "shopui_title_gunclub")
 
     RageUI.Visible(main, not RageUI.Visible(main))
     while main do Wait(1)
@@ -831,6 +830,7 @@ function bcso_OpenWeaponMenu()
                     TriggerServerEvent('sunny:bcso.removeWeapon', SunnyLSPD.Police.weapons)
                 end
             })
+            RageUI.Button('Munitions', nil, {RightLabel = '>>'}, true, {}, ammoMenu)
             RageUI.WLine()
             for k,v in pairs(Sunnybcso.bcso.weapons) do
                 RageUI.Button(v.label, nil, {RightLabel = '>>'}, ESX.PlayerData.job.grade >= v.required_grade, {
@@ -841,7 +841,17 @@ function bcso_OpenWeaponMenu()
             end
         end)
 
-        if not RageUI.Visible(main) then
+        RageUI.IsVisible(ammoMenu, function()
+            for k,v in pairs(Sunnybcso.bcso.ammunition) do
+                RageUI.Button(v.label, nil, {RightLabel = ('Quantité: ~y~x%s~s~'):format(v.quantity)}, ESX.PlayerData.job.grade >= v.required_grade, {
+                    onSelected = function()
+                        TriggerServerEvent('sunny:bcso:giveammo', v.name, v.label, v.quantity)
+                    end
+                })
+            end
+        end)
+
+        if not RageUI.Visible(main) and not RageUI.Visible(ammoMenu) then
             main = RMenu:DeleteType('main')
         end
     end
@@ -874,20 +884,20 @@ RegisterNetEvent('sunny:bcso:menotter', function()
             while Sunnybcso.bcso.HandCuffed == true do
                 Wait(0)
                 SetPedCanBeDraggedOut(GetPlayerPed(-1), false)
-                DisableControlAction(27, 75, true) -- Désactive le bouton de sortie (INPUT_VEH_EXIT)
-                DisableControlAction(0, 23, true) -- Désactive le bouton de sortie (INPUT_ENTER)
+                DisableControlAction(27, 75, true)
+                DisableControlAction(0, 23, true)
                 DisableControlAction(2, 37, true)
                 SetEnableHandcuffs(playerPed, true)
                 SetPedCanPlayGestureAnims(playerPed, false)
                 FreezeEntityPosition(playerPed,  true)
                 DisableControlAction(0, 75, true)
                 DisableControlAction(1, 75, true)
-                DisableControlAction(0, 24, true) -- Attack
-                DisableControlAction(0, 257, true) -- Attack 2
-                DisableControlAction(0, 25, true) -- Aim
-                DisableControlAction(0, 263, true) -- Melee Attack 1
-                DisableControlAction(0, 37, true) -- Select Weapon
-                DisableControlAction(0, 47, true)  -- Disable weapon
+                DisableControlAction(0, 24, true)
+                DisableControlAction(0, 257, true)
+                DisableControlAction(0, 25, true)
+                DisableControlAction(0, 263, true)
+                DisableControlAction(0, 37, true)
+                DisableControlAction(0, 47, true)
                 RageUI.setKeyState(21, true)
 	            RageUI.setKeyState(22, true)
             end

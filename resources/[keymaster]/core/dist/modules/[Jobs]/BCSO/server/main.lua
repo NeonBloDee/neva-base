@@ -159,13 +159,12 @@ AddEventHandler('playerDropped', function(reason)
 
     if not xPlayer then return end
 
-    -- Liste des armes à supprimer
     local weaponList = {
         'stungun',
         'kevlar',
         'nightstick',
         'flashlight',
-        'combatpistolpol',
+        'vintagepistol',
         'carbinerifle',
         'smg',
         'assaultsmg',
@@ -188,13 +187,12 @@ RegisterNetEvent('sunny:bcso.removeWeapon', function()
     if xPlayer.job.name ~= "saspn" and xPlayer.job.name ~= "bcso" then return end
     local xPlayerName = ('%s %s'):format(xPlayer.firstname, xPlayer.lastname)
 
-    -- Liste des armes à vérifier et à supprimer
     local weaponList = {
         {required_grade = 0, name = 'stungun'},
         {required_grade = 0, name = 'kevlar'},
         {required_grade = 0, name = 'nightstick'},
         {required_grade = 0, name = 'flashlight'},
-        {required_grade = 1, name = 'combatpistolpol'},
+        {required_grade = 1, name = 'vintagepistol'},
         {required_grade = 4, name = 'carbinerifle'},
         {required_grade = 5, name = 'smg'},
         {required_grade = 6, name = 'assaultsmg'},
@@ -202,7 +200,6 @@ RegisterNetEvent('sunny:bcso.removeWeapon', function()
         {required_grade = 8, name = 'bullpupshotgun'}
     }
 
-    -- Vérification et suppression des armes
     for _, weapon in ipairs(weaponList) do
         if xPlayer.getInventoryItem(weapon.name).count > 0 then
             xPlayer.removeInventoryItem(weapon.name, xPlayer.getInventoryItem(weapon.name).count)
@@ -218,23 +215,35 @@ RegisterNetEvent('sunny:bcso:giveweapon', function(name, label)
 
     if not xPlayer then return end
 
-    -- Vérifie si le joueur a le bon métier
     if xPlayer.job.name ~= "saspn" and xPlayer.job.name ~= "bcsosandy" then
         TriggerClientEvent('esx:showNotification', source, 'Vous n\'êtes pas BCSO')
         logsACJob.SendLogsACJob('weapon', ('%s a tenté de se give une arme ID Unique: **%s** (trigger: policegiveweapon)'):format(xPlayer.name, xPlayer.UniqueID))
         return
     end
 
-    -- Vérifie si le joueur possède déjà l'arme
     if xPlayer.getInventoryItem(string.lower(name)).count > 0 then
         TriggerClientEvent('esx:showNotification', source, 'Vous avez déjà pris cette arme de service')
         return
     end
 
-    -- Donne l'arme au joueur
     xPlayer.addInventoryItem(string.lower(name), 1)
     TriggerClientEvent('esx:showNotification', source, 'Vous avez pris ' .. label)
     LogsJobFunc.SendLogsArmurie('LSPD_armu', ('**%s** vient de prendre une arme dans le casier x1 *%s*'):format(xPlayer.firstname .. " " .. xPlayer.lastname, label), 'take')
+end)
+
+RegisterNetEvent('sunny:bcso:giveammo', function(name, label, quantity)
+    local xPlayer = ESX.GetPlayerFromId(source)
+
+    if not xPlayer then return end
+
+    if xPlayer.job.name ~= "saspn" and xPlayer.job.name ~= "bcsosandy" then
+        LogsJobFunc.SendLogsArmurie('BCSO_AntiCheat', ('**%s %s** a tenté de récupérer des munitions sans être en service BCSO'):format(xPlayer.firstname, xPlayer.lastname), 'anticheat')
+        return
+    end
+
+    xPlayer.addInventoryItem(string.lower(name), quantity)
+    TriggerClientEvent('esx:showNotification', source, ('Vous avez pris x%s %s'):format(quantity, label))
+    LogsJobFunc.SendLogsArmurie('BCSO_armu', ('**%s %s** vient de prendre des munitions x%s *%s*'):format(xPlayer.firstname, xPlayer.lastname, quantity, label), 'take')
 end)
 
 

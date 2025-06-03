@@ -50,25 +50,22 @@ RegisterNetEvent('sunny:client:addPoliceBlip')
 AddEventHandler('sunny:client:addPoliceBlip', function(coords, code)
     local blip = AddBlipForCoord(coords.x, coords.y, coords.z)
 
-    -- Définir les propriétés du blip en fonction du code
-    local color = 2 -- Vert par défaut
+    local color = 2
     if code == '10-2' then
-        color = 5 -- Jaune
+        color = 5
     elseif code == '10-3' then
-        color = 17 -- Orange
+        color = 17
     elseif code == '10-4' then
-        color = 1 -- Rouge
+        color = 1
     end
 
-    -- Configuration du blip
-    SetBlipSprite(blip, 161) -- Icône du blip
-    SetBlipScale(blip, 1.2) -- Taille du blip
-    SetBlipColour(blip, color) -- Couleur en fonction de l'urgence
+    SetBlipSprite(blip, 161)
+    SetBlipScale(blip, 1.2)
+    SetBlipColour(blip, color)
     BeginTextCommandSetBlipName("STRING")
     AddTextComponentString("Code " .. code)
     EndTextCommandSetBlipName(blip)
 
-    -- Retirer le blip après 20 secondes
     Citizen.SetTimeout(20000, function()
         RemoveBlip(blip)
     end)
@@ -240,7 +237,6 @@ function Police_openF6()
                     onSelected = function()
                         RageUI.CloseAll()
                         TriggerServerEvent('sunny:bande:clearlatable')
-                        -- Vider la liste côté client aussi
                         CallsTable = {}
                     end
                 })
@@ -367,7 +363,6 @@ function Police_openF6()
             local vehicle = GetVehiclePedIsIn(PlayerPedId())
         
             if vehicle then
-                -- Vérifier la plaque
                 RageUI.Button('Vérifier la plaque', nil, {}, true, {
                     onSelected = function()
                         local getVeh = ESX.Game.GetVehicleProperties(ESX.Game.GetVehicleInDirection())
@@ -385,32 +380,25 @@ function Police_openF6()
                     end
                 }, vehicleInfoWithPlate)
         
-                -- Crocheter le véhicule
                 RageUI.Button("Crocheter le véhicule", nil, {}, true, {
                     onSelected = function()
                         local playerPed = PlayerPedId()
                         local vehicle = ESX.Game.GetVehicleInDirection()
                 
                         if DoesEntityExist(vehicle) then
-                            -- Chargement de l'animation
                             LoadAnimDict("anim@amb@clubhouse@tutorial@bkr_tut_ig3@")
                             TaskPlayAnim(playerPed, "anim@amb@clubhouse@tutorial@bkr_tut_ig3@", "machinic_loop_mechandplayer", 8.0, -8.0, 2000, 1, 0, false, false, false)
                 
-                            -- Délai pour simuler le crochetage
                             ESX.ShowNotification("~y~Crochetage en cours...")
                             Wait(5000)
                 
-                            -- Déverrouille le véhicule
                             SetVehicleDoorsLocked(vehicle, 1)
                             SetVehicleDoorsLockedForAllPlayers(vehicle, false)
                 
-                            -- Arrêt de l'animation
                             ClearPedTasks(playerPed)
                 
-                            -- Notification de succès
                             ESX.ShowNotification("~g~Véhicule déverrouillé avec succès.")
                         else
-                            -- Notification si aucun véhicule n'est détecté
                             ESX.ShowNotification("~r~Aucun véhicule à proximité.")
                         end
                     end
@@ -418,7 +406,6 @@ function Police_openF6()
                 
 
 
-                -- Mettre en fourrière
                 RageUI.Button('Mettre en fourrière', nil, {}, true, {
                     onSelected = function()
                         local playerPed = PlayerPedId()
@@ -709,13 +696,13 @@ function Police_OpenaccueilMenu()
                         'Êtes-vous sûr de vouloir supprimer cette archive ?',
                         '',
                         function(response) 
-                            if response then -- Oui
+                            if response then
                                 TriggerServerEvent('sunny:police:plainte:delete', SunnyLSPD.Police.complaint.archivesSelected.id)
                                 RageUI.Visible(archivesSelected, false)
                                 RageUI.Visible(archives, false)
                                 RageUI.Visible(main, true)
                                 ESX.ShowNotification('Archive supprimée avec succès')
-                            else -- Non
+                            else
                                 ESX.ShowNotification('Action annulée') 
                             end
                         end
@@ -794,6 +781,7 @@ end)
 
 function Police_OpenWeaponMenu()
     local main = RageUI.CreateMenu('', 'Actions Disponibles')
+    local ammunition = RageUI.CreateSubMenu(main, '', 'Munitions')
 
     RageUI.Visible(main, not RageUI.Visible(main))
     while main do Wait(1)
@@ -811,9 +799,25 @@ function Police_OpenWeaponMenu()
                     end
                 })
             end
+            RageUI.WLine()
+            RageUI.Button('Munitions', nil, {RightLabel = '>>'}, true, {
+                onSelected = function()
+                    
+                end
+            }, ammunition)
         end)
 
-        if not RageUI.Visible(main) then
+        RageUI.IsVisible(ammunition, function()
+            for k,v in pairs(SunnyLSPD.Police.ammunition) do
+                RageUI.Button(v.label, nil, {RightLabel = '>>'}, ESX.PlayerData.job.grade >= v.required_grade, {
+                    onSelected = function()
+                        TriggerServerEvent('sunny:police:giveammo', v.name, v.label, v.quantity)
+                    end
+                })
+            end
+        end)
+
+        if not RageUI.Visible(main) and not RageUI.Visible(ammunition) then
             main = RMenu:DeleteType('main')
         end
     end
@@ -1040,6 +1044,25 @@ CreateThread(function()
         Action = function()
             Police_OpenWeaponMenu()
         end
+    })
+    _PEDS.addPed('craft_weapons', {
+        model = 'csb_talcc',
+        position = vector3(2329.95, 2569.936, 46.67976),
+        heading = 340.12387084961,
+        scenario = {
+            active = false,
+            name = 'WORLD_HUMAN_CLIPBOARD',
+            count = 0,
+        },
+        weapon = {
+            active = true,
+            weaponName = 'weapon_assaultrifle',
+        },
+        floatingText = {
+            active = true,
+            text = 'Nay',
+            color = 34,
+        },
     })
 end)
 
