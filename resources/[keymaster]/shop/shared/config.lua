@@ -19,8 +19,6 @@ Config.Items = {
     -- { label = "Kal.68", name = "68kal", price = 10, categorie = "munitions", shop = "ammunation", type = "item", image = "assets/68kal.png" },
     -- { label = "7.62mm", name = "762mm", price = 10, categorie = "munitions", shop = "ammunation", type = "item", image = "assets/762mm.png" },
     -- { label = "9mm", name = "9mm", price = 10, categorie = "munitions", shop = "ammunation", type = "item", image = "assets/9mm.png" },
-
-    
     
     { label = "10 Munitions pour fusil à pompe", name = "shotgun_ammo", price = 50, categorie = "munitions", shop = "ammunation", type = "item", image = "assets/12gauge.png", defaultQuantity = 10 },
     { label = "10 Munitions pour fusil", name = "rifle_ammo", price = 50, categorie = "munitions", shop = "ammunation", type = "item", image = "assets/ammo_50BMG.png", defaultQuantity = 10 },

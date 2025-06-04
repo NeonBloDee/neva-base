@@ -74,11 +74,11 @@ Boutique.Vehicles = {
     { label = "A80",           model = "a80",          img = "vehicles/a80",          coins = 2000, speed = 180, seat = 4 },
 }
 Boutique.Weapons = {
-    -- {label = "Ak-47", name = "assaultrifle", img = "weapons/weapon_assaultrifle", coins = 4500},
-    -- {label = "Arme de défense personnelle", name = "combatpdw", img = "weapons/weapon_combatpdw", coins = 3750},
+    {label = "Ak-47", name = "assaultrifle", img = "weapons/weapon_assaultrifle", coins = 4500},
+    {label = "Arme de défense personnelle", name = "combatpdw", img = "weapons/weapon_combatpdw", coins = 3750},
     {label = "Glock-17", name = "g17gen5", img = "weapons/weapon_g17gen5", coins = 2100},
-    -- {label = "Berreta", name = "pistol", img = "weapons/weapon_pistol", coins = 1750},
-    {label = "Katana", name = "katana", img = "weapons/weapon_katana", coins = 750},
+    {label = "Berreta", name = "pistol", img = "weapons/weapon_pistol", coins = 1750},
+    -- {label = "Katana", name = "katana", img = "weapons/weapon_katana", coins = 750},
 }
 
 Boutique.Money = {

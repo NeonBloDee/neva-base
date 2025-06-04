@@ -345,7 +345,11 @@ RegisterNetEvent('sunny:admin:addStaff', function(data)
 end)
 
 RegisterNetEvent('sunny:admin:addStaff:service', function(id, newVal)
-    adminManagement.staffList[id].service = newVal
+    if adminManagement.staffList and adminManagement.staffList[id] then
+        adminManagement.staffList[id].service = newVal
+    else
+        print("Warning: Attempting to set service for non-existent staff ID: " .. tostring(id))
+    end
 end)
 
 RegisterNetEvent('sunny:admin:teleport', function(coords)

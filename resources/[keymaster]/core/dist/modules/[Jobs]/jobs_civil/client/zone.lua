@@ -2,7 +2,7 @@ local pedHeading, pedHash = 206.31, `a_f_y_business_02`
 
 local travailleZone = {
 	{
-		zone = vector3(-509.94, -1001.59, 22.55),
+		zone = vector3(-198.89179992676, -1102.1469726562, 21.801729202271),
 		nom = "Chantier",
 		blip = 566,
 		couleur = 44

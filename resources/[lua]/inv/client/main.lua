@@ -1296,6 +1296,26 @@ RegisterNUICallback('giveItem', function(data)
 
 end)
 
+RegisterNetEvent('lgd:unequipWeaponOnReceive')
+AddEventHandler('lgd:unequipWeaponOnReceive', function()
+    local playerPed = PlayerPedId()
+    local currentWeapon = GetSelectedPedWeapon(playerPed)
+    
+    if currentWeapon ~= GetHashKey('WEAPON_UNARMED') then
+        RequestAnimDict("reaction@intimidation@1h")
+        while not HasAnimDictLoaded("reaction@intimidation@1h") do 
+            Wait(100)
+        end
+        
+        TaskPlayAnim(playerPed, "reaction@intimidation@1h", "outro", 8.0, 1.0, -1, 48, 0, 0, 0, 0)
+        Wait(1000)
+        SetCurrentPedWeapon(playerPed, GetHashKey('WEAPON_UNARMED'), true)
+        Wait(500)
+        ClearPedTasks(playerPed)
+        
+        ESX.ShowNotification("~y~Votre arme a été automatiquement désélectionnée car vous avez reçu un objet.")
+    end
+end)
 
 
 
